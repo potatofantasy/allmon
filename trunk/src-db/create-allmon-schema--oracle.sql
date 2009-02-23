@@ -1,17 +1,14 @@
 -- allmon schema (by Tomasz Sikora)
 
--- USE CASES :
--- * add fact
--- * add fact dimension 
--- * add fact measure
-
-
 -- TODO :
 -- * add hierarchical dimensions (for snowflake schemas - not needed for star schemas)
+-- * add multi-key dimensions
 -- * add data type column to dimension and measures ??
 
--- ** add procedures which checking data integrity in values tables (the same rows in all dimensions values and measures!!)
---       whole fact row is not valid if any of dimensions or measures does not exist
+-- ** add procedures which checking data integrity in values tables "cube" (the same rows 
+--    in all dimensions values and measures!!) 
+--      # whole fact row is not valid if any of dimensions or measures does not exist
+--      # 
 
 -------------------------------------------------------------------------------------------------------------------------
 -- dropping schema
@@ -62,7 +59,7 @@ CREATE TABLE fc_measures (
 CREATE SEQUENCE fc_msr_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1 CACHE 25 CYCLE;
 CREATE UNIQUE INDEX fc_msr_uk1 ON fc_measures(code);
 
--- -- -- multidimensional data values
+-- -- -- multidimensional data values (metacube)
 CREATE TABLE fc_valuesdim (
   fc_vld_id NUMBER(10) NOT NULL, -- TODO remove - possibly not necessary 
   fc_div_id NUMBER(10) NOT NULL,
@@ -80,7 +77,7 @@ CREATE TABLE fc_valuesmsr (
   fc_msr_id NUMBER(10) NOT NULL,
   rownumber NUMBER(10) NOT NULL, -- REVIEW potentially fk to separate table 
   val NUMBER(16, 6) NOT NULL,
-  CONSTRAINT fc_valuesmsr_pk PRIMARY KEY (fc_vlm_id) USING INDEX,
+  CONSTRAINT fc_valuesmsr__pk PRIMARY KEY (fc_vlm_id) USING INDEX,
   CONSTRAINT fc_vlm_fc_vld__fk1 FOREIGN KEY (fc_msr_id) REFERENCES fc_measures(fc_msr_id)
 );
 CREATE SEQUENCE fc_vlm_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1 CACHE 25 CYCLE;

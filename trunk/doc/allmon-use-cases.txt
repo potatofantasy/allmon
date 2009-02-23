@@ -1,0 +1,35 @@
+allmon use cases (module/package):
+
+- loader/admin (*)
+    - add a new fact
+    - add a new dimension
+    - add a new measure
+    - add dimension to the fact
+    - add measure to the fact
+    - delete the fact
+
+- collector/collector
+    - collect data from db table (jdbc)
+    - collect data from a file (parse file - regexp)
+    - collect data from agents (**)
+
+- loader/loader
+    - load data to the fact
+    - load test data (*) (randomly generated data)
+ 
+- loader/aggregator
+    - create a fact and fill by aggregated data of the parent fact (uses admin)
+
+- loader/pruner
+    - prune the fact data
+
+- loader/view-creator
+    - get SQL to the fact 
+    - create a view (fact, dimension, measures, aggregation)
+
+- loader/validate procedures 
+    - validate cube table data consistency   
+
+
+(*) can be used during the tool development
+(**) agents api are a part of collector

@@ -9,13 +9,25 @@ public class TestDataGenerator {
     }
 
     private void genDataForActionClasses() {
+
         int startDay = 1;
         int days = 7; // whole week
         int classCount = 1000; 
         int maxCallsPerHour= 30;
-        
-        //
+
+        // generate dimensions and measures
         System.out.println("-- begin generate dimensions");
+        System.out.println();
+        System.out.println("INSERT INTO fc_dimensions(fc_dim_id, dimname, code) VALUES (fc_dim_seq.NEXTVAL, 'Date and time', 'DATETIME');");
+        System.out.println("INSERT INTO fc_dimensions(fc_dim_id, dimname, code) VALUES (fc_dim_seq.NEXTVAL, 'Action Class', 'ACTCLASS');");
+        //System.out.println("INSERT INTO fc_dimensions(fc_dim_id, dimname, code) VALUES (fc_dim_seq.NEXTVAL, 'System user', 'SYSUSER');");
+        
+        System.out.println("-- begin generate measures");
+        System.out.println("INSERT INTO fc_measures(fc_msr_id, msrname, code) VALUES (fc_msr_seq.NEXTVAL, 'Execution time', 'EXECTIME');");
+        System.out.println("COMMIT;");
+        
+        // generate dimensions values
+        System.out.println("-- begin generate dimensions values");
         for (int dateTime = startDay; dateTime <= days; dateTime++) {
             for (int hour = 0; hour < 24; hour++) {
                 String in = "INSERT INTO fc_dimvalues(fc_div_id, fc_dim_id, val) VALUES (fc_div_seq.NEXTVAL, (SELECT fc_dim_id FROM fc_dimensions WHERE code = 'DATETIME'), '2008-01-"+dateTime+"-"+hour+"');";
@@ -29,8 +41,8 @@ public class TestDataGenerator {
         }
         System.out.println("COMMIT;");
         
-        //
-        System.out.println("-- begin generate values");
+        // generate metacube values
+        System.out.println("-- begin generate metacube values");
         int row = 1;
         for (int dateTime = startDay; dateTime <= days; dateTime++) {
             for (int hour = 0; hour < 24; hour++) {
@@ -49,14 +61,14 @@ public class TestDataGenerator {
                             String in2 = "INSERT INTO fc_valuesdim(fc_vld_id, fc_div_id, rownumber) VALUES (fc_vld_seq.NEXTVAL, (SELECT dv.fc_div_id FROM fc_dimvalues dv WHERE dv.val = '"+actionClassName+"'), "+row+");";
                             String in3 = "INSERT INTO fc_valuesmsr(fc_vlm_id, fc_msr_id, rownumber, val) VALUES (fc_vlm_seq.NEXTVAL, (SELECT fm.fc_msr_id FROM fc_measures fm WHERE fm.code = 'EXECTIME'), "+row+", "+execTime+");";
                             
-                            System.out.println(in1);
-                            System.out.println(in2);
-                            System.out.println(in3);
+                            //System.out.println(in1);
+                            //System.out.println(in2);
+                            //System.out.println(in3);
                             
                             row++;
                         }
                     }
-                    System.out.println("COMMIT;");
+                    //System.out.println("COMMIT;");
                 } 
             }
         } 
