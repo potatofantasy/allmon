@@ -1,0 +1,22 @@
+allmon collaboration
+
+- all 
+    - log4j (logging)
+
+- loader
+    - kettle (Pentaho Data Integration)
+    - CloverETL (*)
+
+- collector
+    - snmp4j (www.snmp4j.org)
+    - netsnmpj (*) (netsnmpj.sourceforge.net)
+    - Java SNMP Package (*) (gicl.cs.drexel.edu/people/sevy/snmp/)
+
+- loader and miner
+    - mondrian (Pentaho Analysis Services)
+    - weka (Pentaho Data Mining)
+    - olap4j
+    - RapidMiner (yale built on weka)
+
+
+(*) other possible options

@@ -1,0 +1,21 @@
+allmon data volumes calculation
+
+- action class
+    - dimension
+        - datatime (one month hours) - 31 * 24 = 744
+        - action class - 2000
+        - system user - 1000
+    - meaasure
+        - execution time
+    - fact table space size: 744 * 2000 * 1000 = 1'488'000'000 ~ 1500M points
+    - fact space usage - weak
+    
+- CPU
+    - datatime (one month minutes) - 31 * 24 * 60 = 44640
+    - Host - 10 hosts
+    - CPU - 2 CPUs
+    - Utilization (Types: User% Sys% Wait% Idle% Sum%)
+    
+    - whole fact table space size: 44640 * 10 * 2 * 5 = 4'464'000 ~ 4.5M points 
+    - fact space usage - full
+
