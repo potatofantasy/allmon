@@ -51,6 +51,59 @@ INSERT INTO fc_valuesmsr(fc_vlm_id, fc_msr_id, rownumber, val) VALUES (fc_vlm_se
 */
 
 COMMIT;
+------------------------------------------------------------------------
+
+
+--------------------------------------
+--INSERT INTO fc_valuesdim(fc_vld_id, fc_div_id, rownumber) VALUES (fc_vld_seq.NEXTVAL, (SELECT dv.fc_div_id FROM fc_dimvalues dv WHERE dv.val = '2008-01-1-0'), 1);
+--INSERT INTO fc_valuesdim(fc_vld_id, fc_div_id, rownumber) VALUES (fc_vld_seq.NEXTVAL, (SELECT dv.fc_div_id FROM fc_dimvalues dv WHERE dv.val = 'CLASS_1'), 1);
+--INSERT INTO fc_valuesdim(fc_vld_id, fc_div_id, rownumber) VALUES (fc_vld_seq.NEXTVAL, (SELECT dv.fc_div_id FROM fc_dimvalues dv WHERE dv.val = 'USER_12'), 1);
+--INSERT INTO fc_valuesmsr(fc_vlm_id, fc_msr_id, rownumber, val) VALUES (fc_vlm_seq.NEXTVAL, (SELECT fm.fc_msr_id FROM fc_measures fm WHERE fm.code = 'EXECTIME'), 1, 7174.8616224958305);
+------ 
+INSERT INTO fc_valuesdim(fc_vld_id, fc_div_id, rownumber)
+SELECT fc_vld_seq.NEXTVAL, 
+       MOD(p.x, (SELECT COUNT(*) FROM fc_dimensions d1, fc_dimvalues dv1 WHERE d1.fc_dim_id = dv1.fc_dim_id AND d1.code = 'DATETIME')) 
+       + (SELECT MIN(dv1.fc_div_id) FROM fc_dimensions d1, fc_dimvalues dv1 WHERE d1.fc_dim_id = dv1.fc_dim_id AND d1.code = 'DATETIME'),
+       p.x + 1
+FROM pivot p
+WHERE p.x < 1000000;
+COMMIT;
+INSERT INTO fc_valuesdim(fc_vld_id, fc_div_id, rownumber)
+SELECT fc_vld_seq.NEXTVAL,
+       MOD(p.x, (SELECT COUNT(*) FROM fc_dimensions d1, fc_dimvalues dv1 WHERE d1.fc_dim_id = dv1.fc_dim_id AND d1.code = 'ACTCLASS')) 
+       + (SELECT MIN(dv1.fc_div_id) FROM fc_dimensions d1, fc_dimvalues dv1 WHERE d1.fc_dim_id = dv1.fc_dim_id AND d1.code = 'ACTCLASS'),
+       p.x + 1
+FROM pivot p
+WHERE p.x < 1000000;
+COMMIT;
+INSERT INTO fc_valuesdim(fc_vld_id, fc_div_id, rownumber)
+SELECT fc_vld_seq.NEXTVAL, 
+       MOD(p.x, (SELECT COUNT(*) FROM fc_dimensions d1, fc_dimvalues dv1 WHERE d1.fc_dim_id = dv1.fc_dim_id AND d1.code = 'SYSUSER')) 
+       + (SELECT MIN(dv1.fc_div_id) FROM fc_dimensions d1, fc_dimvalues dv1 WHERE d1.fc_dim_id = dv1.fc_dim_id AND d1.code = 'SYSUSER'),
+       p.x + 1
+FROM pivot p
+WHERE p.x < 1000000;
+COMMIT;
+------
+INSERT INTO fc_valuesmsr(fc_vlm_id,fc_msr_id,rownumber,val)
+SELECT fc_vlm_seq.NEXTVAL, 
+       (SELECT fm.fc_msr_id FROM fc_measures fm WHERE fm.code = 'EXECTIME'),
+       p.x + 1,
+       MOD(p.x, 1000)
+FROM pivot p
+WHERE p.x < 1000000;
+COMMIT;
+INSERT INTO fc_valuesmsr(fc_vlm_id,fc_msr_id,rownumber,val)
+SELECT --fc_vlm_seq.NEXTVAL, 
+       (SELECT fm.fc_msr_id FROM fc_measures fm WHERE fm.code = 'EXECCLNT'),
+       p.x + 1,
+       MOD(p.x, 1000)
+FROM pivot p
+WHERE p.x < 1000000;
+COMMIT;
+
+
+
 
 -------------------------------------------------------------------------------------------------------------------------
 -- selects
