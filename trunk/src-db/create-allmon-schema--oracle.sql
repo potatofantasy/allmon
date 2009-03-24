@@ -17,6 +17,11 @@ DROP SEQUENCE fc_div_seq;
 DROP SEQUENCE fc_msr_seq;
 DROP SEQUENCE fc_vld_seq;
 DROP SEQUENCE fc_vlm_seq;
+DROP SEQUENCE fc_fac_seq;
+
+DROP TABLE fc_factdim;
+DROP TABLE fc_factmsr;
+DROP TABLE fc_fact;
 
 DROP TABLE fc_valuesmsr;
 DROP TABLE fc_measures;
@@ -24,6 +29,8 @@ DROP TABLE fc_measures;
 DROP TABLE fc_valuesdim;
 DROP TABLE fc_dimvalues;
 DROP TABLE fc_dimensions;
+
+DROP TABLE pivot;
 
 -------------------------------------------------------------------------------------------------------------------------
 -- creating schema
@@ -85,4 +92,77 @@ CREATE UNIQUE INDEX fc_vlm_uk1 ON fc_valuesmsr(fc_msr_id, rownumber);
 CREATE INDEX fc_vlm_idx1 ON fc_valuesmsr(fc_msr_id); -- REVIEW necessity of this index
 CREATE INDEX fc_vlm_idx2 ON fc_valuesmsr(rownumber); -- REVIEW necessity of this index
 CREATE INDEX fc_vlm_idx3 ON fc_valuesmsr(val); -- REVIEW necessity of this index
+
+-- -- -- metaschema 
+CREATE TABLE fc_fact (
+  fc_fac_id NUMBER(10) NOT NULL,
+  factname VARCHAR(20) NOT NULL,
+  code VARCHAR(8) NOT NULL,
+  factdesc VARCHAR(512),
+  CONSTRAINT fc_fact__pk PRIMARY KEY (fc_fac_id) USING INDEX
+);
+CREATE SEQUENCE fc_fac_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1 CACHE 25 CYCLE;
+--CREATE UNIQUE INDEX fc_fac_pk ON fc_fact(fc_fac_id);
+CREATE UNIQUE INDEX fc_fac_uk1 ON fc_fact(code);
+
+CREATE TABLE fc_factdim (
+  fc_fac_id NUMBER(10) NOT NULL,
+  fc_dim_id NUMBER(10) NOT NULL,
+  CONSTRAINT fc_fad_fc_fac__fk1 FOREIGN KEY (fc_fac_id) REFERENCES fc_fact(fc_fac_id),
+  CONSTRAINT fc_fad_fc_dim__fk2 FOREIGN KEY (fc_dim_id) REFERENCES fc_dimensions(fc_dim_id)
+);
+CREATE UNIQUE INDEX fc_fad_uk1 ON fc_factdim(fc_fac_id, fc_dim_id);
+
+CREATE TABLE fc_factmsr (
+  fc_fac_id NUMBER(10) NOT NULL,
+  fc_msr_id NUMBER(10) NOT NULL,
+  CONSTRAINT fc_fam_fc_fac__fk1 FOREIGN KEY (fc_fac_id) REFERENCES fc_fact(fc_fac_id),
+  CONSTRAINT fc_fam_fc_msr__fk2 FOREIGN KEY (fc_msr_id) REFERENCES fc_measures(fc_msr_id)
+);
+CREATE UNIQUE INDEX fc_fam_uk1 ON fc_factmsr(fc_fac_id, fc_msr_id);
+
+/*
+CREATE TABLE fc_valuesmsr (
+  fc_vlm_id NUMBER(10) NOT NULL, -- TODO remove - possibly not necessary 
+  fc_msr_id NUMBER(10) NOT NULL,
+  rownumber NUMBER(10) NOT NULL, -- REVIEW potentially fk to separate table 
+  val NUMBER(16, 6) NOT NULL,
+  CONSTRAINT fc_valuesmsr__pk PRIMARY KEY (fc_vlm_id) USING INDEX,
+  CONSTRAINT fc_vlm_fc_vld__fk1 FOREIGN KEY (fc_msr_id) REFERENCES fc_measures(fc_msr_id)
+);
+*/
+
+-------------------------------------------------------------------------------------------------------------------------
+-- miscelaneous 
+CREATE TABLE pivot AS
+WITH ones AS
+   (SELECT 0 x FROM dual
+    UNION SELECT 1 FROM dual
+    UNION SELECT 2 FROM dual
+    UNION SELECT 3 FROM dual
+    UNION SELECT 4 FROM dual
+    UNION SELECT 5 FROM dual
+    UNION SELECT 6 FROM dual
+    UNION SELECT 7 FROM dual
+    UNION SELECT 8 FROM dual
+    UNION SELECT 9 FROM dual)
+    SELECT 1000000*o1000000.x + 100000*o100000.x + 10000*o10000.x + 1000*o1000.x + 100*o100.x + 10*o10.x + o1.x x
+    FROM ones o1, ones o10, ones o100, ones o1000, ones o10000, ones o100000, ones o1000000;
+
+-------------------------------------------------------------------------------------------------------------------------
+----- -- -- rebuild indexes      
+SELECT 'ALTER INDEX '||ai.index_name||' REBUILD UNRECOVERABLE;'
+FROM   all_indexes ai
+WHERE  ai.index_name LIKE 'FC_%'
+AND    ai.table_owner = 'PR_TTC';
+
+-- statistics
+SELECT * FROM user_tables;
+
+SELECT segment_type, segment_name table_name, SUM(bytes) / (1024 * 1024) table_size_meg
+FROM   user_extents
+WHERE  segment_type IN('TABLE', 'INDEX')
+GROUP  BY segment_type, segment_name
+ORDER BY 1, 2;
+
 
