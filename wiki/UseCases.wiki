@@ -1,7 +1,7 @@
-#summary Allmon use cases.
+#summary Allmon use cases and modules.
 #labels Phase-Requirements,Phase-Design
 
-= Allmon use cases =
+= Allmon use cases and modules =
 _(module/mainpackage)_
 
 == loader/admin `(*)` ==
