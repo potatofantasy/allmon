@@ -1,4 +1,6 @@
+#summary Allmon test cases.
 #labels Phase-Requirements,Phase-QA
+
 = Functional test cases =
 
 
