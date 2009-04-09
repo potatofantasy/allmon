@@ -1,0 +1,19 @@
+#summary Allmon datamodel rnd.
+#labels Phase-Requirements,Phase-Design
+
+= Allmon datamodel rnd =
+
+== Generic datamodel ==
+
+All data (metadata and collected metrics, aggregates etc.) are stored in fixed generic relational schema.
+
+* Very easy adding new facts, dimensions and measures
+* All metadata conneted to data on relational level
+* Can cause perofrmance problems
+
+== Relational datamodel == 
+
+* Very similar to other datawarehouse methods
+* Much better performance
+
+
