@@ -1,0 +1,50 @@
+#summary Allmon use cases.
+#labels Phase-Requirements,Phase-Design
+
+= Allmon use cases =
+_(module/mainpackage)_
+
+== loader/admin `(*)` ==
+    - add a new fact
+    - add a new dimension
+    - add a new measure
+    - add dimension to the fact
+    - add measure to the fact
+    - delete the fact
+    - get a whole fact space measures
+
+== collector/collector ==
+    - collect data from db table (jdbc)
+    - collect data from a file (parse file - regexp)
+    - collect data from agents `(**)`
+
+== collector/agent ==
+    - aggregate and pass collected metrics data to collector (API)
+
+== loader/loader ==
+    - load data to the fact
+    - load test data `(*)`
+        - fill the fact by randomly generated data (parameters: fact, dimensions, measures, data statistical profile)
+ 
+== loader/aggregator ==
+    - create a fact and fill it by aggregated data of the parent fact (uses admin)
+
+== loader/pruner ==
+    - prune the fact data
+
+== loader/validate procedures ==
+    - validate fact, dimension, measure metadata
+    - validate cube table data consistency
+        - every point in the cube has to be defined by all dimensions and all measures in the fact
+
+== loader/view-creator ==
+    - get SQL to the fact
+    - create a view (parameters: fact, dimension, measures, aggregation)
+
+== miner/miner ==
+    - correlate data by dimension (parameters: fact1, fact2, common dimension)
+    - return clusters in a space (parameters: fact, list of dimensions, clustering method)
+
+
+`(*)` can be used during the tool development
+`(**)` agents api is a part of collector
