@@ -1,4 +1,4 @@
-#summary Collector module description.
+#summary Description of Collector module.
 #labels Phase-Requirements,Phase-Design
 
 = Collector =
