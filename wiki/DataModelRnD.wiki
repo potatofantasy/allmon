@@ -21,7 +21,7 @@ All data (metadata and collected metrics, aggregates etc.) are stored in fixed g
 == Actions ==
 
   * dimension
-  ** datatime (one month hours) - 31 `*` 24 = 744
+    * datatime (one month hours) - 31 `*` 24 = 744
         - action class - 2000
         - system user - 1000
   * meaasure
