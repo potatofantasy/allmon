@@ -1,0 +1,17 @@
+#summary Main goals and requirements of project allmon.
+#labels Phase-Requirements
+
+= Introduction =
+
+The main project goal is to create a generic system storing various metrics collections used for performance and availability monitoring purposes. The system also provides a set of datamining algorithms useful for performance analysis.
+
+= Modules and data livecycle: =
+
+   1. Collector(*) (Metrics data acquisition, Extraction and Transformation)
+   2. Loader(*) (Loading data to the database, Aggregating data)
+   3. Miner(**) (Mining knowledge from collected in the database data, Statistical analysis, Correlation across set up dimensions)
+   4. Viewer(**) (Presentation/Front-end) 
+
+(*) Core modules. (**) Allmon gives a set of views to the internal storage which can be used by other OLAP/BI/Reporting tools.
+
+Allmon schema is designed to store different metrics values comming from various areas of monitoring. the collected data are base for vast range of performamce and availability analysis. The tool can be used for production as well as for development and QA purposes. 
