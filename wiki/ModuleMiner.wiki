@@ -1,0 +1,4 @@
+#summary Description of Miner module
+#labels Phase-Requirements,Phase-Design
+
+= Miner =
