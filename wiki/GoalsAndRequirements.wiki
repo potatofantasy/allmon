@@ -7,10 +7,10 @@ The main project goal is to create a generic system storing various metrics coll
 
 = Modules and data livecycle =
 
-   1. Collector(`*`) (Metrics data acquisition, Extraction and Transformation)
-   2. Loader(`*`) (Loading data to the database, Aggregating data)
-   3. Miner(`**`) (Mining knowledge from collected in the database data, Statistical analysis, Correlation across set up dimensions)
-   4. Viewer(`**`) (Presentation/Front-end) 
+  # Collector(`*`) (Metrics data acquisition, Extraction and Transformation)
+  # Loader(`*`) (Loading data to the database, Aggregating data)
+  # Miner(`**`) (Mining knowledge from collected in the database data, Statistical analysis, Correlation across set up dimensions)
+  # Viewer(`**`) (Presentation/Front-end) 
 
 (`*`) Core modules. (`**`) Allmon gives a set of views to the internal storage which can be used by other OLAP/BI/Reporting tools.
 
