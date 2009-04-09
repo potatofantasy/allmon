@@ -3,6 +3,7 @@
 
 = Functional test cases =
 
+[UseCases]
 
 = Load test cases = 
 
