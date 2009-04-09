@@ -1,0 +1,7 @@
+#labels Phase-Requirements,Phase-QA
+= Functional test cases =
+
+
+= Load test cases = 
+
+- comparison between meta and normal multidimensional schema
