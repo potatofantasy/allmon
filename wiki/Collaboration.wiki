@@ -13,7 +13,7 @@
     * netsnmpj `(*)` (netsnmpj.sourceforge.net)
     * Java SNMP Package `(*)` (gicl.cs.drexel.edu/people/sevy/snmp/)
 
-  * [ModuleLoader Loader] and miner
+  * [ModuleLoader Loader] and [ModuleMiner Miner]
     * weka (Pentaho Data Mining)
     * olap4j
     * RapidMiner (yale built on weka)
