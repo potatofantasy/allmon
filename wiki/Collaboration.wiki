@@ -1,24 +1,24 @@
 #summary Allmon collaboration.
 #labels Phase-Design
 
-  * all
+  * All
     * log4j (logging)
 
-  * loader
+  * [ModuleLoader Loader]
     * kettle (Pentaho Data Integration)
     * CloverETL `(*)`
 
-  * collector
+  * [ModuleCollector Collector]
     * snmp4j (www.snmp4j.org)
     * netsnmpj `(*)` (netsnmpj.sourceforge.net)
     * Java SNMP Package `(*)` (gicl.cs.drexel.edu/people/sevy/snmp/)
 
-  * loader and miner
+  * [ModuleLoader Loader] and miner
     * weka (Pentaho Data Mining)
     * olap4j
     * RapidMiner (yale built on weka)
 
-  * viewer
+  * [ModuleViewer Viewer]
     * mondrian (Pentaho Analysis Services - mondrian.pentaho.org)
 
 
