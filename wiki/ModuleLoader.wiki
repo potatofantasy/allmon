@@ -2,3 +2,5 @@
 #labels Phase-Requirements,Phase-Design
 
 = Loader =
+
+Loading data to the database, Aggregating data.
