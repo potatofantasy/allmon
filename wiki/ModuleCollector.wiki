@@ -2,3 +2,5 @@
 #labels Phase-Requirements,Phase-Design
 
 = Collector =
+
+Metrics data acquisition, Extraction and Transformation
