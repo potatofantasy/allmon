@@ -2,3 +2,5 @@
 #labels Phase-Requirements,Phase-Design
 
 = Miner =
+
+Mining knowledge from collected in the database data, Statistical analysis, Correlation across set up dimensions
