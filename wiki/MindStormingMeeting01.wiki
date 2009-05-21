@@ -1,0 +1,24 @@
+#summary One-sentence summary of this page.
+
+= Mind-storming meeting (2009-05-22) =
+
+
+= Goals/Wishes List =
+
+  * What wereally need from monitoring system
+  * Many different environments
+  * Many, easy configurable metrics: OS, DB, Java, .NET, etc.
+  * Near real-time analysis
+
+
+= Points =
+
+  * Agents: JMX, SNMP, JDBC, ...
+  * Asynchronous metrics acquisition: Active MQ, ...
+  * Database schema
+    * Generic - potential performance problems
+    * Static - potentially not flexible enough
+  * Metrics presentation
+    * BI, Reporting
+    * OLAP
+    * Data-mining
