@@ -13,7 +13,7 @@
 
 = Points =
 
-  * Agents: JMX, SNMP, JDBC, ...
+  * Agents: JMX, SNMP, JDBC, API(called by ex. Aspects) ...
   * Asynchronous metrics acquisition: Active MQ, ...
   * Database schema
     * Generic - potential performance problems
@@ -22,3 +22,12 @@
     * BI, Reporting
     * OLAP
     * Data-mining
+
+= Links =
+
+JMX:
+http://blogs.sun.com/jmxetc/entry/what_is_jmx
+http://en.wikipedia.org/wiki/Java_Management_Extensions
+http://java.sun.com/developer/technicalArticles/J2SE/jmx.html
+http://java.sun.com/javase/technologies/core/mntr-mgmt/javamanagement/
+
