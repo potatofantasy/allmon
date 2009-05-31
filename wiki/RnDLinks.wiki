@@ -11,7 +11,7 @@
   
   * Similar Open Source Projects
     * Jamon - http://jamonapi.sourceforge.net/
-    * Usemon - http://code.google.com/p/usemon/ 
+    * Usemon - http://code.google.com/p/usemon/ http://www.slideshare.net/paulrene/an-introduction-to-usemon 
 
 = Theory =
 
