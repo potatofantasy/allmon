@@ -3,14 +3,17 @@
 
 = Technologies =
 
-  * JMX:
+  * JMX
     * http://blogs.sun.com/jmxetc/entry/what_is_jmx
     * http://en.wikipedia.org/wiki/Java_Management_Extensions
     * http://java.sun.com/developer/technicalArticles/J2SE/jmx.html
     * http://java.sun.com/javase/technologies/core/mntr-mgmt/javamanagement/
-
-
+  
+  * Similar Open Source Projects
+    * Jamon
+    * Usemon
 
 = Theory =
 
-  * http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/correlate/
+  * Time Series Analysis - http://www.statsoft.com/textbook/sttimser.html
+  * Cross Correlation - http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/correlate/
