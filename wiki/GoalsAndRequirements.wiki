@@ -21,3 +21,6 @@ The main project goal is to create a generic system storing various metrics coll
 Allmon schema is designed to store different metrics values comming from various areas of monitoring. The collected data are base for vast range of performamce and availability analysis. 
 
 The tool can be used for production as well as for development and QA purposes. 
+
+----
+http://code.google.com/images/code_sm.png
