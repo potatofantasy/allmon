@@ -10,8 +10,8 @@
     * http://java.sun.com/javase/technologies/core/mntr-mgmt/javamanagement/
   
   * Similar Open Source Projects
-    * Jamon
-    * Usemon
+    * Jamon - http://jamonapi.sourceforge.net/
+    * Usemon - http://code.google.com/p/usemon/ 
 
 = Theory =
 
