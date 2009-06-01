@@ -23,5 +23,5 @@
     * OLAP
     * Data-mining
 
-  * Diagram:
+  * Diagram
     http://code.google.com/p/allmon/wiki/MindStormingMeeting01-allmon-diagram.jpg
