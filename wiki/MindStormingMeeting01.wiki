@@ -22,3 +22,6 @@
     * BI, Reporting
     * OLAP
     * Data-mining
+
+  * Diagram:
+    /MindStormingMeeting01-allmon-diagram.jpg
