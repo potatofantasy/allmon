@@ -24,4 +24,4 @@
     * Data-mining
 
   * Diagram:
-    /MindStormingMeeting01-allmon-diagram.jpg
+    MindStormingMeeting01-allmon-diagram.jpg
