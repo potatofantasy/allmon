@@ -3,7 +3,14 @@
 
 = Allmon datamodel rnd =
 
-== Generic datamodel ==
+Issues:
+
+  * No need for transactions!
+  * Flexibility!
+  * Partitioning?
+  * Scalability?
+
+== Generic datamodel *allgeneric* ==
 
 All data (metadata and collected metrics, aggregates etc.) are stored in fixed generic relational schema.
 
@@ -11,7 +18,7 @@ All data (metadata and collected metrics, aggregates etc.) are stored in fixed g
   * All metadata conneted to data on relational level
   * Can cause perofrmance problems
 
-== Relational datamodel == 
+== Relational datamodel *allmetric* ==
 
   * Very similar to other datawarehouse methods
   * Much better performance
@@ -31,6 +38,7 @@ All data (metadata and collected metrics, aggregates etc.) are stored in fixed g
   * fact space usage - weak
     
 == CPU ==
+
   * dimension
     * datatime (one month minutes) - 31 `*` 24 `*` 60 = 44640
     * Host - 10 hosts
