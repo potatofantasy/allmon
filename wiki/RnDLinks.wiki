@@ -13,6 +13,9 @@
     * Jamon - http://jamonapi.sourceforge.net/
     * Usemon - http://code.google.com/p/usemon/ http://www.slideshare.net/paulrene/an-introduction-to-usemon 
 
+  * Presentation, Analysis & Data Mining
+    * Pentaho - http://wiki.pentaho.com/display/COM/Latest+Stable+Builds
+
 = Theory =
 
   * Time Series Analysis - http://www.statsoft.com/textbook/sttimser.html
