@@ -27,3 +27,9 @@
 
   * Scalability
     * Amdahl's law - http://en.wikipedia.org/wiki/Amdahl%27s_Law
+
+= Other =
+
+  * Performance tuning
+    * Java performance tuning - http://www.javaperformancetuning.com/
+    * Code ranch performance forum - http://www.coderanch.com/forums/f-15/Performance
