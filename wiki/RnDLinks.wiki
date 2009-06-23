@@ -17,6 +17,10 @@
 
   * Time Series Analysis - http://www.statsoft.com/textbook/sttimser.html
   * Cross Correlation - http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/correlate/
+  
+  * Correlation 
+    * in high-multidimensional spaces
+    * in time domain
 
   * Scalability
     * Amdahl's law - http://en.wikipedia.org/wiki/Amdahl%27s_Law
