@@ -88,6 +88,9 @@ Copyright 2009 Allmon Licensed under the Apache License, Version 2.0 (the "Licen
 
 The following third party software is distributed with allmon and is provided under other licenses and/or has source available from other locations.
 
+||Package ||License ||Source Code Availability||
+| | | |
+
 <wiki:comment>
 All the LGPL/GPL libraries and plugins are used as plugins. They are not a part of the core of the project.
 
