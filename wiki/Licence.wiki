@@ -1,9 +1,0 @@
-#summary Licence
-
-= Introduction =
-
-Allmon is licensed under the Apache 2.0 open source license, which includes limitations of liability and disclaimers of warranty for the product. Please note that some included libraries may be licensed under other open source licenses listed here.
-
-<wiki:comment>
-As of version x.x, allmon is licensed under the Apache 2.0 open source license, which includes limitations of liability and disclaimers of warranty for the product. Please note that some included libraries may be licensed under other open source licenses listed here.
-</wiki:comment>
