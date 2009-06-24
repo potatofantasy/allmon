@@ -4,3 +4,10 @@
 = Collector =
 
 Metrics data acquisition, Extraction and Transformation
+
+
+Parts:
+  * Monitoring API
+  * Agent (collecting metrics before sending)
+  * Sender (sending data by asynchronous messaging) 
+  * Plug-ins for: SMTP, JMX, Web client-side monitoring, DB selects, ...
