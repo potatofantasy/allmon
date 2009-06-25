@@ -10,12 +10,12 @@ Allmetric data model research
 Example of data in denormalized fashion (1NF).
 
 || || || Instance || (meta-data) || (meta-data) || || || ||
-|| Type || Host || Instance || Metric Type (Resource) || Metric Instance (Source) || Metric Name || Time Nature || Time Stamp ||
-|| OS || Host1 || - || CPU || CPU1, CPU2, ... || NV || TS || T ||
-|| OS || Host1 || - || Mem || - || NV || TS || T ||
-|| OS || Host1 || - || IO || - || NV || TS || T ||
-|| OS || Host1 || - || Page || - || NV || TS || T ||
-|| OS || Host1 || - || Net || - || NV || TS || T ||
+|| Type || Host || Instance || Metric Type || Resource || Source || Metric || Time Nature || Time Stamp ||
+|| OS || Host1 || - || CPU || CPU1, CPU2, ... || - || NV || TS || T ||
+|| OS || Host1 || - || Mem || - || - || NV || TS || T ||
+|| OS || Host1 || - || IO || - || ? || NV || TS || T ||
+|| OS || Host1 || - || Page || - || - || NV || TS || T ||
+|| OS || Host1 || - || Net || - || ? || NV || TS || T ||
 || AppMet || Host1 || AppInst1 || Action || User || ExecTime || TS || T ||
 || AppMet || Host1 || AppInst1 || POJO || Class.method || ExecTime || TS || T ||
 || AppMet || Host1 || AppInst1 || EJB || ? || ExecTime || TS || T ||
