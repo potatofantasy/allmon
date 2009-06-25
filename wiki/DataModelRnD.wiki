@@ -10,7 +10,7 @@ Issues:
   * Partitioning?
   * Scalability?
 
-== Generic data model *[allgeneric|DataModelRnDAllgeneric]* ==
+== Generic data model *[DataModelRnDAllgeneric allgeneric]* ==
 
 All data (meta-data and collected metrics, aggregates etc.) are stored in fixed generic relational schema.
 
@@ -18,7 +18,7 @@ All data (meta-data and collected metrics, aggregates etc.) are stored in fixed 
   * All meta-data connected to data on relational level
   * Can cause performance problems
 
-== Relational data model *[allmetric|DataModelRnDAllmetric]* ==
+== Relational data model *[DataModelRnDAllmetric allmetric]* ==
 
   * Very similar to other data warehouse methods
   * Much better performance
