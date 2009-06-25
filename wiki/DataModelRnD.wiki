@@ -10,17 +10,17 @@ Issues:
   * Partitioning?
   * Scalability?
 
-== Generic datamodel *allgeneric* ==
+== Generic data model *allgeneric* ==
 
-All data (metadata and collected metrics, aggregates etc.) are stored in fixed generic relational schema.
+All data (meta-data and collected metrics, aggregates etc.) are stored in fixed generic relational schema.
 
   * Very easy adding new facts, dimensions and measures
-  * All metadata conneted to data on relational level
-  * Can cause perofrmance problems
+  * All meta-data connected to data on relational level
+  * Can cause performance problems
 
-== Relational datamodel *allmetric* ==
+== Relational data model *allmetric* ==
 
-  * Very similar to other datawarehouse methods
+  * Very similar to other data warehouse methods
   * Much better performance
 
 = Data volumes calculations = 
@@ -31,7 +31,7 @@ All data (metadata and collected metrics, aggregates etc.) are stored in fixed g
     * datatime (one month hours) - 31 `*` 24 = 744
     * action class - 2000
     * system user - 1000
-  * meaasure
+  * measure
     * execution time
     
   * fact table space size: 744 `*` 2000 `*` 1000 = 1'488'000'000 ~ 1500M points
