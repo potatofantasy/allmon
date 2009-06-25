@@ -12,7 +12,8 @@ Example of data in denormalized fashion (1NF).
 || (meta-data) || || || (meta-data) || (dynamic-dim) || || || || ||
 || Type || Host || Instance || Metric Type || Resource || Source || Metric || Time Nature || Time ||
 || OS || Host1 || - || CPU || CPUn || - || NV || TS || T ||
-|| OS || Host1 || - || Mem || - || - || NV || TS || T ||
+|| OS || Host1 || - || Mem || Usr || - || NV || TS || T ||
+|| OS || Host1 || - || Mem || Sys || - || NV || TS || T ||
 || OS || Host1 || - || IO || - || ? || NV || TS || T ||
 || OS || Host1 || - || Page || - || - || NV || TS || T ||
 || OS || Host1 || - || Net || - || ? || NV || TS || T ||
