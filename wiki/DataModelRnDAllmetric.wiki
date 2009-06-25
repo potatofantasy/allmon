@@ -17,7 +17,7 @@ Example of data in denormalized fashion (1NF).
 || OS || Host1 || - || Page || - || NV || TS || T ||
 || OS || Host1 || - || Net || - || NV || TS || T ||
 
-
+---
 
 Legend: 
 NV - numerical value
