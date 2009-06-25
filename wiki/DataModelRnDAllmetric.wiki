@@ -16,7 +16,6 @@ Example of data in denormalized fashion (1NF).
 || OS || Host1 || - || IO || - || NV || TS || T ||
 || OS || Host1 || - || Page || - || NV || TS || T ||
 || OS || Host1 || - || Net || - || NV || TS || T ||
-
 || AppMet || Host1 || App1 || Action || User || ExecTime || TS || T ||
 
 
