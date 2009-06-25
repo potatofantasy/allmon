@@ -7,4 +7,7 @@ Allmetric data model research
 
 = Details =
 
+Example of data in denormalized fashion (1NF).
 
+|| Type || Host || Instance || Metric Type (Resource) || Metric Instance (Source) || Metric Name || Time Nature || Time Stamp ||
+|| OS   || Host1 || - || CPU || CPU1, CPU2, ... || Value || TS || T ||
