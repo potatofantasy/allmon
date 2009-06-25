@@ -9,5 +9,19 @@ Allmetric data model research
 
 Example of data in denormalized fashion (1NF).
 
+|| || || Instance || <meta-data> || <meta-data> || || || ||
 || Type || Host || Instance || Metric Type (Resource) || Metric Instance (Source) || Metric Name || Time Nature || Time Stamp ||
-|| OS   || Host1 || - || CPU || CPU1, CPU2, ... || Value || TS || T ||
+|| OS || Host1 || - || CPU || CPU1, CPU2, ... || NV || TS || T ||
+|| OS || Host1 || - || Mem || - || NV || TS || T ||
+|| OS || Host1 || - || IO || - || NV || TS || T ||
+|| OS || Host1 || - || Page || - || NV || TS || T ||
+|| OS || Host1 || - || Net || - || NV || TS || T ||
+
+
+
+Legend: 
+NV - numerical value
+TS - time stamp
+dT - delta time
+
+
