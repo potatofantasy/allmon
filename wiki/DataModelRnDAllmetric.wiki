@@ -25,9 +25,9 @@ Example of data in denormalized fashion (1NF).
 || Rep || Host1 || RepServ1 || QueueLength || Rep1 || ? || NV || TS || T ||
 || Rep || Host1 || RepServ1 || RepExec || Rep1 || ? || ExecTime || TS || T ||
 || Rep || Host1 || RepServ1 || RepWait || Rep1 || ? || ExecTime || TS || T ||
-|| JVM || Host1 || JVMInst1 || Heap || - || - || NV || TS || T ||
-|| JVM || Host1 || JVMInst1 || Tenured || - || - || NV || TS || T ||
-|| JVM || Host1 || JVMInst1 || Eden || - || - || NV || TS || T ||
+|| JVM || Host1 || JVMInst1 || Mem || Heap || - || NV || TS || T ||
+|| JVM || Host1 || JVMInst1 || Mem || Tenured || - || NV || TS || T ||
+|| JVM || Host1 || JVMInst1 || Mem || Eden || - || NV || TS || T ||
 || JVM || Host1 || JVMInst1 || Threads || - || - || NV || TS || T ||
 || DB || Host1 || DBInst1 || Sessions || - || - || NV || TS || T ||
 || HW || Machine1 || - || Temp || CPUTemp1 || - || NV || TS || T ||
