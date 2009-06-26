@@ -7,7 +7,7 @@ Allmetric data model research
 
 = Details =
 
-Example of data in denormalized fashion (1NF).
+Example of stored metrics data in denormalized fashion (1NF).
 
 || (meta-data) || || || (meta-data) || (dynamic-dim) || || || || ||
 || Type || Host || Instance || Metric Type || Resource || Source || Metric || Time Nature || Time ||
