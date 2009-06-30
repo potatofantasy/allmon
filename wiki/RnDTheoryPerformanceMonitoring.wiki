@@ -13,7 +13,7 @@ Monitors actual (real) interaction with a system. Metrics collected using this a
 
 == Active (Synthetic) ==
 
-This technique basis on created to simulate an action or path that end-user or other functionality would take in the system.
+This technique basis on created scripts to simulate an action which end-user or other functionality would take in the system. Those scripts continuously monitor at specified intervals for performance and availability reasons various system metrics.
 
   * Active monitoring calls add (artificial - not real) load to system
   * Applying this approach we can have almost constant knowledge about service level in our system 
