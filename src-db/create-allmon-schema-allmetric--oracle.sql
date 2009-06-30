@@ -14,7 +14,7 @@ OS 	Host1 	- 	Mem 	Sys 	- 	NV 	TS 	T
 OS 	Host1 	- 	IO 	- 	? 	NV 	TS 	T
 OS 	Host1 	- 	Page 	- 	- 	NV 	TS 	T
 OS 	Host1 	- 	Net 	- 	? 	NV 	TS 	T
-AppMet 	Host1 	AppInst1 	Action 	ActionClass1 	User 	ExecTime 	TS 	T
+AppMet 	Host1 	AppInst1 	Action 	ActionClass1 	User 	ExecTime 	TS 	T -- ! problem with WebSession
 AppMet 	Host1 	AppInst1 	POJO 	Class1.method 	Class.method 	ExecTime 	TS 	T
 AppMet 	Host1 	AppInst1 	EJB 	EJB1.method 	? 	ExecTime 	TS 	T
 AppMet 	Host1 	AppInst1 	MDBExec 	MDB1 	? 	ExecTime 	TS 	T
@@ -34,10 +34,10 @@ HW 	Machine1 	- 	Temp 	CPUTemp1 	- 	NV 	TS 	T
   Instance	     -- related to Artifact: CPU, MEM, IO, AppInstance, RepServInst, JVMInst
   Metric Type	   -- related to Artifact - represents type of collected metric: CPU1, CPU2, Mem Usr, ...
   Host	
-  Resource	
-  Source	       -- source of a call to monitored resource 
-  Metric	
-  Time Nature	
+  Resource	     -- related to Metric Type - represents resource under monitoring
+  Source	       -- related to Metric Type - source of a call to monitored resource 
+  Metric	       -- 
+  Time Stamp	   -- Time Stamp and Calendar references
   
 */
 
@@ -55,12 +55,12 @@ DROP SEQUENCE am_src_seq;
 DROP TABLE am_metricsdata;
 
 -- drop dimensions
-DROP TABLE am_metrictype;
 DROP TABLE am_instance;
-DROP TABLE am_artifact;
 DROP TABLE am_host;
 DROP TABLE am_resource;
 DROP TABLE am_source;
+DROP TABLE am_metrictype;
+DROP TABLE am_artifact;
 
 DROP TABLE am_pivot;
 
@@ -108,22 +108,26 @@ CREATE SEQUENCE am_hst_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 
 CREATE TABLE am_resource (
   am_rsc_id NUMBER(10) NOT NULL,
+  am_mty_id NUMBER(10) NOT NULL,
   resourcename VARCHAR(200) NOT NULL,
   resourcecode VARCHAR(10),
-  CONSTRAINT am_rsc_pk PRIMARY KEY (am_rsc_id) USING INDEX
+  CONSTRAINT am_rsc_pk PRIMARY KEY (am_rsc_id) USING INDEX,
+  CONSTRAINT am_rsc_am_mty_fk1 FOREIGN KEY (am_mty_id) REFERENCES am_metrictype(am_mty_id)
 );
 CREATE SEQUENCE am_rsc_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
-CREATE UNIQUE INDEX am_rsc_uk1 ON am_resource(resourcename);
+CREATE UNIQUE INDEX am_rsc_uk1 ON am_resource(am_mty_id, resourcename);
 CREATE UNIQUE INDEX am_rsc_uk2 ON am_resource(resourcecode);
 
 CREATE TABLE am_source (
   am_src_id NUMBER(10) NOT NULL,
+  am_mty_id NUMBER(10) NOT NULL,
   sourcename VARCHAR(200) NOT NULL,
   sourcecode VARCHAR(10),
-  CONSTRAINT am_src_pk PRIMARY KEY (am_src_id) USING INDEX
+  CONSTRAINT am_src_pk PRIMARY KEY (am_src_id) USING INDEX,
+  CONSTRAINT am_src_am_mty_fk1 FOREIGN KEY (am_mty_id) REFERENCES am_metrictype(am_mty_id)
 );
 CREATE SEQUENCE am_src_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
-CREATE UNIQUE INDEX am_src_uk1 ON am_source(sourcename);
+CREATE UNIQUE INDEX am_src_uk1 ON am_source(am_mty_id, sourcename);
 CREATE UNIQUE INDEX am_src_uk2 ON am_source(sourcecode);
 
 -- create fact table 
@@ -137,6 +141,8 @@ CREATE TABLE am_metricsdata (
   am_src_id NUMBER(10) NOT NULL, -- Source	
   metricvalue NUMBER(13,3) NOT NULL, -- Metric	
   ts DATE NOT NULL, -- Time Stamp
+  -- Calendar
+  -- Time
   loadts DATE DEFAULT SYSDATE NOT NULL, -- Time Stamp
   CONSTRAINT am_met_pk PRIMARY KEY (am_met_id) USING INDEX,
   CONSTRAINT am_met_am_mty_fk1 FOREIGN KEY (am_mty_id) REFERENCES am_metrictype(am_mty_id),
@@ -174,7 +180,26 @@ WITH ones AS
 -------------------------------------------------------------------------------------------------------------------------
 -- create views
 
-
+CREATE OR REPLACE VIEW vam_metricsdata AS
+SELECT ama.am_arf_id, ama.artifactname, ama.artifactcode, 
+       amt.am_mty_id, amt.metricname, amt.metriccode,
+       ami.am_ins_id, ami.instancename, ami.instancecode, ami.url,
+       amh.am_hst_id, amh.hostname, amh.hostcode, amh.hostip,
+       amr.am_rsc_id, amr.resourcename, amr.resourcecode,
+       ams.am_src_id, ams.sourcename, ams.sourcecode
+FROM  am_metricsdata amm, 
+      am_metrictype amt, am_instance ami, am_host amh, am_resource amr, am_source ams, 
+      am_artifact ama
+WHERE amm.am_mty_id = amt.am_mty_id
+AND   amm.am_ins_id = ami.am_ins_id
+AND   amm.am_hst_id = amh.am_hst_id
+AND   amm.am_rsc_id = amr.am_rsc_id
+AND   amm.am_src_id = ams.am_src_id
+--
+AND   amt.am_arf_id = ama.am_arf_id
+AND   ami.am_arf_id = ama.am_arf_id -- redundant
+AND   amr.am_mty_id = amt.am_mty_id -- redundant
+AND   ams.am_mty_id = amt.am_mty_id; -- redundant
 
 
 -------------------------------------------------------------------------------------------------------------------------
@@ -194,11 +219,15 @@ COMMIT;
 INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Struts Action Class', 'ACTCLS'); 
 COMMIT;
 
+INSERT INTO am_host(am_hst_id, hostname, hostcode, hostip) VALUES(am_hst_seq.NEXTVAL, 'Example Host', 'EXPHST', '123.123.123.123'); 
+COMMIT;
 
 -------------------------------------------------------------------------------------------------------------------------
 -- check data
 
-SELECT * FROM am_metricsdata;
+SELECT COUNT(*) FROM am_metricsdata;
+
+SELECT COUNT(*) FROM vam_metricsdata;
 
 
 
