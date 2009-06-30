@@ -12,6 +12,9 @@
   * Similar Open Source Projects
     * Jamon - http://jamonapi.sourceforge.net/
     * Usemon - http://code.google.com/p/usemon/ http://www.slideshare.net/paulrene/an-introduction-to-usemon 
+    * Apache Commons Monitoring (sandbox) - http://commons.apache.org/sandbox/monitoring/index.html
+    * Javasimon - http://code.google.com/p/javasimon/
+    * JETM (Java Execution Time Measurement Library) - http://jetm.void.fm/
 
   * Presentation, Analysis & Data Mining
     * Pentaho - http://wiki.pentaho.com/display/COM/Latest+Stable+Builds
