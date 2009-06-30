@@ -32,18 +32,15 @@ Example of stored metrics data in denormalized fashion (1NF).
 || DB || Host1 || DBInst1 || Sessions || - || - || NV || TS || T ||
 || HW || Machine1 || - || Temp || CPUTemp1 || - || NV || TS || T ||
 
-Artifact - type of observation
-Source - source of call
-
-Artifact	     -- a part of infrastructure under monitoring: OS, AppMet, Rep, JVM, DB, HW, etc.
-Instance	     -- related to Artifact: CPU, MEM, IO, AppInstance, RepServInst, JVMInst
+Artifact - a part of infrastructure under monitoring (observation): OS, AppMet, Rep, JVM, DB, HW, etc.
+Instance - related to Artifact: CPU, MEM, IO, AppInstance, RepServInst, JVMInst
 Metric Type	   -- related to Artifact - represents type of collected metric: CPU1, CPU2, Mem Usr, ...
-  Host	
-  Resource	     -- related to Metric Type - represents resource under monitoring
-  Source	       -- related to Metric Type - source of a call to monitored resource 
-  Metric	       -- 
-  Time Stamp	   -- Time Stamp and Calendar references
-  
+Host - monitored host	
+Resource - related to Metric Type - represents resource under monitoring
+Source - related to Metric Type - source of a call to monitored resource 
+Metric - metrics value 
+Time Stamp - Time Stamp and Calendar references
+
 
 ---
 
