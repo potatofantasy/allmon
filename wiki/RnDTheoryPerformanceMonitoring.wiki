@@ -13,7 +13,23 @@
 
 = Needed Instrumentation =
 
+== Heisenberg uncertainty principle and Observer effect ==
 
+source: http://en.wikipedia.org/wiki/Uncertainty_principle
+
+"The measurement of position necessarily disturbs a particle's momentum, and vice versa. This makes the uncertainty principle a kind of observer effect."
+
+This explanation is not incorrect, and was used by both Heisenberg and Bohr. But they were working within the philosophical framework of logical positivism. In this way of looking at the world, the true nature of a physical system, inasmuch as it exists, is defined by the answers to the best-possible measurements which can be made in principle. So when they made arguments about unavoidable disturbances in any conceivable measurement, it was obvious to them that this uncertainty was a property of the system, not of the devices.
+
+Today, logical positivism has become unfashionable in many cases, so the explanation of the uncertainty principle in terms of observer effect can be misleading. For one, this explanation makes it seem to the non positivist that the disturbances are not a property of the particle, but a property of the measurement process
+
+source: http://en.wikipedia.org/wiki/Observer_effect_(information_technology)
+
+"In information technology, the observer effect is the potential impact of the act of observing a process output while the process is running. For example: if a process uses a log file to record its progress, the process could slow. Furthermore, the act of viewing the file while the process is running could cause an I/O error in the process, which could, in turn, cause it to stop.
+
+Another example would be observing the performance of a CPU by running both the observed and observing programs on the same CPU, which will lead to inaccurate results because the observer program itself affects the CPU performance (modern, heavily cached and pipelined CPUs are particularly affected by this kind of observation).
+
+Observing (or rather, debugging) a running program by modifying its source code (such as adding extra output or generating log files) or by running it in a debugger may sometimes cause certain bugs to diminish or change their behavior, creating extra difficulty for the person trying to isolate the bug (see Heisenbug)."
 
 = Storage (metrics persistence) =
 
