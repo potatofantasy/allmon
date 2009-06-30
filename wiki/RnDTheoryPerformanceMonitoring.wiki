@@ -15,8 +15,8 @@ Monitors actual (real) interaction with a system. Metrics collected using this a
 
 This technique basis on created scripts to simulate an action which end-user or other functionality would take in the system. Those scripts continuously monitor at specified intervals for performance and availability reasons various system metrics.
 
-  * Active monitoring calls add (artificial - not real) load to system
-  * Applying this approach we can have almost constant knowledge about service level in our system 
+  * Active monitoring test calls add (artificial - not real) load to system
+  * Applying this approach we can have almost constant knowledge about service level in our system (if something happen we might know about it even before end-users notice a problem)
 
 Articles:
   * Passive vs. Active Monitoring (by Les Cottrell - SLAC) - http://www.slac.stanford.edu/comp/net/wan-mon/passive-vs-active.html 
