@@ -1,3 +1,22 @@
-#summary PerformanceMonitoring.
+#summary Theory of Performance Monitoring.
 
-= PerformanceMonitoring =
+= Active/Passive approaches to Performance Monitoring =
+
+Passive vs. Active Monitoring (by Les Cottrell - SLAC) - http://www.slac.stanford.edu/comp/net/wan-mon/passive-vs-active.html 
+Article of Bill Fuesz - http://knol.google.com/k/bill-fuesz/active-vs-passive-web-performance/
+  
+  * Passive (Real user monitoring) - http://en.wikipedia.org/wiki/Real_user_monitoring 
+    * Can be very helpful in troubleshooting performance problems once they have occurred.
+  * Active (Synthetic) - http://en.wikipedia.org/wiki/Synthetic_monitoring
+    * ...
+
+= Needed Instrumentation =
+
+
+
+= Storage (metrics persistence) =
+
+
+
+= Analysis =
+
