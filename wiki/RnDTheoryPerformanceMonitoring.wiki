@@ -1,22 +1,31 @@
 #summary Theory of Performance Monitoring.
 
-= Active/Passive approaches to Performance Monitoring =
+= Active and Passive approaches =
+
+Active and passive and synthetic monitoring are complementary techniques of performance monitoring in modern scalable, distributed systems.
+
+== Passive (Real user monitoring) ==
+
+Monitors actual (real) interaction with a system. Metrics collected using this approach can be used to determine the actual service-level quality delivered to end-users and to detect errors or potential performance in the system.
+
+  * Can be very helpful in troubleshooting performance problems once they have occurred.
+  * Most important drawback is that an action has to be performed to collect any metrics. We will have no defined service level if no action is called.
+
+== Active (Synthetic) ==
+
+This technique basis on created to simulate an action or path that end-user or other functionality would take in the system.
+
+  * Active monitoring calls add (artificial - not real) load to system
+  * Applying this approach we can have almost constant knowledge about service level in our system 
 
 Articles:
   * Passive vs. Active Monitoring (by Les Cottrell - SLAC) - http://www.slac.stanford.edu/comp/net/wan-mon/passive-vs-active.html 
   * Article of Bill Fuesz - http://knol.google.com/k/bill-fuesz/active-vs-passive-web-performance/
 
-== Passive (Real user monitoring) ==
+  * Active monitoring in web applications - http://en.wikipedia.org/wiki/Synthetic_monitoring
+  * Passive monitoring in web apps - http://en.wikipedia.org/wiki/Real_user_monitoring 
 
-http://en.wikipedia.org/wiki/Real_user_monitoring 
 
-  * Can be very helpful in troubleshooting performance problems once they have occurred.
-
-== Active (Synthetic) ==
-
-http://en.wikipedia.org/wiki/Synthetic_monitoring
-
-  * ...
 
 = Needed Instrumentation =
 
