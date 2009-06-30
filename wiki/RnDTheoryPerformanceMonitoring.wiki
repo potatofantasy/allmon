@@ -13,6 +13,8 @@
 
 = Needed Instrumentation =
 
+Considering performance monitoring we have to understand potential efects of our observations on a observed artefact.
+
 == Heisenberg uncertainty principle and Observer effect ==
 
 source: http://en.wikipedia.org/wiki/Uncertainty_principle
