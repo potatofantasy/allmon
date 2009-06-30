@@ -16,13 +16,14 @@ The main project goal is to create a generic system storing various metrics coll
 
 = Research =
 
+  * [RnDLinks RnD Hub - Central point of the project research]
+
   * [DataModelRnD Allmon datamodel research]
 
 Allmon schema is designed to store different metrics values comming from various areas of monitoring. The collected data are base for vast range of performamce and availability analysis. 
 
 The tool can be used for production as well as for development and QA purposes. 
 
-  * [RnDLinks RnD Hub - Central point of the project research]
-
+  
 ----
 http://code.google.com/images/code_sm.png
