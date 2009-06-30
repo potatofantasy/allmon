@@ -1,19 +1,6 @@
 #summary RnD Links.
 #labels Phase-Requirements,Phase-Design
 
-= Performance Monitoring =
-
-http://www.slac.stanford.edu/comp/net/wan-mon/passive-vs-active.html 
-Article of Bill Fuesz - http://knol.google.com/k/bill-fuesz/active-vs-passive-web-performance/
-
-  * Active/Passive approaches to monitoring 
-
-    * Passive (Real user monitoring) - http://en.wikipedia.org/wiki/Real_user_monitoring 
-      * Can be very helpful in troubleshooting performance problems once they have occurred.
-    * Active (Synthetic) - http://en.wikipedia.org/wiki/Synthetic_monitoring
-      * ...
-
-
 = Technologies =
 
   * JMX
@@ -33,6 +20,8 @@ Article of Bill Fuesz - http://knol.google.com/k/bill-fuesz/active-vs-passive-we
     * Pentaho - http://wiki.pentaho.com/display/COM/Latest+Stable+Builds
 
 = Theory =
+
+  * [Theory of Performance Monitoring]
 
   * Time Series Analysis - http://www.statsoft.com/textbook/sttimser.html
   * Cross Correlation - http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/correlate/
