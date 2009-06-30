@@ -1,4 +1,4 @@
-#summary RnD Hub.
+#summary RnD Hub - Central point of Allmon research.
 #labels Phase-Requirements,Phase-Design
 
 = Technologies =
