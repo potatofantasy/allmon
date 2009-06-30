@@ -22,7 +22,7 @@ Allmon schema is designed to store different metrics values comming from various
 
 The tool can be used for production as well as for development and QA purposes. 
 
-  * [RnDLinks RnD Stub (links)]
+  * [RnDLinks RnD Hub - Central point of the project research]
 
 ----
 http://code.google.com/images/code_sm.png
