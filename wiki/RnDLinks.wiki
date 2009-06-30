@@ -21,9 +21,10 @@
 
 = Theory =
 
-  * [Theory of Performance Monitoring]
+  * [RnDTheoryPerformanceMonitoring Theory of Performance Monitoring]
 
   * Time Series Analysis - http://www.statsoft.com/textbook/sttimser.html
+  
   * Cross Correlation - http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/correlate/
   
   * Correlation 
