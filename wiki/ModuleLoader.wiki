@@ -3,4 +3,6 @@
 
 = Loader =
 
-Loading data to the database, Aggregating data.
+  * Loads data to the database. 
+  * Aggregate data.
+  * Provides all mechanisms for metrics storage and metadata persistence.
