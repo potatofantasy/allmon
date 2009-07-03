@@ -19,8 +19,8 @@ This technique basis on created scripts to simulate an action which end-user or 
   * Applying this approach we can have almost constant knowledge about service level in our system (if something happen we might know about it even before end-users notice a problem)
 
 Articles:
+  * Bill Fuesz knol article about Active/Passive Web Monitoring - http://knol.google.com/k/bill-fuesz/active-vs-passive-web-performance/
   * Passive vs. Active Monitoring (by Les Cottrell - SLAC) - http://www.slac.stanford.edu/comp/net/wan-mon/passive-vs-active.html 
-  * Article of Bill Fuesz - http://knol.google.com/k/bill-fuesz/active-vs-passive-web-performance/
 
   * Active monitoring in web applications - http://en.wikipedia.org/wiki/Synthetic_monitoring
   * Passive monitoring in web apps - http://en.wikipedia.org/wiki/Real_user_monitoring 
