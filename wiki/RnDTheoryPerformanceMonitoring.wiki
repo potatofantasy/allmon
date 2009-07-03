@@ -2,7 +2,7 @@
 
 = Active and Passive approaches =
 
-Active and passive and synthetic monitoring are complementary techniques of performance monitoring in modern scalable, distributed systems.
+Active and passive and synthetic monitoring are complementary techniques of performance monitoring in modern scalable, distributed systems. Please, find in below knol article a very good description of Active and Passive monitoring for Web solutions: http://knol.google.com/k/bill-fuesz/active-vs-passive-web-performance/.
 
 == Passive (Real user monitoring) ==
 
