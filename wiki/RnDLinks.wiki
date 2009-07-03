@@ -24,9 +24,12 @@
   * [RnDTheoryPerformanceMonitoring Theory of Performance Monitoring]
 
   * Time Series Analysis - http://www.statsoft.com/textbook/sttimser.html
+    * Forecasting
+    * Trend analyses
+    * Pattern identification
   
   * Cross Correlation - http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/correlate/
-  
+ 
   * Correlation 
     * in high-multidimensional spaces
     * in time domain
