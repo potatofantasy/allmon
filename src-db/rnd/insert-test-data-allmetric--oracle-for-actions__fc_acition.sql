@@ -50,8 +50,21 @@ AND    vam.hostcode = 'EXPHST'
 AND    vam.instancecode = 'PETSTR'
 AND    vam.metriccode = 'ACTCLS';
 
-SELECT vm.resourcename, COUNT(*) FROM vam_metricsdata vm GROUP BY vm.resourcename;
+SELECT vam.resourcename, COUNT(*) 
+FROM   vam_metricsdata vam
+WHERE  vam.artifactcode = 'APP'
+AND    vam.hostcode = 'EXPHST'
+AND    vam.instancecode = 'PETSTR'
+AND    vam.metriccode = 'ACTCLS'
+GROUP BY vam.resourcename;
 
+SELECT vamc.year, vamc.month, vamc.DAY, COUNT(*) 
+FROM   vam_metricsdata_cal vamc
+WHERE  vamc.artifactcode = 'APP'
+AND    vamc.hostcode = 'EXPHST'
+AND    vamc.instancecode = 'PETSTR'
+AND    vamc.metriccode = 'ACTCLS'
+GROUP BY vamc.year, vamc.month, vamc.DAY;
 
 -------------------------------------------------------------------------------------------------------------------------
 -- Service level check
