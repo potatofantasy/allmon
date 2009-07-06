@@ -49,7 +49,7 @@ Legend:
   * TS - time stamp
   * dT - delta time
 
-
+<wiki:comment>
 = Allmetric Schema =
 
 {{{
@@ -72,3 +72,4 @@ Legend:
 
 
 }}}
+</wiki:comment>
