@@ -48,3 +48,18 @@ Legend:
   * NV - numerical value
   * TS - time stamp
   * dT - delta time
+
+{{{
+
+
+asdf
+asd
+fasd
+f
++-------------+
+| MetricsData |
++-------------+
+
+
+}}}
+
