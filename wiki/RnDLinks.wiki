@@ -15,6 +15,7 @@
     * Apache Commons Monitoring (sandbox) - http://commons.apache.org/sandbox/monitoring/index.html
     * Javasimon - http://code.google.com/p/javasimon/
     * JETM (Java Execution Time Measurement Library) - http://jetm.void.fm/
+    * Glassbox-Inspector - http://www.ohloh.net/p/glassbox-inspector https://glassbox-inspector.dev.java.net/
 
   * Presentation, Analysis & Data Mining
     * Pentaho - http://wiki.pentaho.com/display/COM/Latest+Stable+Builds
