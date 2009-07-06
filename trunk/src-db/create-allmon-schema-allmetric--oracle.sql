@@ -1,7 +1,8 @@
 -- allmon allmetric schema (by Tomasz Sikora)
 
 -- TODO :
--- * 
+-- * Add parameters table - associated with metrics data
+-- * Add output table - associated with metrics data (ex: output code for report server)
 
 /*
 Example of stored metrics data in denormalized fashion (1NF).
@@ -74,7 +75,7 @@ DROP TABLE am_pivot;
 -- -- create dimension tables
 CREATE TABLE am_artifact (
   am_arf_id NUMBER(10) NOT NULL,
-  artifactname VARCHAR(20) NOT NULL,
+  artifactname VARCHAR(50) NOT NULL,
   artifactcode VARCHAR(6) NOT NULL,
   CONSTRAINT am_arf_pk PRIMARY KEY (am_arf_id) USING INDEX
 );
@@ -84,7 +85,7 @@ CREATE UNIQUE INDEX am_arf_uk1 ON am_artifact(artifactcode);
 CREATE TABLE am_metrictype (
   am_mty_id NUMBER(10) NOT NULL,
   am_arf_id NUMBER(10) NOT NULL,
-  metricname VARCHAR(20) NOT NULL,
+  metricname VARCHAR(50) NOT NULL,
   metriccode VARCHAR(6) NOT NULL,
   unit VARCHAR(6) DEFAULT '-' NOT NULL,
   CONSTRAINT am_mty_pk PRIMARY KEY (am_mty_id) USING INDEX,
@@ -95,7 +96,7 @@ CREATE SEQUENCE am_mty_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 CREATE TABLE am_instance (
   am_ins_id NUMBER(10) NOT NULL,
   am_arf_id NUMBER(10) NOT NULL,
-  instancename VARCHAR(20) NOT NULL,
+  instancename VARCHAR(50) NOT NULL,
   instancecode VARCHAR(6) NOT NULL,
   url VARCHAR(100),
   CONSTRAINT am_ins_pk PRIMARY KEY (am_ins_id) USING INDEX,
@@ -105,7 +106,7 @@ CREATE SEQUENCE am_ins_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 
 CREATE TABLE am_host (
   am_hst_id NUMBER(10) NOT NULL,
-  hostname VARCHAR(20) NOT NULL,
+  hostname VARCHAR(50) NOT NULL,
   hostcode VARCHAR(6) NOT NULL,
   hostip VARCHAR(15) NOT NULL,
   CONSTRAINT am_hst_pk PRIMARY KEY (am_hst_id) USING INDEX
@@ -172,7 +173,7 @@ CREATE TABLE am_metricsdata (
   am_ins_id NUMBER(10) NOT NULL, -- Instance	
   am_hst_id NUMBER(10) NOT NULL, -- Host
   am_rsc_id NUMBER(10) NOT NULL, -- Resource	
-  am_src_id NUMBER(10) NOT NULL, -- Source	
+  am_src_id NUMBER(10), -- Source	
   am_cal_id NUMBER(10) NOT NULL, -- Calendar
   am_tim_id NUMBER(10) NOT NULL, -- Time
   metricvalue NUMBER(13,3) NOT NULL, -- Metric	
@@ -304,9 +305,11 @@ COMMIT;
 
 INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode, unit) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Struts Action Class', 'ACTCLS', 'ms'); 
 INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Service Level Check', 'APPSLC'); 
+INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'REP'), 'Report Jobs Execs', 'REPEXE'); 
 COMMIT;
 
 INSERT INTO am_instance(am_ins_id, am_arf_id, instancename, instancecode) VALUES(am_ins_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Petstore', 'PETSTR'); 
+INSERT INTO am_instance(am_ins_id, am_arf_id, instancename, instancecode) VALUES(am_ins_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'REP'), 'Petstore Reports', 'PETREP'); 
 COMMIT;
 
 INSERT INTO am_host(am_hst_id, hostname, hostcode, hostip) VALUES(am_hst_seq.NEXTVAL, 'Example Host', 'EXPHST', '123.123.123.123'); 
@@ -324,7 +327,7 @@ SELECT COUNT(*) FROM am_metricsdata;
 SELECT COUNT(*) FROM vam_metricsdata;
 
 
-SELECT vm.artifactname, vm.metricname, vm.unit, vm.resourcename, COUNT(*), AVG(vm.metricvalue)
+SELECT vm.artifactname, vm.metricname, vm.unit, vm.resourcename, COUNT(*), AVG(vm.metricvalue), COUNT(*) * SUM(vm.metricvalue) AS perfcoef
 FROM vam_metricsdata vm 
 GROUP BY vm.artifactname, vm.metricname, vm.unit, vm.resourcename
 ORDER BY 1, 2, 3, 4;
@@ -338,3 +341,9 @@ SELECT vmc.artifactname, vmc.metricname, vmc.unit, vmc.year, vmc.month, vmc.day,
 FROM vam_metricsdata_cal vmc
 GROUP BY vmc.artifactname, vmc.metricname, vmc.unit, vmc.year, vmc.month, vmc.day, vmc.hour
 ORDER BY 1, 2, 3, 4, 5, 6, 7;
+
+SELECT vmc.artifactname, vmc.metricname, vmc.unit, vmc.hour, COUNT(*), AVG(vmc.metricvalue)
+FROM vam_metricsdata_cal vmc
+GROUP BY vmc.artifactname, vmc.metricname, vmc.unit, vmc.hour
+ORDER BY 1, 2, 3, 4;
+

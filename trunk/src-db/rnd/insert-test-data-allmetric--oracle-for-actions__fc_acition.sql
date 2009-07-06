@@ -151,11 +151,83 @@ AND    vam.metriccode = 'APPSLC'
 AND    vam.resourcecode = 'LOGUSR' -- 'DBCMPL' 
 ;
 
+SELECT vam.year, vam.month, vam.DAY, count(*), AVG(vam.metricvalue)
+FROM   vam_metricsdata_cal vam
+WHERE  vam.artifactcode = 'APP'
+AND    vam.hostcode = 'EXPHST'
+AND    vam.instancecode = 'PETSTR'
+AND    vam.metriccode = 'APPSLC'
+AND    vam.resourcecode = 'LOGUSR' -- 'DBCMPL' 
+GROUP BY vam.year, vam.month, vam.DAY;
 
 -------------------------------------------------------------------------------------------------------------------------
 -- Report metrics
 
+-- insert resources (action class) - very dynamic data
+INSERT INTO am_resource(am_rsc_id, am_mty_id, resourcename)
+SELECT am_rsc_seq.NEXTVAL,
+       (SELECT am.am_mty_id FROM am_metrictype am WHERE am.metriccode = 'REPEXE'),
+       rw.job_name
+FROM   (SELECT DISTINCT rw.job_name FROM tmp_rw_server_job_queue_hist rw) rw;
+COMMIT;
 
+-- insert sources (users) - very dynamic data
+-- NO SOURCE DATA
+/*
+INSERT INTO am_source(am_src_id, am_mty_id, sourcename)
+SELECT am_src_seq.NEXTVAL,
+       (SELECT am.am_mty_id FROM am_metrictype am WHERE am.metriccode = 'ACTCLS'),
+       rw.user
+FROM   tmp_rw_server_job_queue_hist rw;
+COMMIT;
+*/
+INSERT INTO am_source(am_src_id, am_mty_id, sourcename, sourcecode)
+VALUES(am_src_seq.NEXTVAL, (SELECT am.am_mty_id FROM am_metrictype am WHERE am.metriccode = 'REPEXE'), 'No source', 'REPNOS');
+COMMIT;
 
+-- insert fact table 
+-- SELECT DISTINCT rw.status_code, rw.status_message FROM tmp_rw_server_job_queue_hist rw;
+-- SELECT * FROM tmp_rw_server_job_queue_hist rw;
+INSERT INTO am_metricsdata(am_met_id, am_ins_id, am_hst_id, am_rsc_id, am_src_id, am_cal_id, am_tim_id, metricvalue, ts)
+SELECT am_met_seq.NEXTVAL, 
+       (SELECT ai.am_ins_id FROM am_instance ai WHERE ai.instancecode = 'PETREP'),
+       (SELECT ah.am_hst_id FROM am_host ah WHERE ah.hostcode = 'EXPHST'),
+       ar.am_rsc_id,
+       (SELECT sr.am_src_id FROM am_source sr WHERE sr.sourcecode = 'REPNOS'),
+       (SELECT ac.am_cal_id FROM am_calendar ac WHERE ac.caldate = trunc(rw.started, 'DD')),
+       (SELECT t.am_tim_id FROM am_time t WHERE t.hour = to_char(rw.started, 'HH24') AND t.minute = to_char(rw.started, 'MI')),
+       rw.run_elapse,
+       rw.started
+FROM   tmp_rw_server_job_queue_hist rw, am_resource ar
+WHERE  rw.job_name = ar.resourcename
+AND    rw.status_code != 1 -- load all finished (also with errors)
+;
+COMMIT;
 
+--DELETE FROM am_metricsdata am WHERE am.am_rsc_id IN ( SELECT ar.am_rsc_id FROM am_resource ar WHERE ar.am_mty_id = 22)
 
+-- check loaded data
+SELECT COUNT(*) FROM am_metricsdata;
+SELECT COUNT(*) FROM vam_metricsdata;
+
+SELECT * FROM am_metrictype;
+select * FROM am_resource;
+select * FROM am_source 
+select * FROM am_metricsdata m WHERE m.am_rsc_id = 2414;
+
+SELECT * FROM tmp_rw_server_job_queue_hist rw;
+
+SELECT vam.resourcename, vam.metricvalue, vam.ts
+FROM   vam_metricsdata vam
+WHERE  vam.artifactcode = 'REP'
+AND    vam.hostcode = 'EXPHST'
+AND    vam.instancecode = 'PETREP'
+AND    vam.metriccode = 'REPEXE';
+
+SELECT vam.year, vam.month, vam.DAY, count(*), avg(vam.metricvalue)
+FROM   vam_metricsdata_cal vam
+WHERE  vam.artifactcode = 'REP'
+AND    vam.hostcode = 'EXPHST'
+AND    vam.instancecode = 'PETREP'
+AND    vam.metriccode = 'REPEXE'
+GROUP BY vam.year, vam.month, vam.DAY;
