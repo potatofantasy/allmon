@@ -3,9 +3,7 @@
 
 = Allmon datamodel rnd =
 
-Issues:
-
-  * No need for transactions!
+  == No need for transactions! ==
   * Flexibility!
   * Partitioning?
   * Scalability?
