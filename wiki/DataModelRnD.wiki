@@ -3,12 +3,17 @@
 
 = Allmon datamodel rnd =
 
-  == No need for transactions! ==
+Issues:
+  * No need for transactions!
   * Flexibility!
   * Partitioning?
   * Scalability?
-  * Scalar and Vector metrics 
+
+== Scalar and Vector metrics ==
+
 A scalar is a variable that only has magnitude, e.g. a speed of 40 km/h. Compare it with vector, a quantity comprising both magnitude and direction, e.g. a velocity of 40km/h north. Vectors allow us to look at complex, multi-dimensional problems as a simpler group of one-dimensional problems.
+
+Both allgeneric and allmetrics support scalar and vector metrics.
 
 == Generic data model *[DataModelRnDAllgeneric allgeneric]* ==
 
