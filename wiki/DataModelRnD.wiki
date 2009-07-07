@@ -9,9 +9,9 @@ Issues:
   * Partitioning?
   * Scalability?
 
-== Scalar vs. Vector metrics ==
+== Scalar vs. Vector variables (metrics) ==
 
-A scalar is a variable that only has magnitude, e.g. a speed of 40 km/h. Compare it with vector, a quantity comprising both magnitude and direction, e.g. a velocity of 40km/h north. Vector quantities have two characteristics, a magnitude and a direction. Vectors allow us to look at complex, multi-dimensional problems as a simpler group of one-dimensional problems. When you compare vector quantities of the same type, you have to compare both the magnitude and the direction. For scalars, you only compare the magnitude.
+A scalar is a variable that only has magnitude, e.g. a speed of 40 km/h. Vector quantities have two characteristics, a magnitude and a direction, e.g. a velocity of 40km/h north. Vectors allow us to look at complex, multi-dimensional problems as a simpler group of one-dimensional problems. When you compare vector quantities of the same type, you have to compare both the magnitude and the direction. For scalars, you only compare the magnitude.
 
 *Both allgeneric and allmetric schemas support scalar and vector metrics.*
 
