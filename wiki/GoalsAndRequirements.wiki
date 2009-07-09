@@ -16,13 +16,14 @@ The main project goal is to create a generic system storing various metrics coll
 
 = Research =
 
+  * [DataModelRnD Allmon datamodel research]
+
+Allmon schema is designed to store different metrics values coming from various areas of monitoring infrastructure. The collected data are base for vast range of performance and availability analysis. 
+
   * [RnDLinks RnD Hub - Central point of the project research]
 
 Allmon collaborates with other analytical tools for OLAP multidimensional analysis and Data Mining processing. 
 
-  * [DataModelRnD Allmon datamodel research]
-
-Allmon schema is designed to store different metrics values coming from various areas of monitoring infrastructure. The collected data are base for vast range of performance and availability analysis. 
 
   * [RnDTheoryPerformanceMonitoring Bit of Performance Monitoring Theory]
 
