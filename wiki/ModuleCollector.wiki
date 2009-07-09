@@ -7,7 +7,7 @@ Metrics data acquisition, Extraction and Transformation
 
 
 Parts:
-  * Monitoring API
-  * Agent (collecting metrics before sending)
+  * Agent (Monitoring API)
+    * Plug-ins for: SMTP, JMX, Web client-side monitoring, DB selects, ...
+  * Collector core (collecting metrics before sending) - sending data every 60sec (conf) or every 64kB (conf)
   * Sender (sending data by asynchronous messaging, Active MQ) 
-  * Plug-ins for: SMTP, JMX, Web client-side monitoring, DB selects, ...
