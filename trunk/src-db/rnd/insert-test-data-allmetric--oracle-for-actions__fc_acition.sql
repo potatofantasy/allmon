@@ -231,3 +231,4 @@ AND    vam.hostcode = 'EXPHST'
 AND    vam.instancecode = 'PETREP'
 AND    vam.metriccode = 'REPEXE'
 GROUP BY vam.year, vam.month, vam.DAY;
+
