@@ -87,7 +87,7 @@ CREATE TABLE am_metrictype (
   am_arf_id NUMBER(10) NOT NULL,
   metricname VARCHAR(50) NOT NULL,
   metriccode VARCHAR(6) NOT NULL,
-  unit VARCHAR(6) DEFAULT '-' NOT NULL,
+  unit VARCHAR(6) DEFAULT NULL,
   CONSTRAINT am_mty_pk PRIMARY KEY (am_mty_id) USING INDEX,
   CONSTRAINT am_mty_am_arf_fk1 FOREIGN KEY (am_arf_id) REFERENCES am_artifact(am_arf_id)
 );
@@ -118,7 +118,7 @@ CREATE TABLE am_resource (
   am_mty_id NUMBER(10) NOT NULL,
   resourcename VARCHAR(200) NOT NULL,
   resourcecode VARCHAR(10),
-  unit VARCHAR(6) DEFAULT '-' NOT NULL,
+  unit VARCHAR(6) DEFAULT NULL,
   CONSTRAINT am_rsc_pk PRIMARY KEY (am_rsc_id) USING INDEX,
   CONSTRAINT am_rsc_am_mty_fk1 FOREIGN KEY (am_mty_id) REFERENCES am_metrictype(am_mty_id)
 );
@@ -173,7 +173,7 @@ CREATE TABLE am_metricsdata (
   am_ins_id NUMBER(10) NOT NULL, -- Instance	
   am_hst_id NUMBER(10) NOT NULL, -- Host
   am_rsc_id NUMBER(10) NOT NULL, -- Resource	
-  am_src_id NUMBER(10), -- Source	
+  am_src_id NUMBER(10), -- Source	- might be not defined, for scalar metrics
   am_cal_id NUMBER(10) NOT NULL, -- Calendar
   am_tim_id NUMBER(10) NOT NULL, -- Time
   metricvalue NUMBER(13,3) NOT NULL, -- Metric	
@@ -233,12 +233,12 @@ FROM  am_metricsdata amm,
 WHERE amm.am_ins_id = ami.am_ins_id
 AND   amm.am_hst_id = amh.am_hst_id
 AND   amm.am_rsc_id = amr.am_rsc_id
-AND   amm.am_src_id = ams.am_src_id
+AND   amm.am_src_id = ams.am_src_id(+)
 --
 AND   amt.am_arf_id = ama.am_arf_id
 AND   ami.am_arf_id = ama.am_arf_id
-AND   amr.am_mty_id = amt.am_mty_id
-AND   ams.am_mty_id = amt.am_mty_id;
+AND   amr.am_mty_id = amt.am_mty_id;
+--AND   ams.am_mty_id = amt.am_mty_id(+); -- deleted from query to support metrics without specified sources
 
 CREATE OR REPLACE VIEW vam_metricsdata_cal AS
 SELECT ama.am_arf_id, ama.artifactname, ama.artifactcode, 
@@ -256,12 +256,12 @@ FROM  am_metricsdata amm,
 WHERE amm.am_ins_id = ami.am_ins_id
 AND   amm.am_hst_id = amh.am_hst_id
 AND   amm.am_rsc_id = amr.am_rsc_id
-AND   amm.am_src_id = ams.am_src_id
+AND   amm.am_src_id = ams.am_src_id(+)
 --
 AND   amt.am_arf_id = ama.am_arf_id
 AND   ami.am_arf_id = ama.am_arf_id
 AND   amr.am_mty_id = amt.am_mty_id
-AND   ams.am_mty_id = amt.am_mty_id
+--AND   ams.am_mty_id = amt.am_mty_id -- deleted from query to support metrics without specified sources
 -- 
 AND   amm.am_cal_id = amc.am_cal_id
 AND   amm.am_tim_id = amti.am_tim_id;
@@ -279,7 +279,7 @@ INSERT INTO am_calendar(am_cal_id, caldate, YEAR, MONTH, DAY, week_day, year_day
          to_char(caldate, 'Q'),
          to_char(caldate, 'WW') --to_char(caldate, 'IW')
   FROM   (SELECT to_date('2007-01-01', 'YYYY-MM-DD') + x AS caldate
-          FROM   pivot p
+          FROM   am_pivot p
           WHERE  p.x < 13 * 365.25 -- 0.25 - 1 day for every forth year
           ORDER  BY 1);
 INSERT INTO am_time(am_tim_id, t, hour, minute)
@@ -288,32 +288,32 @@ INSERT INTO am_time(am_tim_id, t, hour, minute)
          to_char(t, 'HH24'),
          to_char(t, 'MI')
   FROM   (SELECT to_date('1970-01-01', 'YYYY-MM-DD') + x / (24*60)  AS t
-          FROM   pivot p
+          FROM   am_pivot p
           WHERE  p.x < 24*60
           ORDER  BY 1);
 COMMIT;
 
 -- fill up default data for not dynamic dimensions
 -- OS, AppMet, Rep, JVM, DB, HW
-INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Operating System', 'OS'); 
-INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Application', 'APP'); 
-INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Report', 'REP'); 
-INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Java Virtual Machine', 'JVM'); 
-INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Database', 'DB'); 
-INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Hardware', 'HW'); 
-COMMIT;
+--INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Operating System', 'OS'); 
+--INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Application', 'APP'); 
+--INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Report', 'REP'); 
+--INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Java Virtual Machine', 'JVM'); 
+--INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Database', 'DB'); 
+--INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Hardware', 'HW'); 
+--COMMIT;
 
-INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode, unit) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Struts Action Class', 'ACTCLS', 'ms'); 
-INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Service Level Check', 'APPSLC'); 
-INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'REP'), 'Report Jobs Execs', 'REPEXE'); 
-COMMIT;
+--INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode, unit) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Struts Action Class', 'ACTCLS', 'ms'); 
+--INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Service Level Check', 'APPSLC'); 
+--INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'REP'), 'Report Jobs Execs', 'REPEXE'); 
+--COMMIT;
 
-INSERT INTO am_instance(am_ins_id, am_arf_id, instancename, instancecode) VALUES(am_ins_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Petstore', 'PETSTR'); 
-INSERT INTO am_instance(am_ins_id, am_arf_id, instancename, instancecode) VALUES(am_ins_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'REP'), 'Petstore Reports', 'PETREP'); 
-COMMIT;
+--INSERT INTO am_instance(am_ins_id, am_arf_id, instancename, instancecode) VALUES(am_ins_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Petstore', 'PETSTR'); 
+--INSERT INTO am_instance(am_ins_id, am_arf_id, instancename, instancecode) VALUES(am_ins_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'REP'), 'Petstore Reports', 'PETREP'); 
+--COMMIT;
 
-INSERT INTO am_host(am_hst_id, hostname, hostcode, hostip) VALUES(am_hst_seq.NEXTVAL, 'Example Host', 'EXPHST', '123.123.123.123'); 
-COMMIT;
+--INSERT INTO am_host(am_hst_id, hostname, hostcode, hostip) VALUES(am_hst_seq.NEXTVAL, 'Example Host', 'EXPHST', '123.123.123.123'); 
+--COMMIT;
 
 -------------------------------------------------------------------------------------------------------------------------
 -- check data
