@@ -107,7 +107,7 @@ AND   fa.dm_tru_id = dt.dm_tru_id
 AND   dt.tropics_user = s.sourcename
 AND   fa.datetime > SYSDATE - 1; --AND fa.datetime > SYSDATE - 10;
 */
-CREATE TABLE fc_action AS SELECT * FROM vfc_actions_all_dims_all_msrs@monitor WHERE datetime BETWEEN SYSDATE - 5 AND SYSDATE - 1;--2/24;
+CREATE TABLE fc_action AS SELECT * FROM vfc_actions_all_dims_all_msrs@monitor WHERE datetime BETWEEN SYSDATE - 15 AND SYSDATE - 6;--2/24;
 DECLARE
   TYPE t IS RECORD(resourcename am_resource.resourcename%TYPE, sourcename am_source.sourcename%TYPE, datetime DATE, exectime_ms am_metricsdata.metricvalue%TYPE);
   CURSOR c RETURN t IS 
@@ -273,8 +273,25 @@ WHERE  vam.artifactcode = 'APP'
 AND    vam.hostcode = 'EXPHST'
 AND    vam.instancecode = 'PETSTR'
 AND    vam.metriccode = 'APPSLC'
-AND    vam.resourcecode = 'LOGUSR' -- 'DBCMPL' 
-;
+AND    vam.resourcecode = 'LOGUSR';
+
+SELECT vam.metricvalue, vam.ts
+FROM   vam_metricsdata_cal vam
+WHERE  vam.artifactcode = 'APP'
+AND    vam.hostcode = 'EXPHST'
+AND    vam.instancecode = 'PETSTR'
+AND    vam.metriccode = 'APPSLC'
+AND    vam.resourcecode = 'DBCMPL'
+AND    vam.year = 2009
+AND    vam.MONTH = 5;
+
+SELECT vam.resourcename, vam.metricvalue, vam.ts
+FROM   vam_metricsdata vam
+WHERE  vam.artifactcode = 'APP'
+AND    vam.hostcode = 'EXPHST'
+AND    vam.instancecode = 'PETSTR'
+AND    vam.metriccode = 'APPSLC'
+AND    vam.resourcecode = 'LOGUSR';
 
 SELECT vam.year, vam.month, vam.DAY, COUNT(*), AVG(vam.metricvalue)
 FROM   vam_metricsdata_cal vam
@@ -285,6 +302,9 @@ AND    vam.metriccode = 'APPSLC'
 AND    vam.resourcecode = 'LOGUSR' -- 'DBCMPL' 
 GROUP BY vam.year, vam.month, vam.DAY
 ORDER BY vam.year, vam.month, vam.DAY;
+
+SELECT * FROM am_metrictype
+
 
 -------------------------------------------------------------------------------------------------------------------------
 -- Report metrics
