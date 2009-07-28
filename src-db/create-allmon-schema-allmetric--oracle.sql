@@ -179,6 +179,7 @@ CREATE TABLE am_metricsdata (
   metricvalue NUMBER(13,3) NOT NULL, -- Metric	
   ts DATE NOT NULL, -- Time Stamp -- TODO review to delete
   loadts DATE DEFAULT SYSDATE NOT NULL, -- Loading to the fact table Time Stamp
+  observation_id NUMBER(10),
   CONSTRAINT am_met_pk PRIMARY KEY (am_met_id) USING INDEX,
   --CONSTRAINT am_met_am_mty_fk1 FOREIGN KEY (am_mty_id) REFERENCES am_metrictype(am_mty_id),
   CONSTRAINT am_met_am_ins_fk1 FOREIGN KEY (am_ins_id) REFERENCES am_instance(am_ins_id),
