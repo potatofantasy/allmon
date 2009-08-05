@@ -28,11 +28,12 @@
     * Forecasting
     * Trend analyses
     * Pattern identification
+    * Noise detection 
+      * Signal-to-noise ratio
   
   * Cross Correlation - http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/correlate/
     * Cross-correlation function in time-domain
     * Coherence function in frequency-domain (http://www.bme.bio.keio.ac.jp/01news/report.pdf - the functions distortions as the amplitudes of the noise increases)
-
  
   * Correlation 
     * in high-multidimensional spaces
