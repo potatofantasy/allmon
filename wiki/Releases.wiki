@@ -1,0 +1,12 @@
+#summary Allmon releases
+#labels Phase-Implementation
+
+= Releases theory =
+
+  * Pre-Alpha - not feature complete; during requirements analysis, software design, software development and unit testing
+    * Milestones 
+  * Alpha - released for testing (external/internal)
+  * Beta - passed the alpha testing stage, release "prototype/technical preview" for users' testing (beta testers)
+  * ((Feature freeze))
+  * Release candidate (RC) - potentially a final product (code complete), stabilization phase
+  * General availability (GA) - software has been made available to the general use
