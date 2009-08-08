@@ -8,6 +8,8 @@
     * http://en.wikipedia.org/wiki/Java_Management_Extensions
     * http://java.sun.com/developer/technicalArticles/J2SE/jmx.html
     * http://java.sun.com/javase/technologies/core/mntr-mgmt/javamanagement/
+
+
   
   * Similar Open Source Projects
     * Jamon - http://jamonapi.sourceforge.net/
@@ -19,6 +21,10 @@
 
   * Presentation, Analysis & Data Mining
     * Pentaho - http://wiki.pentaho.com/display/COM/Latest+Stable+Builds
+
+  * General monitoring concepts, discussions
+    * Java Profiling vs. Monitoring - http://ananthchellathurai.blogspot.com/2009/07/javasimon-monitoring-api-in-java.html
+    * Java run-time monitoring, Run-time performance and availability monitoring for Java systems - Techniques and patterns - http://www.ibm.com/developerworks/library/j-rtm1/index.html
 
 = Theory =
 
