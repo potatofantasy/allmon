@@ -3,11 +3,11 @@
 
 = Collector =
 
-Metrics data acquisition, Extraction and Transformation
+Client-side metrics data acquisition (extraction) and transformation (aggreagation).
 
 
-Parts:
+Modules:
   * Agent (Monitoring API)
     * Plug-ins for: SMTP, JMX, Web client-side monitoring, DB selects, ...
-  * Collector core (collecting metrics before sending) - sending data every 60sec (conf) or every 64kB (conf)
-  * Sender (sending data by asynchronous messaging, Active MQ) 
+  * Sender (sending data by asynchronous messaging; Active MQ) 
+  * Collector core (aggreagating metrics before sending to server) - sending data every 60sec (conf) or every 64kB (conf), Apache Camel
