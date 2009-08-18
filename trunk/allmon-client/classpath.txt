@@ -1,0 +1,26 @@
+activemq-camel-5.2.0.jar
+activemq-core-5.2.0.jar
+geronimo-j2ee-management_1.0_spec-1.0.jar
+geronimo-jms_1.1_spec-1.1.1.jar
+activemq-pool-5.2.0.jar
+commons-pool-1.4.jar
+spring-jms-2.5.5.jar
+spring-tx-2.5.5.jar
+xbean-spring-3.4.jar
+spring-2.5.6.jar
+servlet-api-5.0.16.jar
+commons-logging-1.1.jar
+# camel-*-1.6.*.jar / camel-*-2.0.*.jar
+camel-jaxb-1.6.0.jar
+camel-jms-1.6.0.jar
+camel-jpa-1.6.0.jar
+camel-juel-1.6.0.jar
+camel-core-1.6.0.jar
+camel-spring-1.6.0.jar
+camel-spring-integration-1.6.0.jar
+jaxb-impl-2.1.6.jar
+stax-api-1.0-2.jar
+xmlpull-1.1.3.4d_b4_min.jar
+activation-1.1.jar
+commons-collections-3.2.1.jar
+jaxb-api-2.1.jar

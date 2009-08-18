@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="camel-example-spring-jms" default="run" basedir=".">
+
+	<property environment="system" />
+	<property file="build.properties" />
+	<property name="build.no" value="00000" />
+
+  <property name="classes.dir" value="bin" />
+  <property name="dist.dir" value="/" />
+
+
+	<target name="run" description="run">
+
+		<echo message="Creating jar.." />
+    <!-- <jar destfile="${dist.dir}/prodaircommon.jar" manifest="${manifest.dir}/manifest.mf"> -->
+		<jar destfile="${dist.dir}/allmon-client.jar">
+			<fileset dir="${classes.dir}">
+				<include name="org/allmon/**/*.class" />
+			</fileset>
+		</jar>
+
+	</target>
+
+</project>
