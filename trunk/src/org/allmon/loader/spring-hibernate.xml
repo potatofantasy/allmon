@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="exampleDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.OracleDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:oracle:thin:@lontd05:1521:proddev</value>
+		</property>
+		<property name="username" value="rs_ttc" />
+		<property name="password" value="rs_ttc" />
+		<!--
+		<property name="initialSize" value="10"/>
+    <property name="maxActive" value="20"/>
+    <property name="defaultAutoCommit" value="true"/>
+    <property name="poolPreparedStatements" value="false"/>
+		<property name="defaultTransactionIsolation" value="2"/>
+		-->
+		<!--    
+			<property name="url"><value>jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=LONTD03.CORP.TTC)(PORT=1521))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=realtime)))</value></property>
+			<property name="driverClassName"><value>org.apache.derby.jdbc.EmbeddedDriver</value></property>
+			<property name="url"><value>jdbc:derby:springexample;create=true</value></property>
+		-->
+	</bean>
+
+	<bean id="exampleHibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.c3p0.minPoolSize">10</prop>
+				<prop key="hibernate.c3p0.maxPoolSize">20</prop>
+				<prop key="hibernate.c3p0.timeout">600</prop>
+				<prop key="hibernate.c3p0.max_statement">50</prop>
+				<prop key="hibernate.c3p0.testConnectionOnCheckout">false</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="exampleSessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="exampleDataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<ref bean="exampleHibernateProperties" />
+		</property>
+		<property name="annotatedClasses">
+      <list>
+        <value>org.allmon.loader.RawMetric</value>
+      </list>
+    </property>
+	</bean>
+
+	<bean id="rawMetricDAOTarget" class="org.allmon.loader.RawMetricDAOImpl">
+		<property name="sessionFactory">
+			<ref local="exampleSessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="exampleSessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="userDAO" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref local="transactionManager" />
+		</property>
+		<property name="target">
+			<ref local="rawMetricDAOTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="addMeric">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>
