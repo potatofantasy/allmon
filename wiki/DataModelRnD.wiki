@@ -1,7 +1,19 @@
 #summary Allmon datamodel rnd.
 #labels Phase-Requirements,Phase-Design
 
-= Allmon datamodel rnd =
+= Allmon Data Tiers = 
+
+http://www.rittmanmead.com/2009/07/16/drilling-down-in-the-oracle-next-generation-reference-dw-architecture/
+
+  * Staging tier
+    * Loading structures
+  * Foundation tier - 3rd NF model (highly normalized data)
+    * Allmon core schema (allgeneric/allmetric) with metadata
+  * Access tier (extra structures for better efficiency)
+    * Denormalized data (views, materialized views, tables)
+    * Aggregate tables
+
+= Allmon core data model RnD =
 
 Issues:
   * No need for transactions!
@@ -15,7 +27,7 @@ A scalar is a variable that only has magnitude, e.g. a speed of 40 km/h. Vector 
 
 *Both allgeneric and allmetric schemas support scalar and vector metrics.*
 
-== Generic data model *[DataModelRnDAllgeneric allgeneric]* ==
+== Very generic data model *[DataModelRnDAllgeneric allgeneric]* ==
 
 All data (meta-data and collected metrics, aggregates etc.) are stored in fixed generic relational schema. Allgeneric schema can store data of constellation of many star and snowflake schemas. It is very generic and flexible form. You can add a new dimension or a fact table without redefining your schema.
 
@@ -23,7 +35,7 @@ All data (meta-data and collected metrics, aggregates etc.) are stored in fixed 
   * All meta-data connected to data on relational level
   * Can cause performance problems
 
-== Relational data model *[DataModelRnDAllmetric allmetric]* ==
+== More relational data model *[DataModelRnDAllmetric allmetric]* ==
 
 Allmetric schema is more solid that allgeneric. It also basis on idea of datawarehouse concepts, but it is less generic and more fitting metrics collecting requirements. After early load tests allmetric schema turned out as much more efficient than allgeneric (especially for bigger datasets, more than 10M rows).
 
