@@ -63,12 +63,15 @@ Observing (or rather, debugging) a running program by modifying its source code 
 
 === Database ===
 
-== Hardware
+  * Open connection count
+  * Active sessions count
+
+== Hardware ==
 
 === Operating System level metrics ===
 
   * CPU utilization
-
+  * Open/active network connection count
 
 === Network ===
 
