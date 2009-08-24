@@ -49,6 +49,10 @@ Another example would be observing the performance of a CPU by running both the 
 
 Observing (or rather, debugging) a running program by modifying its source code (such as adding extra output or generating log files) or by running it in a debugger may sometimes cause certain bugs to diminish or change their behavior, creating extra difficulty for the person trying to isolate the bug (see Heisenbug)."
 
+= Agent vs. Agentless =
+
+[http://knol.google.com/k/anonymous/server-monitoring/3o4z1jgc0p47b/2?domain=knol.google.com&locale=en# Server Monitoring - Monitoring Enterprise Servers - Agent or Agentless?]
+
 = Metrics =
 
 == Software ==
