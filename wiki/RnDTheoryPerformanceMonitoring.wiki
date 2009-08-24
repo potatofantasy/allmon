@@ -49,6 +49,32 @@ Another example would be observing the performance of a CPU by running both the 
 
 Observing (or rather, debugging) a running program by modifying its source code (such as adding extra output or generating log files) or by running it in a debugger may sometimes cause certain bugs to diminish or change their behavior, creating extra difficulty for the person trying to isolate the bug (see Heisenbug)."
 
+= Metrics =
+
+== Software ==
+
+=== Java (JVM) ===
+
+  * Threads count
+  * Java heap metrics
+    * Memory allocation after GC
+    * GC durations
+    * Heap size (young, tenured generations)
+
+=== Database ===
+
+== Hardware
+
+=== Operating System level metrics ===
+
+  * CPU utilization
+
+
+=== Network ===
+
+(you can use many different tools especially created for this purpose)
+
+
 = Storage (metrics persistence) =
 
 TODO
