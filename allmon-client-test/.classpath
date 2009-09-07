@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.5.0_12"/>
+	<classpathentry kind="lib" path="lib/camel-2.0-M2/apache-camel-2.0-M2.jar" sourcepath="C:/eclipse-j2ee-3.3-lomboz/workspace/allmon/apache-camel-2.0-M2-src.zip"/>
+	<classpathentry kind="lib" path="lib/junit-4.4.jar"/>
+	<classpathentry kind="lib" path="lib/spring-2.5.6.jar"/>
+	<classpathentry kind="lib" path="lib/activemq-all-4.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j-1.5.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api-5.0.16.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans-2.4.0.jar"/>
+	<classpathentry kind="lib" path="lib/camel-2.0-M2/jaxb-api-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/camel-2.0-M2/jaxb-impl-2.1.10.jar"/>
+	<classpathentry kind="lib" path="lib/camel-2.0-M2/stax-api-1.0-2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/allmon-client"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
