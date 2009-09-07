@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import org.allmon.common.MetricMessage;
 
-public class MetricMessageWrapper {
+class MetricMessageWrapper {
 
     private ArrayList list = new ArrayList(); // TODO check in allmon-client would be compilable in 1.5 to introduce generics
 
@@ -62,9 +62,11 @@ public class MetricMessageWrapper {
     }
 
     public String toString() {
-        return list.toString();
-    }
-    
-    
+        StringBuffer buffer = new StringBuffer();
+        for (int i = 0; i < list.size(); i++) {
+            buffer.append(list.get(i).toString());
+        }
+        return buffer.toString();
+    }    
     
 }
