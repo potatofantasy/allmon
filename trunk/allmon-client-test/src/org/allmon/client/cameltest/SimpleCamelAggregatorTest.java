@@ -1,4 +1,4 @@
-package org.allmon.client.agent;
+package org.allmon.client.cameltest;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;

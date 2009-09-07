@@ -1,4 +1,4 @@
-package org.allmon.client.agent;
+package org.allmon.client.cameltest;
 
 import javax.jms.ConnectionFactory;
 
@@ -9,7 +9,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 
-public class CreateMessagesTest {
+public class CamelStringMessagesSenderTest {
 
     public static void main(String args[]) throws Exception {
         CamelContext context = new DefaultCamelContext();
@@ -28,7 +28,6 @@ public class CreateMessagesTest {
         }
         
         context.stop();
-        System.exit(0);
     }
     
 }

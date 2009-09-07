@@ -1,7 +1,6 @@
-package org.allmon.client.agent;
+package org.allmon.client.aggregator;
 
-import org.allmon.client.aggregator.AgentAggregationStrategyForMetrics;
-import org.allmon.common.MetricMessage;
+import org.allmon.client.agent.MetricMessageFactory;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
@@ -21,24 +20,28 @@ public class AgentAggregationStrategyForMetricsTest extends CamelTestSupport {
         Object[] tab = new Object[] { 
                 MetricMessageFactory.createActionClassMessage("class1", "user1", "sess1", null), 
                 MetricMessageFactory.createActionClassMessage("class2", "user1", "sess1", null), 
-                MetricMessageFactory.createActionClassMessage("class3", "user1", "sess1", null) };
+                MetricMessageFactory.createActionClassMessage("class3", "user1", "sess1", null)};
         
-        resultEndpoint.expectedMessageCount(3);
+        resultEndpoint.expectedMessageCount(1);
         resultEndpoint.expectedBodiesReceived(tab);
-
+        
         template.sendBodyAndHeader("direct:start", tab[0], "id", "1");
         template.sendBodyAndHeader("direct:start", tab[1], "id", "2");
         template.sendBodyAndHeader("direct:start", tab[2], "id", "2");
-
+        
         assertMockEndpointsSatisfied();
+        
+        //resultEndpoint.assertExchangeReceived(1);
+        System.out.println(resultEndpoint.getReceivedCounter());
     }
 
     @Override
     protected RouteBuilder createRouteBuilder() {
         return new RouteBuilder() {
             public void configure() {
-                from("direct:start").aggregate(new AgentAggregationStrategyForMetrics()).constant("")
-                        //.batchSize(10)
+                from("direct:start")
+                        .aggregate(new AgentAggregationStrategyForMetrics()).body()
+                        //.aggregate().body()
                         .to(resultEndpoint); // to("mock:result");
             }
         };

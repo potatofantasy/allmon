@@ -6,6 +6,7 @@ import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.processor.aggregate.DefaultAggregationCollection;
 import org.apache.camel.test.CamelTestSupport;
 
 public class AgentAggregatorRouteBuilderTest extends CamelTestSupport {
@@ -37,7 +38,8 @@ public class AgentAggregatorRouteBuilderTest extends CamelTestSupport {
         return new RouteBuilder() {
             public void configure() {
                 from("direct:start")
-                        .aggregate().body(MetricMessage.class)
+                        .aggregate().body()
+                        //.aggregate().body(MetricMessage.class)
                         //.aggregate(new AgentAggregationCollection()) // XXX it doesn't work for the custom collection
                         //.aggregate(new DefaultAggregationCollection()) // XXX it doesn't work for it as well
                         .batchSize(10)
