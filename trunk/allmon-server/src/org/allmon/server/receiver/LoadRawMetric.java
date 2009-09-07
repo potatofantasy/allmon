@@ -2,7 +2,6 @@ package org.allmon.server.receiver;
 
 import org.allmon.loader.RawMetric;
 import org.allmon.loader.RawMetricDAOImpl;
-import org.allmon.loader.loadtest.LoadTestedClass;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -24,56 +23,14 @@ ojdbc14.jar
  * @author tomasz.sikora
  *
  */
-public class LoadRawMetric extends LoadTestedClass {
+public class LoadRawMetric {
 
     private static final ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(new String[] { "org/allmon/loader/spring-hibernate.xml" });
     //private ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(new String[] { "org/allmon/loader/spring-hibernate.xml" });
-
-    public static void main(String[] args) {
-        try {
-            LoadRawMetric loadRawMetric = new LoadRawMetric(1, 1);
-            loadRawMetric.runConcurently();
-            loadRawMetric.runConcurently();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public LoadRawMetric() {
-        super(1, 1);
-    }
     
-    public void runConcurently() {
-        System.out.println("LoadRawMetric started");
-        long t0 = System.nanoTime();
-        
-        LoadRawMetric loadRawMetric = new LoadRawMetric(threadNum, startingTime);
-        long t1 = System.nanoTime();
-        
-        loadRawMetric.storeMetrics();
-        long t2 = System.nanoTime();
-        
-        System.out.println("LoadRawMetric initialized in " + (t1 - t0)/1000000);
-        System.out.println("LoadRawMetric metrics loaded in " + (t2 - t1)/1000000);
-                    
-        System.out.println("LoadRawMetric end");
-    }
-
-    public LoadRawMetric(int threadNum, long startingTime) {
-        super(threadNum, startingTime);
-        //appContext = new ClassPathXmlApplicationContext(new String[] { "org/allmon/loader/spring-hibernate.xml" });
-        //System.out.println("Classpath loaded");
-    }
-
-    private void storeMetrics() {
-        RawMetricDAOImpl rawMetricDAOImpl = (RawMetricDAOImpl) appContext.getBean("rawMetricDAOTarget");
-        for (int i = 0; i < 2000; i++) {
-            RawMetric metric = new RawMetric();
-            metric.setMetric(">" + Math.random() + ">" + Math.random() + ">" + Math.random() + ">" + Math.random());
-            rawMetricDAOImpl.addMetric(metric);
-        }
-    }
-    
+    /**
+     * @deprecated TODO delete this method!
+     */
     public void storeMetric(String metricString) {
         RawMetricDAOImpl rawMetricDAOImpl = (RawMetricDAOImpl) appContext.getBean("rawMetricDAOTarget");
         RawMetric metric = new RawMetric();
@@ -82,4 +39,10 @@ public class LoadRawMetric extends LoadTestedClass {
         System.out.println(">>>>>>>>>>>>>>>> Metric stored: " + metricString);
     }
 
+    public void storeMetric(RawMetric metric) {
+        RawMetricDAOImpl rawMetricDAOImpl = (RawMetricDAOImpl) appContext.getBean("rawMetricDAOTarget");
+        rawMetricDAOImpl.addMetric(metric);
+        System.out.println(">>>>>>>>>>>>>>>> Metric stored: " + metric.toString());
+    }
+    
 }
