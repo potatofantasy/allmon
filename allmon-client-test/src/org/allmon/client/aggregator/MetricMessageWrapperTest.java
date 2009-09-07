@@ -1,8 +1,8 @@
-package org.allmon.client.agent;
-
-import org.allmon.client.aggregator.MetricMessageWrapper;
+package org.allmon.client.aggregator;
 
 import junit.framework.TestCase;
+
+import org.allmon.client.agent.MetricMessageFactory;
 
 public class MetricMessageWrapperTest extends TestCase {
 

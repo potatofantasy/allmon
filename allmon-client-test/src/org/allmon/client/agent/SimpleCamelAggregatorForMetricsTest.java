@@ -43,5 +43,4 @@ public class SimpleCamelAggregatorForMetricsTest extends CamelTestSupport {
         };
     }
 
-
 }
