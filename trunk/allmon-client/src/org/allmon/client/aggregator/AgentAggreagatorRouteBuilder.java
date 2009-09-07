@@ -16,10 +16,10 @@ public class AgentAggreagatorRouteBuilder extends RouteBuilder {
         // for camel-2.0
 //        AggregateDefinition aggDef = from(q1).aggregate(new AgentAggregationStrategyString()).constant("");
 //        aggDef.batchSize(aggregatorBatchSize).batchTimeout(aggregatorBatchTimeout).to(q2);
-
-//        from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregate(new AgentAggregationCollection()).
+        
+//        from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregate().body(MetricMessage.class).
 //            batchSize(aggregatorBatchSize).batchTimeout(aggregatorBatchTimeout).to(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGGREGATED);
-        from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregate().body(MetricMessage.class).
+        from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregate(new AgentAggregationStrategyForMetrics()).body(MetricMessage.class).
             batchSize(aggregatorBatchSize).batchTimeout(aggregatorBatchTimeout).to(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGGREGATED);
         
         // for camel-1.6.x
@@ -37,7 +37,7 @@ public class AgentAggreagatorRouteBuilder extends RouteBuilder {
         from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGGREGATED).process(new Processor() {
             public void process(Exchange e) {
                 System.out.println(">>>>> Received exchange: " + e.getIn());
-                System.out.println(">>>>> Received exchange body: " + e.getIn().getBody());
+                System.out.println(">>>>> Received exchange body: " + ((e.getIn() == null)?e.getIn().getBody():"null"));
                 //System.out.println(">>>>> Received exchange: " + e.getOut());
             }
         });

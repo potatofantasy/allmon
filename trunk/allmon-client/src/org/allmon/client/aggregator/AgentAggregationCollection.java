@@ -10,7 +10,8 @@ import org.apache.camel.Expression;
 import org.apache.camel.processor.aggregate.AggregationCollection;
 import org.apache.camel.processor.aggregate.AggregationStrategy;
 
-public class AgentAggregationCollection extends AbstractCollection implements AggregationCollection {
+//public class AgentAggregationCollection extends AbstractCollection implements AggregationCollection {
+class AgentAggregationCollection extends AbstractCollection<Exchange> implements AggregationCollection {
 
     private List collection = new ArrayList();
     private Expression correlation;

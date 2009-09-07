@@ -96,8 +96,10 @@ public class MetricMessage implements Serializable {
     
     public String toString() {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("EventDateTime:");
-        buffer.append(getEventDateTime());
+        buffer.append("Resource:");
+        buffer.append(getResource());
+        buffer.append(", Source:");
+        buffer.append(getSource());
         buffer.append(", DurationTime(ms):");
         buffer.append(durationTime);
         buffer.append(", Parameters:");
