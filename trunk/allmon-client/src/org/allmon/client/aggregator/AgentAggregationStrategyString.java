@@ -36,4 +36,8 @@ class AgentAggregationStrategyString implements AggregationStrategy {
         return newExchange;
     }
     
+    static String concat(String oldBody, String newBody) {
+        return oldBody + "," + newBody;
+    }
+    
 }
