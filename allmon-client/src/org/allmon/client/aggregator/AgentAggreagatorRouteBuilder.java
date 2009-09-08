@@ -5,21 +5,23 @@ import org.allmon.common.MetricMessage;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.log4j.Logger;
 
 public class AgentAggreagatorRouteBuilder extends RouteBuilder {
 
+    private static Logger logger = Logger.getLogger(AgentAggreagatorRouteBuilder.class);
+    
     // TODO parametrise this !!!
     private final static int aggregatorBatchSize = 10; 
-    private final static long aggregatorBatchTimeout = 1000L;
-    
+    private final static long aggregatorBatchTimeout = 1 * 1000L;
+
     public void configure() {
-        // for camel-2.0
-//        AggregateDefinition aggDef = from(q1).aggregate(new AgentAggregationStrategyString()).constant("");
-//        aggDef.batchSize(aggregatorBatchSize).batchTimeout(aggregatorBatchTimeout).to(q2);
+        logger.debug("Configure - Begin");
         
-//        from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregate().body(MetricMessage.class).
-//            batchSize(aggregatorBatchSize).batchTimeout(aggregatorBatchTimeout).to(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGGREGATED);
-        from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregate(new AgentAggregationStrategyForMetrics()).body(MetricMessage.class).
+        // for camel-2.0
+//      from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregate(new AgentAggregationStrategyString()).constant("").
+//          batchSize(aggregatorBatchSize).batchTimeout(aggregatorBatchTimeout).to(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGGREGATED);
+        from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregate(new AgentAggregationStrategyForMetrics()).constant(new MetricMessageWrapper()). //body(MetricMessage.class).
             batchSize(aggregatorBatchSize).batchTimeout(aggregatorBatchTimeout).to(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGGREGATED);
         
         // for camel-1.6.x
@@ -37,7 +39,7 @@ public class AgentAggreagatorRouteBuilder extends RouteBuilder {
         from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGGREGATED).process(new Processor() {
             public void process(Exchange e) {
                 System.out.println(">>>>> Received exchange: " + e.getIn());
-                System.out.println(">>>>> Received exchange body: " + ((e.getIn() == null)?e.getIn().getBody():"null"));
+                System.out.println(">>>>> Received exchange body: " + ((e.getIn() != null)?e.getIn().getBody():"null"));
                 //System.out.println(">>>>> Received exchange: " + e.getOut());
             }
         });
@@ -50,7 +52,8 @@ public class AgentAggreagatorRouteBuilder extends RouteBuilder {
             .setHeader(Exchange.FILE_NAME, el("${in.body.userName}.xml"))
             .to("file:target/customers?append=false");
         */
-        
+
+        logger.debug("Configure - End");
     }
     
 }

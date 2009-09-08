@@ -50,7 +50,14 @@ public class MetricMessageFactory {
     }
 
     public static final MetricMessage createClassMessage(String className, String methodName, String user, long durationTime) {
-        return null;
+        MetricMessage metricMessage = new MetricMessage();
+        metricMessage.setHost("host");
+        // resource - class and method
+        metricMessage.setResource(className + "." + methodName);
+        // source - user who triggered an action class to execute
+        metricMessage.setSource(user);
+        metricMessage.setDurationTime(durationTime);
+        return metricMessage;
     }
     
     
