@@ -15,15 +15,11 @@ import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 
 public class CamelActiveMQMetricsAgentSendReceiveTest extends TestCase {
-
-    public static void main(String[] args) {
-    
-    }
     
     public void testSendAgentMessages() throws Exception {
         CamelContext context = new DefaultCamelContext();
         sendMetrics(context) ;
-        receiveMetrics(context);
+        //receiveMetrics(context);
         context.start();
     }
     
@@ -35,7 +31,7 @@ public class CamelActiveMQMetricsAgentSendReceiveTest extends TestCase {
         // creating messages and sending
         ProducerTemplate template = context.createProducerTemplate();
         for (int i = 0; i < 100; i++) {
-            MetricMessage metricMessage = MetricMessageFactory.createClassMessage("calss" + i, "method", "user", (long)(Math.random() * 1000));
+            MetricMessage metricMessage = MetricMessageFactory.createClassMessage("class" + i, "method", "user", (long)(Math.random() * 1000));
             template.sendBodyAndHeader(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA, metricMessage, "MyMessage", "MyMessage");
             Thread.sleep((long)(Math.random() * 100));
         }
