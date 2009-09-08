@@ -18,8 +18,12 @@ public class AgentAggregationStrategyForStringsTest extends CamelTestSupport {
     public void testAggregator() throws Exception {
         String[] tab = new String[] {"class1", "class2", "class3"};
         
-        resultEndpoint.expectedMessageCount(3);
-        //resultEndpoint.expectedBodiesReceived(tab);
+        String expectedString = AgentAggregationStrategyString.concat("", tab[0]);
+        expectedString = AgentAggregationStrategyString.concat(expectedString, tab[1]);
+        expectedString = AgentAggregationStrategyString.concat(expectedString, tab[2]);
+        
+        resultEndpoint.expectedMessageCount(1);
+        resultEndpoint.expectedBodiesReceived(expectedString);
         
         template.sendBodyAndHeader("direct:start", tab[0], "id", "1");
         template.sendBodyAndHeader("direct:start", tab[1], "id", "2");
@@ -27,9 +31,7 @@ public class AgentAggregationStrategyForStringsTest extends CamelTestSupport {
 
         assertMockEndpointsSatisfied();
         
-        System.out.println(resultEndpoint.getReceivedExchanges().toString());
-        
-        //resultEndpoint.assertExchangeReceived(2);
+        System.out.println(resultEndpoint.getReceivedExchanges());
         System.out.println(resultEndpoint.getReceivedCounter());
     }
 
@@ -38,8 +40,9 @@ public class AgentAggregationStrategyForStringsTest extends CamelTestSupport {
         return new RouteBuilder() {
             public void configure() {
                 from("direct:start")
-                        .aggregate(new AgentAggregationStrategyString()).body()
-                        //.aggregate().body()
+                        .aggregate(new AgentAggregationStrategyString())
+                        .constant(null) 
+                        //.body(String.class) // doesn't work for this
                         .to(resultEndpoint); // to("mock:result");
             }
         };
