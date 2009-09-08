@@ -19,9 +19,9 @@ public class AgentAggreagatorRouteBuilder extends RouteBuilder {
         logger.debug("Configure - Begin");
         
         // for camel-2.0
-//      from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregate(new AgentAggregationStrategyString()).constant("").
+//      from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregate(new AgentAggregationStrategyString()).constant(null).
 //          batchSize(aggregatorBatchSize).batchTimeout(aggregatorBatchTimeout).to(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGGREGATED);
-        from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregate(new AgentAggregationStrategyForMetrics()).constant(new MetricMessageWrapper()). //body(MetricMessage.class).
+        from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregate(new AgentAggregationStrategyForMetrics()).body(MetricMessageWrapper.class). //constant(null).
             batchSize(aggregatorBatchSize).batchTimeout(aggregatorBatchTimeout).to(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGGREGATED);
         
         // for camel-1.6.x
@@ -41,17 +41,17 @@ public class AgentAggreagatorRouteBuilder extends RouteBuilder {
                 System.out.println(">>>>> Received exchange: " + e.getIn());
                 System.out.println(">>>>> Received exchange body: " + ((e.getIn() != null)?e.getIn().getBody():"null"));
                 //System.out.println(">>>>> Received exchange: " + e.getOut());
+                //System.out.println(">>>>> Received exchange body: " + ((e.getOut() != null)?e.getOut().getBody():"null"));
             }
         });
         
-        /*
-        from("file:src/data?noop=true").convertBodyTo(PersonDocument.class)
-            .to("jpa:org.apache.camel.example.etl.CustomerEntity");
-        // the following will dump the database to files
-        from("jpa:org.apache.camel.example.etl.CustomerEntity?consumeDelete=false&consumer.delay=3000&consumeLockEntity=false")
-            .setHeader(Exchange.FILE_NAME, el("${in.body.userName}.xml"))
-            .to("file:target/customers?append=false");
-        */
+// TODO research needed
+//        from("file:src/data?noop=true").convertBodyTo(PersonDocument.class)
+//            .to("jpa:org.apache.camel.example.etl.CustomerEntity");
+//        // the following will dump the database to files
+//        from("jpa:org.apache.camel.example.etl.CustomerEntity?consumeDelete=false&consumer.delay=3000&consumeLockEntity=false")
+//            .setHeader(Exchange.FILE_NAME, el("${in.body.userName}.xml"))
+//            .to("file:target/customers?append=false");
 
         logger.debug("Configure - End");
     }
