@@ -26,7 +26,7 @@ class AgentAggregationStrategyString implements AggregationStrategy {
         String newBody = "";
         if (newIn != null) {
             newBody = (String)newIn.getBody(String.class);
-            newIn.setBody(oldBody + "," + newBody);
+            newIn.setBody(concat(oldBody, newBody));
         } 
 //        else {
 //            System.out.println("]]]]]]] MyAggregationStrategy - newIn was null");
