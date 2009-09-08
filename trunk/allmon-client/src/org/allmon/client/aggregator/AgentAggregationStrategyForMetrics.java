@@ -10,7 +10,6 @@ class AgentAggregationStrategyForMetrics implements AggregationStrategy {
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
         Message newIn = newExchange.getIn();
         
-        //MetricMessage oldBodyMetricMessage = null;
         MetricMessageWrapper oldBodyMetricMessageWrapper = null;
         
         if (oldExchange != null) {
@@ -38,12 +37,14 @@ class AgentAggregationStrategyForMetrics implements AggregationStrategy {
             MetricMessageWrapper newBodyMetricMessageWrapper = null;
             
             Object body = newIn.getBody();
-            if (body instanceof MetricMessage) {
-                newBodyMetricMessage = (MetricMessage)newIn.getBody(MetricMessage.class);
-            } else if (body instanceof MetricMessage) {
-                newBodyMetricMessageWrapper = (MetricMessageWrapper)newIn.getBody(MetricMessageWrapper.class);
-            } else {
-                throw new RuntimeException("Unknown metric message class found in newExchange Message");
+            if (body != null) {
+                if (body instanceof MetricMessage) {
+                    newBodyMetricMessage = (MetricMessage)newIn.getBody(MetricMessage.class);
+                } else if (body instanceof MetricMessageWrapper) {
+                    newBodyMetricMessageWrapper = (MetricMessageWrapper)newIn.getBody(MetricMessageWrapper.class);
+                } else {
+                    throw new RuntimeException("Unknown metric message class found in newExchange Message");
+                }
             }
             
             // adding a new newBodyMetricMessage to old wrapper or creating a new wrapper for old exchange 
@@ -65,8 +66,6 @@ class AgentAggregationStrategyForMetrics implements AggregationStrategy {
                     throw new RuntimeException("Nothing to add during this aggregation the new exchanges was null");
                 }
             }
-            //newIn.setBody(oldBody + "," + newBody);
-            //newIn.setBody(newBodyMetricMessageWrapper);
             newIn.setBody(oldBodyMetricMessageWrapper); // XXX check it 
         }
         else {

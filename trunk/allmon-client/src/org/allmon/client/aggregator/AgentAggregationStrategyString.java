@@ -15,13 +15,13 @@ class AgentAggregationStrategyString implements AggregationStrategy {
             if (oldIn != null) {
                 oldBody = (String)oldIn.getBody(String.class);
             }
-//            else {
-//                System.out.println("]]]]]]] MyAggregationStrategy - oldIn was null");
-//            }
+            else {
+                System.out.println("]]]]]]] MyAggregationStrategy - oldIn was null");
+            }
         }
-//        else {
-//            System.out.println("]]]]]]] MyAggregationStrategy - oldExchange was null");
-//        }
+        else {
+            System.out.println("]]]]]]] MyAggregationStrategy - oldExchange was null");
+        }
         
         String newBody = "";
         if (newIn != null) {
@@ -32,7 +32,7 @@ class AgentAggregationStrategyString implements AggregationStrategy {
 //            System.out.println("]]]]]]] MyAggregationStrategy - newIn was null");
 //        }
         
-//        System.out.println("]]]]]]] MyAggregationStrategy - newBody = " + newIn.getBody(String.class));
+        System.out.println("]]]]]]] MyAggregationStrategy - newBody = " + newIn.getBody(String.class));
         return newExchange;
     }
     
