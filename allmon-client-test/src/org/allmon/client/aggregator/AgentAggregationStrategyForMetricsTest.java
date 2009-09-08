@@ -1,6 +1,7 @@
 package org.allmon.client.aggregator;
 
 import org.allmon.client.agent.MetricMessageFactory;
+import org.allmon.common.MetricMessage;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
@@ -17,21 +18,26 @@ public class AgentAggregationStrategyForMetricsTest extends CamelTestSupport {
     protected ProducerTemplate template;
     
     public void testAggregator() throws Exception {
-        Object[] tab = new Object[] { 
+        MetricMessage[] tab = new MetricMessage[] { 
                 MetricMessageFactory.createActionClassMessage("class1", "user1", "sess1", null), 
                 MetricMessageFactory.createActionClassMessage("class2", "user1", "sess1", null), 
                 MetricMessageFactory.createActionClassMessage("class3", "user1", "sess1", null)};
         
+        MetricMessageWrapper expectedMessageWrapper = new MetricMessageWrapper();
+        expectedMessageWrapper.add(tab[0]);
+        expectedMessageWrapper.add(tab[1]);
+        expectedMessageWrapper.add(tab[2]);
+        
         resultEndpoint.expectedMessageCount(1);
-        resultEndpoint.expectedBodiesReceived(tab);
+        resultEndpoint.expectedBodiesReceived(expectedMessageWrapper);
         
         template.sendBodyAndHeader("direct:start", tab[0], "id", "1");
         template.sendBodyAndHeader("direct:start", tab[1], "id", "2");
         template.sendBodyAndHeader("direct:start", tab[2], "id", "2");
         
         assertMockEndpointsSatisfied();
-        
-        //resultEndpoint.assertExchangeReceived(1);
+
+        System.out.println(resultEndpoint.getReceivedExchanges());
         System.out.println(resultEndpoint.getReceivedCounter());
     }
 
@@ -40,8 +46,9 @@ public class AgentAggregationStrategyForMetricsTest extends CamelTestSupport {
         return new RouteBuilder() {
             public void configure() {
                 from("direct:start")
-                        .aggregate(new AgentAggregationStrategyForMetrics()).body()
-                        //.aggregate().body()
+                        .aggregate(new AgentAggregationStrategyForMetrics())
+                        .constant(null) // XXX check it , still doesn't work even if expected object is the same 
+                        //.body(MetricMessageWrapper.class) // doesn't work for this
                         .to(resultEndpoint); // to("mock:result");
             }
         };
