@@ -1,5 +1,6 @@
 package org.allmon.server.receiver;
 
+import org.allmon.client.aggregator.MetricMessageWrapper;
 import org.allmon.common.AllmonCommonConstants;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -10,19 +11,23 @@ public class LoaderReceiverRouteBuilder extends RouteBuilder {
     public void configure() {
 
         // receiving data from server-side queue
-        from(AllmonCommonConstants.SERVER_CAMEL_QUEUE_LOADER).process(new Processor() {
+        from(AllmonCommonConstants.ALLMON_SERVER_CAMEL_QUEUE_READYFORLOADING).process(new Processor() {
             public void process(Exchange e) {
                 System.out.println(">>>>> Received exchange: " + e.getIn());
                 System.out.println(">>>>> Received exchange body: " + e.getIn().getBody());
-                // System.out.println(">>>>> Received exchange: " + e.getOut());
                 
-                // Store metric
-                LoadRawMetric loadRawMetric = new LoadRawMetric();
-                loadRawMetric.storeMetric(e.getIn().getBody().toString());
+                MetricMessageWrapper metricMessageWrapper = (MetricMessageWrapper)e.getIn().getBody();
+                if (metricMessageWrapper != null) {
+                    // Store metric
+                    LoadRawMetric loadRawMetric = new LoadRawMetric();
+                    loadRawMetric.storeMetric(metricMessageWrapper.toString()); // TODO change String(metricMessageWrapper.toString) to MetricMessage
+                } else {
+                    System.out.println(">>>>> Received exchange: MetricMessageWrapper is null");
+                }
+                
                 System.out.println(">>>>> Received exchange: End.");
             }
         });
-        
         
         //from(q2).to("jpa:org.apache.camel.example.jmstofile.PersMessage");
 

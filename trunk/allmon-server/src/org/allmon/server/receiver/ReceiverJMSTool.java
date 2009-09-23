@@ -30,7 +30,7 @@ public class ReceiverJMSTool implements MessageListener, ExceptionListener {
     private boolean pauseBeforeShutdown;
     private boolean verbose = true;
     private int maxiumMessages;
-    private String subject = AllmonCommonConstants.SERVER_BROKER_QUEUE_SUBJECT_AGGREGATED; // "TOOL.DEFAULT";
+    private String subject = AllmonCommonConstants.ALLMON_SERVER_CAMEL_QUEUE_READYFORLOADING; //AllmonCommonConstants.SERVER_BROKER_QUEUE_SUBJECT_AGGREGATED; // "TOOL.DEFAULT";
     private boolean topic = false;
     private boolean transacted;
     private boolean durable;
