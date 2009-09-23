@@ -17,13 +17,13 @@ public class CamelStringMessagesSenderTest {
         //ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(user, password, url);
         ConnectionFactory connectionFactory = AllmonActiveMQConnectionFactory.client();
         
-        context.addComponent(AllmonCommonConstants.CLIENT_CAMEL_JMSQUEUE, JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));
+        context.addComponent(AllmonCommonConstants.ALLMON_CAMEL_JMSQUEUE, JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));
         
         // producing 
         ProducerTemplate template = context.createProducerTemplate();
         context.start();
         for (int i = 0; i < 1000; i++) {
-            template.sendBodyAndHeader(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA, "M:" + i, "MyMessage", "MyMessage");
+            template.sendBodyAndHeader(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGENTSDATA, "M:" + i, "MyMessage", "MyMessage");
             //Thread.sleep((long)(Math.random() * 100));
         }
         
