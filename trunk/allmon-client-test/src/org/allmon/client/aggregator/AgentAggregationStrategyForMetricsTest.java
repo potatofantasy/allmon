@@ -20,8 +20,8 @@ public class AgentAggregationStrategyForMetricsTest extends CamelTestSupport {
     public void testAggregator() throws Exception {
         MetricMessage[] tab = new MetricMessage[] { 
                 MetricMessageFactory.createActionClassMessage("class1", "user1", "sess1", null), 
-                MetricMessageFactory.createActionClassMessage("class2", "user1", "sess1", null), 
-                MetricMessageFactory.createActionClassMessage("class3", "user1", "sess1", null)};
+                MetricMessageFactory.createActionClassMessage("class2", "user2", "sess1", null), 
+                MetricMessageFactory.createActionClassMessage("class3", "user3", "sess1", null)};
         
         MetricMessageWrapper expectedMessageWrapper = new MetricMessageWrapper();
         expectedMessageWrapper.add(tab[0]);
@@ -33,7 +33,7 @@ public class AgentAggregationStrategyForMetricsTest extends CamelTestSupport {
         
         template.sendBodyAndHeader("direct:start", tab[0], "id", "1");
         template.sendBodyAndHeader("direct:start", tab[1], "id", "2");
-        template.sendBodyAndHeader("direct:start", tab[2], "id", "2");
+        template.sendBodyAndHeader("direct:start", tab[2], "id", "3");
         
         assertMockEndpointsSatisfied();
 

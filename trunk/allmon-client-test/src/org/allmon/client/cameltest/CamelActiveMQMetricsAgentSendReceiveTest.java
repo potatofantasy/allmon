@@ -26,13 +26,13 @@ public class CamelActiveMQMetricsAgentSendReceiveTest extends TestCase {
     private void sendMetrics(CamelContext context) throws Exception {
         // Set up the ActiveMQ JMS Components
         ConnectionFactory connectionFactory = AllmonActiveMQConnectionFactory.client();
-        context.addComponent(AllmonCommonConstants.CLIENT_CAMEL_JMSQUEUE, JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));
+        context.addComponent(AllmonCommonConstants.ALLMON_CAMEL_JMSQUEUE, JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));
         
         // creating messages and sending
         ProducerTemplate template = context.createProducerTemplate();
         for (int i = 0; i < 100; i++) {
             MetricMessage metricMessage = MetricMessageFactory.createClassMessage("class" + i, "method", "user", (long)(Math.random() * 1000));
-            template.sendBodyAndHeader(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA, metricMessage, "MyMessage", "MyMessage");
+            template.sendBodyAndHeader(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGENTSDATA, metricMessage, "MyMessage", "MyMessage");
             Thread.sleep((long)(Math.random() * 100));
         }
     }
@@ -40,7 +40,7 @@ public class CamelActiveMQMetricsAgentSendReceiveTest extends TestCase {
     private void receiveMetrics(CamelContext context) {
         ConsumerTemplate template = context.createConsumerTemplate();
         //context.addRoutes(new AgentAggreagatorRouteBuilder());
-        Object object = template.receiveBody(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA);
+        Object object = template.receiveBody(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGENTSDATA);
         System.out.println(object.toString());
     }
     
