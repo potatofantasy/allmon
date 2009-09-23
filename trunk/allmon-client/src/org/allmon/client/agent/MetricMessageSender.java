@@ -31,13 +31,18 @@ public abstract class MetricMessageSender {
         this.message = message;
     }
     
-    protected abstract boolean isRTLoggingEnabled();
+    //protected abstract boolean isRTLoggingEnabled();
+    private boolean enabled = true;
+    protected boolean isEnabled() {
+        return enabled;
+    }
+    
     
     public abstract void insertEntryPoint();
     
     public abstract void insertExitPoint();
     
-    public abstract void insertExitPointException(String exceptionText);
+    public abstract void insertExitPointException(Exception exception);
     
     
     protected final void sendEntryPoint() {
@@ -56,7 +61,7 @@ public abstract class MetricMessageSender {
         
         logId = "log log log"; //TODO MetricMessageFactory.generateLogId(startTime);
         
-        if (isRTLoggingEnabled()) {
+        if (isEnabled()) {
             // send a message
             MessageSender messageSender = new MessageSender();
             messageSender.sendMessage(message);
@@ -72,12 +77,12 @@ public abstract class MetricMessageSender {
     // XXX 
     // XXX 
     // XXX 
-    protected final void sendExitPoint(String exceptionText) {
+    protected final void sendExitPoint(Exception exception) {
         String methodName = "sendExitPoint";
         // add exit point only if insertActionClassEntryPointForRTMonitoring was called successfully before
         if (startTime != VALUE_NOT_INITIALIZED_LONG && !"".equals(logId)) {
             if (!flagExitPointWasInserted) {
-                sendExitPoint(System.currentTimeMillis() - startTime, exceptionText);
+                sendExitPoint(System.currentTimeMillis() - startTime, exception);
             } else {
 //                logger.error(methodName + " exit point cannot be inserted because the exit point has been already inserted");
             }
@@ -86,19 +91,19 @@ public abstract class MetricMessageSender {
         }
     }
     
-    private final void sendExitPoint(long executionTimeMS, String exceptionText) {
+    private final void sendExitPoint(long executionTimeMS, Exception exception) {
         String methodName = "sendExitPoint";
 //        if (logger.isDebugEnabled()) {
 //            logger.debug(methodName + TropicsConstants.LOGGER_ENTERED);
 //        }
         
-        if (isRTLoggingEnabled()) {
+        if (isEnabled()) {
             // send a message
             MessageSender messageSender = new MessageSender();
             //messageSender.sendTextMessage(generateMessage() + "-" + executionTimeMS + "-" + exceptionText);
             //messageSender.sendTextMessage("generateMessage()" + "-" + executionTimeMS + "-" + exceptionText); // TODO generateMessage()
             message.setDurationTime(executionTimeMS);
-            message.setException(exceptionText);
+            message.setException(exception);
             messageSender.sendMessage(message);
         }
         

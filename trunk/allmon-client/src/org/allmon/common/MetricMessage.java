@@ -23,7 +23,7 @@ public class MetricMessage implements Serializable {
     
     private Object parameters; // TODO check if possible List or Array!!!
     
-    private String exception;
+    private Exception exception;
 
     public MetricMessage() {
         eventTime = System.currentTimeMillis();
@@ -86,11 +86,11 @@ public class MetricMessage implements Serializable {
         this.parameters = parameters;
     }
 
-    public String getException() {
+    public Exception getException() {
         return exception;
     }
 
-    public void setException(String exception) {
+    public void setException(Exception exception) {
         this.exception = exception;
     }
     
