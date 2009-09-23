@@ -1,11 +1,12 @@
 package org.allmon.client.aggregator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.allmon.common.MetricMessage;
 
-class MetricMessageWrapper {
+public class MetricMessageWrapper implements Serializable {
 
     private ArrayList list = new ArrayList(); // TODO check in allmon-client would be compilable in 1.5 to introduce generics
 
