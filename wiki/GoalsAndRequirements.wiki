@@ -8,8 +8,8 @@ The main project goal is to create a generic system storing various metrics coll
 = Modules and data livecycle =
 
   # [ModuleCollector Collector] (`*`) (allmon-client) 
-    # Extraction (metrics data acquisition), 
-    # Transformation (aggregating metrics to packets) and transport to Loader
+    * Extraction (metrics data acquisition), 
+    * Transformation (aggregating metrics to packets) and transport to Loader
   # [ModuleLoader Loader] (`*`) (allmon-server)
     * Loading data to the database
     * Transforming data to allmetrics allmon schema
