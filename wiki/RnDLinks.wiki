@@ -4,7 +4,7 @@
 = Technologies =
 
   * General
-    * http://www.ibm.com/developerworks/java/library/j-jip/
+    * "Build your own profiling tool - Create an ideal profiler using the Java 5 agent interface and AOP" - http://www.ibm.com/developerworks/java/library/j-jip/
 
   * JMX
     * http://blogs.sun.com/jmxetc/entry/what_is_jmx
