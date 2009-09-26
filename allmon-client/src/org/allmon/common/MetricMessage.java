@@ -1,6 +1,8 @@
 package org.allmon.common;
 
 import java.io.Serializable;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Date;
 
 public class MetricMessage implements Serializable {
@@ -8,12 +10,16 @@ public class MetricMessage implements Serializable {
     private long eventTime;
     
     private long durationTime;
+
+    private static final InetAddress addr = getInetAddress();
     
+    private static final String hostIp = getIp(addr);
+
     private String host;
     
-    private String instance; // TODO 
+    private String instance;
     
-    private String thread; // TODO
+    private String thread;
     
     private String resource;
     
@@ -21,13 +27,28 @@ public class MetricMessage implements Serializable {
     
     private String session; // TODO add the session identifier to the allmetrics schema
     
-    private Object parameters; // TODO check if possible List or Array!!!
+    private Object parameters; // TODO check if possible use List or Array!!!
     
     private Exception exception;
 
     public MetricMessage() {
+        host = addr.getHostName();
         eventTime = System.currentTimeMillis();
         thread = Thread.currentThread().getName();
+    }
+    
+    private static InetAddress getInetAddress() {
+        try {
+            return InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+        }
+        return null;
+    }
+    
+    private static String getIp(InetAddress inetAddress) {
+        if (inetAddress != null)
+            return inetAddress.getHostAddress();
+        return "";
     }
     
     public long getEventTime() {
@@ -49,13 +70,33 @@ public class MetricMessage implements Serializable {
     public void setDurationTime(long durationTime) {
         this.durationTime = durationTime;
     }
+    
+    public String getHostIp() {
+        return hostIp;
+    }
 
     public String getHost() {
         return host;
     }
-
+    
     public void setHost(String host) {
         this.host = host;
+    }
+
+    public String getInstance() {
+        return instance;
+    }
+
+    public String getThread() {
+        return thread;
+    }
+
+    public void setThread(String thread) {
+        this.thread = thread;
+    }
+
+    public void setInstance(String instance) {
+        this.instance = instance;
     }
 
     public String getResource() {
@@ -96,7 +137,14 @@ public class MetricMessage implements Serializable {
     
     public String toString() {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("Resource:");
+        buffer.append("Host:");
+        buffer.append(getHost());
+        buffer.append("(");
+        buffer.append(getHostIp());
+        buffer.append(") ");
+        buffer.append(", Instance:");
+        buffer.append(getInstance());
+        buffer.append(", Resource:");
         buffer.append(getResource());
         buffer.append(", Source:");
         buffer.append(getSource());
@@ -116,6 +164,5 @@ public class MetricMessage implements Serializable {
     public void setSession(String session) {
         this.session = session;
     }
-
     
 }

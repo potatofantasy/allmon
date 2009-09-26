@@ -1,8 +1,7 @@
 package org.allmon.client.aggregator;
 
 import org.allmon.common.AllmonCommonConstants;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
+import org.allmon.common.AllmonLoggerConstants;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,21 +10,23 @@ public class AgentAggregatorRouteBuilder extends RouteBuilder {
 
     private static Log logger = LogFactory.getLog(AgentAggregatorRouteBuilder.class);
     
-    // TODO parametrise this !!!
-    private final static int aggregatorBatchSize = 10; 
-    private final static long aggregatorBatchTimeout = 1 * 1000L;
-
     public void configure() {
-        logger.debug("Configure - Begin");
+        logger.debug(AllmonLoggerConstants.ENTERED);
         
         // collecting metrics data from agents, aggregating them and sending to the aggregated messages queue
         // for camel-2.0
-        from(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregate(new AgentAggregationStrategyForMetrics()).body(MetricMessageWrapper.class). //constant(null).
-            batchSize(aggregatorBatchSize).batchTimeout(aggregatorBatchTimeout).to(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGGREGATED);
+        from(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGENTSDATA).
+            aggregate(new AgentAggregationStrategyForMetrics()).body(MetricMessageWrapper.class). //constant(null).
+            batchSize(AllmonCommonConstants.ALLMON_CLIENT_AGGREGATOR_BATCHSIZE).
+            batchTimeout(AllmonCommonConstants.ALLMON_CLIENT_AGGREGATOR_BATCHTIMEOUT).
+            to(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGGREGATED);
         
         // debug for String messages
-//        from(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregate(new AgentAggregationStrategyString()).constant(null). //body(String.class). //constant(null).
-//            batchSize(aggregatorBatchSize).batchTimeout(aggregatorBatchTimeout).to(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGGREGATED);
+//        from(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGENTSDATA).
+//            aggregate(new AgentAggregationStrategyString()).constant(null). //body(String.class). //constant(null).
+//            batchSize(AllmonCommonConstants.ALLMON_CLIENT_AGGREGATOR_BATCHSIZE).
+//            batchTimeout(AllmonCommonConstants.ALLMON_CLIENT_AGGREGATOR_BATCHTIMEOUT).
+//            to(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGGREGATED);
 
         // for camel-1.6.x
         // aggregating data from agents queue and passing them to aggregated queue
@@ -45,7 +46,7 @@ public class AgentAggregatorRouteBuilder extends RouteBuilder {
 //            }
 //        });
         
-        logger.debug("Configure - End");
+        logger.debug(AllmonLoggerConstants.EXITED);
     }
     
 }

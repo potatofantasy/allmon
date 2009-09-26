@@ -2,12 +2,10 @@ package org.allmon.client.aggregator;
 
 import javax.jms.ConnectionFactory;
 
-import org.allmon.client.agent.MetricMessageFactory;
 import org.allmon.common.AllmonActiveMQConnectionFactory;
 import org.allmon.common.AllmonCommonConstants;
-import org.allmon.common.MetricMessage;
+import org.allmon.common.AllmonLoggerConstants;
 import org.apache.camel.CamelContext;
-import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.commons.logging.Log;
@@ -25,10 +23,9 @@ public class AgentAggregatorMain {
     }
     
     private static final Log logger = LogFactory.getLog(AgentAggregatorMain.class);
-    //private static Logger logger = Logger.getLogger(AgentAggregatorMain.class);
     
     public static void main(String args[]) throws Exception {
-        logger.debug("begin");
+        logger.debug(AllmonLoggerConstants.ENTERED);
         CamelContext context = new DefaultCamelContext();
         // Set up the ActiveMQ JMS Components
         ConnectionFactory connectionFactory = AllmonActiveMQConnectionFactory.client();
@@ -52,7 +49,7 @@ public class AgentAggregatorMain {
         //Thread.sleep(100 * 365 * 60 * 60 * 1000); // 100 years
         //context.stop();
         
-        logger.debug("end");
+        logger.debug(AllmonLoggerConstants.EXITED);
     }
 
 }

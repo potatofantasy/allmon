@@ -5,13 +5,26 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletRequest;
 
+import org.allmon.common.AllmonPropertiesConstants;
+import org.allmon.common.AllmonPropertiesReader;
 import org.allmon.common.MetricMessage;
 
 public class MetricMessageFactory {
-
-    public static final MetricMessage createActionClassMessage(String className, String user, String webSessionId, ServletRequest request) {
+    
+    private final static String HOST = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_HOST_NAME);
+    private final static String INSTANCE = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_INSTANCE_NAME);
+    
+    private static final MetricMessage createMessage() {
         MetricMessage metricMessage = new MetricMessage();
-        metricMessage.setHost("host");
+        if (!"".equals(HOST)) {
+            metricMessage.setHost(HOST);
+        }
+        metricMessage.setInstance(INSTANCE);
+        return metricMessage;
+    }
+    
+    public static final MetricMessage createActionClassMessage(String className, String user, String webSessionId, ServletRequest request) {
+        MetricMessage metricMessage = createMessage();
         // resource - action class
         metricMessage.setResource(className);
         // source - user who triggered an action class to execute
@@ -50,8 +63,7 @@ public class MetricMessageFactory {
     }
 
     public static final MetricMessage createClassMessage(String className, String methodName, String user, long durationTime) {
-        MetricMessage metricMessage = new MetricMessage();
-        metricMessage.setHost("host");
+        MetricMessage metricMessage = createMessage();
         // resource - class and method
         metricMessage.setResource(className + "." + methodName);
         // source - user who triggered an action class to execute
@@ -59,6 +71,5 @@ public class MetricMessageFactory {
         metricMessage.setDurationTime(durationTime);
         return metricMessage;
     }
-    
-    
+        
 }
