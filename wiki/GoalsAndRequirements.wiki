@@ -7,7 +7,9 @@ The main project goal is to create a generic system storing various metrics coll
 
 = Modules and data livecycle =
 
-  # [ModuleCollector Collector] (`*`) (Metrics data acquisition, Extraction and Transformation)
+  # [ModuleCollector Collector] (`*`) - (allmon-client) 
+    * Metrics data acquisition Extraction, 
+    * Transformation and Transport to Loader
   # [ModuleLoader Loader] (`*`) (Loading data to the database, Aggregating data)
   # [ModuleMiner Miner] (`**`) (Mining knowledge from collected in the database data, Statistical analysis, Correlation across set up dimensions)
   # [ModuleViewer Viewer] (`**`) (Presentation/Front-end) 
