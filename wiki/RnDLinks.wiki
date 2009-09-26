@@ -20,6 +20,8 @@
     * JETM (Java Execution Time Measurement Library) - http://jetm.void.fm/
     * Glassbox-Inspector - http://www.ohloh.net/p/glassbox-inspector https://glassbox-inspector.dev.java.net/
 
+    * Java Interactive Profiler - http://sourceforge.net/projects/jiprof/
+
   * Presentation, Analysis & Data Mining
     * Pentaho - http://wiki.pentaho.com/display/COM/Latest+Stable+Builds
 
