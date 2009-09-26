@@ -5,6 +5,7 @@ import javax.jms.ConnectionFactory;
 import org.allmon.common.AllmonActiveMQConnectionFactory;
 import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.AllmonLoggerConstants;
+import org.allmon.common.AllmonPropertiesValidator;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -26,8 +27,16 @@ public class AgentAggregatorMain {
     
     public static void main(String args[]) throws Exception {
         logger.debug(AllmonLoggerConstants.ENTERED);
+        
+        // validating mandatory properties, 
+        // if one of mandatory properties are not declared properly terminate the program
+        AllmonPropertiesValidator validator = new AllmonPropertiesValidator();
+        if (!validator.validateMandatoryProperties()) {
+            System.exit(1);
+        }
+        
+        // Starting camel context and setting up the ActiveMQ JMS Components
         CamelContext context = new DefaultCamelContext();
-        // Set up the ActiveMQ JMS Components
         ConnectionFactory connectionFactory = AllmonActiveMQConnectionFactory.client();
         context.addComponent(AllmonCommonConstants.ALLMON_CAMEL_JMSQUEUE, JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));
         context.addRoutes(new AgentAggregatorRouteBuilder());
