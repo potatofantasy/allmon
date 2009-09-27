@@ -17,7 +17,7 @@ Example of stored metrics data in denormalized fashion (1NF).
 || OS || Host1 || - || IO || - || ? || NV || TS || T ||
 || OS || Host1 || - || Page || - || - || NV || TS || T ||
 || OS || Host1 || - || Net || - || ? || NV || TS || T ||
-|| AppMet || Host1 || AppInst1 || Action || ActionClass1 || User || ExecTime || TS || T ||
+|| AppMet || Host1 || AppInst1 || Action/Servlet || ActionClass1 || User || ExecTime || TS || T ||
 || AppMet || Host1 || AppInst1 || POJO || Class1.method || Class.method || ExecTime || TS || T ||
 || AppMet || Host1 || AppInst1 || EJB || EJB1.method || ? || ExecTime || TS || T ||
 || AppMet || Host1 || AppInst1 || MDBExec || MDB1 || ? || ExecTime || TS || T ||
