@@ -4,6 +4,12 @@ import org.allmon.common.MetricMessage;
 
 import junit.framework.TestCase;
 
+/**
+ * This test should be potentially in the future part of integration test suite, 
+ * because is using active jms broker instance. Later taken messages should be 
+ * transformed (aggregated) by allmon client and send to server to load the metrics 
+ * to allmon database.
+ */
 public class MetricMessageSenderTest extends TestCase {
 
     public void testInsertEntryAndExitPoint() throws Exception {
