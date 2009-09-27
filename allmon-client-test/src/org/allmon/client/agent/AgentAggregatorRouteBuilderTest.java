@@ -1,7 +1,6 @@
 package org.allmon.client.agent;
 
 import org.allmon.client.aggregator.AgentAggregatorRouteBuilder;
-import org.allmon.common.AllmonCommonConstants;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
@@ -11,8 +10,8 @@ import org.apache.camel.test.CamelTestSupport;
 
 public class AgentAggregatorRouteBuilderTest extends CamelTestSupport {
 
-    //@EndpointInject(uri = "mock:result")
-    @EndpointInject(uri = AllmonCommonConstants.ALLMON_CAMEL_JMSQUEUE)
+    @EndpointInject(uri = "mock:result")
+    //@EndpointInject(uri = AllmonCommonConstants.ALLMON_CAMEL_JMSQUEUE)
     protected MockEndpoint resultEndpoint;
 
     @Produce(uri = "direct:start")
