@@ -20,7 +20,8 @@ public class LoaderReceiverRouteBuilder extends RouteBuilder {
                 if (metricMessageWrapper != null) {
                     // Store metric
                     LoadRawMetric loadRawMetric = new LoadRawMetric();
-                    loadRawMetric.storeMetric(metricMessageWrapper.toString()); // TODO change String(metricMessageWrapper.toString) to MetricMessage
+                    //loadRawMetric.storeMetric(metricMessageWrapper.toString()); // TODO change String(metricMessageWrapper.toString) to MetricMessage
+                    loadRawMetric.storeMetric(metricMessageWrapper); // TODO change String(metricMessageWrapper.toString) to MetricMessage
                 } else {
                     System.out.println(">>>>> Received exchange: MetricMessageWrapper is null");
                 }

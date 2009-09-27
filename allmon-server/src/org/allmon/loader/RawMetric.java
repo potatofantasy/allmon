@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "TEST_AM_RAW_METRIC2")
+@Entity(name = "TEST_AM_RAW_METRIC")
 public class RawMetric  implements Serializable {
 
     private Long id = new Long(-1);
