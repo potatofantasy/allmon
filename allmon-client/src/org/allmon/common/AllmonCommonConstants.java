@@ -27,4 +27,16 @@ public class AllmonCommonConstants {
     public final static int ALLMON_CLIENT_AGGREGATOR_BATCHSIZE = AllmonPropertiesReader.getInstance().getValueInt(AllmonPropertiesConstants.ALLMON_CLIENT_AGGREGATOR_BATCHSIZE, 10);
     public final static long ALLMON_CLIENT_AGGREGATOR_BATCHTIMEOUT = AllmonPropertiesReader.getInstance().getValueInt(AllmonPropertiesConstants.ALLMON_CLIENT_AGGREGATOR_BATCHTIMEOUT, 10 * 1000);
     
+    
+    // for allmon-server loader - TODO review moving those constants to separate class visible only for allmon-server 
+    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION = "application"; 
+    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_OS = "operating.system";
+    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_REPORT = "report";
+    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_JVM = "java";
+    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_DB = "database";
+    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_HARDWARE = "hardware";
+    
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_ACTIONSERVLET = "application.action.servlet"; 
+    
+    
 }

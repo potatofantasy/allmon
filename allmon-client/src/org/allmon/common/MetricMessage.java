@@ -5,34 +5,32 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
 
+/**
+ * This class defines a data transformation object holding metrics data acquired in monitored application
+ * by allmon client API, transformed (aggregated) and sent by allmon client to allmon server.
+ * Allmon server decodes this object to RawMetric to persist this data in "raw" form in database.
+ */
 public class MetricMessage implements Serializable {
 
     private long eventTime;
-    
     private long durationTime;
-
     private static final InetAddress addr = getInetAddress();
-    
     private static final String hostIp = getIp(addr);
-
     private String host;
-    
     private String instance;
-    
     private String thread;
-    
     private String resource;
-    
     private String source;
-    
     private String session; // TODO add the session identifier to the allmetrics schema
-    
     private Object parameters; // TODO check if possible use List or Array!!!
-    
     private Exception exception;
 
     public MetricMessage() {
-        host = addr.getHostName();
+    	if (addr != null) {
+    		host = addr.getHostName();
+    	} else {
+    		host = "";
+    	}
         eventTime = System.currentTimeMillis();
         thread = Thread.currentThread().getName();
     }
@@ -129,6 +127,10 @@ public class MetricMessage implements Serializable {
 
     public Exception getException() {
         return exception;
+    }
+    
+    public String getExceptionString() {
+        return (exception != null) ? exception.toString() : "";
     }
 
     public void setException(Exception exception) {
