@@ -1,27 +1,14 @@
 package org.allmon.server.receiver;
 
+import org.allmon.client.aggregator.MetricMessageWrapper;
 import org.allmon.loader.RawMetric;
+import org.allmon.loader.RawMetric2;
+import org.allmon.loader.RawMetric2DAOImpl;
 import org.allmon.loader.RawMetricDAOImpl;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * 
-commons-logging-1.1.1.jar
-commons-dbcp-1.2.2.jar
-commons-pool-1.3.jar
-spring-2.5.6.jar
-spring-hibernate-1.2.8.jar
-hibernate-2.1.8.jar
-geronimo-jta_1.1_spec-1.1.jar
-dom4j-1.5.jar
-commons-collections-3.2.jar
-ojb-1.0.rc4.jar
-ehcache-1.5.0-osgi.jar
-cglib-full-2.0.1.jar
-ojdbc14.jar
-
- * @author tomasz.sikora
- *
  */
 public class LoadRawMetric {
 
@@ -32,17 +19,33 @@ public class LoadRawMetric {
      * @deprecated TODO delete this method!
      */
     public void storeMetric(String metricString) {
-        RawMetricDAOImpl rawMetricDAOImpl = (RawMetricDAOImpl) appContext.getBean("rawMetricDAOTarget");
+        RawMetricDAOImpl rawMetricDAOImpl = (RawMetricDAOImpl)appContext.getBean("rawMetricDAOTarget");
         RawMetric metric = new RawMetric();
         metric.setMetric(metricString);
         rawMetricDAOImpl.addMetric(metric);
         System.out.println(">>>>>>>>>>>>>>>> Metric stored: " + metricString);
     }
 
-    public void storeMetric(RawMetric metric) {
-        RawMetricDAOImpl rawMetricDAOImpl = (RawMetricDAOImpl) appContext.getBean("rawMetricDAOTarget");
-        rawMetricDAOImpl.addMetric(metric);
-        System.out.println(">>>>>>>>>>>>>>>> Metric stored: " + metric.toString());
+    /**
+     * @deprecated TODO delete this method - it is not used
+     */
+    public void storeMetric(RawMetric rawMetric) {
+        RawMetricDAOImpl rawMetricDAOImpl = (RawMetricDAOImpl)appContext.getBean("rawMetricDAOTarget");
+        rawMetricDAOImpl.addMetric(rawMetric);
+        System.out.println(">>>>>>>>>>>>>>>> Metric stored: " + rawMetric.toString());
+    }
+    
+    public void storeMetric(MetricMessageWrapper metricMessageWrapper) {
+        RawMetric2DAOImpl rawMetric2DAOImpl = (RawMetric2DAOImpl)appContext.getBean("rawMetricDAOTarget");
+        
+        // convert metricMessageWrapper and load metrics data to the database
+        MetricMessageConverter messageConverter = new MetricMessageConverter();
+        RawMetric2[] rawMetricTab = messageConverter.convert(metricMessageWrapper);
+        for (int i = 0; i < rawMetricTab.length; i++) {
+        	rawMetric2DAOImpl.addMetric(rawMetricTab[i]);
+		}
+        
+        System.out.println(">>>>>>>>>>>>>>>> Metric stored: " + metricMessageWrapper.toString());
     }
     
 }

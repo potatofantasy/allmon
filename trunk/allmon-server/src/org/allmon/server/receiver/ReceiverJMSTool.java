@@ -19,6 +19,9 @@ import javax.jms.Topic;
 import org.allmon.common.AllmonActiveMQConnectionFactory;
 import org.allmon.common.AllmonCommonConstants;
 
+/**
+ * @deprecated TODO delete the class
+ */
 public class ReceiverJMSTool implements MessageListener, ExceptionListener {
 
     private boolean running;
