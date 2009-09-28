@@ -48,17 +48,18 @@
   * Scalability
     * Amdahl's law - http://en.wikipedia.org/wiki/Amdahl%27s_Law
 
-= Other =
+= Other (articles, discussions, etc.) =
 
   * Performance tuning
     * Java performance tuning - http://www.javaperformancetuning.com/
     * Code ranch performance forum - http://www.coderanch.com/forums/f-15/Performance
+
+  * Statistics 
+    * Statistical Data and Metadata Exchange - http://sdmx.org/
 
   * General monitoring concepts, discussions
     * Java Profiling vs. Monitoring - http://ananthchellathurai.blogspot.com/2009/07/javasimon-monitoring-api-in-java.html
     * Java run-time monitoring, Run-time performance and availability monitoring for Java systems - Techniques and patterns - http://www.ibm.com/developerworks/library/j-rtm1/index.html
     * Collect metrics in your Java applications - http://articles.techrepublic.com.com/5100-10878_11-1045673.html  
     * Active vs. Passive Web Performance Monitoring - http://knol.google.com/k/bill-fuesz/active-vs-passive-web-performance
-
-  * Statistics 
-    * Statistical Data and Metadata Exchange - http://sdmx.org/
+    * Active vs passive monitoring in soa management - http://jaxview.blogspot.com/2007/12/active-vs-passive-monitoring-in-soa.html
