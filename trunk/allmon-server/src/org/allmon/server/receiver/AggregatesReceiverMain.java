@@ -4,6 +4,7 @@ import javax.jms.ConnectionFactory;
 
 import org.allmon.common.AllmonActiveMQConnectionFactory;
 import org.allmon.common.AllmonCommonConstants;
+import org.allmon.common.AllmonPropertiesReader;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -12,6 +13,10 @@ import org.apache.commons.logging.LogFactory;
 
 public class AggregatesReceiverMain {
 
+    static {
+        AllmonPropertiesReader.readLog4jProperties();
+    }
+    
     private static final Log logger = LogFactory.getLog(AggregatesReceiverMain.class);
     
     public static void main(String args[]) throws Exception {
