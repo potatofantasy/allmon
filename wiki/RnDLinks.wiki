@@ -63,3 +63,9 @@
     * Collect metrics in your Java applications - http://articles.techrepublic.com.com/5100-10878_11-1045673.html  
     * Active vs. Passive Web Performance Monitoring - http://knol.google.com/k/bill-fuesz/active-vs-passive-web-performance
     * Active vs passive monitoring in soa management - http://jaxview.blogspot.com/2007/12/active-vs-passive-monitoring-in-soa.html
+
+  * Metrics 
+    * Software Metrics
+      * http://homepages.wmich.edu/~m5elwakil/CSITeA04_ElWakil.pdf
+      * http://en.wikipedia.org/wiki/Software_metric
+      * http://www.cs.ucl.ac.uk/staff/A.Finkelstein/advmsc/11.pdf
