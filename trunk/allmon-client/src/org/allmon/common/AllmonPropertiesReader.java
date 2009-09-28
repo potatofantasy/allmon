@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.PropertyConfigurator;
 
 public class AllmonPropertiesReader {
 
@@ -15,6 +16,14 @@ public class AllmonPropertiesReader {
 
     private static final Properties properties = new Properties();
 
+    public static void readLog4jProperties() {
+        //Properties prop = new Properties();
+        //String file = prop.getProperty("log4jpropertiespath");
+        String file = "log4jallmon.properties";
+        PropertyConfigurator.configure(file);
+        //System.out.println("log4j.configured");
+    }
+    
     /**
      * This method is used to get the instance of the static class.
      * 
@@ -99,5 +108,5 @@ public class AllmonPropertiesReader {
         }
         return defaultValue;
     }
-    
+        
 }

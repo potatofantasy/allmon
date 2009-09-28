@@ -2,11 +2,18 @@ package org.allmon.client.agent;
 
 import org.allmon.common.MessageSender;
 import org.allmon.common.MetricMessage;
-//import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
+/**
+ * The class is a part of allmon exposed API which can be used in other applications 
+ * to acquire metrics in real-time during normal QA, Dev or even Production activity,
+ * as a part of passive monitoring approach 
+ * (For details see: http://code.google.com/p/allmon/wiki/RnDTheoryPerformanceMonitoring).
+ */
 public abstract class MetricMessageSender {
     
-    //private final static Logger logger = Logger.getLogger(MetricMessageSender.class);
+    private final static Log logger = LogFactory.getLog(MetricMessageSender.class);
     
     private MetricMessage message; //TODO //MetricMessage metricMessage = MetricMessageFactory.createActionClassMessage(className, tropicsUser, webSessionId, request, durationTime));
     
