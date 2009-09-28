@@ -1,6 +1,6 @@
 #summary Theory of Performance Monitoring.
 
-= Active and Passive approaches =
+= Active and Passive approaches to real-time monitoring =
 
 Active and passive and synthetic monitoring are complementary techniques of performance monitoring in modern scalable, distributed systems. Please, find in below knol article a very good description of Active and Passive monitoring for Web solutions: http://knol.google.com/k/bill-fuesz/active-vs-passive-web-performance/.
 
@@ -52,6 +52,7 @@ Observing (or rather, debugging) a running program by modifying its source code 
 = Agent vs. Agentless =
 
 [http://knol.google.com/k/anonymous/server-monitoring/3o4z1jgc0p47b/2?domain=knol.google.com&locale=en# Server Monitoring - Monitoring Enterprise Servers - Agent or Agentless?]
+
 
 = Metrics =
 
