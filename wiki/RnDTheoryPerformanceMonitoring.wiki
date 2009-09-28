@@ -6,10 +6,10 @@ Active and passive and synthetic monitoring are complementary techniques of perf
 
 == Passive (Real user monitoring) ==
 
-Monitors actual (real) interaction with a system. Metrics collected using this approach can be used to determine the actual service-level quality delivered to end-users and to detect errors or potential performance in the system.
+This approach let you monitor actual (real) interaction with a system. Metrics collected using this approach can be used to determine the actual service-level quality delivered to end-users and to detect errors or potential performance in the system.
 
   * Can be very helpful in troubleshooting performance problems once they have occurred.
-  * Most important drawback is that an action has to be performed to collect any metrics. We will have no defined service level if no action is called.
+  * The most important drawback of this method is that something in the system has to be performed (triggered externally) to take and collect any metrics. We will have no defined service level if no action is called.
 
 == Active (Synthetic) ==
 
