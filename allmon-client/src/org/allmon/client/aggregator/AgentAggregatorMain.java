@@ -5,22 +5,18 @@ import javax.jms.ConnectionFactory;
 import org.allmon.common.AllmonActiveMQConnectionFactory;
 import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.AllmonLoggerConstants;
+import org.allmon.common.AllmonPropertiesReader;
 import org.allmon.common.AllmonPropertiesValidator;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.PropertyConfigurator;
 
 public class AgentAggregatorMain {
 
     static {
-        //Properties prop = new Properties();
-        //String file = prop.getProperty("log4jpropertiespath");
-        String file = "log4j.properties";
-        PropertyConfigurator.configure(file);
-        System.out.println("log4j.configured");
+        AllmonPropertiesReader.readLog4jProperties();
     }
     
     private static final Log logger = LogFactory.getLog(AgentAggregatorMain.class);
