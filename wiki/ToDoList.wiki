@@ -7,7 +7,12 @@ Items: code, docs, design
 
 = High =
 
+  * (code) Finish simple scheduler for active monitoring
+  * (code) Finish loading mechanism in allmon-server - extracting RawMetrics data and loading them to allmetrics schema
+
 = Medium=
+
+  * (code) Create maven/ivy scripts for dependency management
 
 = Low =
 
