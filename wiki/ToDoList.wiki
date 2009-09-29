@@ -18,4 +18,4 @@ Items:
 
 = Low =
 
-  * [design] Create allmon logo
+  * \design\ Create allmon logo
