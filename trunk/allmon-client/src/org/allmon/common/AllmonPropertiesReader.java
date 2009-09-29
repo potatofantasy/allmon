@@ -30,9 +30,9 @@ public class AllmonPropertiesReader {
      * @return TropicsPropertiesReader
      */
     public static AllmonPropertiesReader getInstance() {
-        if (logger.isDebugEnabled()) {
-            logger.debug(AllmonLoggerConstants.ENTERED);
-        }
+//        if (logger.isDebugEnabled()) {
+//            logger.debug(AllmonLoggerConstants.ENTERED);
+//        }
 
         if (allmonPropertiesReader == null) {
             allmonPropertiesReader = new AllmonPropertiesReader();
@@ -53,9 +53,9 @@ public class AllmonPropertiesReader {
             }
         }
 
-        if (logger.isDebugEnabled()) {
-            logger.debug(AllmonLoggerConstants.EXITED);
-        }
+//        if (logger.isDebugEnabled()) {
+//            logger.debug(AllmonLoggerConstants.EXITED);
+//        }
 
         return allmonPropertiesReader;
     }
@@ -64,10 +64,6 @@ public class AllmonPropertiesReader {
      * Gets the key of the value
      */
     public String getValue(String type, String defaultValue) {
-        if (logger.isDebugEnabled()) {
-            logger.debug(AllmonLoggerConstants.ENTERED);
-        }
-
         // checking and preparing parameters
         String defaultValueTrimed = null;
         if (defaultValue != null) {
@@ -91,9 +87,6 @@ public class AllmonPropertiesReader {
             returnPropValue = defaultValueTrimed;
         }
 
-        if (logger.isDebugEnabled()) {
-            logger.debug(AllmonLoggerConstants.EXITED);
-        }
         return returnPropValue;
     }
 

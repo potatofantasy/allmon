@@ -1,4 +1,4 @@
-package org.allmon.common;
+package org.allmon.client.agent;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -8,8 +8,16 @@ import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
 
-public class MessageSender {
+import org.allmon.common.AllmonActiveMQConnectionFactory;
+import org.allmon.common.AllmonCommonConstants;
+import org.allmon.common.MetricMessage;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
+class MessageSender {
+
+    private final static Log logger = LogFactory.getLog(MessageSender.class);
+    
     private Destination destination;
 
     private final static long sleepTime = 0;
@@ -92,14 +100,14 @@ public class MessageSender {
             //c.getConnectionStats().dump(new IndentPrinter());
 
         } catch (Exception e) {
-            System.out.println("Caught: " + e);
-            e.printStackTrace();
+            logger.error(e);
         } finally {
             try {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (Throwable ignore) {
+            } catch (Throwable t) {
+                logger.error(t);
             }
         }
     }

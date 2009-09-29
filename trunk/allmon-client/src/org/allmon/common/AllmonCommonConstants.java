@@ -13,9 +13,9 @@ public class AllmonCommonConstants {
     public final static String SERVER_BROKER_URL = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_SERVER_BROKER_URL, ActiveMQConnection.DEFAULT_BROKER_URL);
     
     // allmon queues names
-    protected final static String CLIENT_BROKER_QUEUE_SUBJECT_AGENTSDATA = "QUEUE.AGENTDATA";
-    protected final static String CLIENT_BROKER_QUEUE_SUBJECT_AGGREGATED = "QUEUE.AGGREGATED";
-    protected final static String SERVER_BROKER_QUEUE_SUBJECT_READYFORLOADING = "QUEUE.READYFORLOADING";
+    public final static String CLIENT_BROKER_QUEUE_SUBJECT_AGENTSDATA = "QUEUE.AGENTDATA";
+    public final static String CLIENT_BROKER_QUEUE_SUBJECT_AGGREGATED = "QUEUE.AGGREGATED";
+    public final static String SERVER_BROKER_QUEUE_SUBJECT_READYFORLOADING = "QUEUE.READYFORLOADING";
     
     // URIs used by camel integration patterns implementations
     public final static String ALLMON_CAMEL_JMSQUEUE = "allmon-jms"; 
