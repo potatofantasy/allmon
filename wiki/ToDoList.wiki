@@ -13,6 +13,7 @@ Items: code, docs, design
 = Medium=
 
   * (code) Create maven/ivy scripts for dependency management
+  * (code) Create notification mechanism in case of fatal errors (logging, sending emails)
 
 = Low =
 
