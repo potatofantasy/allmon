@@ -3,6 +3,7 @@ package org.allmon.client.aggregator;
 import junit.framework.TestCase;
 
 import org.allmon.client.agent.MetricMessageFactory;
+import org.allmon.common.MetricMessageWrapper;
 
 public class MetricMessageWrapperTest extends TestCase {
 
