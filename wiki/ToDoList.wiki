@@ -2,15 +2,8 @@
 
 = Todo List =
 
-Priority:
-  * high
-  * medium
-  * low
-
-Items:
-  * code
-  * docs
-  * design
+Priority: high, medium, low
+Items: code, docs, design
 
 = High =
 
