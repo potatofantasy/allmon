@@ -1,7 +1,7 @@
 package org.allmon.server.receiver;
 
-import org.allmon.client.aggregator.MetricMessageWrapper;
 import org.allmon.common.MetricMessage;
+import org.allmon.common.MetricMessageWrapper;
 import org.allmon.loader.RawMetric2;
 import org.allmon.loader.RawMetricFactory;
 

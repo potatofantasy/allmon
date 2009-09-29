@@ -1,7 +1,7 @@
 package org.allmon.server.receiver;
 
-import org.allmon.client.aggregator.MetricMessageWrapper;
 import org.allmon.common.AllmonCommonConstants;
+import org.allmon.common.MetricMessageWrapper;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
