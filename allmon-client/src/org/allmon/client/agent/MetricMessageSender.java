@@ -1,6 +1,6 @@
 package org.allmon.client.agent;
 
-import org.allmon.common.MessageSender;
+import org.allmon.common.AllmonLoggerConstants;
 import org.allmon.common.MetricMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,7 +15,7 @@ public abstract class MetricMessageSender {
     
     private final static Log logger = LogFactory.getLog(MetricMessageSender.class);
     
-    private MetricMessage message; //TODO //MetricMessage metricMessage = MetricMessageFactory.createActionClassMessage(className, tropicsUser, webSessionId, request, durationTime));
+    private MetricMessage message;
     
     private long startTime = VALUE_NOT_INITIALIZED_LONG;
     private String logId; //VALUE_NOT_INITIALIZED_LONG;
@@ -54,15 +54,14 @@ public abstract class MetricMessageSender {
     
     protected final void sendEntryPoint() {
         String methodName = "sendEntryPoint";
-        
-        if (flagEntryPointWasInserted) {
-            //logger.error(methodName + " entry point cannot be inserted because the entry point has been already inserted");
-            return;
+        if (logger.isDebugEnabled()) {
+            logger.debug(methodName + AllmonLoggerConstants.ENTERED);
         }
         
-//        if (logger.isDebugEnabled()) {
-//            logger.debug(methodName + TropicsConstants.LOGGER_ENTERED);
-//        }
+        if (flagEntryPointWasInserted) {
+            logger.error(methodName + " entry point cannot be inserted because the entry point has been already inserted");
+            return;
+        }
         
         startTime = System.currentTimeMillis();
         
@@ -74,9 +73,9 @@ public abstract class MetricMessageSender {
             messageSender.sendMessage(message);
         }
         
-//        if (logger.isDebugEnabled()) {
-//             logger.debug(methodName + TropicsConstants.LOGGER_EXITED);
-//        }
+        if (logger.isDebugEnabled()) {
+             logger.debug(methodName + AllmonLoggerConstants.EXITED);
+        }
     }
 
     // TODO !!!! add source of the exception (what class is throwing the exception)
@@ -100,9 +99,9 @@ public abstract class MetricMessageSender {
     
     private final void sendExitPoint(long executionTimeMS, Exception exception) {
         String methodName = "sendExitPoint";
-//        if (logger.isDebugEnabled()) {
-//            logger.debug(methodName + TropicsConstants.LOGGER_ENTERED);
-//        }
+        if (logger.isDebugEnabled()) {
+            logger.debug(methodName + AllmonLoggerConstants.ENTERED);
+        }
         
         if (isEnabled()) {
             // send a message
@@ -114,9 +113,9 @@ public abstract class MetricMessageSender {
             messageSender.sendMessage(message);
         }
         
-//        if (logger.isDebugEnabled()) {
-//            logger.debug(methodName + TropicsConstants.LOGGER_EXITED);
-//        }       
+        if (logger.isDebugEnabled()) {
+            logger.debug(methodName + AllmonLoggerConstants.EXITED);
+        }     
     }
     
 }

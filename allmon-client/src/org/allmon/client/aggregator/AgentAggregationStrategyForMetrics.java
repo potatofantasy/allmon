@@ -1,6 +1,7 @@
 package org.allmon.client.aggregator;
 
 import org.allmon.common.MetricMessage;
+import org.allmon.common.MetricMessageWrapper;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.processor.aggregate.AggregationStrategy;

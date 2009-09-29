@@ -2,11 +2,12 @@ package org.allmon.client.aggregator;
 
 import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.AllmonLoggerConstants;
+import org.allmon.common.MetricMessageWrapper;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class AgentAggregatorRouteBuilder extends RouteBuilder {
+class AgentAggregatorRouteBuilder extends RouteBuilder {
 
     private static Log logger = LogFactory.getLog(AgentAggregatorRouteBuilder.class);
     

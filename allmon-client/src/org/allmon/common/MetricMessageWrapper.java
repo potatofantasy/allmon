@@ -1,11 +1,15 @@
-package org.allmon.client.aggregator;
+package org.allmon.common;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.allmon.common.MetricMessage;
-
+/**
+ * This class defines a data transformation object holding <b>collection</b> metrics data acquired 
+ * in monitored application by allmon client API, transformed (aggregated) and sent by allmon client 
+ * to allmon server. 
+ * Allmon server decodes this object to RawMetric to persist this data in "raw" form in database.
+ */
 public class MetricMessageWrapper implements Serializable {
 
     private ArrayList list = new ArrayList(); // TODO check in allmon-client would be compilable in 1.5 to introduce generics
@@ -17,9 +21,8 @@ public class MetricMessageWrapper implements Serializable {
     public boolean add(MetricMessageWrapper o) {
         if (o != null) {
             return list.addAll(o.list);
-        } else {
-            return false;
-        }   
+        }
+        return false;
     }
     
     public void clear() {
