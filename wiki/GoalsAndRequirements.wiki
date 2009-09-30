@@ -23,6 +23,9 @@ The main project goal is to create a generic system storing various metrics coll
 (`*`) Core modules. 
 (`**`) Allmon gives a set of views to the internal storage which can be used by other OLAP/BI/Reporting tools.
 
+Early draft of Allmon deployment diagram
+http://allmon.googlecode.com/svn/wiki/GoalsAndRequirements-AllmonDeploymentDiagram.jpg
+
 = Research =
 
   * [DataModelRnD Allmon datamodel research]
