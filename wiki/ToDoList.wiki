@@ -7,17 +7,17 @@ Items: code, docs, design, research
 
 = High =
 
-  * (code) Finish simple scheduler for active monitoring
-  * (code) Finish loading mechanism in allmon-server - extracting RawMetrics data and loading them to allmetrics schema
+  * (x) (code) Finish simple scheduler for active monitoring
+  * (_) (code) Finish loading mechanism in allmon-server - extracting RawMetrics data and loading them to allmetrics schema
     * Linking entry and exit points!
 
-  * (design) Solve problem different times on remote clients - metrics events time synchronization issue!
+  * (_) (design) Solve problem different times on remote clients - metrics events time synchronization issue!
 
 = Medium=
 
-  * (code) Create maven/ivy scripts for dependency management
-  * (code) Create notification mechanism in case of fatal errors (logging, sending emails)
+  * (_) (code) Create maven/ivy scripts for dependency management
+  * (_) (code) Create notification mechanism in case of fatal errors (logging, sending emails)
 
 = Low =
 
-  * (design) Create allmon logo
+  * (_) (design) Create allmon logo
