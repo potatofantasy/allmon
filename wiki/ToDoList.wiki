@@ -10,20 +10,20 @@ Items: (code), (docs), (design), (research)
 
 = High =
   
-  * (X) (research) Research in allmon potential schema models (load test future multidimensional analysis queries)
-    * (X) (code) Design and implement allmetrics and all schemas
+  * (x) (research) Research in allmon potential schema models (load test future multidimensional analysis queries)
+    * (x) (code) Design and implement allmetrics and all schemas
 
-  * (X) (code) Finish simple scheduler for active monitoring
-  * (_) (code) Finish loading mechanism in allmon-server - extracting RawMetrics data and loading them to allmetrics schema
-    * Linking entry and exit points!
+  * (x) (code) Finish simple scheduler for active monitoring
+  * (o) (code) Finish loading mechanism in allmon-server - extracting RawMetrics data and loading them to allmetrics schema
+    * (o) (design) Linking entry and exit points!
 
-  * (_) (design) Solve problem different times on remote clients - metrics events time synchronization issue!
+  * (o) (design) Solve problem different times on remote clients - metrics events time synchronization issue!
 
 = Medium=
 
-  * (_) (code) Create maven/ivy scripts for dependency management
-  * (_) (code) Create notification mechanism in case of fatal errors (logging, sending emails)
+  * (o) (code) Create maven/ivy scripts for dependency management
+  * (o) (code) Create notification mechanism in case of fatal errors (logging, sending emails)
 
 = Low =
 
-  * (_) (design) Create allmon logo
+  * (o) (design) Create allmon logo
