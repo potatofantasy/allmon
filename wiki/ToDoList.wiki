@@ -2,12 +2,18 @@
 
 = Todo List =
 
-Priority: high, medium, low
-Items: code, docs, design, research
+Priority: high (M), medium (OS), low (C); (MOSCOW - Must Ought )
+
+Items: (code), (docs), (design), (research)
+
+
 
 = High =
+  
+  * (X) (research) Research in allmon potential schema models (load test future multidimensional analysis queries)
+    * (X) (code) Design and implement allmetrics and all schemas
 
-  * (x) (code) Finish simple scheduler for active monitoring
+  * (X) (code) Finish simple scheduler for active monitoring
   * (_) (code) Finish loading mechanism in allmon-server - extracting RawMetrics data and loading them to allmetrics schema
     * Linking entry and exit points!
 
