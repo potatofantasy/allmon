@@ -16,7 +16,7 @@ public class AllmonPropertiesValidator {
         }
         return validationResult;
     }
-    
+  
     public boolean validateSuggestedProperties() {
         boolean validationResult = true;
         // TODO add validation logic

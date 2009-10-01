@@ -3,9 +3,13 @@ package org.allmon.client.aggregator;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.processor.aggregate.AggregationStrategy;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 class AgentAggregationStrategyString implements AggregationStrategy {
     
+    private static final Log logger = LogFactory.getLog(AgentAggregationStrategyString.class);
+        
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
         Message newIn = newExchange.getIn();
         
@@ -16,11 +20,11 @@ class AgentAggregationStrategyString implements AggregationStrategy {
                 oldBody = (String)oldIn.getBody(String.class);
             }
             else {
-                System.out.println("]]]]]]] MyAggregationStrategy - oldIn was null");
+                logger.debug("]]]]]]] MyAggregationStrategy - oldIn was null");
             }
         }
         else {
-            System.out.println("]]]]]]] MyAggregationStrategy - oldExchange was null");
+            logger.debug("]]]]]]] MyAggregationStrategy - oldExchange was null");
         }
         
         String newBody = "";
@@ -29,10 +33,10 @@ class AgentAggregationStrategyString implements AggregationStrategy {
             newIn.setBody(concat(oldBody, newBody));
         } 
 //        else {
-//            System.out.println("]]]]]]] MyAggregationStrategy - newIn was null");
+//            logger.debug("]]]]]]] MyAggregationStrategy - newIn was null");
 //        }
         
-        System.out.println("]]]]]]] MyAggregationStrategy - newBody = " + newIn.getBody(String.class));
+        logger.debug("]]]]]]] MyAggregationStrategy - newBody = " + newIn.getBody(String.class));
         return newExchange;
     }
     

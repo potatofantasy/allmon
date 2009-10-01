@@ -5,8 +5,12 @@ import org.allmon.common.MetricMessageWrapper;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.processor.aggregate.AggregationStrategy;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 class AgentAggregationStrategyForMetrics implements AggregationStrategy {
+    
+    private static final Log logger = LogFactory.getLog(AgentAggregationStrategyForMetrics.class);
     
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
         Message newIn = newExchange.getIn();
@@ -27,10 +31,10 @@ class AgentAggregationStrategyForMetrics implements AggregationStrategy {
                 }
             }
             else {
-                System.out.println("]]]]]]] MyAggregationStrategy - oldIn was null");
+                logger.debug("]]]]]]] MyAggregationStrategy - oldIn was null");
             }
         } else {
-            System.out.println("]]]]]]] MyAggregationStrategy - oldExchange was null");
+            logger.debug("]]]]]]] MyAggregationStrategy - oldExchange was null");
         }
         
         if (newIn != null) {
@@ -70,11 +74,11 @@ class AgentAggregationStrategyForMetrics implements AggregationStrategy {
             newIn.setBody(oldBodyMetricMessageWrapper); // XXX check it 
         }
         else {
-            //System.out.println("]]]]]]] MyAggregationStrategy - newIn was null");
+            //logger.debug("]]]]]]] MyAggregationStrategy - newIn was null");
             throw new RuntimeException("The newExchange Message cannot be null");
         }
         
-        System.out.println("]]]]]]] MyAggregationStrategy - newBody = " + newIn.getBody().toString());
+        logger.debug("]]]]]]] MyAggregationStrategy - newBody = " + newIn.getBody().toString());
         return newExchange;
     }
 
