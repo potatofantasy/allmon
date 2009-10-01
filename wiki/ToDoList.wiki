@@ -4,7 +4,7 @@
 
 Priority: high (M), medium (OS), low (C); (MOSCOW - Must Ought )
 
-Items: (code), (docs), (design), (research)
+Items: (code), (docs), (design), (research), (test)
 
 
 
@@ -23,6 +23,8 @@ Items: (code), (docs), (design), (research)
 
   * (o) (code) Create maven/ivy scripts for dependency management
   * (o) (code) Create notification mechanism in case of fatal errors (logging, sending emails)
+  * (o) (test) Test separate allmon components in either wrong configuration scenarios or other software failures
+    * (o) (test) Agent work if ActiveMQ instance is down
 
 = Low =
 
