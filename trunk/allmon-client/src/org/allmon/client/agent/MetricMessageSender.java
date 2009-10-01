@@ -44,7 +44,6 @@ public abstract class MetricMessageSender {
         return enabled;
     }
     
-    
     public abstract void insertEntryPoint();
     
     public abstract void insertExitPoint();
@@ -78,10 +77,6 @@ public abstract class MetricMessageSender {
         }
     }
 
-    // TODO !!!! add source of the exception (what class is throwing the exception)
-    // XXX 
-    // XXX 
-    // XXX 
     // XXX 
     protected final void sendExitPoint(Exception exception) {
         String methodName = "sendExitPoint";
