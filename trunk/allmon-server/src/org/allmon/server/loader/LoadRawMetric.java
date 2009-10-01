@@ -1,10 +1,7 @@
-package org.allmon.server.receiver;
+package org.allmon.server.loader;
 
 import org.allmon.common.MetricMessageWrapper;
-import org.allmon.loader.RawMetric;
-import org.allmon.loader.RawMetric2;
-import org.allmon.loader.RawMetric2DAOImpl;
-import org.allmon.loader.RawMetricDAOImpl;
+import org.allmon.server.receiver.MetricMessageConverter;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -12,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class LoadRawMetric {
 
-    private static final ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(new String[] { "org/allmon/loader/spring-hibernate.xml" });
+    private static final ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(new String[] { "org/allmon/server/loader/spring-hibernate.xml" });
     //private ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(new String[] { "org/allmon/loader/spring-hibernate.xml" });
     
     /**

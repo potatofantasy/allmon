@@ -18,6 +18,7 @@ import javax.jms.Topic;
 
 import org.allmon.common.AllmonActiveMQConnectionFactory;
 import org.allmon.common.AllmonCommonConstants;
+import org.allmon.server.loader.LoadRawMetric;
 
 /**
  * @deprecated TODO delete the class

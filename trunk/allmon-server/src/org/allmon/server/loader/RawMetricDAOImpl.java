@@ -1,4 +1,4 @@
-package org.allmon.loader;
+package org.allmon.server.loader;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
