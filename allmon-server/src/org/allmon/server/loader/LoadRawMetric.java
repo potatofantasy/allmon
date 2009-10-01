@@ -33,7 +33,7 @@ public class LoadRawMetric {
     }
     
     public void storeMetric(MetricMessageWrapper metricMessageWrapper) {
-        RawMetric2DAOImpl rawMetric2DAOImpl = (RawMetric2DAOImpl)appContext.getBean("rawMetricDAOTarget");
+        RawMetric2DAOImpl rawMetric2DAOImpl = (RawMetric2DAOImpl)appContext.getBean("rawMetric2DAOTarget");
         
         // convert metricMessageWrapper and load metrics data to the database
         MetricMessageConverter messageConverter = new MetricMessageConverter();

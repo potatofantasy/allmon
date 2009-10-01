@@ -9,42 +9,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "TEST_AM_RAW_METRIC2")
+@Entity(name = "TEST_AM_RAW_METRIC3")
 public class RawMetric2 implements Serializable {
 
 	private Long id = new Long(-1);
     
-	@Column(nullable=false, length=100)
-    private String artifact;
+	private String artifact;
 	
-	@Column(nullable=false, length=100)
 	private String host;
 	
-	@Column(nullable=false, length=100)
 	private String instance;
 	
-	@Column(nullable=true, length=100)
 	private String metricType;
 	
-	@Column(nullable=true, length=100)
 	private String resource;
 	
-	@Column(nullable=true, length=100)
 	private String source;
 	
-	@Column(nullable=false, length=16, precision=6)
-	private double metric;
+	private Double metric;
 	
-	@Column(nullable=false)
-	private Date timeStamp;
+	private java.util.Date timeStamp;
 	
 	// @Column(nullable=false)
     // private String Time // TODO check sense of this item 
 	
-	@Column(nullable=true, length=1000)
-    private String parameters; //Object parameters; // TODO check if possible use List or Array!!!
+	private String parameters; //Object parameters; // TODO check if possible use List or Array!!!
 	
-	@Column(nullable=true, length=1000)
     private String exception; //Exception exception; 
 	
 // items from MetricMessage    
@@ -74,7 +64,8 @@ public class RawMetric2 implements Serializable {
         this.id = id;
     }
 
-	public String getArtifact() {
+    @Column(name="ARTIFACT", nullable=false, length=100)
+    public String getArtifact() {
 		return artifact;
 	}
 
@@ -82,6 +73,7 @@ public class RawMetric2 implements Serializable {
 		this.artifact = artifact;
 	}
 
+    @Column(name="HOST", nullable=false, length=100)
 	public String getHost() {
 		return host;
 	}
@@ -90,7 +82,8 @@ public class RawMetric2 implements Serializable {
 		this.host = host;
 	}
 
-	public String getInstance() {
+	@Column(name="INSTANCE", nullable=false, length=100)
+    public String getInstance() {
 		return instance;
 	}
 
@@ -98,7 +91,8 @@ public class RawMetric2 implements Serializable {
 		this.instance = instance;
 	}
 
-	public String getMetricType() {
+	@Column(name="METRIC_TYPE", nullable=true, length=100)
+    public String getMetricType() {
 		return metricType;
 	}
 
@@ -106,7 +100,8 @@ public class RawMetric2 implements Serializable {
 		this.metricType = metricType;
 	}
 
-	public String getResource() {
+	@Column(name="RESOURCEE", nullable=true, length=100)
+    public String getResource() {
 		return resource;
 	}
 
@@ -114,7 +109,8 @@ public class RawMetric2 implements Serializable {
 		this.resource = resource;
 	}
 
-	public String getSource() {
+	@Column(name="SOURCE", nullable=true, length=100)
+    public String getSource() {
 		return source;
 	}
 
@@ -122,22 +118,25 @@ public class RawMetric2 implements Serializable {
 		this.source = source;
 	}
 
-	public double getMetric() {
+	@Column(name="METRIC", nullable=false, length=16, precision=6)
+    public Double getMetric() {
 		return metric;
 	}
 
-	public void setMetric(double metric) {
+	public void setMetric(Double metric) {
 		this.metric = metric;
 	}
 
-	public Date getTimeStamp() {
+	@Column(name="TIME_STAMP", nullable=false)
+    public java.util.Date getTimeStamp() {
 		return timeStamp;
 	}
 
-	public void setTimeStamp(Date timeStamp) {
+	public void setTimeStamp(java.util.Date timeStamp) {
 		this.timeStamp = timeStamp;
 	}
 
+	@Column(name="PARAMETERS", nullable=true, length=1000)
 	public String getParameters() {
 		return parameters;
 	}
@@ -146,6 +145,7 @@ public class RawMetric2 implements Serializable {
 		this.parameters = parameters;
 	}
 
+	@Column(name="EXCEPTION", nullable=true, length=1000)
 	public String getException() {
 		return exception;
 	}

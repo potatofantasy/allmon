@@ -31,7 +31,7 @@
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
 				<prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
-				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.c3p0.minPoolSize">10</prop>
 				<prop key="hibernate.c3p0.maxPoolSize">20</prop>
 				<prop key="hibernate.c3p0.timeout">600</prop>
@@ -51,17 +51,12 @@
 		</property>
 		<property name="annotatedClasses">
       <list>
-        <value>org.allmon.loader.RawMetric</value>
+        <value>org.allmon.server.loader.RawMetric2</value>
       </list>
     </property>
 	</bean>
 
-	<bean id="rawMetricDAOTarget" class="org.allmon.loader.RawMetricDAOImpl">
-		<property name="sessionFactory">
-			<ref local="exampleSessionFactory" />
-		</property>
-	</bean>
-	<bean id="rawMetric2DAOTarget" class="org.allmon.loader.RawMetric2DAOImpl">
+	<bean id="rawMetric2DAOTarget" class="org.allmon.server.loader.RawMetric2DAOImpl">
 		<property name="sessionFactory">
 			<ref local="exampleSessionFactory" />
 		</property>
@@ -78,7 +73,7 @@
 			<ref local="transactionManager" />
 		</property>
 		<property name="target">
-			<ref local="rawMetricDAOTarget" />
+			<ref local="rawMetric2DAOTarget" />
 		</property>
 		<property name="transactionAttributes">
 			<props>
