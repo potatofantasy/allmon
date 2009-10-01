@@ -10,8 +10,9 @@ Items: (code), (docs), (design), (research), (test)
 
 = High =
   
-  * (x) (research) Research in allmon potential schema models (load test future multidimensional analysis queries)
+  * (x) (research) Research in allmon potential schema models
     * (x) (code) Design and implement allmetrics and all schemas
+    * (x) (test) load test future multidimensional analysis queries
 
   * (x) (code) Finish simple scheduler for active monitoring
   * (o) (code) Finish loading mechanism in allmon-server - extracting RawMetrics data and loading them to allmetrics schema
