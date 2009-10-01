@@ -2,8 +2,8 @@ package org.allmon.server.receiver;
 
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageWrapper;
-import org.allmon.loader.RawMetric2;
-import org.allmon.loader.RawMetricFactory;
+import org.allmon.server.loader.RawMetric2;
+import org.allmon.server.loader.RawMetricFactory;
 
 public class MetricMessageConverter {
 	
@@ -26,8 +26,7 @@ public class MetricMessageConverter {
 				metricMessage.getDurationTime(),
 				metricMessage.getEventTime(),
 				metricMessage.getParametersString(),
-				metricMessage.getExceptionString()
-		);
+				metricMessage.getExceptionString());
 		return rawMetric;
 	}
 	
