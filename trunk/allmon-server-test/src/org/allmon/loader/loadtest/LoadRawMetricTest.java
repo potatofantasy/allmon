@@ -1,7 +1,7 @@
 package org.allmon.loader.loadtest;
 
-import org.allmon.loader.RawMetric;
-import org.allmon.server.receiver.LoadRawMetric;
+import org.allmon.server.loader.LoadRawMetric;
+import org.allmon.server.loader.RawMetric;
 
 /**
  * 
