@@ -1,4 +1,4 @@
-package org.allmon.client.aggregator;
+package org.allmon.common;
 
 import junit.framework.TestCase;
 
