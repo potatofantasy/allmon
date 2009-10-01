@@ -28,13 +28,9 @@ public class MetricMessageSenderTest extends TestCase {
             }
         };
         
-        for (int i = 0; i < 2; i++) {
-            sender.insertEntryPoint();
-        }
+        sender.insertEntryPoint();
         
-        for (int i = 0; i < 2; i++) {
-            sender.insertExitPoint();
-        }
+        sender.insertExitPoint();
         
     }    
     
