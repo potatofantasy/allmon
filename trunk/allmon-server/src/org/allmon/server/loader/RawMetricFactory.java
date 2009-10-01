@@ -21,9 +21,9 @@ public class RawMetricFactory {
     	rawMetric.setMetricType(AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_ACTIONSERVLET);
     	rawMetric.setResource(fullClassName);
     	rawMetric.setSource(user);
-    	rawMetric.setMetric(execTimeMS);
+    	rawMetric.setMetric(new Double(execTimeMS));
     	// XXX time stamp value setting has been not finished s
-    	//rawMetric.setTimeStamp(eventTime); // TODO solve problemoftime differences - on server side all times should be unified to avoid problems during analysis
+    	rawMetric.setTimeStamp(new Date(eventTime)); // TODO solve problemoftime differences - on server side all times should be unified to avoid problems during analysis
     	rawMetric.setParameters(parameters);
     	rawMetric.setException(exception);
     	
