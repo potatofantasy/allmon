@@ -2,7 +2,7 @@
 
 = Todo List =
 
-Priority: high (M), medium (OS), low (C); (MOSCOW - Must Ought )
+Priority: high (M), medium (OS), low (C); (MOSCOW - Must Ought Should Could and Won't)
 
 Items: (code), (docs), (design), (research), (test)
 
