@@ -12,19 +12,23 @@ Items: (code), (docs), (design), (research), (test)
 = High =
   
   * (x) (research) Research in allmon potential schema models
-    * (x) (code) Design and implement allmetrics and all schemas
-    * (x) (test) load test future multidimensional analysis queries
+    * (x) (code) Design and implement allmetrics and all... schemas
+    * (x) (test) Load test future multidimensional analysis queries, and choose which will better work with generic metrics data
 
   * (x) (code) Finish simple scheduler for active monitoring
-  * (o) (code) Finish loading mechanism in allmon-server - extracting RawMetrics data and loading them to allmetrics schema
+  * (o) (code) Finish loading mechanism in allmon-server
+    * (x) (code) Load metrics data to RawMetrics
+    * (o) (code) Extracting RawMetrics data and loading them to allmetrics schema
     * (o) (design) Linking entry and exit points!
+    * (o) (design) Solve problem different times on remote clients - metrics events time synchronization issue!
 
-  * (o) (design) Solve problem different times on remote clients - metrics events time synchronization issue!
+  * (o) (design) Propose mechanism of building structures eligible for future multidimensional analysis
+
 
 = Medium=
 
   * (o) (code) Create maven/ivy scripts for dependency management
-  * (o) (code) Create notification mechanism in case of fatal errors (logging, sending emails)
+  * (o) (code) Create notification mechanism in case of fatal errors, wrong configuration, lack of vital allmon components, etc. (logging, sending emails)
   * (o) (test) Test separate allmon components in either wrong configuration scenarios or other software failures
     * (o) (test) Agent work if ActiveMQ instance is down
 
