@@ -41,6 +41,11 @@ Items: (code), (docs), (design), (research), (test)
   * (o) (code) Create a new eclipse project for purely common code (+ common test project with load test framework) - sources should be jarred and referenced to allmon-client and allmon-server sides.
   * (o) (code) Split allmon-client to allmon-server configurations and constants. Common constants should be declared in the common project.
 
+  * (o) (design) Review and test having agents behind proxies.
+
 = Low =
 
   * (o) (design) Create allmon logo
+
+  * (o) (design) Evaluate compressing aggregated messages sent to allmon-server. This option could be suggested either for very remote agents or agents behind weak network connection. Crucial will be appropriate aggregation settings.
+ 
