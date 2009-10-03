@@ -8,7 +8,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class MetricCollector //extends it.sauronsoftware.cron4j.Task {
-                             extends AgentTask {
+                             extends AllmonAgentTask {
 
     private static final Log logger = LogFactory.getLog(MetricCollector.class);
     
