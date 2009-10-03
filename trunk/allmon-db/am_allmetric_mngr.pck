@@ -16,6 +16,9 @@ CREATE OR REPLACE PACKAGE am_allmetric_mngr IS
   -- Public function and procedure declarations
   --FUNCTION < functionname > (< parameter > < datatype >) RETURN < datatype >;
 
+  PROCEDURE raw_load_dynamicdims(p_i_datetime_start DATE, p_i_datetime_end DATE);
+  PROCEDURE raw_load_metricdata(p_i_datetime_start DATE, p_i_datetime_end DATE);
+  
   PROCEDURE meta_add_artifact(pi_artifactname am_artifact.artifactname%TYPE, 
                               pi_artifactcode am_artifact.artifactcode%TYPE);
   
@@ -96,6 +99,83 @@ CREATE OR REPLACE PACKAGE BODY am_allmetric_mngr IS
   --  RETURN(< RESULT >);
   --END;
   
+  -------------------------------------------------------------------------------------------------
+    --Instance	     -- (dynamic) related to Artifact: CPU, MEM, IO, AppInstance, RepServInst, JVMInst
+    --Host	         -- (dynamic) - monitored host name
+    --Resource	     -- (dynamic) related to Metric Type - represents resource under monitoring
+    --Source	       -- (dynamic) related to Metric Type - source of a call to monitored resource 
+    --Metric	       -- (values)
+  PROCEDURE raw_load_dynamicdims(p_i_datetime_start DATE, p_i_datetime_end DATE) IS
+  BEGIN
+    INSERT INTO am_instance(am_ins_id, am_arf_id, instancename) --, instancecode, url)
+      SELECT am_ins_seq.NEXTVAL, am_arf_id, instancename 
+      FROM (
+        SELECT DISTINCT aa.am_arf_id, arm.instancename
+        FROM am_raw_metric arm
+        LEFT OUTER JOIN am_instance ai ON (arm.instancename = ai.instancename AND ai.am_ins_id IS NULL)
+        INNER JOIN am_artifact aa ON (arm.artifactcode = aa.artifactcode)
+        WHERE ai.am_ins_id IS NULL
+        --WHERE rm.ts BETWEEN p_i_datetime_start AND p_i_datetime_end
+      );
+    
+    INSERT INTO am_host(am_hst_id, hostname, hostip) --, hostcode, hostip)
+      SELECT am_hst_seq.NEXTVAL, hostname, hostip
+      FROM (
+        SELECT DISTINCT arm.hostname, arm.hostip
+        FROM am_raw_metric arm
+        LEFT OUTER JOIN am_host ah ON (arm.hostname = ah.hostname)
+        WHERE ah.am_hst_id IS NULL
+        --WHERE rm.ts BETWEEN p_i_datetime_start AND p_i_datetime_end
+      );
+    
+    INSERT INTO am_resource(am_rsc_id, am_mty_id, resourcename) --, resourcecode, unit)
+      SELECT am_rsc_seq.NEXTVAL, am_mty_id, resourcename
+      FROM (
+        SELECT DISTINCT amt.am_mty_id, arm.resourcename
+        FROM am_raw_metric arm
+        LEFT OUTER JOIN am_resource ar ON (arm.resourcename = ar.resourcename)
+        INNER JOIN am_metrictype amt ON (arm.metrictypecode = amt.metriccode)
+        WHERE ar.am_rsc_id IS NULL
+        --WHERE rm.ts BETWEEN p_i_datetime_start AND p_i_datetime_end
+      );
+  
+    INSERT INTO am_source(am_src_id, am_mty_id, sourcename) --, sourcecode)
+      SELECT am_src_seq.NEXTVAL, am_mty_id, sourcename
+      FROM (
+        SELECT DISTINCT amt.am_mty_id, arm.sourcename
+        FROM am_raw_metric arm
+        LEFT OUTER JOIN am_source asr ON (arm.sourcename = asr.sourcename)
+        INNER JOIN am_metrictype amt ON (arm.metrictypecode = amt.metriccode)
+        WHERE asr.am_src_id IS NULL
+        --WHERE rm.ts BETWEEN p_i_datetime_start AND p_i_datetime_end
+      );
+  END;
+
+  -------------------------------------------------------------------------------------------------
+  PROCEDURE raw_load_metricdata(p_i_datetime_start DATE, p_i_datetime_end DATE) IS
+  BEGIN
+    -- load all raw metrics data to allmetric schema values table
+    INSERT INTO am_metricsdata(am_met_id, am_rme_id, am_ins_id, am_hst_id, am_rsc_id, am_src_id, am_cal_id, am_tim_id, metricvalue, ts, loadts, observation_id)
+      SELECT am_met_seq.NEXTVAL, arm.am_rme_id, ai.am_ins_id, ah.am_hst_id, ar.am_rsc_id, asr.am_src_id, cal.am_cal_id, tm.am_tim_id, arm.metricvalue, arm.ts, SYSDATE, NULL
+      FROM am_raw_metric arm
+      INNER JOIN am_instance ai ON (arm.instancename = ai.instancename)
+      INNER JOIN am_artifact aa ON (arm.artifactcode = aa.artifactcode) -- redundant join (additional check)
+      INNER JOIN am_host ah ON (arm.hostname = ah.hostname)
+      INNER JOIN am_resource ar ON (arm.resourcename = ar.resourcename)
+      INNER JOIN am_source asr ON (arm.sourcename = asr.sourcename)
+      INNER JOIN am_metrictype amt ON (arm.metrictypecode = amt.metriccode) -- redundant join (additional check)
+      INNER JOIN am_calendar cal ON (trunc(arm.ts) = cal.caldate)
+      INNER JOIN am_time tm ON (to_char(arm.ts, 'HH24:MI') = to_char(tm.t, 'HH24:MI')) -- TODO review the join in case of performance
+      --WHERE rm.ts BETWEEN p_i_datetime_start AND p_i_datetime_end
+      ;
+    -- delete all metrics in raw form which have been succesfully loaded to allmetric schema
+    DELETE FROM am_raw_metric darm
+    WHERE  darm.am_rme_id IN (
+      SELECT arm.am_rme_id
+      FROM   am_metricsdata amd, am_raw_metric arm
+      WHERE  amd.am_rme_id = arm.am_rme_id);
+  END;
+    
   -------------------------------------------------------------------------------------------------
   PROCEDURE meta_add_artifact(pi_artifactname am_artifact.artifactname%TYPE, 
                               pi_artifactcode am_artifact.artifactcode%TYPE) IS
@@ -262,7 +342,7 @@ CREATE OR REPLACE PACKAGE BODY am_allmetric_mngr IS
       SELECT DISTINCT mt.metricname, mt.metriccode
       FROM   am_metrictype mt, am_resource rs
       WHERE  mt.am_mty_id = rs.am_mty_id
-      AND    rs.resourcecode IS NOT NULL
+      AND    rs.resourcecode IS NOT NULL --resourcecode must exist to create a view name
       ORDER  BY mt.metricname, mt.metriccode;
     v_met t_met;
     TYPE t_amm IS RECORD(metricname am_metrictype.metricname%TYPE, metriccode am_metrictype.metriccode%TYPE, resourcecode am_resource.resourcecode%TYPE);
@@ -271,7 +351,7 @@ CREATE OR REPLACE PACKAGE BODY am_allmetric_mngr IS
       FROM   am_metrictype mt, am_resource rs
       WHERE  mt.am_mty_id = rs.am_mty_id
       AND    mt.metriccode = metriccode
-      AND    rs.resourcecode IS NOT NULL
+      AND    rs.resourcecode IS NOT NULL --resourcecode must exist to create a view name
       ORDER  BY mt.metricname, mt.metriccode, rs.resourcecode;
     v_amm t_amm;
     --
@@ -436,4 +516,3 @@ CREATE OR REPLACE PACKAGE BODY am_allmetric_mngr IS
   --< STATEMENT >;
 END am_allmetric_mngr;
 /
-
