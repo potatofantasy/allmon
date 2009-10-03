@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Allmetric data model research
+Allmetric data model research. More details and the schema creation script is under: http://code.google.com/p/allmon/source/browse/trunk/allmon-db/create-allmon-schema-allmetric--oracle.sql.
 
 
 = Details =
