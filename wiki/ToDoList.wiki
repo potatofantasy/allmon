@@ -3,7 +3,6 @@
 
 = Todo List =
 
-Legend:
   * Priority: high (M), medium (OS), low (C); (MOSCOW - Must Ought Should Could and Won't)
   * Items: (code), (docs), (design), (research), (test)
   * Progress: not done (o), finished (x), not needed (-)
