@@ -29,12 +29,13 @@ public class AllmonCommonConstants {
     
     
     // for allmon-server loader - TODO review moving those constants to separate class visible only for allmon-server 
-    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION = "application"; 
-    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_OS = "operating.system";
-    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_REPORT = "report";
-    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_JVM = "java";
-    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_DB = "database";
-    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_HARDWARE = "hardware";
+    // all values must be un sync with values defined in allmon database in static dimensions
+    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_OS = "OS"; //"operating.system";
+    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION = "APP"; //"application"; 
+    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_REPORT = "REP"; //"report";
+    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_JVM = "JVM"; //"java";
+    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_DB = "DB"; //"database";
+    public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_HARDWARE = "HW"; //"hardware";
     
     public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_ACTIONSERVLET = "application.action.servlet"; 
     
