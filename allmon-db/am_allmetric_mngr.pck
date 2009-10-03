@@ -16,6 +16,8 @@ CREATE OR REPLACE PACKAGE am_allmetric_mngr IS
   -- Public function and procedure declarations
   --FUNCTION < functionname > (< parameter > < datatype >) RETURN < datatype >;
 
+  PROCEDURE raw_load_to_allmetric;
+
   PROCEDURE raw_load_dynamicdims(p_i_datetime_start DATE, p_i_datetime_end DATE);
   PROCEDURE raw_load_metricdata(p_i_datetime_start DATE, p_i_datetime_end DATE);
   
@@ -98,6 +100,16 @@ CREATE OR REPLACE PACKAGE BODY am_allmetric_mngr IS
   --  < STATEMENT >;
   --  RETURN(< RESULT >);
   --END;
+  
+  PROCEDURE raw_load_to_allmetric IS
+  BEGIN
+    -- check necessary dates range
+    -- ...
+    -- call loading procedures 
+    am_allmetric_mngr.raw_load_dynamicdims(SYSDATE, SYSDATE);
+    am_allmetric_mngr.raw_load_metricdata(SYSDATE, SYSDATE);
+    --COMMIT;
+  END;
   
   -------------------------------------------------------------------------------------------------
     --Instance	     -- (dynamic) related to Artifact: CPU, MEM, IO, AppInstance, RepServInst, JVMInst
