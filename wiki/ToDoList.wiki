@@ -20,9 +20,9 @@ Progress: not done (o), finished (x), not needed (-)
 
   * (x) (code) Finish simple scheduler for active monitoring
   * (o) (code) Finish loading mechanism in allmon-server
-    * (x) (code) Load metrics data to RawMetrics
-    * (o) (code) Extracting RawMetrics data and loading them to allmetrics schema
-    * (-) (design) Linking entry and exit points! Not needed!
+    * (x) (code) Load metrics data to RawMetrics table
+    * (x) (code) Extracting RawMetrics data and loading them to allmetrics schema
+    * (-) (design) Linking entry and exit points
   
   * (o) (design) Solve problem different times on remote clients - metrics events time synchronization issue!
 
