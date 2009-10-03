@@ -7,6 +7,7 @@ Priority: high (M), medium (OS), low (C); (MOSCOW - Must Ought Should Could and 
 
 Items: (code), (docs), (design), (research), (test)
 
+Progress: not done (o), finished (x), not needed (-)
 
 
 = High =
@@ -21,8 +22,9 @@ Items: (code), (docs), (design), (research), (test)
   * (o) (code) Finish loading mechanism in allmon-server
     * (x) (code) Load metrics data to RawMetrics
     * (o) (code) Extracting RawMetrics data and loading them to allmetrics schema
-    * (o) (design) Linking entry and exit points!
-    * (o) (design) Solve problem different times on remote clients - metrics events time synchronization issue!
+    * (-) (design) Linking entry and exit points! Not needed!
+  
+  * (o) (design) Solve problem different times on remote clients - metrics events time synchronization issue!
 
   * (o) (design) Propose mechanism of building structures eligible for future multidimensional analysis
 
