@@ -46,7 +46,15 @@ public class LoadRawMetric {
         	rawMetric2DAOImpl.addMetric(rawMetricTab[i]);
 		}
         
-        logger.debug(">>>>>>>>>>>>>>>> Metric stored: " + metricMessageWrapper.toString());
+        logger.debug(">>>>>>>>>>>>>>>> Metrics stored: " + metricMessageWrapper.toString());
+    }
+    
+    public void loadAllmetric() {
+        RawMetricLoadToAllmetricDAOImpl loadToAllmetricDAOImpl = 
+            (RawMetricLoadToAllmetricDAOImpl)appContext.getBean("rawMetricLoadToAllmetricDAOTarget");
+        loadToAllmetricDAOImpl.load();
+        
+        logger.debug(">>>>>>>>>>>>>>>> Metrics stored in allmetrics schema");
     }
     
 }

@@ -62,6 +62,12 @@
 		</property>
 	</bean>
 
+  <bean id="rawMetricLoadToAllmetricDAOImpl" class="org.allmon.server.loader.RawMetricLoadToAllmetricDAOImpl" >
+    <constructor-arg>
+      <ref bean="exampleDataSource"/>
+    </constructor-arg>
+  </bean>
+
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory">
 			<ref bean="exampleSessionFactory" />
