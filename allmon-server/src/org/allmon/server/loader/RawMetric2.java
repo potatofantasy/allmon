@@ -17,6 +17,8 @@ public class RawMetric2 implements Serializable {
 	
 	private String host;
 	
+	private String hostIp;
+    
 	private String instance;
 	
 	private String metricType;
@@ -55,6 +57,7 @@ public class RawMetric2 implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="AM_RME_ID")
     public Long getId() {
         return id;
     }
@@ -63,7 +66,7 @@ public class RawMetric2 implements Serializable {
         this.id = id;
     }
 
-    @Column(name="ARTIFACT", nullable=false, length=100)
+    @Column(name="ARTIFACTCODE", nullable=false, length=100)
     public String getArtifact() {
 		return artifact;
 	}
@@ -72,7 +75,7 @@ public class RawMetric2 implements Serializable {
 		this.artifact = artifact;
 	}
 
-    @Column(name="HOST", nullable=false, length=100)
+    @Column(name="HOSTNAME", nullable=false, length=100)
 	public String getHost() {
 		return host;
 	}
@@ -81,7 +84,16 @@ public class RawMetric2 implements Serializable {
 		this.host = host;
 	}
 
-	@Column(name="INSTANCE", nullable=false, length=100)
+	@Column(name="HOSTIP", nullable=false, length=100)
+    public String getHostIp() {
+        return hostIp;
+    }
+
+    public void setHostIp(String hostIp) {
+        this.hostIp = hostIp;
+    }
+    
+    @Column(name="INSTANCENAME", nullable=false, length=100)
     public String getInstance() {
 		return instance;
 	}
@@ -90,7 +102,7 @@ public class RawMetric2 implements Serializable {
 		this.instance = instance;
 	}
 
-	@Column(name="METRIC_TYPE", nullable=true, length=100)
+	@Column(name="METRICTYPECODE", nullable=true, length=100)
     public String getMetricType() {
 		return metricType;
 	}
@@ -99,7 +111,7 @@ public class RawMetric2 implements Serializable {
 		this.metricType = metricType;
 	}
 
-	@Column(name="RESOURCEE", nullable=true, length=100)
+	@Column(name="RESOURCENAME", nullable=true, length=100)
     public String getResource() {
 		return resource;
 	}
@@ -108,7 +120,7 @@ public class RawMetric2 implements Serializable {
 		this.resource = resource;
 	}
 
-	@Column(name="SOURCE", nullable=true, length=100)
+	@Column(name="SOURCENAME", nullable=true, length=100)
     public String getSource() {
 		return source;
 	}
@@ -117,7 +129,7 @@ public class RawMetric2 implements Serializable {
 		this.source = source;
 	}
 
-	@Column(name="METRIC", nullable=false, length=16, precision=6)
+	@Column(name="METRICVALUE", nullable=false, length=16, precision=6)
     public Double getMetric() {
 		return metric;
 	}
@@ -126,7 +138,7 @@ public class RawMetric2 implements Serializable {
 		this.metric = metric;
 	}
 
-	@Column(name="TIME_STAMP", nullable=false)
+	@Column(name="TS", nullable=false)
     public java.util.Date getTimeStamp() {
 		return timeStamp;
 	}
@@ -152,5 +164,5 @@ public class RawMetric2 implements Serializable {
 	public void setException(String exception) {
 		this.exception = exception;
 	}
-    
+
 }

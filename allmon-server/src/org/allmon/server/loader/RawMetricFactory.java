@@ -13,10 +13,11 @@ public class RawMetricFactory {
     }
     
     public static final RawMetric2 createApplicationActionServletRawMetric(
-    		String host, String instance, String fullClassName, String user, long execTimeMS, long eventTime, String parameters, String exception) {
+    		String host, String hostIp, String instance, String fullClassName, String user, long execTimeMS, long eventTime, String parameters, String exception) {
     	RawMetric2 rawMetric = createMessage();
     	rawMetric.setArtifact(AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION);
     	rawMetric.setHost(host);
+    	rawMetric.setHostIp(hostIp);
     	rawMetric.setInstance(instance);
     	rawMetric.setMetricType(AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_ACTIONSERVLET);
     	rawMetric.setResource(fullClassName);

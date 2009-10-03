@@ -20,6 +20,7 @@ public class MetricMessageConverter {
 	public RawMetric2 convert(MetricMessage metricMessage) {
 		RawMetric2 rawMetric = RawMetricFactory.createApplicationActionServletRawMetric(
 				metricMessage.getHost(),
+				metricMessage.getHostIp(),
 				metricMessage.getInstance(),
 				metricMessage.getResource(),
 				metricMessage.getSource(),
