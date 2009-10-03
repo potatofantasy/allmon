@@ -1,7 +1,6 @@
 package org.allmon.server.loader;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "TEST_AM_RAW_METRIC3")
+@Entity(name = "AM_RAW_METRIC")
 public class RawMetric2 implements Serializable {
 
 	private Long id = new Long(-1);
