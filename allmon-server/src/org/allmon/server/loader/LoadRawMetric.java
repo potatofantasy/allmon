@@ -2,13 +2,17 @@ package org.allmon.server.loader;
 
 import org.allmon.common.MetricMessageWrapper;
 import org.allmon.server.receiver.MetricMessageConverter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * 
+ * Class is loading received from allmon-client side metrics and load them to database in "raw" form. 
  */
 public class LoadRawMetric {
 
+    private static final Log logger = LogFactory.getLog(LoadRawMetric.class);
+    
     private static final ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(new String[] { "org/allmon/server/loader/spring-hibernate.xml" });
     //private ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(new String[] { "org/allmon/loader/spring-hibernate.xml" });
     
@@ -20,7 +24,7 @@ public class LoadRawMetric {
         RawMetric metric = new RawMetric();
         metric.setMetric(metricString);
         rawMetricDAOImpl.addMetric(metric);
-        System.out.println(">>>>>>>>>>>>>>>> Metric stored: " + metricString);
+        logger.debug(">>>>>>>>>>>>>>>> Metric stored: " + metricString);
     }
 
     /**
@@ -29,7 +33,7 @@ public class LoadRawMetric {
     public void storeMetric(RawMetric rawMetric) {
         RawMetricDAOImpl rawMetricDAOImpl = (RawMetricDAOImpl)appContext.getBean("rawMetricDAOTarget");
         rawMetricDAOImpl.addMetric(rawMetric);
-        System.out.println(">>>>>>>>>>>>>>>> Metric stored: " + rawMetric.toString());
+        logger.debug(">>>>>>>>>>>>>>>> Metric stored: " + rawMetric.toString());
     }
     
     public void storeMetric(MetricMessageWrapper metricMessageWrapper) {
@@ -42,7 +46,7 @@ public class LoadRawMetric {
         	rawMetric2DAOImpl.addMetric(rawMetricTab[i]);
 		}
         
-        System.out.println(">>>>>>>>>>>>>>>> Metric stored: " + metricMessageWrapper.toString());
+        logger.debug(">>>>>>>>>>>>>>>> Metric stored: " + metricMessageWrapper.toString());
     }
     
 }
