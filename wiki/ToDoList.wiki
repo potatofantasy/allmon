@@ -3,7 +3,11 @@
 
 = Todo List =
 
-  * Priority: high (M), medium (OS), low (C); (MOSCOW - Must Ought Should Could and Won't)
+  * Priority: high (M), medium (OS), low (C); (MOSCoW - Must Ought Should Could and Won't - http://en.wikipedia.org/wiki/MoSCoW_Method)
+    * M - MUST have this.
+    * OS - OUGHT/SHOULD have this if at all possible.
+    * C - COULD have this if it does not affect anything else.
+    * W - WON'T have this time but WOULD like in the future.
   * Items: (code), (docs), (design), (research), (test)
   * Progress: not done (o), finished (x), not needed (-)
 
