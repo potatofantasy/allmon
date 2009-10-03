@@ -1,6 +1,6 @@
 package org.allmon.client.scheduler;
 
-import org.allmon.client.agent.AgentTask;
+import org.allmon.client.agent.AllmonAgentTask;
 import org.allmon.common.AllmonLoggerConstants;
 import org.allmon.common.AllmonPropertiesReader;
 import org.apache.commons.logging.Log;
@@ -26,13 +26,13 @@ public class AgentCallerMain {
             try {
                 Class c = Class.forName(className);
                 Object o = c.newInstance();
-                if (o instanceof AgentTask) {
-                    AgentTask task = (AgentTask)o;
+                if (o instanceof AllmonAgentTask) {
+                    AllmonAgentTask task = (AllmonAgentTask)o;
                     logger.debug("Execution : " + className + ".execute() ...");
                     task.execute();
                     logger.info("Execution : " + className + ".execute() finished");
                 } else {
-                    throw new Exception("The class (" + className + ") passed as a parameter has to extend " + AgentTask.class.getName());
+                    throw new Exception("The class (" + className + ") passed as a parameter has to extend " + AllmonAgentTask.class.getName());
                 }
             } catch (ClassNotFoundException e) {
                 logger.error(e.getMessage(), e);
