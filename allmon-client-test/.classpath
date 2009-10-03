@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="/allmon-lib/lib/camel-2.0-M2/jaxb-impl-2.1.10.jar"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/camel-2.0-M2/stax-api-1.0-2.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/allmon-client"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/allmon-server-test"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
