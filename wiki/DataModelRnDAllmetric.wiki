@@ -35,14 +35,21 @@ Example of stored metrics data in denormalized fashion (1NF).
 || DB || Host1 || DBInst1 || Sessions || - || - || NV || TS || T ||
 || HW || Machine1 || - || Temp || CPUTemp1 || - || NV || TS || T ||
 
-Artifact - a part of infrastructure under monitoring (observation): OS, AppMet, Rep, JVM, DB, HW, etc.
-Instance - related to Artifact: CPU, MEM, IO, AppInstance, RepServInst, JVMInst
-Metric Type	   -- related to Artifact - represents type of collected metric: CPU1, CPU2, Mem Usr, ...
-Host - monitored host	
-Resource - related to Metric Type - represents resource under monitoring
-Source - related to Metric Type - source of a call to monitored resource 
-Metric - metrics value 
-Time Stamp - Time Stamp and Calendar references
+
+Fields Description;
+
+  * Artifact	     -- (static) a part of infrastructure under monitoring: OS, AppMet, Rep, JVM, DB, HW, etc.
+  * Instance	     -- (dynamic) related to Artifact: CPU, MEM, IO, AppInstance, RepServInst, JVMInst
+  * Metric Type	   -- (static) related to Artifact - represents type of collected metric: CPU1, CPU2, Mem Usr, ...
+  * Host	         -- (dynamic) - monitored host name
+  * Resource	     -- (dynamic) related to Metric Type - represents resource under monitoring
+  * Source	       -- (dynamic) related to Metric Type - source of a call to monitored resource 
+  * Metric	       -- (values)
+  * Time Stamp	   -- Time Stamp and Calendar references
+  
+  * (static)  - all values have to be configured explicitly, those values are referencing to allmon constants, any loading process cannot add new values
+  * (dynamic) - loading processes addnew values dynamically, base on what data are comming from allmon-client
+
 
 
 ---
