@@ -1,7 +1,8 @@
 -- allmon allmetric schema (by Tomasz Sikora)
 
--- TODO :
+-- TODO:
 -- * Add parameters table - associated with metrics data
+-- * Add exception table - associated with metrics data
 -- * Add output table - associated with metrics data (ex: output code for report server)
 
 /*
@@ -31,15 +32,19 @@ JVM 	Host1 	JVMInst1 	Threads 	- 	- 	NV 	TS 	T
 DB 	Host1 	DBInst1 	Sessions 	- 	- 	NV 	TS 	T
 HW 	Machine1 	- 	Temp 	CPUTemp1 	- 	NV 	TS 	T 
 
+Fields Description:
 
-  Artifact	     -- a part of infrastructure under monitoring: OS, AppMet, Rep, JVM, DB, HW, etc.
-  Instance	     -- related to Artifact: CPU, MEM, IO, AppInstance, RepServInst, JVMInst
-  Metric Type	   -- related to Artifact - represents type of collected metric: CPU1, CPU2, Mem Usr, ...
-  Host	
-  Resource	     -- related to Metric Type - represents resource under monitoring
-  Source	       -- related to Metric Type - source of a call to monitored resource 
-  Metric	       -- 
-  Time Stamp	   -- Time Stamp and Calendar references
+  * Artifact	     -- (static) a part of infrastructure under monitoring: OS, AppMet, Rep, JVM, DB, HW, etc.
+  * Instance	     -- (dynamic) related to Artifact: CPU, MEM, IO, AppInstance, RepServInst, JVMInst
+  * Metric Type	   -- (static) related to Artifact - represents type of collected metric: CPU1, CPU2, Mem Usr, ...
+  * Host	         -- (dynamic) - monitored host name
+  * Resource	     -- (dynamic) related to Metric Type - represents resource under monitoring
+  * Source	       -- (dynamic) related to Metric Type - source of a call to monitored resource 
+  * Metric	       -- (values)
+  * Time Stamp	   -- Time Stamp and Calendar references
+  
+  * (static)  - all values have to be configured explicitly, those values are referencing to allmon constants, any loading process cannot add new values
+  * (dynamic) - loading processes addnew values dynamically, base on what data are comming from allmon-client
   
 */
 
@@ -294,21 +299,23 @@ INSERT INTO am_time(am_tim_id, t, hour, minute)
           ORDER  BY 1);
 COMMIT;
 
--- fill up default data for not dynamic dimensions
+-- fill up default data for static (not dynamic) dimensions
+-- all values must be un sync with values defined in allmon java side constants
 -- OS, AppMet, Rep, JVM, DB, HW
---INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Operating System', 'OS'); 
---INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Application', 'APP'); 
---INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Report', 'REP'); 
---INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Java Virtual Machine', 'JVM'); 
---INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Database', 'DB'); 
---INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Hardware', 'HW'); 
---COMMIT;
+INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Operating System', 'OS'); 
+INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Application', 'APP'); 
+INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Report', 'REP'); 
+INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Java Virtual Machine', 'JVM'); 
+INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Database', 'DB'); 
+INSERT INTO am_artifact(am_arf_id, artifactname, artifactcode) VALUES(am_arf_seq.NEXTVAL, 'Hardware', 'HW'); 
+COMMIT;
 
---INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode, unit) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Struts Action Class', 'ACTCLS', 'ms'); 
---INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Service Level Check', 'APPSLC'); 
---INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'REP'), 'Report Jobs Execs', 'REPEXE'); 
---COMMIT;
+INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode, unit) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Struts Action Class', 'ACTCLS', 'ms'); 
+INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Service Level Check', 'APPSLC'); 
+INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'REP'), 'Report Jobs Execs', 'REPEXE'); 
+COMMIT;
 
+--example of dynamic dimensions data
 --INSERT INTO am_instance(am_ins_id, am_arf_id, instancename, instancecode) VALUES(am_ins_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Petstore', 'PETSTR'); 
 --INSERT INTO am_instance(am_ins_id, am_arf_id, instancename, instancecode) VALUES(am_ins_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'REP'), 'Petstore Reports', 'PETREP'); 
 --COMMIT;
