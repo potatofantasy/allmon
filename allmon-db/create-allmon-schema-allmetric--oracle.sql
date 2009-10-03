@@ -50,6 +50,7 @@ Fields Description:
 
 -------------------------------------------------------------------------------------------------------------------------
 -- drop schema
+
 DROP SEQUENCE am_cal_seq;
 DROP SEQUENCE am_tim_seq;
 DROP SEQUENCE am_arf_seq;
@@ -62,6 +63,9 @@ DROP SEQUENCE am_src_seq;
 
 -- drop fact table
 DROP TABLE am_metricsdata;
+
+-- drop raw metrics data table
+DROP TABLE am_raw_metric;
 
 -- drop dimensions
 DROP TABLE am_calendar;
@@ -102,7 +106,7 @@ CREATE TABLE am_instance (
   am_ins_id NUMBER(10) NOT NULL,
   am_arf_id NUMBER(10) NOT NULL,
   instancename VARCHAR(50) NOT NULL,
-  instancecode VARCHAR(6) NOT NULL,
+  instancecode VARCHAR(6), -- NOT NULL,
   url VARCHAR(100),
   CONSTRAINT am_ins_pk PRIMARY KEY (am_ins_id) USING INDEX,
   CONSTRAINT am_ins_am_arf_fk1 FOREIGN KEY (am_arf_id) REFERENCES am_artifact(am_arf_id)
@@ -112,7 +116,7 @@ CREATE SEQUENCE am_ins_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 CREATE TABLE am_host (
   am_hst_id NUMBER(10) NOT NULL,
   hostname VARCHAR(50) NOT NULL,
-  hostcode VARCHAR(6) NOT NULL,
+  hostcode VARCHAR(6),-- NOT NULL,
   hostip VARCHAR(15) NOT NULL,
   CONSTRAINT am_hst_pk PRIMARY KEY (am_hst_id) USING INDEX
 );
@@ -170,6 +174,23 @@ CREATE TABLE am_time(
 CREATE SEQUENCE am_tim_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 CREATE UNIQUE INDEX am_tim_uk1 ON am_time(hour, minute);
 
+-- create raw metrics data table
+CREATE TABLE am_raw_metric (
+  am_rme_id      NUMBER(10) NOT NULL,
+  artifactcode   VARCHAR2(100) NOT NULL,
+  hostname       VARCHAR2(100) NOT NULL,
+  hostip         VARCHAR2(100) NOT NULL,
+  instancename   VARCHAR2(100) NOT NULL,
+  metricvalue    NUMBER(13,3),
+  metrictypecode VARCHAR2(100),
+  resourcename   VARCHAR2(100),
+  sourcename     VARCHAR2(100),
+  ts             DATE NOT NULL,
+  parametersbody VARCHAR2(1000),
+  exceptionbody  VARCHAR2(1000)
+  --CONSTRAINT am_rme_pk PRIMARY KEY (am_rme_id) --USING INDEX
+);
+
 -- create fact table 
 CREATE TABLE am_metricsdata (
   am_met_id NUMBER(10) NOT NULL,
@@ -184,7 +205,8 @@ CREATE TABLE am_metricsdata (
   metricvalue NUMBER(13,3) NOT NULL, -- Metric	
   ts DATE NOT NULL, -- Time Stamp -- TODO review to delete
   loadts DATE DEFAULT SYSDATE NOT NULL, -- Loading to the fact table Time Stamp
-  observation_id NUMBER(10),
+  observation_id NUMBER(10), -- TODO review necesity
+  am_rme_id NUMBER(10) NOT NULL, -- reference to original raw metrics data
   CONSTRAINT am_met_pk PRIMARY KEY (am_met_id) USING INDEX,
   --CONSTRAINT am_met_am_mty_fk1 FOREIGN KEY (am_mty_id) REFERENCES am_metrictype(am_mty_id),
   CONSTRAINT am_met_am_ins_fk1 FOREIGN KEY (am_ins_id) REFERENCES am_instance(am_ins_id),
@@ -193,6 +215,7 @@ CREATE TABLE am_metricsdata (
   CONSTRAINT am_met_am_src_fk1 FOREIGN KEY (am_src_id) REFERENCES am_source(am_src_id),
   CONSTRAINT am_met_am_cal_fk1 FOREIGN KEY (am_cal_id) REFERENCES am_calendar(am_cal_id),
   CONSTRAINT am_met_am_tim_fk1 FOREIGN KEY (am_tim_id) REFERENCES am_time(am_tim_id)
+  --CONSTRAINT am_met_am_rme_fk1 FOREIGN KEY (am_rme_id) REFERENCES am_raw_metric(am_rme_id)
 );
 CREATE SEQUENCE am_met_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1 CACHE 100;
 --CREATE INDEX am_met_am_mty_idx1 ON am_metricsdata(am_mty_id);
