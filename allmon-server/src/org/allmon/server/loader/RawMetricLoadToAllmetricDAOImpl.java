@@ -12,12 +12,12 @@ public class RawMetricLoadToAllmetricDAOImpl extends HibernateDaoSupport impleme
 
     private DataSource dataSource;
 
-    public RawMetricLoadToAllmetricDAOImpl(DataSource dataSource) {
+    public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-
+    
     public void load() {
         RawMetricLoadToAllmetric proc = new RawMetricLoadToAllmetric(dataSource);
-        proc.execute();
+        proc.executeProc();
     }
 }

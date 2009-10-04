@@ -37,7 +37,7 @@ public class RawMetricFactory {
 //	    private String thread;
 //	    private String resource;
 //	    private String source;
-//	    private String session; // TODO add the session identifier to the allmetrics schema
+//	    private String session; // TODO add the session identifier to the allmetric schema
 //	    private Object parameters; // TODO check if possible use List or Array!!!
 //	    private Exception exception;
     	

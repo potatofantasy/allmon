@@ -2,6 +2,7 @@ package org.allmon.server.loader;
 
 import it.sauronsoftware.cron4j.Scheduler;
 
+import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.AllmonPropertiesConstants;
 import org.allmon.common.AllmonPropertiesReader;
 import org.apache.commons.logging.Log;
@@ -27,8 +28,8 @@ public class LoadAllmetricMain {
                 }
             }
         });
-        // Schedule extracting raw metrics data and loading them to allmon allmetrics schema
-        String cronExpression = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_SERVER_LOADER_ALLMETRICS_SCHEDULER_CRON);
+        // Schedule extracting raw metrics data and loading them to allmon allmetric schema
+        String cronExpression = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_SERVER_LOADER_ALLMETRIC_SCHEDULER_CRON);
         scheduler.schedule(cronExpression, new Runnable() {
             public void run() {
                 LoadRawMetric l = new LoadRawMetric();
@@ -40,7 +41,7 @@ public class LoadAllmetricMain {
         scheduler.start();
         // Will run for five minutes
         try {
-            Thread.sleep(5 * 60 * 1000);
+            Thread.sleep(AllmonCommonConstants.TIMER_100YEARS_IN_MS);
         } catch (InterruptedException e) {
         }
         // Stops the scheduler.

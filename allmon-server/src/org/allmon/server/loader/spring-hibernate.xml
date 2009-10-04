@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
-	<bean id="exampleDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	<bean id="allmonDataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName">
 			<value>oracle.jdbc.OracleDriver</value>
 		</property>
@@ -21,11 +21,11 @@
 		<!--    
 			<property name="url"><value>jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=LONTD03.CORP.TTC)(PORT=1521))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=realtime)))</value></property>
 			<property name="driverClassName"><value>org.apache.derby.jdbc.EmbeddedDriver</value></property>
-			<property name="url"><value>jdbc:derby:springexample;create=true</value></property>
+			<property name="url"><value>jdbc:derby:springallmon;create=true</value></property>
 		-->
 	</bean>
 
-	<bean id="exampleHibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	<bean id="allmonHibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="properties">
 			<props>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
@@ -42,12 +42,12 @@
 	</bean>
 
 	<!-- Hibernate SessionFactory -->
-	<bean id="exampleSessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	<bean id="allmonSessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource">
-			<ref local="exampleDataSource" />
+			<ref local="allmonDataSource" />
 		</property>
 		<property name="hibernateProperties">
-			<ref bean="exampleHibernateProperties" />
+			<ref bean="allmonHibernateProperties" />
 		</property>
 		<property name="annotatedClasses">
       <list>
@@ -58,19 +58,22 @@
 
 	<bean id="rawMetric2DAOTarget" class="org.allmon.server.loader.RawMetric2DAOImpl">
 		<property name="sessionFactory">
-			<ref local="exampleSessionFactory" />
+			<ref local="allmonSessionFactory" />
 		</property>
 	</bean>
 
-  <bean id="rawMetricLoadToAllmetricDAOImpl" class="org.allmon.server.loader.RawMetricLoadToAllmetricDAOImpl" >
-    <constructor-arg>
-      <ref bean="exampleDataSource"/>
-    </constructor-arg>
+  <bean id="rawMetricLoadToAllmetricDAOTarget" class="org.allmon.server.loader.RawMetricLoadToAllmetricDAOImpl" >
+    <property name="sessionFactory">
+      <ref local="allmonSessionFactory" />
+    </property>
+    <property name="dataSource">
+      <ref local="allmonDataSource" />
+    </property>
   </bean>
 
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory">
-			<ref bean="exampleSessionFactory" />
+			<ref bean="allmonSessionFactory" />
 		</property>
 	</bean>
 
