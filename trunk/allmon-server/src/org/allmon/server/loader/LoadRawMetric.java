@@ -50,11 +50,11 @@ public class LoadRawMetric {
     }
     
     public void loadAllmetric() {
+        long t0 = System.currentTimeMillis();
         RawMetricLoadToAllmetricDAOImpl loadToAllmetricDAOImpl = 
             (RawMetricLoadToAllmetricDAOImpl)appContext.getBean("rawMetricLoadToAllmetricDAOTarget");
         loadToAllmetricDAOImpl.load();
-        
-        logger.debug(">>>>>>>>>>>>>>>> Metrics stored in allmetrics schema");
+        logger.debug(">>>>>>>>>>>>>>>> Metrics stored in allmetric schema in " + (System.currentTimeMillis() - t0) + "ms");
     }
     
 }

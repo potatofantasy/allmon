@@ -1,5 +1,8 @@
 package org.allmon.server.loader;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
@@ -41,8 +44,9 @@ public class RawMetricLoadToAllmetric extends StoredProcedure {
 //            return null;
 //        }
 //    }
-    public void execute() {
-        execute();
+    public void executeProc() {
+        Map inParams = new HashMap();
+        execute(inParams);
     }
     
 }
