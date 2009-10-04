@@ -20,6 +20,8 @@
   * (x/o) (design) Design generic agent API and sender which can be used for various metrics collection purposes
 
   * (x) (code) Finish simple scheduler for active monitoring
+  * (o) (code) Creating base of various listener agents for active monitoring
+
   * (o) (code) Finish loading mechanism in allmon-server
     * (x) (code) Load metrics data to RawMetrics table
     * (x) (code) Extracting RawMetrics data and loading them to allmetrics schema
