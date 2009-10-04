@@ -3,6 +3,8 @@ package org.allmon.common;
 import org.apache.activemq.ActiveMQConnection;
 
 public class AllmonCommonConstants {
+
+    public final static long TIMER_100YEARS_IN_MS = 100 * 365 * 24 * 3600 * 1000;
     
     // settings for connection to activemq jms broker
     public final static String CLIENT_BROKER_USER = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_BROKER_USER, ActiveMQConnection.DEFAULT_USER);
