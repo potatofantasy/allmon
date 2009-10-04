@@ -1,7 +1,13 @@
-package org.allmon.loader.loadtest;
+package org.allmon.server.loader;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 public abstract class LoadTestedClass implements Runnable {
 
+    private static final Log logger = LogFactory.getLog(LoadTestedClass.class);
+        
     protected int threadNum;
 	protected long startingTime;
 	
@@ -11,15 +17,15 @@ public abstract class LoadTestedClass implements Runnable {
 	}
 	
 	public final void run() {
-		System.out.println("run - start - " + threadNum);
+		logger.debug("run - start - " + threadNum);
 		try {
 			Thread.sleep(Math.round(startingTime * Math.random()));
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("run - running - " + threadNum);
+		logger.debug("run - running - " + threadNum);
         runConcurently();
-		System.out.println("run - end - " + threadNum);
+		logger.debug("run - end - " + threadNum);
 	}
 
 	public abstract void runConcurently();
