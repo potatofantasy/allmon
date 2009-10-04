@@ -43,6 +43,8 @@
 
   * (o) (design) Design agent for client side web application user behaviour/experience monitoring 
 
+  * (o) (code) Check and improve performance of metrics wrapper and aggregation strategy
+
   * (o) (code) Create a new eclipse project for purely common code (+ common test project with load test framework) - sources should be jarred and referenced to allmon-client and allmon-server sides.
   * (o) (code) Split allmon-client to allmon-server configurations and constants. Common constants should be declared in the common project.
 
