@@ -32,6 +32,8 @@
   * (o) (design) Propose mechanism of building structures eligible for future multidimensional analysis
 
   * (o) (research) Introduce methods of comparing and correlating two/many metrics (mainly in time dimension)
+  
+  * (o) (research) Research methods of aggregating data (reducing details, gaining read speed, reducing space) - data consolidation methods 
 
 
 = Medium=
