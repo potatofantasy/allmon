@@ -48,6 +48,8 @@
 
   * (o) (design) Review and test having agents behind proxies.
 
+  * (o) (code) Review and clean up allmon logging code.
+
 = Low =
 
   * (o) (design) Create allmon logo
