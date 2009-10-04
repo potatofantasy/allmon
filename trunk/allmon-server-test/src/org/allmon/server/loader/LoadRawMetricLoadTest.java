@@ -1,4 +1,4 @@
-package org.allmon.loader.loadtest;
+package org.allmon.server.loader;
 
 import java.util.HashMap;
 
