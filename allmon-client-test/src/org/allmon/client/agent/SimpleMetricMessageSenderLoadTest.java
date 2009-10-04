@@ -5,26 +5,30 @@ import java.util.HashMap;
 import junit.framework.TestCase;
 
 import org.allmon.common.MetricMessage;
-import org.allmon.loader.loadtest.LoadTestedClass;
+import org.allmon.server.loader.LoadTestedClass;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class SimpleMetricMessageSenderLoadTest extends TestCase {
 
-    private final static long THREADS_COUNT = 5;
+    private static final Log logger = LogFactory.getLog(SimpleMetricMessageSenderLoadTest.class);
+    
+    private final static long THREADS_COUNT = 10;
     private final static long STARTING_TIME_MILLIS = 1 * 1000;
-    private final static long SUBSEQUENT_CALLS_IN_THREAD = 1000;
+    private final static long SUBSEQUENT_CALLS_IN_THREAD = 200;
     private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 100;
     
     public void testMain() throws InterruptedException {
-        System.out.println("m2 - start");
+        logger.debug("m2 - start");
         
         HashMap<Integer, Thread> loadThreadsMap = new HashMap<Integer, Thread>();
         
-        System.out.println("m2 - creating definitions of threads");
+        logger.debug("m2 - creating definitions of threads");
         for (int i = 0; i < THREADS_COUNT; i++) {
             // creating a thread
             Thread t = new Thread(new LoadTestedClass(i, STARTING_TIME_MILLIS) {
                 public void runConcurently() {
-                    System.out.println("MetricMessage started");
+                    logger.debug("MetricMessage started");
                     long t0 = System.nanoTime();
                     
                     long t1 = System.nanoTime();
@@ -43,30 +47,30 @@ public class SimpleMetricMessageSenderLoadTest extends TestCase {
                     
                     long t2 = System.nanoTime();
                     
-                    System.out.println("MetricMessage initialized in " + (t1 - t0)/1000000);
-                    System.out.println("MetricMessage metrics sent in " + (t2 - t1)/1000000);
+                    logger.debug("MetricMessage initialized in " + (t1 - t0)/1000000);
+                    logger.debug("MetricMessage metrics sent in " + (t2 - t1)/1000000);
                                 
-                    System.out.println("MetricMessage end");
+                    logger.debug("MetricMessage end");
                 }
             });
             
             loadThreadsMap.put(new Integer(i), t);
         }
         
-        System.out.println("m2 - running threads");
+        logger.debug("m2 - running threads");
         for (int i = 0; i < THREADS_COUNT; i++) {
             // taking a thread definition to run it
             Thread t = (Thread)loadThreadsMap.get(new Integer(i));
             t.start();
         }
         
-        System.out.println("m2 - waiting for running threads");
+        logger.debug("m2 - waiting for running threads");
         for (int i = 0; i < THREADS_COUNT; i++) {
             Thread t = (Thread)loadThreadsMap.get(new Integer(i));
             t.join();
         }
         
-        System.out.println("m2 - end");
+        logger.debug("m2 - end");
     }
 
 }
