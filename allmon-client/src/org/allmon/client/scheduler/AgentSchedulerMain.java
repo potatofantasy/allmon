@@ -1,10 +1,10 @@
 package org.allmon.client.scheduler;
 
-import java.io.File;
-
-import it.sauronsoftware.cron4j.ProcessTask;
 import it.sauronsoftware.cron4j.Scheduler;
 
+import java.io.File;
+
+import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.AllmonPropertiesReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,7 +52,7 @@ public class AgentSchedulerMain {
         scheduler.start();
         // Will run for five minutes
         try {
-            Thread.sleep(5 * 60 * 1000);
+            Thread.sleep(AllmonCommonConstants.TIMER_100YEARS_IN_MS);
         } catch (InterruptedException e) {
         }
         // Stops the scheduler.
