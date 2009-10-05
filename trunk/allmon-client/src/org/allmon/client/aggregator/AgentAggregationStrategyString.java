@@ -6,6 +6,10 @@ import org.apache.camel.processor.aggregate.AggregationStrategy;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * 
+ * @deprecated
+ */
 class AgentAggregationStrategyString implements AggregationStrategy {
     
     private static final Log logger = LogFactory.getLog(AgentAggregationStrategyString.class);
@@ -19,13 +23,13 @@ class AgentAggregationStrategyString implements AggregationStrategy {
             if (oldIn != null) {
                 oldBody = (String)oldIn.getBody(String.class);
             }
-            else {
-                logger.debug("]]]]]]] MyAggregationStrategy - oldIn was null");
-            }
+//            else {
+//                logger.debug("]]]]]]] MyAggregationStrategy - oldIn was null");
+//            }
         }
-        else {
-            logger.debug("]]]]]]] MyAggregationStrategy - oldExchange was null");
-        }
+//        else {
+//            logger.debug("]]]]]]] MyAggregationStrategy - oldExchange was null");
+//        }
         
         String newBody = "";
         if (newIn != null) {
@@ -36,7 +40,7 @@ class AgentAggregationStrategyString implements AggregationStrategy {
 //            logger.debug("]]]]]]] MyAggregationStrategy - newIn was null");
 //        }
         
-        logger.debug("]]]]]]] MyAggregationStrategy - newBody = " + newIn.getBody(String.class));
+//        logger.debug("]]]]]]] MyAggregationStrategy - newBody = " + newIn.getBody(String.class));
         return newExchange;
     }
     

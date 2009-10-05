@@ -20,7 +20,7 @@ public class MetricMessageWrapper implements Serializable {
 
     public boolean add(MetricMessageWrapper o) {
         if (o != null) {
-            return list.addAll(o.list);
+            return list.addAll(o.list); // TODO investigate performance!
         }
         return false;
     }
