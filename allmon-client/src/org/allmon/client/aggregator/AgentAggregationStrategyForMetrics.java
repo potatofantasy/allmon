@@ -21,21 +21,19 @@ class AgentAggregationStrategyForMetrics implements AggregationStrategy {
             Message oldIn = oldExchange.getIn();
             if (oldIn != null) {
                 Object body = oldIn.getBody();
-                //if (body instanceof MetricMessage) {
-                //    oldBodyMetricMessage = (MetricMessage)oldIn.getBody(MetricMessage.class);
-                //} else if (body instanceof MetricMessageWrapper) {
                 if (body instanceof MetricMessageWrapper) {
-                    oldBodyMetricMessageWrapper = (MetricMessageWrapper)oldIn.getBody(MetricMessageWrapper.class);
+                    oldBodyMetricMessageWrapper = (MetricMessageWrapper)oldIn.getBody(); //(MetricMessageWrapper)oldIn.getBody(MetricMessageWrapper.class);
                 } else {
                     throw new RuntimeException("Unknown metric message class found in oldExchange Message");
                 }
             }
-            else {
-                logger.debug("]]]]]]] MyAggregationStrategy - oldIn was null");
-            }
-        } else {
-            logger.debug("]]]]]]] MyAggregationStrategy - oldExchange was null");
-        }
+//            else {
+//                logger.debug("]]]]]]] MyAggregationStrategy - oldIn was null");
+//            }
+        } 
+//        else {
+//            logger.debug("]]]]]]] MyAggregationStrategy - oldExchange was null");
+//        }
         
         if (newIn != null) {
             MetricMessage newBodyMetricMessage = null;
@@ -44,9 +42,9 @@ class AgentAggregationStrategyForMetrics implements AggregationStrategy {
             Object body = newIn.getBody();
             if (body != null) {
                 if (body instanceof MetricMessage) {
-                    newBodyMetricMessage = (MetricMessage)newIn.getBody(MetricMessage.class);
+                    newBodyMetricMessage = (MetricMessage)newIn.getBody(); //(MetricMessage)newIn.getBody(MetricMessage.class);
                 } else if (body instanceof MetricMessageWrapper) {
-                    newBodyMetricMessageWrapper = (MetricMessageWrapper)newIn.getBody(MetricMessageWrapper.class);
+                    newBodyMetricMessageWrapper = (MetricMessageWrapper)newIn.getBody(); //(MetricMessageWrapper)newIn.getBody(MetricMessageWrapper.class);
                 } else {
                     throw new RuntimeException("Unknown metric message class found in newExchange Message");
                 }
@@ -71,14 +69,14 @@ class AgentAggregationStrategyForMetrics implements AggregationStrategy {
                     throw new RuntimeException("Nothing to add during this aggregation the new exchanges was null");
                 }
             }
-            newIn.setBody(oldBodyMetricMessageWrapper); // XXX check it 
+            newIn.setBody(oldBodyMetricMessageWrapper);
         }
         else {
-            //logger.debug("]]]]]]] MyAggregationStrategy - newIn was null");
+//            logger.debug("]]]]]]] MyAggregationStrategy - newIn was null");
             throw new RuntimeException("The newExchange Message cannot be null");
         }
         
-        logger.debug("]]]]]]] MyAggregationStrategy - newBody = " + newIn.getBody().toString());
+//        logger.debug("]]]]]]] MyAggregationStrategy - newBody = " + newIn.getBody().toString());
         return newExchange;
     }
 
