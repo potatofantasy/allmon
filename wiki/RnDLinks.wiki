@@ -16,6 +16,7 @@
     * Jamon - http://jamonapi.sourceforge.net/
     * Usemon - http://code.google.com/p/usemon/ http://www.slideshare.net/paulrene/an-introduction-to-usemon 
     * Apache Commons Monitoring (sandbox) - http://commons.apache.org/sandbox/monitoring/index.html
+    * Appspy - http://www.appspy.org/
     * Javasimon - http://code.google.com/p/javasimon/
     * JETM (Java Execution Time Measurement Library) - http://jetm.void.fm/
     * Glassbox-Inspector - http://www.ohloh.net/p/glassbox-inspector https://glassbox-inspector.dev.java.net/
