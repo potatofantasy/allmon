@@ -124,7 +124,7 @@ CREATE OR REPLACE PACKAGE BODY am_allmetric_mngr IS
       FROM (
         SELECT DISTINCT aa.am_arf_id, arm.instancename
         FROM am_raw_metric arm
-        LEFT OUTER JOIN am_instance ai ON (arm.instancename = ai.instancename AND ai.am_ins_id IS NULL)
+        LEFT OUTER JOIN am_instance ai ON (arm.instancename = ai.instancename)
         INNER JOIN am_artifact aa ON (arm.artifactcode = aa.artifactcode)
         WHERE ai.am_ins_id IS NULL
         --WHERE rm.ts BETWEEN p_i_datetime_start AND p_i_datetime_end
