@@ -18,6 +18,7 @@
     * (x) (test) Load test future multidimensional analysis queries, and choose which will better work with generic metrics data
 
   * (x/o) (design) Design generic agent API and sender which can be used for various metrics collection purposes
+    * (o) (code) To increase performance of acquiring metrics process review possibility of collecting and caching metrics before sending them to agent (to the first queue).
 
   * (x) (code) Finish simple scheduler for active monitoring
   * (o) (code) Creating base of various listener agents for active monitoring
