@@ -24,7 +24,7 @@ The main project goal is to create a generic system storing various metrics coll
 (`**`) Allmon gives a set of views to the internal storage which can be used by other OLAP/BI/Reporting tools.
 
 Early draft of Allmon deployment diagram
-http://allmon.googlecode.com/svn/wiki/GoalsAndRequirements-AllmonDeploymentDiagram.jpg
+http://allmon.googlecode.com/svn/wiki/allmon-deployment-diagram-logical-overview-v1.03.png
 
 = Research =
 
