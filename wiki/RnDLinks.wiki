@@ -3,8 +3,9 @@
 
 = Technologies =
 
-  * General
+  * Generalhttp://code.google.com/p/allmon/w/edit/RnDLinks
     * "Build your own profiling tool - Create an ideal profiler using the Java 5 agent interface and AOP" - http://www.ibm.com/developerworks/java/library/j-jip/
+    * Java Application Instrumentation with Log4J (can be helpful with creating a new metrics message sender based on log4j appender mechanism) - http://www.devx.com/Java/Article/22110/1954
     
   * JMX
     * http://blogs.sun.com/jmxetc/entry/what_is_jmx
