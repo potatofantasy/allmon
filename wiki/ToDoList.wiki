@@ -31,6 +31,7 @@
   * (o) (design) Solve problem different times on remote clients - metrics events time synchronization issue!
 
   * (o) (design) Propose mechanism of building structures eligible for future multidimensional analysis
+    * (x/o) (code) Creating views defined for all declared metric types (static and dynamic) 
 
   * (o) (research) Introduce methods of comparing and correlating two/many metrics (mainly in time dimension)
   
