@@ -29,7 +29,9 @@
   * Presentation, Analysis & Data Mining
     * Pentaho - http://wiki.pentaho.com/display/COM/Latest+Stable+Builds
 
-
+  * Sytatistics
+    * Colt - http://acs.lbl.gov/~hoschek/colt/
+    * Commons-Math: The Apache Commons Mathematics Library - http://commons.apache.org/math/index.html
 
 = Theory =
 
