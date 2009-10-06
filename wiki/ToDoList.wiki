@@ -14,8 +14,10 @@
 ----
 
 == [ModuleCollector Collector] (`*`) (allmon-client) ==
-      * Extraction (metrics data acquisition), 
-      * Transformation (aggregating metrics to packets) and transport to Loader
+    * Extraction (metrics data acquisition), 
+    * Transformation (aggregating metrics to packets) and transport to Loader
+
+---
 
   * (M) (x/o) (design) Design generic agent API and sender which can be used for various metrics collection purposes
     * (M) (o) (code) To increase performance of acquiring metrics process review possibility of collecting and caching metrics before sending them to agent (to the first queue).
