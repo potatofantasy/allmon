@@ -11,12 +11,12 @@
   * Items: (code), (docs), (design), (research), (test)
   * Progress: not done (o), finished (x), not needed (-)
 
-  # [ModuleCollector Collector] (`*`) (allmon-client) 
+== [ModuleCollector Collector] (`*`) (allmon-client) ==
     * Extraction (metrics data acquisition), 
     * Transformation (aggregating metrics to packets) and transport to Loader
 
 
-  # [ModuleLoader Loader] (`*`) (allmon-server)
+== [ModuleLoader Loader] (`*`) (allmon-server) ==
     * Loading data to the database
     * Transforming data to allmetrics allmon schema
 
@@ -25,13 +25,13 @@
     * (x) (test) Load test future multidimensional analysis queries, and choose which will better work with generic metrics data
 
 
-  # [ModuleMiner Miner] (`**`) 
+== [ModuleMiner Miner] (`**`) ==
     * Mining knowledge from collected in the database data, 
     * Statistical analysis, 
     * Correlation across set up dimensions
 
 
-  # [ModuleViewer Viewer] (`**`) 
+== [ModuleViewer Viewer] (`**`) ==
     * Presentation and Front-end 
 
 
