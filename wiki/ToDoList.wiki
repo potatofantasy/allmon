@@ -41,18 +41,20 @@
 = Medium=
 
   * (o) (code) Create maven/ivy scripts for dependency management
+
   * (o) (code) Create notification mechanism in case of fatal errors, wrong configuration, lack of vital allmon components, etc. (logging, sending emails)
+
   * (o) (test) Test separate allmon components in either wrong configuration scenarios or other software failures
     * (o) (test) Agent work if ActiveMQ instance is down
 
   * (o) (design) Design agent for client side web application user behaviour/experience monitoring 
-
+  
+  * (o) (code) Creating a new metrics message sender based on log4j appender mechanism
   * (x/o) (code) Check and improve performance of metrics wrapper and aggregation strategy
+  * (o) (design) Review and test having agents behind proxies.
 
   * (o) (code) Create a new eclipse project for purely common code (+ common test project with load test framework) - sources should be jarred and referenced to allmon-client and allmon-server sides.
     * (o) (code) Split allmon-client to allmon-server configurations and constants. Common constants should be declared in the common project.
-
-  * (o) (design) Review and test having agents behind proxies.
 
   * (o) (code) Review and clean up allmon logging code.
 
