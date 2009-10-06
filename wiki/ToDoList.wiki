@@ -11,11 +11,33 @@
   * Items: (code), (docs), (design), (research), (test)
   * Progress: not done (o), finished (x), not needed (-)
 
-= High =
-  
-  * (x) (research) Research in allmon potential schema models
+  # [ModuleCollector Collector] (`*`) (allmon-client) 
+    * Extraction (metrics data acquisition), 
+    * Transformation (aggregating metrics to packets) and transport to Loader
+
+
+  # [ModuleLoader Loader] (`*`) (allmon-server)
+    * Loading data to the database
+    * Transforming data to allmetrics allmon schema
+
+  * (M) (x) (research) Research in allmon potential schema models
     * (x) (code) Design and implement allmetrics and allgeneric schemas
     * (x) (test) Load test future multidimensional analysis queries, and choose which will better work with generic metrics data
+
+
+  # [ModuleMiner Miner] (`**`) 
+    * Mining knowledge from collected in the database data, 
+    * Statistical analysis, 
+    * Correlation across set up dimensions
+
+
+  # [ModuleViewer Viewer] (`**`) 
+    * Presentation and Front-end 
+
+
+
+= High =
+  
 
   * (x/o) (design) Design generic agent API and sender which can be used for various metrics collection purposes
     * (o) (code) To increase performance of acquiring metrics process review possibility of collecting and caching metrics before sending them to agent (to the first queue).
