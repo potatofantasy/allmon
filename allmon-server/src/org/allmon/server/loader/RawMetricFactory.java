@@ -13,7 +13,7 @@ public class RawMetricFactory {
     }
     
     public static final RawMetric2 createApplicationActionServletRawMetric(
-    		String host, String hostIp, String instance, String fullClassName, String user, long execTimeMS, long eventTime, String parameters, String exception) {
+    		String host, String hostIp, String instance, String fullClassName, String user, long execTimeMS, long eventTime, String point, String parameters, String exception) {
     	RawMetric2 rawMetric = createMessage();
     	rawMetric.setArtifact(AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION);
     	rawMetric.setHost(host);
@@ -23,34 +23,12 @@ public class RawMetricFactory {
     	rawMetric.setResource(fullClassName);
     	rawMetric.setSource(user);
     	rawMetric.setMetric(new Double(execTimeMS));
-    	// XXX time stamp value setting has been not finished s
-    	rawMetric.setTimeStamp(new Date(eventTime)); // TODO solve problemoftime differences - on server side all times should be unified to avoid problems during analysis
+    	// XXX time stamp value setting has been not finished yet
+    	rawMetric.setTimeStamp(new Date(eventTime)); // TODO solve problem of time differences - on server side all times should be unified to avoid problems during analysis
+    	rawMetric.setEntryPoint(point);
     	rawMetric.setParameters(parameters);
     	rawMetric.setException(exception);
     	
-//		private long eventTime;
-//	    private long durationTime;
-//	    private static final InetAddress addr = getInetAddress();
-//	    private static final String hostIp = getIp(addr);
-//	    private String host;
-//	    private String instance;
-//	    private String thread;
-//	    private String resource;
-//	    private String source;
-//	    private String session; // TODO add the session identifier to the allmetric schema
-//	    private Object parameters; // TODO check if possible use List or Array!!!
-//	    private Exception exception;
-    	
-        // resource - action class
-        //metricMessage.setResource(className);
-        // source - user who triggered an action class to execute
-        //metricMessage.setSource(user);
-        // session - is web session identifier
-        //metricMessage.setSession(webSessionId);
-        //metricMessage.setDurationTime(durationTime);
-        //if (request != null && request.getParameterMap() != null) {
-        //    metricMessage.setParameters(request.getParameterMap().toString());
-        //}
         return rawMetric;
     }
 	
