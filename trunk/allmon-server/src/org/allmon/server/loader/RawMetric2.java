@@ -34,6 +34,8 @@ public class RawMetric2 implements Serializable {
 	// @Column(nullable=false)
     // private String Time // TODO check sense of this item 
 	
+	private String entryPoint;
+	
 	private String parameters; //Object parameters; // TODO check if possible use List or Array!!!
 	
     private String exception; //Exception exception; 
@@ -147,7 +149,16 @@ public class RawMetric2 implements Serializable {
 		this.timeStamp = timeStamp;
 	}
 
-	@Column(name="PARAMETERS", nullable=true, length=1000)
+    @Column(name="ENTRYPOINT", nullable=false, length=10)
+    public String getEntryPoint() {
+        return entryPoint;
+    }
+
+    public void setEntryPoint(String point) {
+        this.entryPoint = point;
+    }
+
+    @Column(name="PARAMETERS", nullable=true, length=1000)
 	public String getParameters() {
 		return parameters;
 	}
