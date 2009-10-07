@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import junit.framework.TestCase;
 
+import org.allmon.common.AllmonPropertiesReader;
 import org.allmon.common.MetricMessage;
 import org.allmon.server.loader.LoadTestedClass;
 import org.apache.commons.logging.Log;
@@ -11,12 +12,22 @@ import org.apache.commons.logging.LogFactory;
 
 public class SimpleMetricMessageSenderLoadTest extends TestCase {
 
+    static {
+        AllmonPropertiesReader.readLog4jProperties();
+    }
+    
     private static final Log logger = LogFactory.getLog(SimpleMetricMessageSenderLoadTest.class);
     
-    private final static long THREADS_COUNT = 10;
+    // stress test
+    private final static long THREADS_COUNT = 5;
     private final static long STARTING_TIME_MILLIS = 1 * 1000;
-    private final static long SUBSEQUENT_CALLS_IN_THREAD = 200;
     private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 100;
+    private final static long SUBSEQUENT_CALLS_IN_THREAD = 500;
+    // soak test - around 20min
+//    private final static long THREADS_COUNT = 50;
+//    private final static long STARTING_TIME_MILLIS = 1 * 60 * 1000; // rump-up 1 min
+//    private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 1000; // (!) 2 calls per1 sec
+//    private final static long SUBSEQUENT_CALLS_IN_THREAD = 1200 * (1000 / SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX);
     
     public void testMain() throws InterruptedException {
         logger.debug("m2 - start");
