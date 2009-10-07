@@ -5,7 +5,7 @@
 
 The main project goal is to create a generic system storing various metrics collections used for performance and availability monitoring purposes. The system also provides a set of datamining algorithms useful for performance analysis.
 
-= Modules and data livecycle =
+= Modules =
 
   # [ModuleCollector Collector] (`*`) (allmon-client) 
     * Extraction (metrics data acquisition), 
@@ -20,11 +20,17 @@ The main project goal is to create a generic system storing various metrics coll
   # [ModuleViewer Viewer] (`**`) 
     * Presentation and Front-end 
 
+Allmon component diagram
+http://allmon.googlecode.com/svn/wiki/allmon-deployment-diagram-logical-overview-v1.03a.png
+
 (`*`) Core modules. 
 (`**`) Allmon gives a set of views to the internal storage which can be used by other OLAP/BI/Reporting tools.
 
-Early draft of Allmon deployment diagram
-http://allmon.googlecode.com/svn/wiki/allmon-deployment-diagram-logical-overview-v1.03.png
+= Deployment and data live-cycle =
+
+Allmon deployment diagram
+http://allmon.googlecode.com/svn/wiki/allmon-deployment-diagram-logical-overview-v1.03b.png
+
 
 = Research =
 
