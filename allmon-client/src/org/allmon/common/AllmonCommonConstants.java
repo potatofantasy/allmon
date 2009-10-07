@@ -6,6 +6,9 @@ public class AllmonCommonConstants {
 
     public final static long TIMER_100YEARS_IN_MS = 100 * 365 * 24 * 3600 * 1000;
     
+    public final static String METRIC_POINT_ENTRY = "ENTRY";
+    public final static String METRIC_POINT_EXIT = "EXIT";
+    
     // settings for connection to activemq jms broker
     public final static String CLIENT_BROKER_USER = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_BROKER_USER, ActiveMQConnection.DEFAULT_USER);
     public final static String CLIENT_BROKER_PASSWORD = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_BROKER_PASSWORD, ActiveMQConnection.DEFAULT_PASSWORD);
