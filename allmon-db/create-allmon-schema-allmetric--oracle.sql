@@ -186,6 +186,7 @@ CREATE TABLE am_raw_metric (
   resourcename   VARCHAR2(100),
   sourcename     VARCHAR2(100),
   ts             DATE NOT NULL,
+  entrypoint    VARCHAR2(10) NOT NULL,
   parametersbody VARCHAR2(1000),
   exceptionbody  VARCHAR2(1000)
   --CONSTRAINT am_rme_pk PRIMARY KEY (am_rme_id) --USING INDEX
