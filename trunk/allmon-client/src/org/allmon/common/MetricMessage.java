@@ -22,6 +22,7 @@ public class MetricMessage implements Serializable {
     private String resource;
     private String source;
     private String session; // TODO add the session identifier to the allmetric schema
+    private String point; 
     private Object parameters; // TODO check if possible use List or Array!!!
     private Exception exception;
 
@@ -113,6 +114,14 @@ public class MetricMessage implements Serializable {
         this.source = source;
     }
 
+    public String getPoint() {
+        return point;
+    }
+
+    public void setPoint(String point) {
+        this.point = point;
+    }
+        
     public Object getParameters() {
         return parameters;
     }
@@ -166,5 +175,5 @@ public class MetricMessage implements Serializable {
     public void setSession(String session) {
         this.session = session;
     }
-    
+
 }

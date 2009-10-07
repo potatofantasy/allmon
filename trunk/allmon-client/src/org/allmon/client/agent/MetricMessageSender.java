@@ -1,5 +1,6 @@
 package org.allmon.client.agent;
 
+import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.AllmonLoggerConstants;
 import org.allmon.common.MetricMessage;
 import org.apache.commons.logging.Log;
@@ -69,6 +70,7 @@ public abstract class MetricMessageSender {
         if (isEnabled()) {
             // send a message
             MessageSender messageSender = new MessageSender();
+            message.setPoint(AllmonCommonConstants.METRIC_POINT_ENTRY);
             messageSender.sendMessage(message);
         }
         
@@ -105,6 +107,7 @@ public abstract class MetricMessageSender {
             //messageSender.sendTextMessage("generateMessage()" + "-" + executionTimeMS + "-" + exceptionText); // TODO generateMessage()
             message.setDurationTime(executionTimeMS);
             message.setException(exception);
+            message.setPoint(AllmonCommonConstants.METRIC_POINT_EXIT);
             messageSender.sendMessage(message);
         }
         
