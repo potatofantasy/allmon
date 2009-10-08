@@ -49,6 +49,7 @@
     * (M) (x) (code) Load metrics data to RawMetrics table
     * (M) (x) (code) Extracting RawMetrics data and loading them to allmetrics schema
     * (?) (-) (design) Linking entry and exit points
+
   * (O) (o) (code) Extends loading mechanism by adding storing parameters and exceptions details
 
   * (o) (design) Solve problem different times on remote clients - metrics events time synchronization issue!
