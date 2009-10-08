@@ -22,8 +22,11 @@
     * (M) (o) (code) To increase performance of acquiring metrics process review possibility of collecting and caching metrics before sending them to agent (to the first queue).
 
   * (O) (x) (code) Finish simple scheduler for active monitoring
-  * (O) (o) (code) Creating base of various listener agents for active monitoring
+
+  * (O) (o) (code) Creating base (framework) for various listener agents for active and passive monitoring, with the most important examples (parsing file, ..., etc.)
+
   * (W) (o) (code) Creating a new metrics message sender based on log4j appender mechanism
+
   * (C) (x/o) (code) Check and improve performance of metrics wrapper and aggregation strategy
   * (C) (o) (design) Review and test having agents behind proxies.
 
