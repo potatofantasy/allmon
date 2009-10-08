@@ -95,8 +95,9 @@ CREATE TABLE am_metrictype (
   am_mty_id NUMBER(10) NOT NULL,
   am_arf_id NUMBER(10) NOT NULL,
   metricname VARCHAR(50) NOT NULL,
-  metriccode VARCHAR(6) NOT NULL,
-  unit VARCHAR(6) DEFAULT NULL,
+  metriccode VARCHAR(10) NOT NULL,
+  unit VARCHAR(6),
+  phrase VARCHAR(100),
   CONSTRAINT am_mty_pk PRIMARY KEY (am_mty_id) USING INDEX,
   CONSTRAINT am_mty_am_arf_fk1 FOREIGN KEY (am_arf_id) REFERENCES am_artifact(am_arf_id)
 );
@@ -106,7 +107,7 @@ CREATE TABLE am_instance (
   am_ins_id NUMBER(10) NOT NULL,
   am_arf_id NUMBER(10) NOT NULL,
   instancename VARCHAR(50) NOT NULL,
-  instancecode VARCHAR(6), -- NOT NULL,
+  instancecode VARCHAR(10), -- NOT NULL,
   url VARCHAR(100),
   CONSTRAINT am_ins_pk PRIMARY KEY (am_ins_id) USING INDEX,
   CONSTRAINT am_ins_am_arf_fk1 FOREIGN KEY (am_arf_id) REFERENCES am_artifact(am_arf_id)
@@ -127,7 +128,7 @@ CREATE TABLE am_resource (
   am_mty_id NUMBER(10) NOT NULL,
   resourcename VARCHAR(200) NOT NULL,
   resourcecode VARCHAR(10),
-  unit VARCHAR(6) DEFAULT NULL,
+  unit VARCHAR(6),
   CONSTRAINT am_rsc_pk PRIMARY KEY (am_rsc_id) USING INDEX,
   CONSTRAINT am_rsc_am_mty_fk1 FOREIGN KEY (am_mty_id) REFERENCES am_metrictype(am_mty_id)
 );
@@ -191,6 +192,7 @@ CREATE TABLE am_raw_metric (
   exceptionbody  VARCHAR2(1000)
   --CONSTRAINT am_rme_pk PRIMARY KEY (am_rme_id) --USING INDEX
 );
+CREATE SEQUENCE am_rme_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 
 -- create fact table 
 CREATE TABLE am_metricsdata (
@@ -337,6 +339,38 @@ COMMIT;
 INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode, unit) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Struts Action Class', 'ACTCLS', 'ms'); 
 INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Service Level Check', 'APPSLC'); 
 INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'REP'), 'Report Jobs Execs', 'REPEXE'); 
+COMMIT;
+
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'Non-Parse CPU:', 'NPCPU', '%', '% Non-Parse CPU:'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'Buffer Nowait', 'BUFNOW', '%', 'Buffer Nowait %'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'COUNT OF FUNCTIONS', 'CNTFUN', '', 'COUNT OF FUNCTIONS'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'COUNT OF PACKAGES', 'CNTPCK', '', 'COUNT OF PACKAGES'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'COUNT OF PROCEDURES', 'CNTPRO', '', 'COUNT OF PROCEDURES'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'COUNT OF TABLES', 'CNTTAB', '', 'COUNT OF TABLES'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'COUNT OF VIEWS', 'CNTVIE', '', 'COUNT OF VIEWS'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'EXECUTE IMMEDIATE', 'EXEIMM', '', 'EXECUTE IMMEDIATE'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'Execute to Parse', 'EXETOPAR', '', 'Execute to Parse'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'FOREIGN KEYS WITHOUT INDEXES', 'FKNOIND', '', 'FOREIGN KEYS WITHOUT INDEXES'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'FUNCTIONS IN ITROPICS API', 'FUNINITAPI', '', 'FUNCTIONS IN ITROPICS API'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'FUNCTIONS IN ITROPICSREPORTS PACKAGE', 'FUNINITREP', '', 'FUNCTIONS IN ITROPICSREPORTS PACKAGE'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'In-memory Sort', 'INMEMSORT', '%', 'In-memory Sort %:'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'Latch Hit', 'LATCHHIT', '', 'Latch Hit %:'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'Library Hit', 'LIBHIT', '', 'Library Hit'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'Memory Usage', 'MEMUSAGE', '', 'Memory Usage'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'OPEN * AS', 'OPENSAS', '', 'OPEN * AS'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'PROCEDURES IN ITROPICS API', 'PRCINITAPI', '', 'PROCEDURES IN ITROPICS API'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'PROCEDURES IN ITROPICSREPORTS PACKAGE', 'PRCINITREP', '', 'PROCEDURES IN ITROPICSREPORTS PACKAGE'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'Parse CPU to Parse Elapsd', 'PARCPUELPS', '', 'Parse CPU to Parse Elapsd'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'Redo NoWait', 'REDONOWAIT', '%', 'Redo NoWait %'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'SELECT DISTINCT', 'SELDIST', '', 'SELECT DISTINCT'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'SUM INDEX SIZES', 'INDEXSIZE', 'GB', 'SUM INDEX SIZES [GB]'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'SUM TABLE SIZES', 'TABLESIZE', 'GB', 'SUM TABLE SIZES [GB]'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'Soft Parse', 'SOFTPARSE', '%', 'Soft Parse %:'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'TABLES WITH COMMENTS', 'TABLEWCOMM', '', 'TABLES WITH COMMENTS'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'COUNT OF TRIGGERS', 'CNTTRG', '', 'TRIGGERS'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'parse count (total)', 'CNTPART', '', 'parse count (total)'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'physical read total IO requests', 'PHYREADIO', '', 'physical read total IO requests'); 
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'physical write total IO requests', 'PHYWRITEIO', '', 'physical write total IO requests'); 
 COMMIT;
 
 --example of dynamic dimensions data
