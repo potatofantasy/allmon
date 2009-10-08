@@ -23,13 +23,16 @@
     * Glassbox-Inspector - http://www.ohloh.net/p/glassbox-inspector https://glassbox-inspector.dev.java.net/
     * Java Interactive Profiler - http://sourceforge.net/projects/jiprof/
 
+  * Databases and Application Servers
+    * Oracle® Application Server Performance Guide - Performance Metrics - http://download.oracle.com/docs/cd/B14099_19/core.1012/b14001/metrics.htm
+
   * Similar Not-Open Source Projects
     * Monitoring Application Performance in Sun Java System Application Server 7.x with PerformaSure - http://developers.sun.com/appserver/reference/techart/performasure.html
 
   * Presentation, Analysis & Data Mining
     * Pentaho - http://wiki.pentaho.com/display/COM/Latest+Stable+Builds
 
-  * Sytatistics
+  * Statistics
     * Colt - http://acs.lbl.gov/~hoschek/colt/
     * Commons-Math: The Apache Commons Mathematics Library - http://commons.apache.org/math/index.html
 
