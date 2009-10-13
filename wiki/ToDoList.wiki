@@ -52,7 +52,9 @@
 
   * (O) (o) (code) Extends loading mechanism by adding storing parameters and exceptions details
 
-  * (o) (design) Solve problem different times on remote clients - metrics events time synchronization issue!
+  * (O) (o) (design) Solve problem different times on remote clients - metrics events time synchronization issue!
+
+  * (O) (o) (design) Add structure(s) holding events and related directly to calendar (Calendar of events)
 
 == [ModuleMiner Miner] (`**`) ==
     * Mining knowledge from collected in the database data, 
