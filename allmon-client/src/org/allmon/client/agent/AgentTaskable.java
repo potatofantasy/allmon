@@ -1,6 +1,6 @@
 package org.allmon.client.agent;
 
-public abstract class AllmonAgentTask {
+public interface AgentTaskable {
 
     public abstract void execute();
     
