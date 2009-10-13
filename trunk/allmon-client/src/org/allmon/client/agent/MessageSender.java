@@ -14,19 +14,21 @@ import org.allmon.common.MetricMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+// TODO review association (aggregation) with MetricMessageSender - maybe it should be a supper type 
+// TODO clean up the code
 class MessageSender {
 
     private final static Log logger = LogFactory.getLog(MessageSender.class);
     
     private Destination destination;
-
+    
     private final static long sleepTime = 0;
     private final static boolean verbose = false;
     //private final static int messageSize = 255;
     //private final static long timeToLive = 0;
     private final static int logLineLenght = 100;
     
-        
+    
     private final static boolean topic = false;
     private final static boolean transacted = false;
     private final static boolean persistent = false;
