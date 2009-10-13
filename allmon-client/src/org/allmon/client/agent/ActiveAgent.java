@@ -8,7 +8,7 @@ package org.allmon.client.agent;
  * collection is process is triggered by agent scheduler mechanism.
  * 
  */
-public abstract class ActiveAgent extends Agent implements AgentTaskable {
+abstract class ActiveAgent extends Agent implements AgentTaskable {
 
 	
 }

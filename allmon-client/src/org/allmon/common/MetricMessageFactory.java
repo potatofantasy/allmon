@@ -1,13 +1,10 @@
-package org.allmon.client.agent;
+package org.allmon.common;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletRequest;
 
-import org.allmon.common.AllmonPropertiesConstants;
-import org.allmon.common.AllmonPropertiesReader;
-import org.allmon.common.MetricMessage;
 
 public class MetricMessageFactory {
     
@@ -71,5 +68,13 @@ public class MetricMessageFactory {
         metricMessage.setDurationTime(durationTime);
         return metricMessage;
     }
-        
+
+    public static final MetricMessage createPingMessage() {
+        MetricMessage metricMessage = createMessage();
+        // resource
+        metricMessage.setResource("PING");
+        return metricMessage;
+    }
+
+    
 }

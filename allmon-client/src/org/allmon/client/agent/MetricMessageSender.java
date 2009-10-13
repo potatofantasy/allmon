@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
  * as a part of passive monitoring approach 
  * (For details see: http://code.google.com/p/allmon/wiki/RnDTheoryPerformanceMonitoring).
  */
-public abstract class MetricMessageSender {
+abstract class MetricMessageSender {
     
     private final static Log logger = LogFactory.getLog(MetricMessageSender.class);
     
