@@ -1,7 +1,7 @@
 package org.allmon.client.aggregator;
 
-import org.allmon.client.agent.MetricMessageFactory;
 import org.allmon.common.MetricMessage;
+import org.allmon.common.MetricMessageFactory;
 import org.allmon.common.MetricMessageWrapper;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;

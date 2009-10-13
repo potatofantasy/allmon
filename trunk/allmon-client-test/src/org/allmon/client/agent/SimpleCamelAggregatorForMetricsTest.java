@@ -1,5 +1,6 @@
 package org.allmon.client.agent;
 
+import org.allmon.common.MetricMessageFactory;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;

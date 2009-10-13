@@ -1,6 +1,7 @@
 package org.allmon.client.agent;
 
 import org.allmon.common.MetricMessage;
+import org.allmon.common.MetricMessageFactory;
 
 import junit.framework.TestCase;
 
