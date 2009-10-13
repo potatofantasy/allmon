@@ -3,7 +3,10 @@
 
 = Collector =
 
-Client-side metrics data acquisition (extraction) and transformation (aggreagation).
+Client-side metrics data acquisition (extraction) and transformation (aggregation).
+
+
+*TODO: Add diagram of potentially supervised tiers (areas) of monitored system*
 
 
 Modules:
