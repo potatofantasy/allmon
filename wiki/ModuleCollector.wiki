@@ -8,6 +8,10 @@ Client-side metrics data acquisition (extraction) and transformation (aggreagati
 
 Modules:
   * Agent (Monitoring API)
-    * Plug-ins for: SMTP, JMX, Web client-side monitoring, DB selects, ...
+    * Active agents
+    * Passive agents
+    
+  * Plug-ins for: SMTP, JMX, Web client-side monitoring, DB selects, ...
+
   * Sender (sending data by asynchronous messaging; Active MQ) 
   * Collector core (aggreagating metrics before sending to server) - sending data every 60sec (conf) or every 64kB (conf), Apache Camel
