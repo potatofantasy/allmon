@@ -9,6 +9,13 @@ public class AllmonCommonConstants {
     public final static String METRIC_POINT_ENTRY = "ENTRY";
     public final static String METRIC_POINT_EXIT = "EXIT";
     
+    // settings for agents
+    public static final boolean ALLMON_CLIENT_AGENT_PROXY_ACTIVE = Boolean.parseBoolean(AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_ACTIVE));
+    public static final String ALLMON_CLIENT_AGENT_PROXY_HOST = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_HOST);
+    public static final String ALLMON_CLIENT_AGENT_PROXY_PORT = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_PORT);
+    public static final String ALLMON_CLIENT_AGENT_PROXY_USERNAME = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_USERNAME);
+    public static final String ALLMON_CLIENT_AGENT_PROXY_PASSWORD = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_PASSWORD);
+    
     // settings for connection to activemq jms broker
     public final static String CLIENT_BROKER_USER = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_BROKER_USER, ActiveMQConnection.DEFAULT_USER);
     public final static String CLIENT_BROKER_PASSWORD = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_BROKER_PASSWORD, ActiveMQConnection.DEFAULT_PASSWORD);

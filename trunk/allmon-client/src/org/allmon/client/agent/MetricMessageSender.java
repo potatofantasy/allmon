@@ -105,7 +105,7 @@ abstract class MetricMessageSender {
             MessageSender messageSender = new MessageSender();
             //messageSender.sendTextMessage(generateMessage() + "-" + executionTimeMS + "-" + exceptionText);
             //messageSender.sendTextMessage("generateMessage()" + "-" + executionTimeMS + "-" + exceptionText); // TODO generateMessage()
-            message.setDurationTime(executionTimeMS);
+            message.setMetricValue(executionTimeMS);
             message.setException(exception);
             message.setPoint(AllmonCommonConstants.METRIC_POINT_EXIT);
             messageSender.sendMessage(message);
