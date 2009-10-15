@@ -65,7 +65,7 @@ public class MetricMessageFactory {
         metricMessage.setResource(className + "." + methodName);
         // source - user who triggered an action class to execute
         metricMessage.setSource(user);
-        metricMessage.setDurationTime(durationTime);
+        metricMessage.setMetricValue(durationTime);
         return metricMessage;
     }
 
@@ -76,5 +76,12 @@ public class MetricMessageFactory {
         return metricMessage;
     }
 
+    public static final MetricMessage createURLCallMessage(String url, String searchPhrase, double metricValue) {
+        MetricMessage metricMessage = createMessage();
+        metricMessage.setResource(url);
+        metricMessage.setSource(searchPhrase);
+        metricMessage.setMetricValue(metricValue);
+        return metricMessage;
+    }
     
 }

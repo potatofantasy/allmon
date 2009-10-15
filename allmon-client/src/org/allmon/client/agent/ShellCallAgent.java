@@ -1,6 +1,6 @@
 package org.allmon.client.agent;
 
-import org.allmon.common.AllmonPropertiesReader;
+import org.allmon.common.MetricMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -9,18 +9,20 @@ import org.apache.commons.logging.LogFactory;
  * 
  */
 public class ShellCallAgent extends ActiveAgent {
-
-    static {
-        AllmonPropertiesReader.readLog4jProperties();
-    }
-	
+    
     private static final Log logger = LogFactory.getLog(ShellCallAgent.class);
-
+    
 	private String shellCommand = "cmd";
 	
-	public void execute() {
-		// TODO Auto-generated method stub
-		logger.debug("Shell command has been exeecuted.");
-	} 
+	public MetricMessage collectMetrics() {
+	    // TODO Auto-generated method stub
+        logger.debug("Shell command has been exeecuted.");
+        return null;
+	}
+	
+    public void setParameters(String[] paramsString) {
+        // TODO Auto-generated method stub
+        
+    } 
 	
 }

@@ -14,6 +14,7 @@ public class MetricMessage implements Serializable {
 
     private long eventTime;
     private long durationTime;
+    private double metricValue;
     private static final InetAddress addr = getInetAddress();
     private static final String hostIp = getIp(addr);
     private String host;
@@ -62,12 +63,20 @@ public class MetricMessage implements Serializable {
 //        this.eventTime = eventTime;
 //    }
 
-    public long getDurationTime() {
+    public double getDurationTime() {
         return durationTime;
     }
 
     public void setDurationTime(long durationTime) {
         this.durationTime = durationTime;
+    }
+    
+    public double getMetricValue() {
+        return metricValue;
+    }
+
+    public void setMetricValue(double metricValue) {
+        this.metricValue = metricValue;
     }
     
     public String getHostIp() {
@@ -78,7 +87,7 @@ public class MetricMessage implements Serializable {
         return host;
     }
     
-    public void setHost(String host) {
+    void setHost(String host) {
         this.host = host;
     }
 
@@ -160,7 +169,7 @@ public class MetricMessage implements Serializable {
         buffer.append(", Source:");
         buffer.append(getSource());
         buffer.append(", DurationTime(ms):");
-        buffer.append(durationTime);
+        buffer.append(metricValue);
         buffer.append(", Parameters:");
         buffer.append(getParametersString());
         buffer.append(", Exception:");
