@@ -1,16 +1,12 @@
 package org.allmon.client.aggregator;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import junit.framework.TestCase;
 
-import org.allmon.client.agent.MetricMessageFactory;
-import org.allmon.client.agent.SimpleMetricMessageSender;
-import org.allmon.common.MetricMessage;
+import org.allmon.common.MetricMessageFactory;
 import org.allmon.common.MetricMessageWrapper;
 import org.allmon.server.loader.LoadTestedClass;
-import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
@@ -19,8 +15,6 @@ import org.apache.camel.component.jms.JmsBinding;
 import org.apache.camel.component.jms.JmsEndpoint;
 import org.apache.camel.component.jms.JmsExchange;
 import org.apache.camel.component.jms.JmsMessage;
-import org.apache.camel.spi.Synchronization;
-import org.apache.camel.spi.UnitOfWork;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
