@@ -2,9 +2,6 @@ package org.allmon.common;
 
 import junit.framework.TestCase;
 
-import org.allmon.client.agent.MetricMessageFactory;
-import org.allmon.common.MetricMessageWrapper;
-
 public class MetricMessageWrapperTest extends TestCase {
 
     public void testAdd() throws Exception {

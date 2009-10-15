@@ -6,6 +6,7 @@ import junit.framework.TestCase;
 
 import org.allmon.common.AllmonPropertiesReader;
 import org.allmon.common.MetricMessage;
+import org.allmon.common.MetricMessageFactory4Test;
 import org.allmon.server.loader.LoadTestedClass;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,7 +47,7 @@ public class SimpleMetricMessageSenderLoadTest extends TestCase {
                     
                     for (int i = 0; i < SUBSEQUENT_CALLS_IN_THREAD; i++) {
                         MetricMessage metricMessage = 
-                            MetricMessageFactory.createClassMessage("className"+i, "methodName", "user"+i, 1);
+                            MetricMessageFactory4Test.createClassMessage("className"+i, "methodName", "user"+i, 1);
                         SimpleMetricMessageSender sender = new SimpleMetricMessageSender(metricMessage);
                         sender.insertEntryPoint();
                         try {

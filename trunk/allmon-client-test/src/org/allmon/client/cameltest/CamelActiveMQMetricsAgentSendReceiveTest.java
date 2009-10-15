@@ -4,10 +4,10 @@ import javax.jms.ConnectionFactory;
 
 import junit.framework.TestCase;
 
-import org.allmon.client.agent.MetricMessageFactory;
 import org.allmon.common.AllmonActiveMQConnectionFactory;
 import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.MetricMessage;
+import org.allmon.common.MetricMessageFactory;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
