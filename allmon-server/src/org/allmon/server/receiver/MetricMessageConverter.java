@@ -24,7 +24,7 @@ public class MetricMessageConverter {
 				metricMessage.getInstance(),
 				metricMessage.getResource(),
 				metricMessage.getSource(),
-				metricMessage.getDurationTime(),
+				(long)metricMessage.getMetricValue(),
 				metricMessage.getEventTime(),
 				metricMessage.getPoint(),
 				metricMessage.getParametersString(),
