@@ -5,7 +5,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This agent is responsible for calling OS Shell
+ * This agent is responsible for calling OS Shell.
  * 
  */
 public class ShellCallAgent extends ActiveAgent {

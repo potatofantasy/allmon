@@ -18,7 +18,6 @@ public class SonobuoyAgent extends ActiveAgent  {
     }
 
     public void setParameters(String[] paramsString) {
-        // TODO Auto-generated method stub
         
     }
     
