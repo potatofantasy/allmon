@@ -15,13 +15,16 @@ import org.allmon.common.MetricMessageFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class URLCallAgent extends ActiveAgent {
+/**
+ * This agent can call 
+ * 
+ */
+public class UrlCallAgent extends ActiveAgent {
 
-    private static final Log logger = LogFactory.getLog(URLCallAgent.class);
+    private static final Log logger = LogFactory.getLog(UrlCallAgent.class);
     
     private String urlAddress; // = "http://www.google.com";
     private String searchPhrase;
-    
     
     public void setParameters(String[] paramsString) {
         if (paramsString != null && paramsString.length >= 2) {
