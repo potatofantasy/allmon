@@ -14,7 +14,7 @@ import org.allmon.common.MetricMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-// TODO review association (aggregation) with MetricMessageSender - maybe it should be a supper type 
+// TODO review association (aggregation) with MetricMessageSender - maybe it should be a super type 
 // TODO clean up the code
 class MessageSender {
 
@@ -58,7 +58,7 @@ class MessageSender {
             //connection = connectionFactory.createConnection();
             connection = cf.createConnection();
             
-            connection.start();
+            connection.start(); // XXX application hangs here if a jms broker is down!!!
             
             // Create the session
             Session session = connection.createSession(transacted, Session.AUTO_ACKNOWLEDGE);

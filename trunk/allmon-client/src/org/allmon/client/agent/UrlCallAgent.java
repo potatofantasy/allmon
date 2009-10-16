@@ -16,7 +16,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This agent can call 
+ * This agent can call a health check implementation described by an url. 
  * 
  */
 public class UrlCallAgent extends ActiveAgent {

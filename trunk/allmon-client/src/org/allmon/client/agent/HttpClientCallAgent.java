@@ -32,11 +32,15 @@ public class HttpClientCallAgent extends PassiveAgent {
         getMetricMessageSender().sendExitPoint(null);
     }
     
-    public void exitMessageConsumed() {
+    public void requestSent() {
         getMetricMessageSender().sendExitPoint(null);
     }
 
-    public void exitMessageConsumed(Exception exception) {
+    public void requestReceived() {
+        getMetricMessageSender().sendExitPoint(null);
+    }
+    
+    public void requestReceived(Exception exception) {
         getMetricMessageSender().sendExitPoint(exception);
     }
 
