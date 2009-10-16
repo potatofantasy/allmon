@@ -3,7 +3,7 @@ package org.allmon.client.scheduler;
 import junit.framework.TestCase;
 
 import org.allmon.client.agent.ShellCallAgent;
-import org.allmon.client.agent.URLCallAgent;
+import org.allmon.client.agent.UrlCallAgent;
 
 public class AgentCallerMainTest extends TestCase {
 
@@ -14,7 +14,7 @@ public class AgentCallerMainTest extends TestCase {
 	}
 
     public void testExecuteAgentTaskable() throws Exception {
-        URLCallAgent agent = new URLCallAgent();
+        UrlCallAgent agent = new UrlCallAgent();
         String[] classParamsString = new String[]{"http://www.google.com", "\\d\\d\\d\\d"};        
         AgentCallerMain caller = new AgentCallerMain();
         caller.executeAgentTaskable(agent, classParamsString);
