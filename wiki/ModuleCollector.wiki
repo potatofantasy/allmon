@@ -22,3 +22,6 @@ Modules:
 
   * Sender (sending data by asynchronous messaging; Active MQ) 
   * Collector core (aggreagating metrics before sending to server) - sending data every 60sec (conf) or every 64kB (conf), Apache Camel
+
+
+Layers/Agents:
