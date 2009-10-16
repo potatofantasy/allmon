@@ -29,4 +29,12 @@ Layers/Agents:
 
 ||Active agents||Passive agents||
 || JmxServer Agent || ||
-|||
+
+
+{{#widget:Google Spreadsheet
+|key=tXsj3JP7HVw3gW1zu4LkF3Q
+|width=500
+|height=300
+}}
+
+
