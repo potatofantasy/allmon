@@ -25,3 +25,8 @@ Modules:
 
 
 Layers/Agents:
+
+
+|Active agents|Passive agents|
+|||
+|||
