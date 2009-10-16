@@ -31,10 +31,10 @@ Layers/Agents:
 || JmxServer Agent || ||
 
 
+<wiki:gadget url="http://spreadsheets.google.com/ccc?key=tXsj3JP7HVw3gW1zu4LkF3Q&hl=en" height="200" border="0" /> 
+
 {{#widget:Google Spreadsheet
 |key=tXsj3JP7HVw3gW1zu4LkF3Q
 |width=500
 |height=300
 }}
-
-
