@@ -27,6 +27,6 @@ Modules:
 Layers/Agents:
 
 
-|Active agents|Passive agents|
-|||
+||Active agents||Passive agents||
+|| JmxServer Agent || ||
 |||
