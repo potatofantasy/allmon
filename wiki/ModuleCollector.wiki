@@ -28,8 +28,8 @@ Layers/Agents:
 
 
 || . || . || Active agents || Passive agents ||
-|| . || . || JmxServer Agent ||  
-DBCallAgent || JmxServerAgent || PingAgent || ShellCallAgent || UrlCallAgent || SnmpAgent || JavaCallAgent || HttpClientAgent || JmsCallAgent || JmxNfServerAgent ||
+|| . || . || DBCallAgent || JmxServerAgent || PingAgent || ShellCallAgent || UrlCallAgent || SnmpAgent || JavaCallAgent || HttpClientAgent || JmsCallAgent || JmxNfServerAgent ||
+
 ||   || OS ||   ||  ||
 
 
