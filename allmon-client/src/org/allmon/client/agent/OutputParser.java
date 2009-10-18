@@ -1,5 +1,6 @@
 package org.allmon.client.agent;
 
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,8 +13,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import org.allmon.common.AllmonLoggerConstants;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class OutputParser {
 
+	private static final Log logger = LogFactory.getLog(OutputParser.class);
+    
+	
     // Charset and decoder for ISO-8859-15
     private static Charset charset = Charset.forName("ISO-8859-15");
     private static CharsetDecoder decoder = charset.newDecoder();
@@ -94,4 +102,43 @@ public class OutputParser {
         }
     }
 
+    
+    public static String findFirst(
+    		DataInputStream is, // TODO change to InputStream
+    		String searchPhrase) {
+    	logger.debug(AllmonLoggerConstants.ENTERED);
+        StringBuffer fullSearchResults = new StringBuffer();
+        String metric = "0";
+    	String inputLine;
+        int i = 0;
+        try {
+			while ((inputLine = is.readLine()) != null) {
+			    logger.debug(inputLine);
+			    Pattern p = Pattern.compile(searchPhrase);
+			    Matcher m = p.matcher(inputLine);
+			    while (m.find()) {
+			        CharSequence cs = m.group();
+			        fullSearchResults.append(cs);
+			        fullSearchResults.append(" ");
+			        if (i == 0) {
+			            metric = cs.toString();
+			        }
+			        i++;
+			    }
+			    fullSearchResults.append("\n");
+			}
+		} catch (IOException e) {
+			logger.debug("IOException: " + e, e);
+		} finally {
+			try {
+				is.close();
+			} catch (IOException e) {
+				logger.debug("IOException: " + e, e);
+			}
+		}
+        logger.debug("\nFound " + i + " phrases " + fullSearchResults.toString()); // XXX send the message
+    	logger.debug(AllmonLoggerConstants.EXITED);
+        return metric;
+    }
+    
 }

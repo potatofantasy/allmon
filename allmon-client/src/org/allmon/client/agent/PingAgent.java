@@ -8,9 +8,9 @@ import org.apache.commons.logging.LogFactory;
 /**
  * This agents sends ping messages (signals) only.
  */
-public class SonobuoyAgent extends ActiveAgent  {
+public class PingAgent extends ActiveAgent  {
 
-    private static final Log logger = LogFactory.getLog(SonobuoyAgent.class);
+    private static final Log logger = LogFactory.getLog(PingAgent.class);
     
     MetricMessage collectMetrics() {
         MetricMessage metricMessage = MetricMessageFactory.createPingMessage();
