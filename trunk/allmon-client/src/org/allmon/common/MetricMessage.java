@@ -27,7 +27,10 @@ public class MetricMessage implements Serializable {
     private Object parameters; // TODO check if possible use List or Array!!!
     private Exception exception;
 
-    public MetricMessage() {
+    /**
+     * MetricMessage objects can be created only by MetricMessageFactory.
+     */
+    MetricMessage() {
     	if (addr != null) {
     		host = addr.getHostName();
     	} else {

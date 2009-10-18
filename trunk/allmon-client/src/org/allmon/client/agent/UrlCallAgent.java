@@ -6,8 +6,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.MetricMessage;
@@ -34,38 +32,17 @@ public class UrlCallAgent extends ActiveAgent {
     }
 
     public MetricMessage collectMetrics() {
-        StringBuffer fullSearchResults = new StringBuffer();
         String metric = "0";
         
         try {
             URLConnection connection = makeConncerion();
-            
             DataInputStream dis = new DataInputStream(connection.getInputStream());
-
-            String inputLine;
-            int i = 0;
-            while ((inputLine = dis.readLine()) != null) {
-                logger.debug(inputLine);
-                Pattern p = Pattern.compile(searchPhrase);
-                Matcher m = p.matcher(inputLine);
-                while (m.find()) {
-                    CharSequence cs = m.group();
-                    fullSearchResults.append(cs);
-                    fullSearchResults.append(" ");
-                    if (i == 0) {
-                        metric = cs.toString();
-                    }
-                    i++;
-                }
-                fullSearchResults.append("\n");
-            }
-            dis.close();
-            logger.debug("\nFound " + i + " phrases " + fullSearchResults.toString()); // XXX send the message
+            OutputParser.findFirst(dis, searchPhrase);
         } catch (MalformedURLException me) {
-            fullSearchResults.append(me.getMessage());
+            //fullSearchResults.append(me.getMessage());
             logger.debug("MalformedURLException: " + me, me);
         } catch (IOException ioe) {
-            fullSearchResults.append(ioe.getMessage());
+            //fullSearchResults.append(ioe.getMessage());
             logger.debug("IOException: " + ioe, ioe);
         }
         

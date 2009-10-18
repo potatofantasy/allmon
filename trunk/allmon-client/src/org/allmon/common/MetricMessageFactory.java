@@ -8,13 +8,16 @@ import javax.servlet.ServletRequest;
 
 public class MetricMessageFactory {
     
-    private final static String HOST = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_HOST_NAME);
+    private final static String HOSTNAME = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_HOST_NAME);
     private final static String INSTANCE = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_INSTANCE_NAME);
     
+    MetricMessageFactory() {
+    }
+        
     private static final MetricMessage createMessage() {
         MetricMessage metricMessage = new MetricMessage();
-        if (!"".equals(HOST)) {
-            metricMessage.setHost(HOST);
+        if (!"".equals(HOSTNAME)) {
+            metricMessage.setHost(HOSTNAME);
         }
         metricMessage.setInstance(INSTANCE);
         return metricMessage;
@@ -71,11 +74,30 @@ public class MetricMessageFactory {
 
     public static final MetricMessage createPingMessage() {
         MetricMessage metricMessage = createMessage();
-        // resource
-        metricMessage.setResource("PING");
+        // resource - localhost name
+        metricMessage.setResource(HOSTNAME);
+        return metricMessage;
+    }
+    
+    public static final MetricMessage createPingMessage(String pingedHost, long time) {
+        MetricMessage metricMessage = createMessage();
+        // resource - localhost name
+        metricMessage.setResource(HOSTNAME);
+        // source - hostname to which was sent ping
+        metricMessage.setSource(pingedHost);
+        metricMessage.setMetricValue(time);
         return metricMessage;
     }
 
+    public static final MetricMessage createShellMessage(String command, long metricValue) {
+        MetricMessage metricMessage = createMessage();
+        // resource - localhost name
+        metricMessage.setResource(HOSTNAME);
+        metricMessage.setSource(command);
+        metricMessage.setMetricValue(metricValue);
+        return metricMessage;
+    }
+    
     public static final MetricMessage createURLCallMessage(String url, String searchPhrase, double metricValue) {
         MetricMessage metricMessage = createMessage();
         metricMessage.setResource(url);
