@@ -56,6 +56,8 @@
 
   * (O) (o) (design) Add structure(s) holding events and related directly to calendar (Calendar of events)
 
+  * (O) (o) (design) Add structures/functionality for hierarchies in resources and sources in allmetric schema. Ex: for java methods calls extract hierarchy of packages in resource/source, for action classes extract hierarchy of users if possible.
+
 == [ModuleMiner Miner] (`**`) ==
     * Mining knowledge from collected in the database data, 
     * Statistical analysis, 
