@@ -2,7 +2,7 @@ package org.allmon.client.scheduler;
 
 import junit.framework.TestCase;
 
-import org.allmon.client.agent.SonobuoyAgent;
+import org.allmon.client.agent.PingAgent;
 import org.allmon.client.agent.UrlCallAgent;
 
 public class AgentCallerMainTest extends TestCase {
@@ -10,7 +10,7 @@ public class AgentCallerMainTest extends TestCase {
 	public void testMain() throws Exception {
 		//String [] args = {ShellCallAgent.class.getName(), ""};
 		//String [] args = {SimpleMetricMessageAgent.class.getName(), ""};
-	    String [] args = {SonobuoyAgent.class.getName(), ""};
+	    String [] args = {PingAgent.class.getName(), ""};
         AgentCallerMain.main(args);
 	}
 
