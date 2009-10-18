@@ -1,8 +1,10 @@
 package org.allmon.client.agent;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
@@ -26,25 +28,28 @@ public class ShellCallAgent extends ActiveAgent {
 		try {
 			logger.debug("Executing shell command: [" + shellCommand + "]...");
 	        p = Runtime.getRuntime().exec(shellCommand);
-			logger.debug("Shell command has been exeecuted successfully.");
-	        InputStream in = p.getInputStream();
-	        StringBuffer sb = new StringBuffer();
+	    	//p.waitFor();
+			logger.debug("Shell command has been executed successfully.");
+	        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            //StringBuffer sb = new StringBuffer();
 	        //int ch;
 	        //while ((ch = in.read()) != -1) {
 			//	sb.append((char) ch);
 			//}
-
-	        logger.debug(sb.toString());
+	        //logger.debug(sb.toString());
 	        
-	        metricValue = OutputParser.findFirst((DataInputStream)in, searchPhrase);
+	        metricValue = OutputParser.findFirst(br, searchPhrase);
 	        
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
-		}
+		} 
+		//catch (InterruptedException e) {
+		//	logger.error(e.getMessage(), e);
+		//}
         
-		MetricMessageFactory.createShellMessage(shellCommand, Long.parseLong(metricValue));
-		
-        return null;
+		MetricMessage message = MetricMessageFactory.createShellMessage(
+				shellCommand, Long.parseLong(metricValue));
+		return message;
 	}
 	
     public void setParameters(String[] paramsString) {
