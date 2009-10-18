@@ -37,8 +37,11 @@ Layers/Agents:
 
 <table border="1">
 <tr><th>.</th><th colspan="4">Application</th><th colspan="4">...</th></tr>
-<tr><th>.</th><th></th><th>HttpClientAgent</th><th>JmsCallAgent</th><th>JmxNfServerAgent</th></tr>
+<tr><th>.</th><th></th><th></th><th>JmsCallAgent</th><th>JmxNfServerAgent</th></tr>
 <tr><th rowspan="4">PassiveAgent</th><th>JavaCallAgent</th><td>x</td><td>x</td><td>x</td></tr>
+
+<tr><th></th><th>HttpClientAgent</th><td>x</td><td>x</td><td>x</td></tr>
+
 <tr><th rowspan="4">ActiveAgent</th><th>JavaCallAgent</th><td>.</td><td>.</td><td>.</td></tr>
 </table>
 
