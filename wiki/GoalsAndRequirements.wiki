@@ -20,11 +20,12 @@ The main project goal is to create a generic system storing various metrics coll
   # [ModuleViewer Viewer] (`**`) 
     * Presentation and Front-end 
 
+(`*`) Core modules. 
+(`**`) Allmon gives a set of views to the internal storage which can be used by other OLAP/BI/Reporting tools.
+
 Allmon component diagram:
 http://allmon.googlecode.com/svn/wiki/allmon-deployment-diagram-logical-overview-v1.03a.png
 
-(`*`) Core modules. 
-(`**`) Allmon gives a set of views to the internal storage which can be used by other OLAP/BI/Reporting tools.
 
 = Deployment and data live-cycle =
 
