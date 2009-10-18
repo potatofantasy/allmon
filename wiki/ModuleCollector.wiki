@@ -24,13 +24,7 @@ Modules:
   * Collector core (aggreagating metrics before sending to server) - sending data every 60sec (conf) or every 64kB (conf), Apache Camel
 
 
-Layers/Agents:
-
-
-|| . || . || Active agents || Passive agents ||
-|| . || . || DBCallAgent || JmxServerAgent || PingAgent || ShellCallAgent || UrlCallAgent || SnmpAgent || JavaCallAgent || HttpClientAgent || JmsCallAgent || JmxNfServerAgent ||
-|| . || OS ||   ||  ||
-
+Agents for various layers monitoring:
 
 <table border="1">
 <tr><th colspan="2">.</th><th colspan="2">Application</th><th colspan="5">Services</th><th colspan="3">Physical</th></tr>
