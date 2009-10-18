@@ -33,12 +33,13 @@ Layers/Agents:
 
 
 || . || . || Active agents || Passive agents ||
-|| . || . || DBCallAgent || JmxServerAgent || PingAgent || ShellCallAgent || UrlCallAgent || SnmpAgent || JavaCallAgent || HttpClientAgent || JmsCallAgent || JmxNfServerAgent ||
+|| . || . || DBCallAgent || JmxServerAgent || PingAgent || ShellCallAgent || UrlCallAgent || SnmpAgent || || || || ||
 
 <table border="1">
 <tr><th>.</th><th colspan="4">PassiveAgent</th><th colspan="4">ActiveAgent</th></tr>
-<tr><td>.</td><td>.</td><td>.</td></tr>
-<tr><td>.</td><td>.</td><td>.</td></tr>
+<tr><th>.</th><th>JavaCallAgent</th><th>HttpClientAgent</th><th>JmsCallAgent</th><th>JmxNfServerAgent</th></tr>
+<tr><th rowspan="1">Application</th><th>.</th><td>.</td><td>.</td><td>.</td></tr>
+<tr><th>.</th><th>.</th><td>.</td><td>.</td><td>.</td></tr>
 </table>
 
 
