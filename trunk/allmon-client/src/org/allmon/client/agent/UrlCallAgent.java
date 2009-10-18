@@ -1,7 +1,9 @@
 package org.allmon.client.agent;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -36,8 +38,9 @@ public class UrlCallAgent extends ActiveAgent {
         
         try {
             URLConnection connection = makeConncerion();
-            DataInputStream dis = new DataInputStream(connection.getInputStream());
-            OutputParser.findFirst(dis, searchPhrase);
+            //DataInputStream dis = new DataInputStream(connection.getInputStream());
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            OutputParser.findFirst(br, searchPhrase);
         } catch (MalformedURLException me) {
             //fullSearchResults.append(me.getMessage());
             logger.debug("MalformedURLException: " + me, me);
@@ -47,7 +50,8 @@ public class UrlCallAgent extends ActiveAgent {
         }
         
         double metricValue = Double.parseDouble(metric);
-        MetricMessage metricMessage = MetricMessageFactory.createURLCallMessage(urlAddress, searchPhrase, metricValue);
+        MetricMessage metricMessage = MetricMessageFactory.createURLCallMessage(
+        		urlAddress, searchPhrase, metricValue);
         return metricMessage;
     }
     

@@ -1,5 +1,6 @@
 package org.allmon.client.agent;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -104,7 +105,8 @@ public class OutputParser {
 
     
     public static String findFirst(
-    		DataInputStream is, // TODO change to InputStream
+    		BufferedReader br,
+    		//DataInputStream is, // TODO change to InputStream
     		String searchPhrase) {
     	logger.debug(AllmonLoggerConstants.ENTERED);
         StringBuffer fullSearchResults = new StringBuffer();
@@ -112,7 +114,7 @@ public class OutputParser {
     	String inputLine;
         int i = 0;
         try {
-			while ((inputLine = is.readLine()) != null) {
+			while ((inputLine = br.readLine()) != null) {
 			    logger.debug(inputLine);
 			    Pattern p = Pattern.compile(searchPhrase);
 			    Matcher m = p.matcher(inputLine);
@@ -122,6 +124,8 @@ public class OutputParser {
 			        fullSearchResults.append(" ");
 			        if (i == 0) {
 			            metric = cs.toString();
+			            logger.debug(AllmonLoggerConstants.EXITED);
+			            return metric; // XXX code this properly later
 			        }
 			        i++;
 			    }
@@ -131,7 +135,7 @@ public class OutputParser {
 			logger.debug("IOException: " + e, e);
 		} finally {
 			try {
-				is.close();
+				br.close();
 			} catch (IOException e) {
 				logger.debug("IOException: " + e, e);
 			}
