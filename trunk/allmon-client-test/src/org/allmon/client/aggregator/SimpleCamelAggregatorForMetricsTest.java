@@ -1,4 +1,4 @@
-package org.allmon.client.agent;
+package org.allmon.client.aggregator;
 
 import org.allmon.common.MetricMessageFactory;
 import org.apache.camel.EndpointInject;
