@@ -36,8 +36,9 @@ Layers/Agents:
 || . || . || DBCallAgent || JmxServerAgent || PingAgent || ShellCallAgent || UrlCallAgent || SnmpAgent || JavaCallAgent || HttpClientAgent || JmsCallAgent || JmxNfServerAgent ||
 
 <table border="1">
-<tr><th colspan="2">.</th><td>.</td>
-</tr>
+<tr><th colspan="2">.</th><th>.</th></tr>
+<tr><td>.</td><td>.</td></tr>
+<tr><td>.</td><td>.</td></tr>
 </table>
 
 
