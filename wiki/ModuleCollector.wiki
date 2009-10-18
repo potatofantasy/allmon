@@ -32,24 +32,19 @@ Layers/Agents:
 || . || OS ||   ||  ||
 
 
-|| . || . || Active agents || Passive agents ||
-|| . || . || || || || || || || || || || ||
-
 <table border="1">
-<tr><th colspan="2">.</th><th colspan="2">Application</th><th colspan="4">Services</th><th colspan="3">Physical</th></tr>
-<tr><th colspan="2">.</th><th>???</th><th>???</th><th>JVM</th><th>DB</th><th>App.Server</th><th>Web Cont.</th><th>OS</th><th>Net</th></tr>
-<tr><th rowspan="4">PassiveAgent</th><th>JavaCallAgent</th><td>x</td><td>x</td><td>x</td></tr>
-<tr><th>HttpClientAgent</th><td>x</td><td>x</td><td>x</td></tr>
-<tr><th>JmsCallAgent</th><td>x</td><td>x</td><td>x</td></tr>
-<tr><th>JmxNfServerAgent</th><td>x</td><td>x</td><td>x</td></tr>
+<tr><th colspan="2">.</th><th colspan="2">Application</th><th colspan="5">Services</th><th colspan="3">Physical</th></tr>
+<tr><th colspan="2">.</th><th>Your java app</th><th>Your web app.</th><th>JVM</th><th>DB</th><th>App.Server</th><th>Web Cont.</th><th>JMS Broker</th><th>OS</th><th>Net</th></tr>
 
-<tr><th rowspan="6">ActiveAgent</th><th>JmxServerAgent</th><td>.</td><td>.</td><td>.</td></tr>
-<tr><th>ShellCallAgent</th><td>x</td><td>x</td><td>x</td></tr>
-<tr><th>PingAgent</th><td>x</td><td>x</td><td>x</td></tr>
-<tr><th>DBCallAgent</th><td>x</td><td>x</td><td>x</td></tr>
-<tr><th>UrlCallAgent</th><td>x</td><td>x</td><td>x</td></tr>
-<tr><th>SnmpAgent</th><td>x</td><td>x</td><td>x</td></tr>
+<tr><th rowspan="4">PassiveAgent</th><th>JavaCallAgent</th><td>x</td><td>x</td><td>_</td><td>_</td><td>_</td><td>_</td><td>_</td><td>_</td><td>_</td></tr>
+<tr><th>HttpClientAgent</th><td>_</td><td>x</td><td>_</td><td>_</td><td>_</td><td>_</td><td>_</td><td>_</td><td>_</td></tr>
+<tr><th>JmsCallAgent</th><td>x</td><td>x</td><td>_</td><td>_</td><td>_</td><td>_</td><td>x</td><td>_</td><td>_</td></tr>
+<tr><th>JmxNfServerAgent</th><td>x</td><td>x</td><td>?</td><td>_</td><td>?</td><td>?</td><td>?</td><td>_</td><td>_</td></tr>
+
+<tr><th rowspan="6">ActiveAgent</th><th>JmxServerAgent</th><td>x</td><td>x</td><td>x</td><td>_</td><td>x</td><td>x</td><td>x</td><td>_</td><td>_</td></tr>
+<tr><th>ShellCallAgent</th><td>_</td><td>_</td><td>_</td><td>_</td><td>_</td><td>_</td><td>_</td><td>x</td><td>x</td></tr>
+<tr><th>PingAgent</th><td>_</td><td>_</td><td>_</td><td>_</td><td>_</td><td>_</td><td>x</td><td>x</td><td>x</td></tr>
+<tr><th>DBCallAgent</th><td>x</td><td>x</td><td>x</td><td>.</td><td>.</td><td>.</td><td>.</td><td>.</td><td>_</td></tr>
+<tr><th>UrlCallAgent</th><td>_</td><td>x</td><td>x</td><td>_</td><td>_</td><td>.</td><td>_</td><td>_</td><td>?</td></tr>
+<tr><th>SnmpAgent</th><td>_</td><td>_</td><td>_</td><td>.</td><td>.</td><td>?</td><td>?</td><td>x</td><td>x</td></tr>
 </table>
-
-
-<wiki:gadget url="http://spreadsheets.google.com/ccc?key=tXsj3JP7HVw3gW1zu4LkF3Q" height="200" border="0" /> 
