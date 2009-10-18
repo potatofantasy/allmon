@@ -29,8 +29,16 @@ Layers/Agents:
 
 || . || . || Active agents || Passive agents ||
 || . || . || DBCallAgent || JmxServerAgent || PingAgent || ShellCallAgent || UrlCallAgent || SnmpAgent || JavaCallAgent || HttpClientAgent || JmsCallAgent || JmxNfServerAgent ||
+|| . || OS ||   ||  ||
 
-||   || OS ||   ||  ||
+
+|| . || . || Active agents || Passive agents ||
+|| . || . || DBCallAgent || JmxServerAgent || PingAgent || ShellCallAgent || UrlCallAgent || SnmpAgent || JavaCallAgent || HttpClientAgent || JmsCallAgent || JmxNfServerAgent ||
+
+<table>
+<tr><td>.</td><td>.</td>
+</tr>
+</table>
 
 
 <wiki:gadget url="http://spreadsheets.google.com/ccc?key=tXsj3JP7HVw3gW1zu4LkF3Q" height="200" border="0" /> 
