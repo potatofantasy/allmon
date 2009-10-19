@@ -25,6 +25,9 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
     
     public final void execute() {
         MetricMessage metricMessage = collectMetrics();
+        if (metricMessage == null) {
+            throw new RuntimeException("MetricMessage hasn't been initialized properly");
+        }
         sendMessage(metricMessage);
     }
     

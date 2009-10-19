@@ -1,7 +1,6 @@
 package org.allmon.client.agent;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -23,24 +22,18 @@ public class UrlCallAgent extends ActiveAgent {
 
     private static final Log logger = LogFactory.getLog(UrlCallAgent.class);
     
-    private String urlAddress; // = "http://www.google.com";
-    private String searchPhrase;
-    
-    public void setParameters(String[] paramsString) {
-        if (paramsString != null && paramsString.length >= 2) {
-            urlAddress = paramsString[0];
-            searchPhrase = paramsString[1];        
-        }
-    }
+    protected String urlAddress; // = "http://www.google.com";
+    protected String searchPhrase;
 
-    public MetricMessage collectMetrics() {
+    MetricMessage collectMetrics() {
         String metric = "0";
         
         try {
-            URLConnection connection = makeConncerion();
+            URLConnection connection = makeConnection();
             //DataInputStream dis = new DataInputStream(connection.getInputStream());
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            OutputParser.findFirst(br, searchPhrase);
+            metric = OutputParser.findFirst(br, searchPhrase);
+            br.close();
         } catch (MalformedURLException me) {
             //fullSearchResults.append(me.getMessage());
             logger.debug("MalformedURLException: " + me, me);
@@ -55,14 +48,21 @@ public class UrlCallAgent extends ActiveAgent {
         return metricMessage;
     }
     
-    private URLConnection makeConncerion() throws IOException {
+    public void setParameters(String[] paramsString) {
+        if (paramsString != null && paramsString.length >= 2) {
+            urlAddress = paramsString[0];
+            searchPhrase = paramsString[1];        
+        }
+    }
+    
+    protected URLConnection makeConnection() throws IOException {
         URL url = new URL(urlAddress);
         URLConnection connection = url.openConnection();
         ifProxySetAuthorize(connection);
         return connection;
     }
     
-    private void ifProxySetAuthorize(URLConnection connection) {
+    protected void ifProxySetAuthorize(URLConnection connection) {
         if (!AllmonCommonConstants.ALLMON_CLIENT_AGENT_PROXY_ACTIVE) {
             // proxy authorization is not needed
             return;

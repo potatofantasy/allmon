@@ -31,5 +31,6 @@
 	<classpathentry kind="lib" path="/allmon-lib/lib/junit-4.4.jar"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/cron4j-2.1.1.jar" sourcepath="C:/eclipse-j2ee-3.3-lomboz/workspace/cron4j-2.1.1.zip"/>
+	<classpathentry kind="lib" path="/allmon-lib/lib/SNMP4J.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
