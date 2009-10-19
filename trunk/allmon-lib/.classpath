@@ -109,5 +109,6 @@
 	<classpathentry kind="lib" path="lib/camel-2.0-M2/spring-core-2.5.6.jar"/>
 	<classpathentry kind="lib" path="lib/camel-2.0-M2/spring-web-2.5.6.jar"/>
 	<classpathentry kind="lib" path="lib/camel-2.0-M2/stax-api-1.0-2.jar"/>
+	<classpathentry kind="lib" path="lib/SNMP4J.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
