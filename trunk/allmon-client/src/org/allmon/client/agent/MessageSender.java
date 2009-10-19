@@ -52,7 +52,6 @@ class MessageSender {
     public void sendMessage(MetricMessage metricMessage) {
         Connection connection = null;
         try {
-            
             // Create the connection.
             //ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(user, password, url);
             //connection = connectionFactory.createConnection();
