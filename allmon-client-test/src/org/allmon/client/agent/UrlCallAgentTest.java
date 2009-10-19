@@ -2,7 +2,7 @@ package org.allmon.client.agent;
 
 import junit.framework.TestCase;
 
-public class URLCallAgentTest extends TestCase {
+public class UrlCallAgentTest extends TestCase {
 
     public void testExecute() {
         UrlCallAgent agent = new UrlCallAgent();
