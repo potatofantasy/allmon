@@ -33,7 +33,7 @@ public class HttpUrlCallAgent extends UrlCallAgent {
             connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
             connection.setRequestProperty("Content-Language", "en-US");
             
-            connection.setUseCaches (false);
+            connection.setUseCaches(false);
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
@@ -60,6 +60,15 @@ public class HttpUrlCallAgent extends UrlCallAgent {
         MetricMessage metricMessage = MetricMessageFactory.createURLCallMessage(
                 urlAddress, searchPhrase, metricValue);
         return metricMessage;
+    }
+    
+    public void setParameters(String[] paramsString) {
+        if (paramsString != null && paramsString.length >= 4) {
+            urlAddress = paramsString[0];
+            searchPhrase = paramsString[1];
+            contentType = paramsString[2];
+            urlParameters = paramsString[3];
+        }
     }
     
 }
