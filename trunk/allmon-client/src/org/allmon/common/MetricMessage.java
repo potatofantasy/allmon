@@ -5,6 +5,10 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
 
+import org.allmon.client.agent.PingAgent;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class defines a data transformation object holding metrics data acquired in monitored application
  * by allmon client API, transformed (aggregated) and sent by allmon client to allmon server.
@@ -187,5 +191,5 @@ public class MetricMessage implements Serializable {
     public void setSession(String session) {
         this.session = session;
     }
-
+    
 }

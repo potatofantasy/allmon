@@ -5,15 +5,29 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletRequest;
 
-
+/**
+ * This class is responsible for creating MetriMessage objects.
+ * 
+ */
 public class MetricMessageFactory {
     
     private final static String HOSTNAME = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_HOST_NAME);
     private final static String INSTANCE = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_INSTANCE_NAME);
     
+    /**
+     * This object can be created only from this package.
+     */
     MetricMessageFactory() {
     }
-        
+    
+    public void validateMessage(MetricMessage metricMessage) throws MetricMessageInitializationException {
+        if (metricMessage == null) {
+            throw new MetricMessageInitializationException("MetricMessage is null");
+        } else if (metricMessage.getPoint() == null || "".equals(metricMessage.getPoint())) {
+            throw new MetricMessageInitializationException("MetricMessage point has not been initialized ");
+        }
+    }
+    
     private static final MetricMessage createMessage() {
         MetricMessage metricMessage = new MetricMessage();
         if (!"".equals(HOSTNAME)) {
