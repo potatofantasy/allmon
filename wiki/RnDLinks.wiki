@@ -26,6 +26,7 @@
     * JETM (Java Execution Time Measurement Library) - http://jetm.void.fm/
     * Glassbox-Inspector - http://www.ohloh.net/p/glassbox-inspector https://glassbox-inspector.dev.java.net/
     * Java Interactive Profiler - http://sourceforge.net/projects/jiprof/
+    * jprof - http://perfinsp.sourceforge.net/jprof.html
 
   * Databases and Application Servers
     * Oracle® Application Server Performance Guide - Performance Metrics - http://download.oracle.com/docs/cd/B14099_19/core.1012/b14001/metrics.htm
