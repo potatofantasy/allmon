@@ -60,6 +60,9 @@
     * in high-multidimensional spaces
     * in time domain
 
+  * Covariance
+    * Covariance matrix or Dispersion matrix - http://en.wikipedia.org/wiki/Covariance_matrix
+
   * Scalability
     * Amdahl's law - http://en.wikipedia.org/wiki/Amdahl%27s_Law
 
