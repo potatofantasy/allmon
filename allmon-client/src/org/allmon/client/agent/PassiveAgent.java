@@ -22,7 +22,7 @@ abstract class PassiveAgent extends Agent {
 		metricMessageSender = new SimpleMetricMessageSender(metricMessage);
 	}
 	
-	protected MetricMessageSender getMetricMessageSender() {
+	MetricMessageSender getMetricMessageSender() {
 		return metricMessageSender;
 	}
 	

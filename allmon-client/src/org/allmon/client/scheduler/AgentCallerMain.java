@@ -32,7 +32,6 @@ public class AgentCallerMain {
 	            }
 	            logger.debug("Loading class : " + className);
 	            
-	            
 	            // run in the same thread
 	            AgentCallerMain agentCaller = new AgentCallerMain();
 	            agentCaller.createInstanceAndExecute(className, classParamsString);

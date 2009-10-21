@@ -24,6 +24,7 @@ public class UrlCallAgent extends ActiveAgent {
     
     protected String urlAddress; // = "http://www.google.com";
     protected String searchPhrase;
+    protected boolean useProxy = true;
 
     MetricMessage collectMetrics() {
         String metric = "0";
@@ -48,23 +49,18 @@ public class UrlCallAgent extends ActiveAgent {
         return metricMessage;
     }
     
-    public void setParameters(String[] paramsString) {
-        if (paramsString != null && paramsString.length >= 2) {
-            urlAddress = paramsString[0];
-            searchPhrase = paramsString[1];        
-        }
-    }
-    
     protected URLConnection makeConnection() throws IOException {
         URL url = new URL(urlAddress);
         URLConnection connection = url.openConnection();
-        ifProxySetAuthorize(connection);
+        if (useProxy) {
+            ifProxySetAuthorize(connection);
+        }
         return connection;
     }
     
     protected void ifProxySetAuthorize(URLConnection connection) {
         if (!AllmonCommonConstants.ALLMON_CLIENT_AGENT_PROXY_ACTIVE) {
-            // proxy authorization is not needed
+            // proxy authorization is not active - is not set in properties
             return;
         }
         
@@ -79,8 +75,12 @@ public class UrlCallAgent extends ActiveAgent {
         String encodedUserPassword = encoder.encode(userPassword.getBytes());  
         
         // get authorization from the proxy
-        connection.setRequestProperty("Proxy-Authorization", "Basic " + encodedUserPassword);  
-        
+        connection.setRequestProperty("Proxy-Authorization", "Basic " + encodedUserPassword);
+    }
+    
+    void decodeAgentTaskableParams() {
+        urlAddress = getParamsString(0);
+        searchPhrase = getParamsString(1);
     }
 
 }

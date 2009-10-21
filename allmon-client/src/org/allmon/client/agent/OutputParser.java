@@ -1,7 +1,6 @@
 package org.allmon.client.agent;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -22,7 +21,6 @@ public class OutputParser {
 
 	private static final Log logger = LogFactory.getLog(OutputParser.class);
     
-	
     // Charset and decoder for ISO-8859-15
     private static Charset charset = Charset.forName("ISO-8859-15");
     private static CharsetDecoder decoder = charset.newDecoder();
@@ -104,10 +102,7 @@ public class OutputParser {
     }
 
     
-    public static String findFirst(
-    		BufferedReader br,
-    		//DataInputStream is, // TODO change to InputStream
-    		String searchPhrase) {
+    public static String findFirst(BufferedReader br, String searchPhrase) {
     	logger.debug(AllmonLoggerConstants.ENTERED);
         StringBuffer fullSearchResults = new StringBuffer();
         String metric = "0";
@@ -125,19 +120,19 @@ public class OutputParser {
 			        if (i == 0) {
 			            metric = cs.toString();
 			            logger.debug(AllmonLoggerConstants.EXITED);
-			            return metric; // XXX code this properly later
+			            //return metric; // XXX code this properly later
 			        }
 			        i++;
 			    }
 			    fullSearchResults.append("\n");
 			}
 		} catch (IOException e) {
-			logger.debug("IOException: " + e, e);
+			logger.error(e.getMessage(), e);
 		} finally {
 			try {
 				br.close();
 			} catch (IOException e) {
-				logger.debug("IOException: " + e, e);
+				logger.error(e.getMessage(), e);
 			}
 		}
         logger.debug("\nFound " + i + " phrases " + fullSearchResults.toString()); // XXX send the message

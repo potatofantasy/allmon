@@ -1,9 +1,7 @@
 package org.allmon.client.agent;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.allmon.common.MetricMessage;
@@ -52,13 +50,11 @@ public class ShellCallAgent extends ActiveAgent {
 		return message;
 	}
 	
-    public void setParameters(String[] paramsString) {
-        if (paramsString != null && paramsString.length >= 2) {
-        	shellCommand = paramsString[0];
-            searchPhrase = paramsString[1];        
-        }
+	void decodeAgentTaskableParams() {
+        shellCommand = getParamsString(0);
+        searchPhrase = getParamsString(1);
     }
-
+    
 	public void setShellCommand(String shellCommand) {
 		this.shellCommand = shellCommand;
 	}

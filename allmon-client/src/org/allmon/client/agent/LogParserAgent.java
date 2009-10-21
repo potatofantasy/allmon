@@ -9,9 +9,7 @@ public class LogParserAgent extends ActiveAgent {
 		return null;
 	}
 
-	public void setParameters(String[] paramsString) {
-		// TODO Auto-generated method stub
-		
-	}
+    void decodeAgentTaskableParams() {
+    }
 
 }
