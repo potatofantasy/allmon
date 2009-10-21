@@ -42,9 +42,10 @@
     * Commons-Math: The Apache Commons Mathematics Library - http://commons.apache.org/math/index.html
 
   * Instrumentation
-    * Java Instrumentation
- - http://java.sun.com/j2se/1.5.0/docs/api/java/lang/instrument/Instrumentation.html
+    * Java Instrumentation - http://java.sun.com/j2se/1.5.0/docs/api/java/lang/instrument/Instrumentation.html
     * AOP
+
+  * Monitoring and Managing Tomcat Clusters Using JMX - http://www.devx.com/Java/Article/21726/1954
 
 = Theory =
 
