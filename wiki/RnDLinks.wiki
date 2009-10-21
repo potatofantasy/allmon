@@ -46,6 +46,7 @@
     * AOP
 
   * Monitoring and Managing Tomcat Clusters Using JMX - http://www.devx.com/Java/Article/21726/1954
+  * Using JConsole (and JMX MBeans) to Monitor Applications - http://java.sun.com/developer/technicalArticles/J2SE/jconsole.html
 
 = Theory =
 
