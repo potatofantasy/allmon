@@ -14,7 +14,6 @@ public class LoaderReceiverRouteBuilder extends RouteBuilder {
     private static final Log logger = LogFactory.getLog(LoaderReceiverRouteBuilder.class);
     
     public void configure() {
-
         // receiving data from server-side queue
         from(AllmonCommonConstants.ALLMON_SERVER_CAMEL_QUEUE_READYFORLOADING).process(new Processor() {
             public void process(Exchange e) {
@@ -26,7 +25,6 @@ public class LoaderReceiverRouteBuilder extends RouteBuilder {
                     try {
                         // Store metric
                         LoadRawMetric loadRawMetric = new LoadRawMetric();
-                        //loadRawMetric.storeMetric(metricMessageWrapper.toString()); // TODO change String(metricMessageWrapper.toString) to MetricMessage
                         loadRawMetric.storeMetric(metricMessageWrapper); // TODO change String(metricMessageWrapper.toString) to MetricMessage
                     } catch (Throwable t) {
                         logger.error(t.getMessage(), t);
@@ -38,18 +36,6 @@ public class LoaderReceiverRouteBuilder extends RouteBuilder {
                 logger.debug(">>>>> Received exchange: End.");
             }
         });
-        
-        //from(q2).to("jpa:org.apache.camel.example.jmstofile.PersMessage");
-
-        /*
-        from("file:src/data?noop=true").convertBodyTo(PersonDocument.class)
-            .to("jpa:org.apache.camel.example.etl.CustomerEntity");
-        // the following will dump the database to files
-        from("jpa:org.apache.camel.example.etl.CustomerEntity?consumeDelete=false&consumer.delay=3000&consumeLockEntity=false")
-            .setHeader(Exchange.FILE_NAME, el("${in.body.userName}.xml"))
-            .to("file:target/customers?append=false");
-        */
-           
     }
     
 }
