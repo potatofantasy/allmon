@@ -61,7 +61,7 @@ public class SimpleMetricMessageSenderLoadTest extends TestCase {
                     
                     logger.debug("MetricMessage initialized in " + (t1 - t0)/1000000);
                     logger.debug("MetricMessage metrics sent in " + (t2 - t1)/1000000);
-                                
+                    
                     logger.debug("MetricMessage end");
                 }
             });
