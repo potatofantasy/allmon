@@ -19,8 +19,7 @@ public class PingAgent extends ActiveAgent  {
         return metricMessage;
     }
 
-    public void setParameters(String[] paramsString) {
-        
+    void decodeAgentTaskableParams() {
     }
     
 }

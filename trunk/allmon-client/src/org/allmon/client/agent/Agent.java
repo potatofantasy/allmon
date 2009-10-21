@@ -6,8 +6,8 @@ package org.allmon.client.agent;
 import org.allmon.common.AllmonPropertiesReader;
 
 /**
+ * Top abstract level of agents definition.
  * 
- *
  */
 abstract class Agent {
 

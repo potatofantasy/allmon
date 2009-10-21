@@ -24,11 +24,9 @@ public class SnmpAgent extends ActiveAgent {
         return null;
     }
 
-    public void setParameters(String[] paramsString) {
-        // TODO Auto-generated method stub
-
+    protected void decodeAgentTaskableParams() {
     }
-
+    
     public class SNMP4JHelper {
         public static final String READ_COMMUNITY = "public";
         public static final String WRITE_COMMUNITY = "private";

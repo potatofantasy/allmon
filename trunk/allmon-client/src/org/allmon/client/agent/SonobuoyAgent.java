@@ -17,8 +17,7 @@ public class SonobuoyAgent extends ActiveAgent  {
         return metricMessage;
     }
 
-    public void setParameters(String[] paramsString) {
-        
+    protected void decodeAgentTaskableParams() {
     }
     
 }

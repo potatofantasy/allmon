@@ -17,16 +17,18 @@ public class HttpUrlCallAgent extends UrlCallAgent {
 
     private static final Log logger = LogFactory.getLog(HttpUrlCallAgent.class);
     
+    private String requestMethod = "POST";
     private String contentType = "application/json; charset=utf-8";
     private String urlParameters = "{ 'componentChecker': 'TTC.iTropics.ComponentCheckers.TropicsDawsComponentChecker, TTC.iTropics.ComponentCheckers' }";
     
     MetricMessage collectMetrics() {
         String metric = "0";
         
+        HttpURLConnection connection = null;
         try {
-            HttpURLConnection connection = (HttpURLConnection)makeConnection();
+            connection = (HttpURLConnection)makeConnection();
             
-            connection.setRequestMethod("POST");
+            connection.setRequestMethod(requestMethod);
             connection.setRequestProperty("Content-Type", contentType);
             //"application/x-www-form-urlencoded"; "application/json; charset=utf-8";
             
@@ -35,13 +37,17 @@ public class HttpUrlCallAgent extends UrlCallAgent {
             
             connection.setUseCaches(false);
             connection.setDoInput(true);
-            connection.setDoOutput(true);
-
+            
             //Send request
-            DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-            wr.writeBytes(urlParameters);
-            wr.flush();
-            wr.close();
+            if ("POST".equals(requestMethod)) {
+                //using "doSetOutput(true)" which forces HttpURLConnection to use POST, not GET, 
+                connection.setDoOutput(true);
+                
+                DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+                wr.writeBytes(urlParameters);
+                wr.flush();
+                wr.close();
+            }
             
             //Get Response    
             //DataInputStream dis = new DataInputStream(connection.getInputStream());
@@ -54,6 +60,10 @@ public class HttpUrlCallAgent extends UrlCallAgent {
         } catch (IOException ioe) {
             //fullSearchResults.append(ioe.getMessage());
             logger.debug("IOException: " + ioe, ioe);
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
         
         double metricValue = Double.parseDouble(metric);
@@ -61,14 +71,13 @@ public class HttpUrlCallAgent extends UrlCallAgent {
                 urlAddress, searchPhrase, metricValue);
         return metricMessage;
     }
-    
-    public void setParameters(String[] paramsString) {
-        if (paramsString != null && paramsString.length >= 4) {
-            urlAddress = paramsString[0];
-            searchPhrase = paramsString[1];
-            contentType = paramsString[2];
-            urlParameters = paramsString[3];
-        }
+   
+    void decodeAgentTaskableParams() {
+        urlAddress = getParamsString(0);
+        searchPhrase = getParamsString(1);
+        contentType = getParamsString(2);
+        urlParameters = getParamsString(3);
+        useProxy = false;
     }
     
 }
