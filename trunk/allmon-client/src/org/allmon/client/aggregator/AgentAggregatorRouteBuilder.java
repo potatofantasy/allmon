@@ -7,6 +7,14 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * This class is responsible for defining two camel routes:
+ * (1) for aggregating metrics and collecting them into packages, 
+ * sending aggregated data to another queue (which might be potentially persisted), 
+ * (2) for sending data from aggregated metrics queue across network to loader 
+ * module (server-side of allmon).
+ * 
+ */
 class AgentAggregatorRouteBuilder extends RouteBuilder {
 
     private static Log logger = LogFactory.getLog(AgentAggregatorRouteBuilder.class);
@@ -28,16 +36,11 @@ class AgentAggregatorRouteBuilder extends RouteBuilder {
 //            batchSize(AllmonCommonConstants.ALLMON_CLIENT_AGGREGATOR_BATCHSIZE).
 //            batchTimeout(AllmonCommonConstants.ALLMON_CLIENT_AGGREGATOR_BATCHTIMEOUT).
 //            to(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGGREGATED);
-
-        // for camel-1.6.x
-        // aggregating data from agents queue and passing them to aggregated queue
-//        from(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGENTSDATA).aggregator(new AgentAggregationCollection()).
-//            batchSize(aggregatorBatchSize).batchTimeout(aggregatorBatchTimeout).to(AllmonCommonConstants.CLIENT_CAMEL_QUEUE_AGGREGATED);
         
         // taking messages from aggregated metrics messages queue and passing them to server (allmon loader queue)
         from(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGGREGATED).to(AllmonCommonConstants.ALLMON_SERVER_CAMEL_QUEUE_READYFORLOADING);
         
-        // XXX kept for debugging purposes
+        // XXX kept for debugging purposes only
 //        from(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGGREGATED).process(new Processor() {
 //            public void process(Exchange e) {
 //                System.out.println(">>>>> Received exchange: " + e.getIn());
