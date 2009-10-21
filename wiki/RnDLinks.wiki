@@ -13,6 +13,7 @@
     * http://java.sun.com/developer/technicalArticles/J2SE/jmx.html
     * http://java.sun.com/javase/technologies/core/mntr-mgmt/javamanagement/
     * examples: http://java.sun.com/j2se/1.5.0/docs/guide/jmx/examples.html
+
   * JDMK
     * http://en.wikipedia.org/wiki/Java_Dynamic_Management_Kit
     * http://java.sun.com/products/jdmk/
@@ -45,8 +46,11 @@
     * Java Instrumentation - http://java.sun.com/j2se/1.5.0/docs/api/java/lang/instrument/Instrumentation.html
     * AOP
 
-  * Monitoring and Managing Tomcat Clusters Using JMX - http://www.devx.com/Java/Article/21726/1954
-  * Using JConsole (and JMX MBeans) to Monitor Applications - http://java.sun.com/developer/technicalArticles/J2SE/jconsole.html
+  * Monitoring service layer
+    * Monitoring and Managing Tomcat Clusters Using JMX - http://www.devx.com/Java/Article/21726/1954
+    * Using JConsole (and JMX MBeans) to Monitor Applications - http://java.sun.com/developer/technicalArticles/J2SE/jconsole.html
+    * Using JMX to monitor Apache ActiveMQ - http://activemq.apache.org/jmx.html
+
 
 = Theory =
 
