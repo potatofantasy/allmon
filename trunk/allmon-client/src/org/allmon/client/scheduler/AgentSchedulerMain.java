@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * This class will run simple scheduler to run all set up (configured) tasks
- * which will be responsible for actively gathering metrics from monitored
+ * which will be responsible for gathering metrics *actively* from monitored
  * systems/environments. <br>
  * <br>
  * 

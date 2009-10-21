@@ -22,10 +22,9 @@ public class ShellCallAgent extends ActiveAgent {
 	
 	public MetricMessage collectMetrics() {
 	    String metricValue= "0";
-        Process p;
-		try {
+        try {
 			logger.debug("Executing shell command: [" + shellCommand + "]...");
-	        p = Runtime.getRuntime().exec(shellCommand);
+			Process p = Runtime.getRuntime().exec(shellCommand);
 	    	//p.waitFor();
 			logger.debug("Shell command has been executed successfully.");
 	        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
