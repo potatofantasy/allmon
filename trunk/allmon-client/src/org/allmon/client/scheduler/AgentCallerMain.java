@@ -9,7 +9,13 @@ import org.allmon.common.AllmonPropertiesReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class AgentCallerMain {
+/**
+ * This class is run by AgentSchedulerMain to call execute method of ActiveAgents 
+ * (implementing interface AgentTaskable). This class also sets parameters ActiveAgent
+ * instances.
+ * 
+ */
+class AgentCallerMain {
 
     static {
         AllmonPropertiesReader.readLog4jProperties();
@@ -22,7 +28,6 @@ public class AgentCallerMain {
         logger.debug("param size : " + args.length);
         
         boolean success = false;
-        
         try {  
 	        if (args.length > 0) {
 	            String className = args[0]; //ex: "org.allmon.client.agent.MetricCollector";
@@ -30,7 +35,7 @@ public class AgentCallerMain {
 	            if (args.length > 1) {
 	                classParamsString = Arrays.copyOfRange(args, 1, args.length);
 	            }
-	            logger.debug("Loading class : " + className);
+	            logger.debug("Loading class: " + className + ", for parameters: " + classParamsString);
 	            
 	            // run in the same thread
 	            AgentCallerMain agentCaller = new AgentCallerMain();

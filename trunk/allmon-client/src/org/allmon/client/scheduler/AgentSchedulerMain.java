@@ -9,13 +9,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class will run simple scheduler to run all set up (configured) tasks
+ * This class runs simple scheduler to run all set up (configured) tasks
  * which will be responsible for gathering metrics *actively* from monitored
- * systems/environments. <br>
- * <br>
+ * systems/environments. <br><br>
  * 
  * To meet active monitoring requirement we need to add a simple scheduling
- * mechanism. At this stage Apache Camel does not contain built in simple
+ * mechanism. At this stage Apache Camel does not contain built-in simple
  * scheduler. Maybe situation changes in the future due to development related
  * to http://issues.apache.org/activemq/browse/CAMEL-1954. So, we are
  * introducing cron4j instead.
