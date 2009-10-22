@@ -6,7 +6,10 @@ package org.allmon.client.agent;
 import org.allmon.common.AllmonPropertiesReader;
 
 /**
- * Top abstract level of agents definition.
+ * Top abstract level of agents definition.<br><br>
+ * 
+ * <b>Every JVM instance which uses <u>an agent</u> has JmsBrokerSampler 
+ * class instantiated for the whole live time.</b>
  * 
  */
 abstract class Agent {
@@ -15,9 +18,9 @@ abstract class Agent {
         AllmonPropertiesReader.readLog4jProperties();
     }
     
-//	private MetricMessageSender messageSender;
+    AgentsMetricMessageSender messageSender;
 	
-	public Agent() {
+	Agent() {
 		//TODO find out how to create/pass metric message sender
 //		messageSender = new SimpleMetricMessageSender(message)
 	}

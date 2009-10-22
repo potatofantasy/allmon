@@ -47,6 +47,8 @@ class MessageSender {
         //pcf = new PooledConnectionFactory(new ActiveMQConnectionFactory(AllmonCommonConstants.CLIENT_BROKER_USER, AllmonCommonConstants.CLIENT_BROKER_PASSWORD, url));
         cf = AllmonActiveMQConnectionFactory.client();
         
+        // 
+        //JmsBrokerSampler.getInstance().checkJmsBrokerIsUp();
     }
     
     public void sendMessage(MetricMessage metricMessage) {
