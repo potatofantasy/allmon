@@ -105,7 +105,7 @@ public class OutputParser {
     public static String findFirst(BufferedReader br, String searchPhrase) {
     	logger.debug(AllmonLoggerConstants.ENTERED);
         StringBuffer fullSearchResults = new StringBuffer();
-        String metric = "0";
+        String metric = "";
     	String inputLine;
         int i = 0;
         try {

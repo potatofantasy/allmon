@@ -12,7 +12,7 @@ public class JavaCallAgent extends PassiveAgent {
 	public JavaCallAgent(MetricMessage metricMessage) {
 		super(metricMessage);
 	}
-
+	
 	public void entryPoint() {
 		getMetricMessageSender().sendEntryPoint();
 	}

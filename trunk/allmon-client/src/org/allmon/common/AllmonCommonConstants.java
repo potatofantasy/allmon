@@ -4,8 +4,6 @@ import org.apache.activemq.ActiveMQConnection;
 
 public class AllmonCommonConstants {
 
-    public final static long TIMER_100YEARS_IN_MS = 100 * 365 * 24 * 3600 * 1000;
-    
     public final static String METRIC_POINT_ENTRY = "ENTRY";
     public final static String METRIC_POINT_EXIT = "EXIT";
     

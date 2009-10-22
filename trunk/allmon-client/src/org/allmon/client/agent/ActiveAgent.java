@@ -31,7 +31,8 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
     
     /**
      * This method is used by AgentCallerMain to execute process of:
-     * (1) collecting metrics and (2) sending metrics messages. 
+     * (1) collecting metrics and 
+     * (2) sending metrics messages. 
      * This method is final, so no other concrete Agent implementation can override it.
      */
     public final void execute() {
@@ -44,10 +45,10 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
     
     private void sendMessage(MetricMessage metricMessage) {
         // TODO review creating different explicitly specified MetricMessageSender
-        MetricMessageSender metricMessageSender = new SimpleMetricMessageSender(metricMessage);
-        metricMessageSender.sendEntryPoint();
+        messageSender = new AgentsMetricMessageSender(metricMessage);
+        messageSender.sendEntryPoint();
     }
-
+    
     
     // TODO review this property - it is forcing to use decodeAgentTaskableParams implementation for all active agents 
     // XXX create a new interface only for those Active agents which should have parameters
@@ -58,7 +59,7 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
         if (paramsString != null && paramsString.length > i) {
             return paramsString[i];
         }
-        return null; // TODO review is null result is better than throwing an exception 
+        return null; // TODO review is null result is better than throwing an exception
     }
     
     /**

@@ -16,14 +16,12 @@ import org.allmon.common.MetricMessage;
  */
 abstract class PassiveAgent extends Agent {
 
-	private MetricMessageSender metricMessageSender;
-	
-	PassiveAgent(MetricMessage metricMessage) {
-		metricMessageSender = new SimpleMetricMessageSender(metricMessage);
-	}
-	
-	MetricMessageSender getMetricMessageSender() {
-		return metricMessageSender;
-	}
-	
+    PassiveAgent(MetricMessage metricMessage) {
+        messageSender = new AgentsMetricMessageSender(metricMessage);
+    }
+
+    MetricMessageSender getMetricMessageSender() {
+        return messageSender;
+    }
+
 }
