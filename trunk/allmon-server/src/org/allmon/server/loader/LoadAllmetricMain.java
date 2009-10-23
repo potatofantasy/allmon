@@ -39,9 +39,8 @@ public class LoadAllmetricMain {
         
         // Starts the scheduler
         scheduler.start();
-        // Will run for five minutes
         try {
-            Thread.sleep(AllmonCommonConstants.TIMER_100YEARS_IN_MS);
+            Thread.sleep(Long.MAX_VALUE);
         } catch (InterruptedException e) {
         }
         // Stops the scheduler.
