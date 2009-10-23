@@ -6,8 +6,8 @@ Allmetric data model research. More details and the schema creation script is un
 
 Why we wanted to have so generic schema? 
 We have two answers:
-* We wanted to avoid creation of new structures if we want to add a new metric, metric group or even new area (layer) of monitoring.
-* ... 3 tier architecture of a datawarehouse - middle tier contains schema in nice and generic 3NF.
+  * We wanted to avoid creation of new structures if we want to add a new metric, metric group or even new area (layer) of monitoring.
+  * ... 3 tier architecture of a datawarehouse - middle tier contains schema in nice and generic 3NF.
 
 = Details =
 
