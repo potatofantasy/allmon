@@ -41,30 +41,28 @@ import javax.management.remote.JMXServiceURL;
 # * SimpleDynamic.java: implements the Simple dynamic MBean.
 #
  */
-public class Server {
+public class ServerMain {
 
 	public static void main(String[] args) {
 		try {
 			// Instantiate the MBean server
 			//
-			echo("\n>>> Create the MBean server");
+			System.out.println("\n>>> Create the MBean server");
 			MBeanServer mbs = MBeanServerFactory.createMBeanServer();
 			waitForEnterPressed();
 
 			// Get default domain
 			//
-			echo("\n>>> Get the MBean server's default domain");
+			System.out.println("\n>>> Get the MBean server's default domain");
 			String domain = mbs.getDefaultDomain();
-			echo("\tDefault Domain = " + domain);
+			System.out.println("\tDefault Domain = " + domain);
 			waitForEnterPressed();
 
 			// Create and register the SimpleStandard MBean
 			//
-			String mbeanClassName = "SimpleStandard";
-			String mbeanObjectNameStr = domain + ":type=" + mbeanClassName
-					+ ",index=1";
-			ObjectName mbeanObjectName = createSimpleMBean(mbs, mbeanClassName,
-					mbeanObjectNameStr);
+			String mbeanClassName = "org.allmon.client.agent.connect.SimpleStandard";
+			String mbeanObjectNameStr = domain + ":type=" + mbeanClassName + ",index=1";
+			ObjectName mbeanObjectName = createSimpleMBean(mbs, mbeanClassName, mbeanObjectNameStr);
 			waitForEnterPressed();
 
 			// Get and display the management information exposed by the
@@ -80,11 +78,9 @@ public class Server {
 
 			// Create and register the SimpleDynamic MBean
 			//
-			mbeanClassName = "SimpleDynamic";
-			mbeanObjectNameStr = domain + ":type=" + mbeanClassName
-					+ ",index=1";
-			mbeanObjectName = createSimpleMBean(mbs, mbeanClassName,
-					mbeanObjectNameStr);
+			mbeanClassName = "org.allmon.client.agent.connect.SimpleDynamic";
+			mbeanObjectNameStr = domain + ":type=" + mbeanClassName + ",index=1";
+			mbeanObjectName = createSimpleMBean(mbs, mbeanClassName, mbeanObjectNameStr);
 			waitForEnterPressed();
 
 			// Get and display the management information exposed by the
@@ -100,25 +96,23 @@ public class Server {
 
 			// Create an RMI connector server
 			//
-			echo("\nCreate an RMI connector server");
-			JMXServiceURL url = new JMXServiceURL(
-					"service:jmx:rmi:///jndi/rmi://localhost:9999/server");
-			JMXConnectorServer cs = JMXConnectorServerFactory
-					.newJMXConnectorServer(url, null, mbs);
+			System.out.println("\nCreate an RMI connector server");
+			JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:9999/server");
+			JMXConnectorServer cs = JMXConnectorServerFactory.newJMXConnectorServer(url, null, mbs);
 
 			// Start the RMI connector server
 			//
-			echo("\nStart the RMI connector server");
+			System.out.println("\nStart the RMI connector server");
 			cs.start();
-			echo("\nThe RMI connector server successfully started");
-			echo("and is ready to handle incoming connections");
-			echo("\nStart the client on a different window and");
-			echo("press <Enter> once the client has finished");
+			System.out.println("\nThe RMI connector server successfully started");
+			System.out.println("and is ready to handle incoming connections");
+			System.out.println("\nStart the client on a different window and");
+			System.out.println("press <Enter> once the client has finished");
 			waitForEnterPressed();
 
 			// Stop the RMI connector server
 			//
-			echo("\nStop the RMI connector server");
+			System.out.println("\nStop the RMI connector server");
 			cs.stop();
 			System.out.println("\nBye! Bye!");
 		} catch (Exception e) {
@@ -128,18 +122,16 @@ public class Server {
 
 	private static ObjectName createSimpleMBean(MBeanServer mbs,
 			String mbeanClassName, String mbeanObjectNameStr) {
-		echo("\n>>> Create the " + mbeanClassName
-				+ " MBean within the MBeanServer");
-		echo("\tObjectName = " + mbeanObjectNameStr);
+		System.out.println("\n>>> Create the " + mbeanClassName + " MBean within the MBeanServer");
+		System.out.println("\tObjectName = " + mbeanObjectNameStr);
 		try {
-			ObjectName mbeanObjectName = ObjectName
-					.getInstance(mbeanObjectNameStr);
+			ObjectName mbeanObjectName = ObjectName.getInstance(mbeanObjectNameStr);
 			mbs.createMBean(mbeanClassName, mbeanObjectName);
 			return mbeanObjectName;
 		} catch (Exception e) {
-			echo("\t!!! Could not create the " + mbeanClassName + " MBean !!!");
+			System.out.println("\t!!! Could not create the " + mbeanClassName + " MBean !!!");
 			e.printStackTrace();
-			echo("\nEXITING...\n");
+			System.out.println("\nEXITING...\n");
 			System.exit(1);
 		}
 		return null;
@@ -147,79 +139,74 @@ public class Server {
 
 	private static void printMBeanInfo(MBeanServer mbs,
 			ObjectName mbeanObjectName, String mbeanClassName) {
-		echo("\n>>> Retrieve the management information for the "
-				+ mbeanClassName);
-		echo("    MBean using the getMBeanInfo() method of the MBeanServer");
+		System.out.println("\n>>> Retrieve the management information for the " + mbeanClassName);
+		System.out.println("    MBean using the getMBeanInfo() method of the MBeanServer");
 		MBeanInfo info = null;
 		try {
 			info = mbs.getMBeanInfo(mbeanObjectName);
 		} catch (Exception e) {
-			echo("\t!!! Could not get MBeanInfo object for " + mbeanClassName
-					+ " !!!");
+			System.out.println("\t!!! Could not get MBeanInfo object for " + mbeanClassName + " !!!");
 			e.printStackTrace();
 			return;
 		}
-		echo("\nCLASSNAME: \t" + info.getClassName());
-		echo("\nDESCRIPTION: \t" + info.getDescription());
-		echo("\nATTRIBUTES");
+		System.out.println("\nCLASSNAME: \t" + info.getClassName());
+		System.out.println("\nDESCRIPTION: \t" + info.getDescription());
+		System.out.println("\nATTRIBUTES");
 		MBeanAttributeInfo[] attrInfo = info.getAttributes();
 		if (attrInfo.length > 0) {
 			for (int i = 0; i < attrInfo.length; i++) {
-				echo(" ** NAME: \t" + attrInfo[i].getName());
-				echo("    DESCR: \t" + attrInfo[i].getDescription());
-				echo("    TYPE: \t" + attrInfo[i].getType() + "\tREAD: "
-						+ attrInfo[i].isReadable() + "\tWRITE: "
-						+ attrInfo[i].isWritable());
+				System.out.println(" ** NAME: \t" + attrInfo[i].getName());
+				System.out.println("    DESCR: \t" + attrInfo[i].getDescription());
+				System.out.println("    TYPE: \t" + attrInfo[i].getType() + "\tREAD: " + attrInfo[i].isReadable() + "\tWRITE: " + attrInfo[i].isWritable());
 			}
-		} else
-			echo(" ** No attributes **");
-		echo("\nCONSTRUCTORS");
+		} else {
+			System.out.println(" ** No attributes **");
+		}
+		System.out.println("\nCONSTRUCTORS");
 		MBeanConstructorInfo[] constrInfo = info.getConstructors();
 		for (int i = 0; i < constrInfo.length; i++) {
-			echo(" ** NAME: \t" + constrInfo[i].getName());
-			echo("    DESCR: \t" + constrInfo[i].getDescription());
-			echo("    PARAM: \t" + constrInfo[i].getSignature().length
-					+ " parameter(s)");
+			System.out.println(" ** NAME: \t" + constrInfo[i].getName());
+			System.out.println("    DESCR: \t" + constrInfo[i].getDescription());
+			System.out.println("    PARAM: \t" + constrInfo[i].getSignature().length + " parameter(s)");
 		}
-		echo("\nOPERATIONS");
+		System.out.println("\nOPERATIONS");
 		MBeanOperationInfo[] opInfo = info.getOperations();
 		if (opInfo.length > 0) {
 			for (int i = 0; i < opInfo.length; i++) {
-				echo(" ** NAME: \t" + opInfo[i].getName());
-				echo("    DESCR: \t" + opInfo[i].getDescription());
-				echo("    PARAM: \t" + opInfo[i].getSignature().length
-						+ " parameter(s)");
+				System.out.println(" ** NAME: \t" + opInfo[i].getName());
+				System.out.println("    DESCR: \t" + opInfo[i].getDescription());
+				System.out.println("    PARAM: \t" + opInfo[i].getSignature().length + " parameter(s)");
 			}
-		} else
-			echo(" ** No operations ** ");
-		echo("\nNOTIFICATIONS");
+		} else {
+			System.out.println(" ** No operations ** ");
+		}
+		System.out.println("\nNOTIFICATIONS");
 		MBeanNotificationInfo[] notifInfo = info.getNotifications();
 		if (notifInfo.length > 0) {
 			for (int i = 0; i < notifInfo.length; i++) {
-				echo(" ** NAME: \t" + notifInfo[i].getName());
-				echo("    DESCR: \t" + notifInfo[i].getDescription());
+				System.out.println(" ** NAME: \t" + notifInfo[i].getName());
+				System.out.println("    DESCR: \t" + notifInfo[i].getDescription());
 				String notifTypes[] = notifInfo[i].getNotifTypes();
 				for (int j = 0; j < notifTypes.length; j++) {
-					echo("    TYPE: \t" + notifTypes[j]);
+					System.out.println("    TYPE: \t" + notifTypes[j]);
 				}
 			}
-		} else
-			echo(" ** No notifications **");
+		} else {
+			System.out.println(" ** No notifications **");
+		}
 	}
 
-	private static void manageSimpleMBean(MBeanServer mbs,
-			ObjectName mbeanObjectName, String mbeanClassName) {
+	private static void manageSimpleMBean(MBeanServer mbs, ObjectName mbeanObjectName, String mbeanClassName) {
 
-		echo("\n>>> Manage the " + mbeanClassName
-				+ " MBean using its attributes ");
-		echo("    and operations exposed for management");
+		System.out.println("\n>>> Manage the " + mbeanClassName + " MBean using its attributes ");
+		System.out.println("    and operations exposed for management");
 
 		try {
 			// Get attribute values
 			printSimpleAttributes(mbs, mbeanObjectName);
 
 			// Change State attribute
-			echo("\n    Setting State attribute to value \"new state\"...");
+			System.out.println("\n    Setting State attribute to value \"new state\"...");
 			Attribute stateAttribute = new Attribute("State", "new state");
 			mbs.setAttribute(mbeanObjectName, stateAttribute);
 
@@ -227,7 +214,7 @@ public class Server {
 			printSimpleAttributes(mbs, mbeanObjectName);
 
 			// Invoking reset operation
-			echo("\n    Invoking reset operation...");
+			System.out.println("\n    Invoking reset operation...");
 			mbs.invoke(mbeanObjectName, "reset", null, null);
 
 			// Get attribute values
@@ -240,33 +227,20 @@ public class Server {
 	private static void printSimpleAttributes(MBeanServer mbs,
 			ObjectName mbeanObjectName) {
 		try {
-			echo("\n    Getting attribute values:");
+			System.out.println("\n    Getting attribute values:");
 			String State = (String) mbs.getAttribute(mbeanObjectName, "State");
-			Integer NbChanges = (Integer) mbs.getAttribute(mbeanObjectName,
-					"NbChanges");
-			echo("\tState     = \"" + State + "\"");
-			echo("\tNbChanges = " + NbChanges);
+			Integer NbChanges = (Integer) mbs.getAttribute(mbeanObjectName, "NbChanges");
+			System.out.println("\tState     = \"" + State + "\"");
+			System.out.println("\tNbChanges = " + NbChanges);
 		} catch (Exception e) {
-			echo("\t!!! Could not read attributes !!!");
-			e.printStackTrace();
-		}
-	}
-
-	private static void echo(String msg) {
-		System.out.println(msg);
-	}
-
-	private static void sleep(int millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (InterruptedException e) {
+			System.out.println("\t!!! Could not read attributes !!!");
 			e.printStackTrace();
 		}
 	}
 
 	private static void waitForEnterPressed() {
 		try {
-			echo("\nPress <Enter> to continue...");
+			System.out.println("\nPress <Enter> to continue...");
 			System.in.read();
 		} catch (IOException e) {
 			e.printStackTrace();
