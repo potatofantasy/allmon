@@ -6,9 +6,9 @@
 http://www.rittmanmead.com/2009/07/16/drilling-down-in-the-oracle-next-generation-reference-dw-architecture/
 
   * Staging tier
-    * Loading structures
+    * Loading structures (am_raw_metrics table)
   * Foundation tier - 3rd NF model (highly normalized data)
-    * Allmon core schema (allgeneric/allmetric) with metadata
+    * *Allmon core schema (allgeneric/allmetric) with metadata*
   * Access tier (extra structures for better efficiency)
     * Denormalized data (views, materialized views, tables)
     * Aggregate tables
