@@ -7,12 +7,13 @@ import java.util.Iterator;
 /**
  * This class defines a data transformation object holding <b>collection</b> metrics data acquired 
  * in monitored application by allmon client API, transformed (aggregated) and sent by allmon client 
- * to allmon server. 
+ * to allmon server.<br><br>
+ * 
  * Allmon server decodes this object to RawMetric to persist this data in "raw" form in database.
  */
 public class MetricMessageWrapper implements Serializable {
 
-    private ArrayList list = new ArrayList(); // TODO check in allmon-client would be compilable in 1.5 to introduce generics
+    private ArrayList<MetricMessage> list = new ArrayList<MetricMessage>();
 
     public boolean add(MetricMessage o) {
         return list.add(o);
@@ -41,7 +42,7 @@ public class MetricMessageWrapper implements Serializable {
         return list.indexOf(elem);
     }
 
-    public Iterator iterator() {
+    public Iterator<MetricMessage> iterator() {
         return list.iterator();
     }
 
@@ -53,7 +54,7 @@ public class MetricMessageWrapper implements Serializable {
         return list.remove(o);
     }
 
-    public MetricMessage set(int index, Object element) {
+    public MetricMessage set(int index, MetricMessage element) {
         return (MetricMessage)list.set(index, element);
     }
 
