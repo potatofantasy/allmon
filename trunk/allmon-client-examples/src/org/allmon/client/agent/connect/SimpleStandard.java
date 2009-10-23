@@ -27,7 +27,8 @@ public class SimpleStandard extends NotificationBroadcasterSupport implements
 		SimpleStandardMBean {
 
 	/*
-	 * ----------------------------------------------------- CONSTRUCTORS
+	 * ----------------------------------------------------- 
+	 * CONSTRUCTORS
 	 * -----------------------------------------------------
 	 */
 
@@ -39,7 +40,8 @@ public class SimpleStandard extends NotificationBroadcasterSupport implements
 	 */
 
 	/*
-	 * ----------------------------------------------------- IMPLEMENTATION OF
+	 * ----------------------------------------------------- 
+	 * IMPLEMENTATION OF
 	 * THE SimpleStandardMBean INTERFACE
 	 * -----------------------------------------------------
 	 */
@@ -80,8 +82,7 @@ public class SimpleStandard extends NotificationBroadcasterSupport implements
 	 */
 	public void reset() {
 		AttributeChangeNotification acn = new AttributeChangeNotification(this,
-				0, 0, "NbChanges reset", "NbChanges", "Integer", new Integer(
-						nbChanges), new Integer(0));
+				0, 0, "NbChanges reset", "NbChanges", "Integer", new Integer(nbChanges), new Integer(0));
 		state = "initial state";
 		nbChanges = 0;
 		nbResets++;
@@ -89,7 +90,8 @@ public class SimpleStandard extends NotificationBroadcasterSupport implements
 	}
 
 	/*
-	 * ----------------------------------------------------- METHOD NOT EXPOSED
+	 * ----------------------------------------------------- 
+	 * METHOD NOT EXPOSED
 	 * FOR MANAGEMENT BY A JMX AGENT
 	 * -----------------------------------------------------
 	 */
