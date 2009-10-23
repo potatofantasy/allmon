@@ -37,6 +37,8 @@
 
   * (W) (o) (design) Evaluate compressing aggregated messages sent to allmon-server. This option could be suggested either for very remote agents or agents behind weak network connection. Crucial will be appropriate aggregation settings.
 
+  * (W) (o) (code) Add mechanism similar to check sum or redundancy check sending message used for potential errors, lack of transfers detection.
+
 == [ModuleLoader Loader] (`*`) (allmon-server) ==
     * Loading data to the database
     * Transforming data to allmetrics allmon schema
