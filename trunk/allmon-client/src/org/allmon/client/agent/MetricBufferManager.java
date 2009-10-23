@@ -60,7 +60,7 @@ public class MetricBufferManager {
             }
         }
         
-        public void flush() {
+        private void flush() {
             logger.debug("flushing " + flushCount + " starts...");
             for (int i = 0; i < buffer.size(); i++) {
                 logger.debug("> " + buffer.get(i));
@@ -70,7 +70,7 @@ public class MetricBufferManager {
             logger.debug("end of flushing");
         }
         
-        public void add(E e) {
+        private void add(E e) {
             buffer.add(e);
         }
         
@@ -78,6 +78,14 @@ public class MetricBufferManager {
     
     public void add() {
         bufferingThread.add((long)(Math.random() * 1000));
+    }
+    
+    /**
+     * Force flushing the buffer. Must be called before 
+     * finishing work with the class object.
+     */
+    public void flush() {
+        bufferingThread.flush();
     }
     
 }
