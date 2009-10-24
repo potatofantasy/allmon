@@ -47,7 +47,7 @@ public class SimpleMetricMessageSenderLoadTest extends TestCase {
                     
                     for (int i = 0; i < SUBSEQUENT_CALLS_IN_THREAD; i++) {
                         MetricMessage metricMessage = 
-                            MetricMessageFactory4Test.createClassMessage("className"+i, "methodName", "user"+i, 1);
+                            MetricMessageFactory4Test.createClassMessage("className"+i, "methodName", "classNameX", "methodNameX", 1);
                         SimpleMetricMessageSender sender = new SimpleMetricMessageSender(metricMessage);
                         sender.insertEntryPoint();
                         try {

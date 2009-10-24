@@ -54,7 +54,7 @@ public class AgentAggregationStrategyForMetricsLoadTest extends TestCase {
                         // for every aggregation brand new message object is needed
                         Exchange newExchange = new JmsExchange(endpoint, ExchangePattern.InOut, jmsBinding);
                         Message message = new JmsMessage();
-                        message.setBody(MetricMessageFactory.createClassMessage("className", "methodName", "user", i));
+                        message.setBody(MetricMessageFactory.createClassMessage("className", "methodName", "classNameX", "methodNameX", i));
                         newExchange.setIn(message);
                         
                         // aggregating messages

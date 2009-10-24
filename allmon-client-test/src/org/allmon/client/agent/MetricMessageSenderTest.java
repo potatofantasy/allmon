@@ -15,7 +15,7 @@ public class MetricMessageSenderTest extends TestCase {
 
     public void testInsertEntryAndExitPoint() throws Exception {
     
-        MetricMessage metricMessage = MetricMessageFactory.createClassMessage("className", "methodName", "user", 1);
+        MetricMessage metricMessage = MetricMessageFactory.createClassMessage("className", "methodName", "classNameX", "methodNameX", 1);
         
         MetricMessageSender sender = new MetricMessageSender(metricMessage) {
             public void insertEntryPoint() {

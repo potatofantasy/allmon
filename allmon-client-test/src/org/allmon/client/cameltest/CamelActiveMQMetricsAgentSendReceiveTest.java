@@ -31,7 +31,7 @@ public class CamelActiveMQMetricsAgentSendReceiveTest extends TestCase {
         // creating messages and sending
         ProducerTemplate template = context.createProducerTemplate();
         for (int i = 0; i < 100; i++) {
-            MetricMessage metricMessage = MetricMessageFactory.createClassMessage("class" + i, "method", "user", (long)(Math.random() * 1000));
+            MetricMessage metricMessage = MetricMessageFactory.createClassMessage("class" + i, "method", "classNameX", "methodNameX", (long)(Math.random() * 1000));
             template.sendBodyAndHeader(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGENTSDATA, metricMessage, "MyMessage", "MyMessage");
             Thread.sleep((long)(Math.random() * 100));
         }
