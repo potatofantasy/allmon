@@ -31,7 +31,7 @@ public class SimpleMonitor extends BasicMonitor
 		String methodName = resourceIdentifier.getResourceName();
 		String user = resourceIdentifier.getInvokerId();
 		
-		MetricMessage metricMessage = MetricMessageFactory.createClassMessage(className, methodName, user, timeTaken);
+		MetricMessage metricMessage = MetricMessageFactory.createClassMessage(className, methodName, user, user, timeTaken);
 		
 	}
 

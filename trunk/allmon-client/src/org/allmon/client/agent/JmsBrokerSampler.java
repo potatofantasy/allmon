@@ -85,11 +85,11 @@ public class JmsBrokerSampler {
      * or the first access to SingletonHolder.INSTANCE, not before.
      */
     private static class SingletonHolder {
-        private static final JmsBrokerSampler INSTANCE = new JmsBrokerSampler();
+        private static final JmsBrokerSampler instance = new JmsBrokerSampler();
     }
     
     public static JmsBrokerSampler getInstance() {
-        return SingletonHolder.INSTANCE;
+        return SingletonHolder.instance;
     }
     
 	public synchronized void checkJmsBrokerIsUp() {
