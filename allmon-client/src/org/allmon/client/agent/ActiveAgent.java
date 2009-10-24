@@ -13,10 +13,11 @@ import org.allmon.common.MetricMessage;
  * end-user or other functionality would take in the system. Those scripts 
  * continuously monitor at specified intervals for performance and availability 
  * reasons various system metrics.<br>
- * - Active monitoring test calls add (artificial - not real) load to system.<br>
+ * - Active monitoring test calls add (artificial - additional) load to monitored 
+ * system.<br>
  * - Applying this approach we can have almost constant knowledge about service 
  * level in our system (if something happen we might know about it even before 
- * end-users notice a problem).
+ * end-users notice a problem).<br>
  * 
  */
 abstract class ActiveAgent extends Agent implements AgentTaskable {

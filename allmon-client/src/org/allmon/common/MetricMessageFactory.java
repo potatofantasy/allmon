@@ -76,12 +76,12 @@ public class MetricMessageFactory {
         return hexString.toString();
     }
 
-    public static final MetricMessage createClassMessage(String className, String methodName, String user, long durationTime) {
+    public static final MetricMessage createClassMessage(String classNameCalled, String methodNameCalled, String classNameCalling, String methodNameCalling, long durationTime) {
         MetricMessage metricMessage = createMessage();
-        // resource - class and method
-        metricMessage.setResource(className + "." + methodName);
-        // source - user who triggered an action class to execute
-        metricMessage.setSource(user);
+        // resource - class and method which has been called
+        metricMessage.setResource(classNameCalled + "." + methodNameCalled);
+        // source - user which class triggered an action class to execute
+        metricMessage.setSource(classNameCalling + "." + methodNameCalling);
         metricMessage.setMetricValue(durationTime);
         return metricMessage;
     }
