@@ -1,7 +1,6 @@
 package org.allmon.client.agent;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.allmon.common.MetricMessage;
@@ -10,7 +9,9 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * 
- * This class is a singleton.<br><br> 
+ * This class is a buffer implementation for metrics messages. Object of 
+ * this class contains collection of metric messages (buffer) and creates a resident 
+ * thread which flushes the collection once a time set by flushing interval parameter.<br><br> 
  * 
  * First invocation creates and starts buffering thread.<br><br>
  * 
@@ -139,7 +140,7 @@ public abstract class AbstractMetricBuffer {
         
         private void add(T t) {
         	// XXX STOP THE WORLD!
-        	// adding is not permitted when flushing method is copying data to flushing buffer ready to send
+        	// XXX adding is not permitted when flushing method is copying data to flushing buffer ready to send
         	synchronized (buffer) {
         		//logger.debug("adding item to buffer> " + t); // TODO this logging must be deleted
             	buffer.add(t);

@@ -8,9 +8,10 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * The class is a part of allmon exposed API which can be used in other applications 
- * to acquire metrics in real-time during normal QA, Dev or even Production activity,
+ * to acquire metrics in real-time during normal QA, Dev or Production activity,
  * as a part of passive monitoring approach 
  * (For details see: http://code.google.com/p/allmon/wiki/RnDTheoryPerformanceMonitoring).
+ * 
  */
 abstract class MetricMessageSender {
     

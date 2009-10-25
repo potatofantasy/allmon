@@ -22,13 +22,13 @@ import org.apache.commons.logging.LogFactory;
  * for the whole live time.</b>
  * 
  */
-public class JmsBrokerSampler {
+public class JmsBrokerHealthSampler {
 
     static {
         AllmonPropertiesReader.readLog4jProperties();
     }
 	
-	private static final Log logger = LogFactory.getLog(JmsBrokerSampler.class);
+	private static final Log logger = LogFactory.getLog(JmsBrokerHealthSampler.class);
     
 	private static final String shellCommand = "netstat -an";
 	//private static final String shellCommand = "netstat -an|find \"61616\""; // problems with running the command
@@ -49,7 +49,7 @@ public class JmsBrokerSampler {
                 // schedule and run the JMS broker checking job
                 scheduler.schedule("* * * * *", new Runnable() {
                     public void run() {
-                        JmsBrokerSampler.getInstance().checkJmsBrokerIsUp();
+                        JmsBrokerHealthSampler.getInstance().checkJmsBrokerIsUp();
                     }
                 });
                 
@@ -75,7 +75,7 @@ public class JmsBrokerSampler {
 	 * (1) checks immediately if JMS broker is up and listening and 
 	 * (2) runs checker process to perform the same check every minute.
 	 */
-	private JmsBrokerSampler() {
+	private JmsBrokerHealthSampler() {
 	    runCheckerProcess();
 	    checkJmsBrokerIsUp();
 	}
@@ -85,10 +85,10 @@ public class JmsBrokerSampler {
      * or the first access to SingletonHolder.INSTANCE, not before.
      */
     private static class SingletonHolder {
-        private static final JmsBrokerSampler instance = new JmsBrokerSampler();
+        private static final JmsBrokerHealthSampler instance = new JmsBrokerHealthSampler();
     }
     
-    public static JmsBrokerSampler getInstance() {
+    public static JmsBrokerHealthSampler getInstance() {
         return SingletonHolder.instance;
     }
     

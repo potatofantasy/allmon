@@ -9,7 +9,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * It ensures that:
  * (1) JMS broker is up and listening, 
- * (2) TODO sending messages are buffered and preaggregated.<br><br>
+ * (2) TODO sending messages are buffered and pre-aggregated.<br><br>
  * 
  * <b>Every JVM instance which uses <u>an agent</u> has JmsBrokerSampler 
  * class instantiated for the whole live time.</b>
@@ -19,7 +19,7 @@ public class AgentsMetricMessageSender extends MetricMessageSender {
     
     // creates singleton instance of JmsBrokerSampler
     static {
-        JmsBrokerSampler.getInstance();
+        JmsBrokerHealthSampler.getInstance();
     }
     
     private final static Log logger = LogFactory.getLog(AgentsMetricMessageSender.class);
@@ -31,7 +31,7 @@ public class AgentsMetricMessageSender extends MetricMessageSender {
      * @return true if JMS broker is up and running
      */
     static boolean isJmsBrokerUp() {
-        return JmsBrokerSampler.getInstance().isJmsBrokerUp();
+        return JmsBrokerHealthSampler.getInstance().isJmsBrokerUp();
     }
     
     private String metricsString = "";
