@@ -18,8 +18,9 @@
     * Transformation (aggregating metrics to packets) and transport to Loader
 
 
-  * (M) (x/o) (design) Design generic agent API and sender which can be used for various metrics collection purposes
-    * (M) (o) (code) To increase performance of acquiring metrics process review possibility of collecting and caching metrics before sending them to agent (to the first queue).
+  * (M) (x/o) (design) Design generic agent API and sender which can be used for various metrics collection purposes (passive: systems usage monitoring; active: health checks, heartbeats, metrics sampling, etc.)
+    * (M) (x/o) (code) To increase performance of acquiring metrics process review possibility of collecting and caching metrics before sending them to agent (to the first queue).
+    * (M) (o) (code) Design various metrics sender strategies for different agents.
 
   * (O) (x) (code) Finish simple scheduler for active monitoring
 
@@ -27,7 +28,8 @@
 
   * (W) (o) (code) Creating a new metrics message sender based on log4j appender mechanism
 
-  * (C) (x/o) (code) Check and improve performance of metrics wrapper and aggregation strategy
+  * (C) (x) (code) Check and improve performance of metrics wrapper and aggregation strategy
+
   * (C) (o) (design) Review and test having agents behind proxies.
 
   * (C) (o) (test) Test separate allmon components in either wrong configuration scenarios or other software failures
@@ -52,7 +54,7 @@
     * (M) (x) (code) Extracting RawMetrics data and loading them to allmetrics schema
     * (?) (-) (design) Linking entry and exit points
 
-  * (O) (o) (code) Extends loading mechanism by adding storing parameters and exceptions details
+  * (O) (o) (code) Extends loading mechanism by adding storing parameters and exceptions details.
 
   * (O) (o) (design) Solve problem different times on remote clients - metrics events time synchronization issue!
 
