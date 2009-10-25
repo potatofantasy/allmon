@@ -6,6 +6,7 @@
 Mining knowledge from collected in allmon database data. 
 
 Provides: 
+  * Access to allmon database
   * Aggregating algorithms
   * Statistical analysis 
   * Correlation across set up dimensions
