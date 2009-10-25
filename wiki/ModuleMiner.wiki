@@ -3,9 +3,15 @@
 
 = Miner =
 
-Mining knowledge from collected in the database data, Statistical analysis, Correlation across set up dimensions
+Mining knowledge from collected in allmon database data. 
 
+Provides: 
+  * Aggregating algorithms
+  * Statistical analysis 
+  * Correlation across set up dimensions
+    * Detecting related events
+  * Storing events history log
 
 == Aggregates ==
-* aggregated calls in days/hours
-* aggregated calls by count of concurrent calls (in second grain)
+  * aggregated calls in days/hours
+  * aggregated calls by count of concurrent calls (in second grain)
