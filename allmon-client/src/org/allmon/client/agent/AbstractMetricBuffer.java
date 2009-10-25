@@ -2,7 +2,6 @@ package org.allmon.client.agent;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.allmon.common.MetricMessage;
@@ -18,32 +17,30 @@ import org.apache.commons.logging.LogFactory;
  * It finishes buffering and flushing when the main (creating) thread ends its live.
  * 
  */
-public class MetricBuffer {
+public abstract class AbstractMetricBuffer {
 
-    private static final Log logger = LogFactory.getLog(MetricBuffer.class);
+    private static final Log logger = LogFactory.getLog(AbstractMetricBuffer.class);
     
     private final BufferingThread<MetricMessage> bufferingThread = new BufferingThread<MetricMessage>();
     
     /**
-     * Private constructor prevents instantiation from other classes.<br><br>
-     * 
-     * It starts the buffer process.
+     * Constructor starts the buffer process.
      */
-    private MetricBuffer() {
+    public AbstractMetricBuffer() {
         bufferingThread.start();
     }
     
-    /**
-     * SingletonHolder is loaded on the first execution of Singleton.getInstance() 
-     * or the first access to SingletonHolder.INSTANCE, not before.
-     */
-    private static class SingletonHolder {
-        private static final MetricBuffer instance = new MetricBuffer();
-    }
-    
-    public static MetricBuffer getInstance() {
-        return SingletonHolder.instance;
-    }
+//    /**
+//     * SingletonHolder is loaded on the first execution of Singleton.getInstance() 
+//     * or the first access to SingletonHolder.INSTANCE, not before.
+//     */
+//    private static class SingletonHolder {
+//        private static final MetricBuffer instance = new MetricBuffer();
+//    }
+//    
+//    public static MetricBuffer getInstance() {
+//        return SingletonHolder.instance;
+//    }
         
     private class BufferingThread<T> extends Thread {
         
@@ -66,14 +63,17 @@ public class MetricBuffer {
                 } catch (InterruptedException e) {
                 	logger.error(e.getMessage(), e);
                 }
-                flush();
+                List<T> list = flush();
+                send(list);
             }
         }
         
-        private synchronized void flush() {
-        	logger.debug("flushing " + (flushCount + 1) + " starts...");
+        private List<T> flush() {
+        	flushCount++;
+            
+        	logger.debug("flushing " + flushCount + " starts...");
         	
-            List<T> flushingBuffer = new ArrayList<T>();
+            List<T> flushingList = new ArrayList<T>();
             
             // coping data to flushing buffer
             long t0 = System.currentTimeMillis(); //System.nanoTime();
@@ -88,30 +88,53 @@ public class MetricBuffer {
             	//while(iterator.hasNext()) {
             	//	T t = iterator.next();
             	//	iterator.remove();
-	                        	
+	            
             	for (int i = buffer.size() - 1; i >= 0; i--) {
             	    T t = buffer.get(i);
 				    buffer.remove(i);
-                    
-	                flushingBuffer.add(t);
+                    flushingList.add(t);
 	                copiedCount++;
 	                //logger.debug("flushing - removing item from buffer > " + t); // TODO this logging must be deleted
 	        	}
+            	
+            	//Collections.copy(buffer, flushingList);
+            	//buffer.clear();
+            	//copiedCount = flushingList.size();
             }
             lastFlushTime = System.currentTimeMillis() - t0; //System.nanoTime();
             
         	logger.debug("copied items: " + copiedCount + " in: " + lastFlushTime + "ms, flushingBuffer is ready to send data and clear");
         	
-            // TODO send collected in flushingBuffer data 
-            // TODO if sending operation is to long reevaluate creating helper thread to send this data, letting main buffering thread continue
-            flushingBuffer.clear();
-            
-            flushCount++;
             flushedItemsCount += copiedCount;
             summaryFlushTime += lastFlushTime;
             
-            logger.debug("summary of metric messages flushed: " + flushedItemsCount + " items, flushingBuffer is ready to send data and clear");
+            logger.debug("summary of metric messages flushed: " + flushedItemsCount + " items, flushing list is ready to be sent");
         	logger.debug("flushing end.");
+        	
+        	return flushingList;
+        }
+        
+        /**
+         * Sends collected in flushingBuffer data.
+         * 
+         * TODO If sending operation is to long, reevaluate creating helper 
+         * thread to send this data, letting main buffering thread continue.        	
+         * 
+         * @param flushingList
+         */
+        public void send(List<T> flushingList) {
+        	logger.debug("sending " + flushCount + " starts...");
+        	long t0 = System.currentTimeMillis();
+        	
+        	// call to abstract method which in concrete implements specific sendinf functionality
+        	AbstractMetricBuffer.this.sendMetrics(flushingList);
+        	
+        	flushingList.clear(); // can help with GC
+        	
+        	lastSendTime = System.currentTimeMillis() - t0;
+        	summarySendTime += lastSendTime;
+            
+        	logger.debug("sending end.");
         }
         
         private void add(T t) {
@@ -124,6 +147,11 @@ public class MetricBuffer {
         }
         
     }
+    
+    /**
+     * 
+     */
+    public abstract void sendMetrics(List flushingList);
     
     /**
      * Add metric message object to buffer ready to send.
