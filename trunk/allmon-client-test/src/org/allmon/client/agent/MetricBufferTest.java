@@ -20,43 +20,43 @@ public class MetricBufferTest extends TestCase {
     
     public void test() {
         // first invocation creates and starts buffering process
-        MetricBuffer.getInstance();
-        assertEquals(0, MetricBuffer.getInstance().getFlushCount());
-        assertEquals(0, MetricBuffer.getInstance().getFlushedItemsCount());
+    	ActiveAgentMetricBuffer metricBuffer = new ActiveAgentMetricBuffer();
+        assertEquals(0, metricBuffer.getFlushCount());
+        assertEquals(0, metricBuffer.getFlushedItemsCount());
         
-        MetricBuffer.getInstance().setFlushingInterval(INTERVAL);
-        assertEquals(INTERVAL, MetricBuffer.getInstance().getFlushingInterval());
+        metricBuffer.setFlushingInterval(INTERVAL);
+        assertEquals(INTERVAL, metricBuffer.getFlushingInterval());
         
         logger.debug("buffer is running in background...");
         
         logger.debug("add something");
-        MetricBuffer.getInstance().add(createMessage());
-        MetricBuffer.getInstance().add(createMessage());
-        MetricBuffer.getInstance().add(createMessage());
+        metricBuffer.add(createMessage());
+        metricBuffer.add(createMessage());
+        metricBuffer.add(createMessage());
         logger.debug("end of adding - now wait...");
         
         sleep(INTERVAL + 200);
         
-        assertEquals(1, MetricBuffer.getInstance().getFlushCount());
-        assertEquals(3, MetricBuffer.getInstance().getFlushedItemsCount());
+        assertEquals(1, metricBuffer.getFlushCount());
+        assertEquals(3, metricBuffer.getFlushedItemsCount());
         
         logger.debug("add something aggain");
-        MetricBuffer.getInstance().add(createMessage());
-        MetricBuffer.getInstance().add(createMessage());
-        MetricBuffer.getInstance().add(createMessage());
-        MetricBuffer.getInstance().add(createMessage());
+        metricBuffer.add(createMessage());
+        metricBuffer.add(createMessage());
+        metricBuffer.add(createMessage());
+        metricBuffer.add(createMessage());
         logger.debug("and wait...");
         
         sleep(INTERVAL + 200);
         
-        assertEquals(2, MetricBuffer.getInstance().getFlushCount());
-        assertEquals(7, MetricBuffer.getInstance().getFlushedItemsCount());
+        assertEquals(2, metricBuffer.getFlushCount());
+        assertEquals(7, metricBuffer.getFlushedItemsCount());
         
         logger.debug("force flush");
-        MetricBuffer.getInstance().flush();
+        metricBuffer.flush();
         
-        assertEquals(3, MetricBuffer.getInstance().getFlushCount());
-        assertEquals(7, MetricBuffer.getInstance().getFlushedItemsCount());
+        assertEquals(3, metricBuffer.getFlushCount());
+        assertEquals(7, metricBuffer.getFlushedItemsCount());
         
         logger.debug("the end.");
         
@@ -74,15 +74,5 @@ public class MetricBufferTest extends TestCase {
     private static MetricMessage createMessage() {
     	return MetricMessageFactory.createClassMessage("class1", "m1", "classX", "mX", (long)(Math.random() * 1000));
     }
-    
-    private static void createMessageAndAddToBuffer(int c, long sleep) {
-    	for (int i = 0; i < c; i++) {
-            MetricBuffer.getInstance().add(createMessage());
-            if (sleep > 0) {
-            	sleep(sleep);
-            }
-		}
-    }
-    
-    
+        
 }

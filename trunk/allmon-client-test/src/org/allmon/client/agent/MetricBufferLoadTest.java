@@ -33,8 +33,8 @@ public class MetricBufferLoadTest extends TestCase {
     public void testMain() throws InterruptedException {
         logger.debug("m2 - start");
         
-        MetricBuffer.getInstance();
-        MetricBuffer.getInstance().setFlushingInterval(700);
+        final ActiveAgentMetricBuffer metricBuffer = new ActiveAgentMetricBuffer();
+        metricBuffer.setFlushingInterval(700);
         logger.debug("buffer is running in background...");
     	
         HashMap<Integer, Thread> loadThreadsMap = new HashMap<Integer, Thread>();
@@ -52,7 +52,7 @@ public class MetricBufferLoadTest extends TestCase {
                         MetricMessage metricMessage = 
                             MetricMessageFactory4Test.createClassMessage("className"+i, "methodName", "classNameX", "methodNameX", 1);
                         
-                        MetricBuffer.getInstance().add(metricMessage);                     
+                        metricBuffer.add(metricMessage);                     
                         
                         //try {
                         //    Thread.sleep((long)(Math.random() * SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX));
@@ -94,15 +94,15 @@ public class MetricBufferLoadTest extends TestCase {
         }
         
         // force flushing
-        MetricBuffer.getInstance().flush();
+        metricBuffer.flush();
         
         logger.debug("m2 - end");
         
         long expected = THREADS_COUNT * SUBSEQUENT_CALLS_IN_THREAD;
-        long actual = MetricBuffer.getInstance().getFlushedItemsCount();
+        long actual = metricBuffer.getFlushedItemsCount();
         assertEquals(expected, actual);
         
-        logger.info("Total flushing time (handy for tuning FlushingInterval): " + MetricBuffer.getInstance().getSummaryFlushTime());
+        logger.info("Total flushing time (handy for tuning FlushingInterval): " + metricBuffer.getSummaryFlushTime());
         
     }
 
