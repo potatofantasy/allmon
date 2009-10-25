@@ -16,60 +16,52 @@ public class MetricBufferTest extends TestCase {
     
     private static final Log logger = LogFactory.getLog(MetricBufferTest.class);
     
+    private static final long INTERVAL = 1000;
+    
     public void test() {
         // first invocation creates and starts buffering process
         MetricBuffer.getInstance();
-        MetricBuffer.getInstance().setFlushingInterval(1000);
+        assertEquals(0, MetricBuffer.getInstance().getFlushCount());
+        assertEquals(0, MetricBuffer.getInstance().getFlushedItemsCount());
+        
+        MetricBuffer.getInstance().setFlushingInterval(INTERVAL);
+        assertEquals(INTERVAL, MetricBuffer.getInstance().getFlushingInterval());
         
         logger.debug("buffer is running in background...");
         
+        logger.debug("add something");
         MetricBuffer.getInstance().add(createMessage());
         MetricBuffer.getInstance().add(createMessage());
         MetricBuffer.getInstance().add(createMessage());
+        logger.debug("end of adding - now wait...");
         
-        logger.debug("end of adding.");
-        logger.debug("now wait...");
+        sleep(INTERVAL + 200);
         
-        sleep(1500);
+        assertEquals(1, MetricBuffer.getInstance().getFlushCount());
+        assertEquals(3, MetricBuffer.getInstance().getFlushedItemsCount());
         
         logger.debug("add something aggain");
-        
         MetricBuffer.getInstance().add(createMessage());
         MetricBuffer.getInstance().add(createMessage());
         MetricBuffer.getInstance().add(createMessage());
         MetricBuffer.getInstance().add(createMessage());
-        
         logger.debug("and wait...");
         
-        sleep(1500);
+        sleep(INTERVAL + 200);
         
-        MetricBuffer.getInstance();
+        assertEquals(2, MetricBuffer.getInstance().getFlushCount());
+        assertEquals(7, MetricBuffer.getInstance().getFlushedItemsCount());
+        
+        logger.debug("force flush");
+        MetricBuffer.getInstance().flush();
+        
+        assertEquals(3, MetricBuffer.getInstance().getFlushCount());
+        assertEquals(7, MetricBuffer.getInstance().getFlushedItemsCount());
         
         logger.debug("the end.");
         
     }
-    
-    public void testConcurent() {
-    	// first invocation creates and starts buffering process
-        MetricBuffer.getInstance();
-        logger.debug("buffer is running in background...");
-    	
-        MetricBuffer.getInstance().setFlushingInterval(1000);
-        sleep(990);
         
-        Thread t = new Thread(new Runnable() {
-			public void run() {
-				createMessageAndAddToBuffer(100, 1);				
-			}
-        });
-        t.start();
-        
-        createMessageAndAddToBuffer(100, 1);
-        
-        sleep(1500);
-        
-    }
-    
     private static void sleep(long sleep) {
         try {
             Thread.sleep(sleep);
