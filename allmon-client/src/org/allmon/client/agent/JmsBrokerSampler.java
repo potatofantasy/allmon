@@ -15,7 +15,7 @@ import org.apache.commons.logging.LogFactory;
  * checks every minute if JMS broker is up and listening.<br><br>
  * 
  * This class is a singleton. It means that only one instance of this class
- * can be initialised in JVM and since this moment the class will constantly 
+ * can be initialized in JVM and since this moment the class will constantly 
  * monitor JMS broker instance.<br><br>
  * 
  * <b>Every JVM instance which uses <u>an agent</u> has this class instantiated 
