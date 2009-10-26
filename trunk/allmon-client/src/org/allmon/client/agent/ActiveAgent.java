@@ -22,6 +22,10 @@ import org.allmon.common.MetricMessage;
  */
 abstract class ActiveAgent extends Agent implements AgentTaskable {
 
+    private final ActiveAgentMetricBuffer metricBuffer = new ActiveAgentMetricBuffer();
+    
+    private ActiveAgentMetricMessageSender messageSender = new ActiveAgentMetricMessageSender(this);
+    
     /**
      * This method force all active agents to contain specific collectMetrics implementations
      * designed to meet different requirements of agents.
@@ -46,10 +50,13 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
     
     private void sendMessage(MetricMessage metricMessage) {
         // TODO review creating different explicitly specified MetricMessageSender
-        messageSender = new AgentsMetricMessageSender(metricMessage);
-        messageSender.sendEntryPoint();
+        messageSender.insertPoint(metricMessage);
     }
     
+    // TODO move this implementation to Agent
+    void addMetricMessage(MetricMessage metricMessage) {
+        metricBuffer.add(metricMessage);
+    }
     
     // TODO review this property - it is forcing to use decodeAgentTaskableParams implementation for all active agents 
     // XXX create a new interface only for those Active agents which should have parameters

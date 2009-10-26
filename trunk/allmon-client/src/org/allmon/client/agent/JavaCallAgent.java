@@ -1,5 +1,6 @@
 package org.allmon.client.agent;
 
+import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.MetricMessage;
 
 /**
@@ -14,15 +15,15 @@ public class JavaCallAgent extends PassiveAgent {
 	}
 	
 	public void entryPoint() {
-		getMetricMessageSender().sendEntryPoint();
+		getMetricMessageSender().insertEntryPoint();
 	}
 	
 	public void exitPoint() {
-		getMetricMessageSender().sendExitPoint(null);
+        getMetricMessageSender().insertNextPoint();
 	}
 	
 	public void exitPoint(Exception exception) {
-		getMetricMessageSender().sendExitPoint(exception);
+		getMetricMessageSender().insertNextPoint(AllmonCommonConstants.METRIC_POINT_EXIT, exception);
 	}
 	
 }

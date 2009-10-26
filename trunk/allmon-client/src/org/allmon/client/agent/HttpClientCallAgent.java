@@ -19,29 +19,29 @@ public class HttpClientCallAgent extends PassiveAgent {
     }
     
     public void dataSentToClient() {
-        getMetricMessageSender().sendEntryPoint();
+        getMetricMessageSender().insertEntryPoint();
     }
     
     public void dataReceivedByClient() {
         // TODO MessageSender implementation has to be changed to provide JMS middle step
-        getMetricMessageSender().sendExitPoint(null);
+        getMetricMessageSender().insertNextPoint(null);
     }
 
     public void dataReceivedByClientEnd() {
         // TODO MessageSender implementation has to be changed to provide JMS middle step
-        getMetricMessageSender().sendExitPoint(null);
+        getMetricMessageSender().insertNextPoint(null);
     }
     
     public void requestSent() {
-        getMetricMessageSender().sendExitPoint(null);
+        getMetricMessageSender().insertNextPoint(null);
     }
 
     public void requestReceived() {
-        getMetricMessageSender().sendExitPoint(null);
+        getMetricMessageSender().insertNextPoint(null);
     }
     
     public void requestReceived(Exception exception) {
-        getMetricMessageSender().sendExitPoint(exception);
+        getMetricMessageSender().insertNextPoint(null, exception);
     }
 
 }

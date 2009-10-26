@@ -2,7 +2,7 @@ package org.allmon.client.agent;
 
 import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.AllmonLoggerConstants;
-import org.allmon.common.MetricMessage;
+import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -12,12 +12,13 @@ import org.apache.commons.logging.LogFactory;
  * as a part of passive monitoring approach 
  * (For details see: http://code.google.com/p/allmon/wiki/RnDTheoryPerformanceMonitoring).
  * 
+ * @deprecated
  */
 abstract class MetricMessageSender {
     
     private final static Log logger = LogFactory.getLog(MetricMessageSender.class);
     
-    private MetricMessage message;
+    private MetricMessageWrapper message;
     
     private long startTime = VALUE_NOT_INITIALIZED_LONG;
     private String logId; //VALUE_NOT_INITIALIZED_LONG;
@@ -27,16 +28,10 @@ abstract class MetricMessageSender {
     
     private final static long VALUE_NOT_INITIALIZED_LONG = -1;
 
-    /**
-     * This constructor is accessible only for child concrete classes.
-     * 
-     * @param className
-     * @param methodName
-     * @param threadName
-     * @param tropicsUser
-     * @param webSessionId
-     */
-    public MetricMessageSender(MetricMessage message) {
+    MetricMessageSender() {
+    }
+    
+    public void setMessage(MetricMessageWrapper message) {
         this.message = message;
     }
     
@@ -106,8 +101,8 @@ abstract class MetricMessageSender {
             MessageSender messageSender = new MessageSender();
             //messageSender.sendTextMessage(generateMessage() + "-" + executionTimeMS + "-" + exceptionText);
             //messageSender.sendTextMessage("generateMessage()" + "-" + executionTimeMS + "-" + exceptionText); // TODO generateMessage()
-            message.setMetricValue(executionTimeMS);
-            message.setException(exception);
+            //message.setMetricValue(executionTimeMS);
+            //message.setException(exception);
             message.setPoint(AllmonCommonConstants.METRIC_POINT_EXIT);
             messageSender.sendMessage(message);
         }
