@@ -64,6 +64,7 @@
     * Pattern identification
     * Noise detection 
       * Signal-to-noise ratio
+    * Change detection in time series forecasting - http://herkules.oulu.fi/isbn9514276639/isbn9514276639.pdf
   
   * Cross Correlation - http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/correlate/
     * Cross-correlation function in time-domain
