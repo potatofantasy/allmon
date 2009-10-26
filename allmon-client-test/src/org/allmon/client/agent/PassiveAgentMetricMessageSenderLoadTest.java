@@ -11,13 +11,13 @@ import org.allmon.server.loader.LoadTestedClass;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class SimpleMetricMessageSenderLoadTest extends TestCase {
+public class PassiveAgentMetricMessageSenderLoadTest extends TestCase {
 
     static {
         AllmonPropertiesReader.readLog4jProperties();
     }
     
-    private static final Log logger = LogFactory.getLog(SimpleMetricMessageSenderLoadTest.class);
+    private static final Log logger = LogFactory.getLog(PassiveAgentMetricMessageSenderLoadTest.class);
     
     // stress test
     private final static long THREADS_COUNT = 5; // TODO find out WHY above 5 for 500 calls - sending messages process hangs!!!
@@ -48,13 +48,13 @@ public class SimpleMetricMessageSenderLoadTest extends TestCase {
                     for (int i = 0; i < SUBSEQUENT_CALLS_IN_THREAD; i++) {
                         MetricMessage metricMessage = 
                             MetricMessageFactory4Test.createClassMessage("className"+i, "methodName", "classNameX", "methodNameX", 1);
-                        SimpleMetricMessageSender sender = new SimpleMetricMessageSender(metricMessage);
+                        PassiveAgentMetricMessageSender sender = new PassiveAgentMetricMessageSender(null); // TODO finish - (passiveAgent);
                         sender.insertEntryPoint();
                         try {
                             Thread.sleep((long)(Math.random() * SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX));
                         } catch (InterruptedException e) {
                         }
-                        sender.insertExitPoint();
+                        sender.insertNextPoint();
                     }
                     
                     long t2 = System.nanoTime();
