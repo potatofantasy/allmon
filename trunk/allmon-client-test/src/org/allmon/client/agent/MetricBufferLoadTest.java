@@ -20,7 +20,7 @@ public class MetricBufferLoadTest extends TestCase {
     private static final Log logger = LogFactory.getLog(MetricBufferLoadTest.class);
     
     // stress test
-    private final static long THREADS_COUNT = 30;
+    private final static long THREADS_COUNT = 40;
     private final static long STARTING_TIME_MILLIS = 1 * 1000;
     //private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 100;
     private final static long SUBSEQUENT_CALLS_IN_THREAD = 10000;
@@ -34,7 +34,7 @@ public class MetricBufferLoadTest extends TestCase {
         logger.debug("m2 - start");
         
         final ActiveAgentMetricBuffer metricBuffer = new ActiveAgentMetricBuffer();
-        metricBuffer.setFlushingInterval(700);
+        metricBuffer.setFlushingInterval(500);
         logger.debug("buffer is running in background...");
     	
         HashMap<Integer, Thread> loadThreadsMap = new HashMap<Integer, Thread>();
