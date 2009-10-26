@@ -76,4 +76,10 @@ public class MetricMessageWrapper implements Serializable {
         return buffer.toString();
     }    
     
+    public void setPoint(String point) {
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setPoint(point);
+        }
+    }
+    
 }

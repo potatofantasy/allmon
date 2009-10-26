@@ -2,6 +2,7 @@ package org.allmon.client.agent;
 
 import org.allmon.common.MetricMessage;
 
+
 /**
  * This class let you monitor actual (real) interaction with a system. 
  * Metrics collected using this approach can be used to determine the actual 
@@ -16,12 +17,32 @@ import org.allmon.common.MetricMessage;
  */
 abstract class PassiveAgent extends Agent {
 
+    private final PassiveAgentMetricBuffer metricBuffer = new PassiveAgentMetricBuffer();
+    
+    private PassiveAgentMetricMessageSender messageSender;
+    
+    private MetricMessage baseMetricMessage;
+    
     PassiveAgent(MetricMessage metricMessage) {
-        messageSender = new AgentsMetricMessageSender(metricMessage);
+        messageSender = new PassiveAgentMetricMessageSender(this);
+        baseMetricMessage = metricMessage;
     }
-
-    MetricMessageSender getMetricMessageSender() {
+    
+    PassiveAgentMetricMessageSender getMetricMessageSender() {
         return messageSender;
     }
-
+    
+    // TODO move this implementation to Agent
+    void addMetricMessage(MetricMessage metricMessage) {
+        metricBuffer.add(metricMessage);
+    }
+    
+    MetricMessage getBaseMetricMessage() {
+        return baseMetricMessage;
+    }
+    
+    MetricMessage getBaseMetricMessageCopy() {
+        return (MetricMessage)baseMetricMessage.clone();
+    }
+    
 }

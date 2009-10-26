@@ -1,5 +1,6 @@
 package org.allmon.client.agent;
 
+import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.MetricMessage;
 
 /**
@@ -13,20 +14,20 @@ public class JmsCallAgent extends PassiveAgent {
     }
     
     public void entryMessageSent() {
-        getMetricMessageSender().sendEntryPoint();
+        getMetricMessageSender().insertEntryPoint();
     }
     
     public void exitMessageTaken() {
         // TODO MessageSender implementation has to be changed to provide JMS middle step
-        getMetricMessageSender().sendExitPoint(null);
+        getMetricMessageSender().insertNextPoint(AllmonCommonConstants.METRIC_POINT_TAKEN);
     }
 
     public void exitMessageConsumed() {
-        getMetricMessageSender().sendExitPoint(null);
+        getMetricMessageSender().insertNextPoint(AllmonCommonConstants.METRIC_POINT_CONSUMED);
     }
 
     public void exitMessageConsumed(Exception exception) {
-        getMetricMessageSender().sendExitPoint(exception);
+        getMetricMessageSender().insertNextPoint(AllmonCommonConstants.METRIC_POINT_CONSUMED, exception);
     }
 
 }

@@ -18,7 +18,7 @@ abstract class Agent {
         AllmonPropertiesReader.readLog4jProperties();
     }
     
-    AgentsMetricMessageSender messageSender;
+    //PassiveAgentMetricMessageSender messageSender;
 	
 	Agent() {
 		//TODO find out how to create/pass metric message sender

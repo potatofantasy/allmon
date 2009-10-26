@@ -1,5 +1,7 @@
 package org.allmon.client.agent;
 
+import java.io.Serializable;
+
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.DeliveryMode;
@@ -10,7 +12,6 @@ import javax.jms.Session;
 
 import org.allmon.common.AllmonActiveMQConnectionFactory;
 import org.allmon.common.AllmonCommonConstants;
-import org.allmon.common.MetricMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -27,7 +28,6 @@ class MessageSender {
     //private final static int messageSize = 255;
     //private final static long timeToLive = 0;
     private final static int logLineLenght = 100;
-    
     
     private final static boolean topic = false;
     private final static boolean transacted = false;
@@ -51,7 +51,7 @@ class MessageSender {
         //JmsBrokerSampler.getInstance().checkJmsBrokerIsUp();
     }
     
-    public void sendMessage(MetricMessage metricMessage) {
+    public void sendMessage(Serializable messageObject) {
         Connection connection = null;
         try {
             // Create the connection.
@@ -82,7 +82,7 @@ class MessageSender {
 
             // Start sending messages
             //TextMessage message = session.createTextMessage(text);
-            ObjectMessage message = session.createObjectMessage(metricMessage);
+            ObjectMessage message = session.createObjectMessage(messageObject);
             if (verbose) {
                 //String msg = message.getText();
                 String msg = message.toString();

@@ -6,6 +6,8 @@ public class AllmonCommonConstants {
 
     public final static String METRIC_POINT_ENTRY = "ENTRY";
     public final static String METRIC_POINT_EXIT = "EXIT";
+    public final static String METRIC_POINT_TAKEN = "TAKEN";
+    public final static String METRIC_POINT_CONSUMED = "CONSUMED";
     
     // settings for agents
     public static final boolean ALLMON_CLIENT_AGENT_PROXY_ACTIVE = Boolean.parseBoolean(AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_ACTIVE));

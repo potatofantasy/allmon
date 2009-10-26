@@ -47,7 +47,7 @@ public abstract class AbstractMetricBuffer {
         
         //private List<T> buffer = Collections.synchronizedList(new ArrayList<T>()); // Slow!
     	private List<T> buffer = new ArrayList<T>();
-        private long flushingInterval = 10000;
+        private long flushingInterval = 1000;
         
         private long flushCount = 0;
         private long flushedItemsCount = 0;
@@ -57,15 +57,21 @@ public abstract class AbstractMetricBuffer {
         private long summarySendTime = 0;
         
         public final void run() {
-            logger.debug("run run run and keep buffering ...");
-            while (true) {
-                try {
-                    Thread.sleep(flushingInterval);
-                } catch (InterruptedException e) {
-                	logger.error(e.getMessage(), e);
+            logger.info("run and keep buffering ...");
+            try {
+                while (true) {
+                    try {
+                        Thread.sleep(flushingInterval);
+                    } catch (InterruptedException e) {
+                    	logger.error(e.getMessage(), e);
+                    }
+                    List<T> list = flush();
+                    send(list);
                 }
-                List<T> list = flush();
-                send(list);
+            } catch (Throwable t) {
+                logger.error(t.getMessage(), t);  
+            } finally {
+                logger.warn("run method has been finished - flush method won't be performed anymore");  
             }
         }
         
@@ -84,12 +90,6 @@ public abstract class AbstractMetricBuffer {
                 // we can check how many items we have in the list and move them to the flushing buffer backwards,
                 // so the synchronized block in add method is not needed and other items can be still added to the list
             	
-            	//very slow!
-            	//Iterator<T> iterator = buffer.iterator();
-            	//while(iterator.hasNext()) {
-            	//	T t = iterator.next();
-            	//	iterator.remove();
-	            
             	for (int i = buffer.size() - 1; i >= 0; i--) {
             	    T t = buffer.get(i);
 				    buffer.remove(i);
