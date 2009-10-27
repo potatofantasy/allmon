@@ -9,7 +9,7 @@ import org.allmon.common.MetricMessage;
 /**
  * Top abstract level of agents definition.<br><br>
  * 
- * <b>Every JVM instance which uses <u>an agent</u> has JmsBrokerSampler 
+ * <b>Every JVM instance which uses <u>an agent</u> has AgentMetricBuffer 
  * class instantiated for the whole live time.</b>
  * 
  */

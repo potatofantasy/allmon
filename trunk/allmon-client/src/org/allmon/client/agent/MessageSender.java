@@ -12,11 +12,14 @@ import javax.jms.Session;
 
 import org.allmon.common.AllmonActiveMQConnectionFactory;
 import org.allmon.common.AllmonCommonConstants;
+import org.apache.activemq.ActiveMQConnection;
+import org.apache.activemq.util.IndentPrinter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-// TODO review association (aggregation) with MetricMessageSender - maybe it should be a super type 
-// TODO clean up the code
+/**
+ * 
+ */
 class MessageSender {
 
     private final static Log logger = LogFactory.getLog(MessageSender.class);
@@ -26,7 +29,7 @@ class MessageSender {
     private final static long sleepTime = 0;
     private final static boolean verbose = false;
     //private final static int messageSize = 255;
-    //private final static long timeToLive = 0;
+    private final static long timeToLive = 0;
     private final static int logLineLenght = 100;
     
     private final static boolean topic = false;
@@ -36,19 +39,18 @@ class MessageSender {
     private static ConnectionFactory cf; //PooledConnectionFactory pcf;
     
     static {
-        System.out.println("Connecting to URL: " + AllmonCommonConstants.CLIENT_BROKER_URL);
-        //System.out.println("Publishing a Message with size " + messageSize + " to " + (topic ? "topic" : "queue") + ": " + subject);
-        System.out.println("Using " + (persistent ? "persistent" : "non-persistent") + " messages");
-        System.out.println("Sleeping between publish " + sleepTime + " ms");
-        //if (timeToLive != 0) {
-        //    System.out.println("Messages time to live " + timeToLive + " ms");
-        //}
+        logger.debug("Connecting to URL: " + AllmonCommonConstants.CLIENT_BROKER_URL);
+        //logger.debug("Publishing a Message with size " + messageSize + " to " + (topic ? "topic" : "queue") + ": " + subject);
+        logger.debug("Using " + (persistent ? "persistent" : "non-persistent") + " messages");
+        logger.debug("Sleeping between publish " + sleepTime + " ms");
+        if (timeToLive != 0) {
+            logger.debug("Messages time to live " + timeToLive + " ms");
+        }
+
+        //JmsBrokerHealthSampler.getInstance().checkJmsBrokerIsUp();
         
-        //pcf = new PooledConnectionFactory(new ActiveMQConnectionFactory(AllmonCommonConstants.CLIENT_BROKER_USER, AllmonCommonConstants.CLIENT_BROKER_PASSWORD, url));
-        cf = AllmonActiveMQConnectionFactory.client();
-        
-        // 
-        //JmsBrokerSampler.getInstance().checkJmsBrokerIsUp();
+        //cf = new PooledConnectionFactory(new ActiveMQConnectionFactory(AllmonCommonConstants.CLIENT_BROKER_USER, AllmonCommonConstants.CLIENT_BROKER_PASSWORD, url));
+        cf = AllmonActiveMQConnectionFactory.client(); // is using pooled connections
     }
     
     public void sendMessage(Serializable messageObject) {
@@ -96,10 +98,10 @@ class MessageSender {
                 session.commit();
             }
             
-            //System.out.println("Done.");
+            //logger.debug("Data has been sent successfully");
 
             // Use the ActiveMQConnection interface to dump the connection stats
-            //ActiveMQConnection c = (ActiveMQConnection)connection;
+            //ActiveMQConnection c = (ActiveMQConnection)cf;
             //c.getConnectionStats().dump(new IndentPrinter());
 
         } catch (Exception e) {

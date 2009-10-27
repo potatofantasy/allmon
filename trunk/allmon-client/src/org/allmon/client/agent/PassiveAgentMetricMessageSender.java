@@ -6,7 +6,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * 
+ * Contains specific for passive agents code used for sending messages, like:<br>
+ * - sending additional subsequent metrics points, <br>
+ * - calculating duration times and passing them to metrics message.
  * 
  */
 class PassiveAgentMetricMessageSender extends AgentMetricMessageSender {
@@ -44,7 +46,7 @@ class PassiveAgentMetricMessageSender extends AgentMetricMessageSender {
         metricMessage.setDurationTime(getTimeBetweenChecks());
         getAgent().addMetricMessage(metricMessage);
     }
-
+    
     void insertNextPoint(String point, Exception exception) {
         MetricMessage metricMessage = getAgent().getBaseMetricMessageCopy();
         metricMessage.setPoint(point);
@@ -52,7 +54,7 @@ class PassiveAgentMetricMessageSender extends AgentMetricMessageSender {
         metricMessage.setDurationTime(getTimeBetweenChecks());
         getAgent().addMetricMessage(metricMessage);
     }
-
+    
     private long getTimeBetweenChecks() {
         long currentTime = System.currentTimeMillis();
         long time = currentTime - lastTimeCheck;
