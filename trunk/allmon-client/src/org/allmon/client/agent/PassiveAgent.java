@@ -17,8 +17,6 @@ import org.allmon.common.MetricMessage;
  */
 abstract class PassiveAgent extends Agent {
 
-    private final static PassiveAgentMetricBuffer metricBuffer = new PassiveAgentMetricBuffer();
-    
     private PassiveAgentMetricMessageSender messageSender;
     
     private MetricMessage baseMetricMessage;
@@ -30,11 +28,6 @@ abstract class PassiveAgent extends Agent {
     
     PassiveAgentMetricMessageSender getMetricMessageSender() {
         return messageSender;
-    }
-    
-    // TODO move this implementation to Agent
-    void addMetricMessage(MetricMessage metricMessage) {
-        metricBuffer.add(metricMessage);
     }
     
     MetricMessage getBaseMetricMessage() {

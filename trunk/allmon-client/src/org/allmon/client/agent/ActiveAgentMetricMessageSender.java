@@ -4,14 +4,16 @@ import org.allmon.common.MetricMessage;
 
 class ActiveAgentMetricMessageSender extends AgentMetricMessageSender {
 
-    private final ActiveAgent activeAgent;
-    
     ActiveAgentMetricMessageSender(ActiveAgent activeAgent) {
-        this.activeAgent = activeAgent;
+        super(activeAgent);
+    }
+    
+    ActiveAgent getAgent() {
+        return (ActiveAgent)super.getAgent();
     }
     
     final void insertPoint(MetricMessage metricMessage) {
-        activeAgent.addMetricMessage(metricMessage);
+        getAgent().addMetricMessage(metricMessage);
     }
     
     

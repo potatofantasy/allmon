@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.allmon.common.MetricMessage;
+import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -18,11 +19,11 @@ import org.apache.commons.logging.LogFactory;
  * It finishes buffering and flushing when the main (creating) thread ends its live.
  * 
  */
-public abstract class AbstractMetricBuffer {
+public abstract class AbstractMetricBuffer<M> {
 
     private static final Log logger = LogFactory.getLog(AbstractMetricBuffer.class);
     
-    private final BufferingThread<MetricMessage> bufferingThread = new BufferingThread<MetricMessage>();
+    private final BufferingThread<M> bufferingThread = new BufferingThread<M>();
     
     /**
      * Constructor starts the buffer process.
@@ -43,7 +44,7 @@ public abstract class AbstractMetricBuffer {
 //        return SingletonHolder.instance;
 //    }
         
-    private class BufferingThread<T> extends Thread {
+    private class BufferingThread<T extends M> extends Thread {
         
         //private List<T> buffer = Collections.synchronizedList(new ArrayList<T>()); // Slow!
     	private List<T> buffer = new ArrayList<T>();
@@ -132,8 +133,10 @@ public abstract class AbstractMetricBuffer {
             
         	long t0 = System.currentTimeMillis();
         	
-        	// call to abstract method which in concrete implements specific sendinf functionality
-        	AbstractMetricBuffer.this.sendMetrics(flushingList);
+        	// convert
+        	
+        	// call to abstract method which in concrete implements specific sending functionality
+        	AbstractMetricBuffer.this.send(flushingList);
         	
         	flushingList.clear(); // can help with GC
         	
@@ -157,13 +160,13 @@ public abstract class AbstractMetricBuffer {
     /**
      * 
      */
-    public abstract void sendMetrics(List flushingList);
+    public abstract void send(List flushingList);
     
     /**
      * Add metric message object to buffer ready to send.
      */
-    public void add(MetricMessage metricMessage) {
-        bufferingThread.add(metricMessage);
+    public void add(M m) {
+        bufferingThread.add(m);
     }
     
     /**
