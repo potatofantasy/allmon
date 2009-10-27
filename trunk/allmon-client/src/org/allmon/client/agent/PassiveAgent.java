@@ -17,7 +17,7 @@ import org.allmon.common.MetricMessage;
  */
 abstract class PassiveAgent extends Agent {
 
-    private final PassiveAgentMetricBuffer metricBuffer = new PassiveAgentMetricBuffer();
+    private final static PassiveAgentMetricBuffer metricBuffer = new PassiveAgentMetricBuffer();
     
     private PassiveAgentMetricMessageSender messageSender;
     

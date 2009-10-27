@@ -16,17 +16,20 @@ import org.apache.commons.logging.LogFactory;
  * class instantiated for the whole live time.</b>
  * 
  */
-class PassiveAgentMetricMessageSender {
+class PassiveAgentMetricMessageSender extends AgentMetricMessageSender {
     
     private final static Log logger = LogFactory.getLog(PassiveAgentMetricMessageSender.class);
     
     private final PassiveAgent passiveAgent;
+    
+    private long lastTimeCheck;
     
     PassiveAgentMetricMessageSender(PassiveAgent passiveAgent) {
         this.passiveAgent = passiveAgent;
     }
     
     final void insertEntryPoint() {
+        lastTimeCheck = System.currentTimeMillis();
         MetricMessage metricMessage = passiveAgent.getBaseMetricMessage();
         passiveAgent.addMetricMessage(metricMessage);
     }
@@ -34,12 +37,14 @@ class PassiveAgentMetricMessageSender {
     void insertNextPoint() {
         MetricMessage metricMessage = passiveAgent.getBaseMetricMessageCopy();
         metricMessage.setPoint(AllmonCommonConstants.METRIC_POINT_EXIT);
+        metricMessage.setDurationTime(getTimeBetweenChecks());
         passiveAgent.addMetricMessage(metricMessage);
     }
     
     void insertNextPoint(String point) {
         MetricMessage metricMessage = passiveAgent.getBaseMetricMessageCopy();
         metricMessage.setPoint(point);
+        metricMessage.setDurationTime(getTimeBetweenChecks());
         passiveAgent.addMetricMessage(metricMessage);
     }
 
@@ -47,12 +52,15 @@ class PassiveAgentMetricMessageSender {
         MetricMessage metricMessage = passiveAgent.getBaseMetricMessageCopy();
         metricMessage.setPoint(point);
         metricMessage.setException(exception);
+        metricMessage.setDurationTime(getTimeBetweenChecks());
         passiveAgent.addMetricMessage(metricMessage);
     }
     
-    // TODO finish!
-    private long getTimeBetweenPoints() {
-        return 0;
+    private long getTimeBetweenChecks() {
+        long currentTime = System.currentTimeMillis();
+        long time = currentTime - lastTimeCheck;
+        lastTimeCheck = System.currentTimeMillis();
+        return time;
     }
 
 }

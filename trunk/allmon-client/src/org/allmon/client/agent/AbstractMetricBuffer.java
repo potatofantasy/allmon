@@ -66,7 +66,10 @@ public abstract class AbstractMetricBuffer {
                     	logger.error(e.getMessage(), e);
                     }
                     List<T> list = flush();
-                    send(list);
+                    // execute send method only if there is something to send
+                    if (list.size() > 0) {
+                        send(list);
+                    }
                 }
             } catch (Throwable t) {
                 logger.error(t.getMessage(), t);  
@@ -125,6 +128,8 @@ public abstract class AbstractMetricBuffer {
          */
         public void send(List<T> flushingList) {
         	logger.debug("sending " + flushCount + " starts...");
+        	logger.debug("sending items: " + flushingList.size());
+            
         	long t0 = System.currentTimeMillis();
         	
         	// call to abstract method which in concrete implements specific sendinf functionality
