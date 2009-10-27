@@ -4,6 +4,7 @@
 package org.allmon.client.agent;
 
 import org.allmon.common.AllmonPropertiesReader;
+import org.allmon.common.MetricMessage;
 
 /**
  * Top abstract level of agents definition.<br><br>
@@ -18,15 +19,13 @@ abstract class Agent {
         AllmonPropertiesReader.readLog4jProperties();
     }
     
-    //PassiveAgentMetricMessageSender messageSender;
-	
+    private final static AgentMetricBuffer metricBuffer = new AgentMetricBuffer();
+    
 	Agent() {
-		//TODO find out how to create/pass metric message sender
-//		messageSender = new SimpleMetricMessageSender(message)
 	}
 	
-//	protected MetricMessageSender getMessageSender() {
-//		return messageSender;
-//	}
+    void addMetricMessage(MetricMessage metricMessage) {
+        metricBuffer.add(metricMessage);
+    }
 	
 }

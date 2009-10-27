@@ -20,47 +20,49 @@ class PassiveAgentMetricMessageSender extends AgentMetricMessageSender {
     
     private final static Log logger = LogFactory.getLog(PassiveAgentMetricMessageSender.class);
     
-    private final PassiveAgent passiveAgent;
-    
     private long lastTimeCheck;
     
     PassiveAgentMetricMessageSender(PassiveAgent passiveAgent) {
-        this.passiveAgent = passiveAgent;
+        super(passiveAgent);
+    }
+    
+    PassiveAgent getAgent() {
+        return (PassiveAgent)super.getAgent();
     }
     
     final void insertEntryPoint() {
         lastTimeCheck = System.currentTimeMillis();
-        MetricMessage metricMessage = passiveAgent.getBaseMetricMessage();
-        passiveAgent.addMetricMessage(metricMessage);
+        MetricMessage metricMessage = getAgent().getBaseMetricMessage();
+        getAgent().addMetricMessage(metricMessage);
     }
 
     void insertNextPoint() {
-        MetricMessage metricMessage = passiveAgent.getBaseMetricMessageCopy();
+        MetricMessage metricMessage = getAgent().getBaseMetricMessageCopy();
         metricMessage.setPoint(AllmonCommonConstants.METRIC_POINT_EXIT);
         metricMessage.setDurationTime(getTimeBetweenChecks());
-        passiveAgent.addMetricMessage(metricMessage);
+        getAgent().addMetricMessage(metricMessage);
     }
     
     void insertNextPoint(String point) {
-        MetricMessage metricMessage = passiveAgent.getBaseMetricMessageCopy();
+        MetricMessage metricMessage = getAgent().getBaseMetricMessageCopy();
         metricMessage.setPoint(point);
         metricMessage.setDurationTime(getTimeBetweenChecks());
-        passiveAgent.addMetricMessage(metricMessage);
+        getAgent().addMetricMessage(metricMessage);
     }
 
     void insertNextPoint(String point, Exception exception) {
-        MetricMessage metricMessage = passiveAgent.getBaseMetricMessageCopy();
+        MetricMessage metricMessage = getAgent().getBaseMetricMessageCopy();
         metricMessage.setPoint(point);
         metricMessage.setException(exception);
         metricMessage.setDurationTime(getTimeBetweenChecks());
-        passiveAgent.addMetricMessage(metricMessage);
+        getAgent().addMetricMessage(metricMessage);
     }
-    
+
     private long getTimeBetweenChecks() {
         long currentTime = System.currentTimeMillis();
         long time = currentTime - lastTimeCheck;
         lastTimeCheck = System.currentTimeMillis();
         return time;
     }
-
+    
 }
