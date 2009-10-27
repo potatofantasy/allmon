@@ -88,7 +88,7 @@ public class JavaCallAgentLoadTest extends TestCase {
         
         // wait to finish flushing all messages
         try {
-            Thread.sleep((long)(Math.random() * SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX));
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
         }
         
