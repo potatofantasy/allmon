@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import junit.framework.TestCase;
 
+import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.AllmonPropertiesReader;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory4Test;
@@ -51,6 +52,7 @@ public class MessageSenderLoadTest extends TestCase {
                     for (int i = 0; i < SUBSEQUENT_CALLS_IN_THREAD; i++) {
                         MetricMessage metricMessage = 
                             MetricMessageFactory4Test.createClassMessage("className"+i, "methodName", "classNameX", "methodNameX", 1);
+                        metricMessage.setPoint(AllmonCommonConstants.METRIC_POINT_ENTRY);
                         
                         MessageSender messageSender = new MessageSender();
                         messageSender.sendMessage(metricMessage);
