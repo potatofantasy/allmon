@@ -15,7 +15,7 @@ import org.apache.commons.logging.LogFactory;
  * checks every minute if JMS broker is up and listening.<br><br>
  * 
  * This class is a singleton. It means that only one instance of this class
- * can be initialized in JVM and since this moment the class will constantly 
+ * can be initialised in JVM and since this moment the class will constantly 
  * monitor JMS broker instance.<br><br>
  * 
  * <b>Every JVM instance which uses <u>an agent</u> has this class instantiated 
@@ -92,7 +92,13 @@ public class JmsBrokerHealthSampler {
         return SingletonHolder.instance;
     }
     
-	public synchronized void checkJmsBrokerIsUp() {
+    /**
+     * Checks in the same thread if JMS broker instance is up 
+     * and store this status in brokerUp flag.
+     * 
+     * @return
+     */
+	public synchronized boolean checkJmsBrokerIsUp() {
 		try {
 			logger.debug("Executing shell command: [" + shellCommand + "] to check if JMS broker instanceis up...");
 			Process p = Runtime.getRuntime().exec(shellCommand);
@@ -111,9 +117,14 @@ public class JmsBrokerHealthSampler {
 			brokerUp = false;
 			logger.error(e.getMessage(), e);
 		}
-		
+		return brokerUp;
 	}
 
+	/**
+	 * Retrieves brokerUp flag.
+	 * 
+	 * @return
+	 */
 	public boolean isJmsBrokerUp() {
 		return brokerUp;
 	}

@@ -3,8 +3,6 @@ package org.allmon.client.agent;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.allmon.common.MetricMessage;
-import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

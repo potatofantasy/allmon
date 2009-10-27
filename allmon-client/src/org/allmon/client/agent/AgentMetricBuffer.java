@@ -42,22 +42,19 @@ public class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
             return;
         }
         
+        // Converting list to MetricMessageWrapper
         MetricMessageWrapper messageWrapper = new MetricMessageWrapper();
         for (int i = 0; i < flushingList.size(); i++) {
             messageWrapper.add(flushingList.get(i));
         }
         
         if (isJmsBrokerUp()) {
-        
-            logger.debug("Send " + flushingList.size());
-            
-            // TODO convert List to MetricMessageWrapper
+            logger.debug("Sending " + flushingList.size() + " metrics in one wrapper object");
             MessageSender messageSender = new MessageSender();
             messageSender.sendMessage(messageWrapper);
-        
         } else {
-            // TODO
-            logger.warn("Send " + flushingList.size());
+            // TODO is it enough
+            logger.warn("Sending of " + flushingList.size() + " couldn't been performed because JMS Broker instance was not up");
         }
         
     }
