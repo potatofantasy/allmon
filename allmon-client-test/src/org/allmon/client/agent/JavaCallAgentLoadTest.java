@@ -23,7 +23,7 @@ public class JavaCallAgentLoadTest extends TestCase {
     private final static long THREADS_COUNT = 10; // TODO find out WHY above 5 for 500 calls - sending messages process hangs!!!
     private final static long STARTING_TIME_MILLIS = 1 * 1000;
     private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 10;
-    private final static long SUBSEQUENT_CALLS_IN_THREAD = 1000;
+    private final static long SUBSEQUENT_CALLS_IN_THREAD = 10000;
     // soak test - around 20min
 //    private final static long THREADS_COUNT = 50;
 //    private final static long STARTING_TIME_MILLIS = 1 * 60 * 1000; // rump-up 1 min
