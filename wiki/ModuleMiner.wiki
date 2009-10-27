@@ -3,16 +3,23 @@
 
 = Miner =
 
-Mining knowledge from collected in allmon database data. 
+This component is responsible for mining knowledge from collected in allmon database data. 
 
 Provides: 
-  * Access to allmon database
-  * Aggregating algorithms
-  * Statistical analysis 
-  * Correlation across set up dimensions
-    * Detecting related events
+  * Access layer to allmon database
+  * Aggregating procedures (algorithms)
+  * Statistical analysis procedures
+    * Correlation across set up dimensions
+      * Detecting related events in metrics of many layers of monitored systems infrastructure
   * Storing events history log
 
 == Aggregates ==
-  * aggregated calls in days/hours
-  * aggregated calls by count of concurrent calls (in second grain)
+
+  * Aggregated calls in days/hours
+  * Aggregated calls by count of concurrent calls (in second grain)
+  * ...
+
+== Statistical analysis ==
+
+  * Correlation
+  * ...
