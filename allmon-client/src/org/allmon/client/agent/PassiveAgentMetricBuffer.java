@@ -1,7 +1,11 @@
 package org.allmon.client.agent;
 
-import java.io.Serializable;
 import java.util.List;
+
+import org.allmon.common.MetricMessage;
+import org.allmon.common.MetricMessageWrapper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class PassiveAgentMetricBuffer extends AbstractMetricBuffer {
     
@@ -10,6 +14,8 @@ public class PassiveAgentMetricBuffer extends AbstractMetricBuffer {
         JmsBrokerHealthSampler.getInstance();
     }
     
+    private static final Log logger = LogFactory.getLog(PassiveAgentMetricBuffer.class);
+        
     /**
      * The method bases on JmsBrokerSampler checks implementation, 
      * so the last check can be done maximum 60 seconds ago.
@@ -21,16 +27,23 @@ public class PassiveAgentMetricBuffer extends AbstractMetricBuffer {
     }
     
     public void sendMetrics(List flushingList) {
-
-        if (!isJmsBrokerUp()) {
         
-            System.out.println("Send!!!!!!" + flushingList.size());
+        if (flushingList == null || flushingList.size() == 0) {
+            return;
+        }
+        
+        MetricMessageWrapper messageWrapper = new MetricMessageWrapper();
+        for (int i = 0; i < flushingList.size(); i++) {
+            messageWrapper.add((MetricMessage)flushingList.get(i));
+        }
+        
+        if (isJmsBrokerUp()) {
+        
+            logger.debug("Send " + flushingList.size());
             
             // TODO convert List to MetricMessageWrapper
-            Serializable messageObject = null;
-            
             MessageSender messageSender = new MessageSender();
-            messageSender.sendMessage(messageObject);
+            messageSender.sendMessage(messageWrapper);
             
         } else {
             // XXX

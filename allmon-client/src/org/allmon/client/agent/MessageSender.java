@@ -96,7 +96,7 @@ class MessageSender {
                 session.commit();
             }
             
-            //System.out.println("Done.");
+            System.out.println("Done.");
 
             // Use the ActiveMQConnection interface to dump the connection stats
             //ActiveMQConnection c = (ActiveMQConnection)connection;

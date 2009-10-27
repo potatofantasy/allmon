@@ -110,7 +110,7 @@ public class OutputParser {
         int i = 0;
         try {
 			while ((inputLine = br.readLine()) != null) {
-			    logger.debug(inputLine);
+			    //logger.debug(inputLine);
 			    Pattern p = Pattern.compile(searchPhrase);
 			    Matcher m = p.matcher(inputLine);
 			    while (m.find()) {
@@ -135,7 +135,7 @@ public class OutputParser {
 				logger.error(e.getMessage(), e);
 			}
 		}
-        logger.debug("\nFound " + i + " phrases " + fullSearchResults.toString()); // XXX send the message
+        logger.debug("Found " + i + " phrases " + fullSearchResults.toString().trim()); // XXX send the message
     	logger.debug(AllmonLoggerConstants.EXITED);
         return metric;
     }

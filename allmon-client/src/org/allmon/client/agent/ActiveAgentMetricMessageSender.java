@@ -2,7 +2,7 @@ package org.allmon.client.agent;
 
 import org.allmon.common.MetricMessage;
 
-public class ActiveAgentMetricMessageSender {
+class ActiveAgentMetricMessageSender extends AgentMetricMessageSender {
 
     private final ActiveAgent activeAgent;
     

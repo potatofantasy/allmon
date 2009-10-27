@@ -1,5 +1,10 @@
 package org.allmon.common;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -191,7 +196,31 @@ public class MetricMessage implements Serializable {
     
     // TODO evaluate implementing deep cloning
     public MetricMessage clone() {
-        return this.clone();
+        try {
+            return cloneX(this);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
+    
+    private static <T> T cloneX(T x) throws IOException, ClassNotFoundException {
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        ObjectOutputStream cout = new ObjectOutputStream(bout);
+        cout.writeObject(x);
+        byte[] bytes = bout.toByteArray();
+
+        ByteArrayInputStream bin = new ByteArrayInputStream(bytes);
+        ObjectInputStream cin = new ObjectInputStream(bin);
+
+        @SuppressWarnings("unchecked")
+        T clone = (T) cin.readObject();
+        return clone;
+    }
+
     
 }
