@@ -1,9 +1,9 @@
 package org.allmon.client.agent;
 
+import junit.framework.TestCase;
+
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
-
-import junit.framework.TestCase;
 
 public class JavaCallAgentTest extends TestCase {
 
