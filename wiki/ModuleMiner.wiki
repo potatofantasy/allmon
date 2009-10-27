@@ -6,12 +6,15 @@
 This component is responsible for mining knowledge from collected in allmon database data. 
 
 Provides: 
-  * Access layer to allmon database
+  * Access layer to allmon database - used for viewer and other visualization tools 
   * Aggregating procedures (algorithms)
   * Statistical analysis procedures
     * Correlation across set up dimensions
       * Detecting related events in metrics of many layers of monitored systems infrastructure
   * Storing events history log
+  * Data mining algorithms
+    * Clusterization - hierarchical and mean-based - identifying similarities in users/methods behaviour  
+    * ...
 
 == Aggregates ==
 
