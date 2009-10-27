@@ -7,13 +7,22 @@ import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * It ensures that:
+ * (1) JMS broker is up and listening, 
+ * (2) TODO sending messages are buffered and pre-aggregated.<br><br>
+ * 
+ * <b>Every JVM instance which uses <u>an agent</u> has JmsBrokerSampler 
+ * class instantiated for the whole live time.</b>
+ * 
+ */
 public class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
 
     // creates singleton instance of JmsBrokerSampler
     static {
         JmsBrokerHealthSampler.getInstance();
     }
-
+    
     private static final Log logger = LogFactory.getLog(AgentMetricBuffer.class);
     
     /**
@@ -26,7 +35,7 @@ public class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
         return JmsBrokerHealthSampler.getInstance().isJmsBrokerUp();
     }
     
-    public void send(List flushingList) {
+    public void send(List<MetricMessage> flushingList) {
         
         // do not process further if flushingList is not initialised or empty
         if (flushingList == null || flushingList.size() == 0) {
@@ -35,7 +44,7 @@ public class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
         
         MetricMessageWrapper messageWrapper = new MetricMessageWrapper();
         for (int i = 0; i < flushingList.size(); i++) {
-            messageWrapper.add((MetricMessage)flushingList.get(i));
+            messageWrapper.add(flushingList.get(i));
         }
         
         if (isJmsBrokerUp()) {
@@ -45,9 +54,10 @@ public class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
             // TODO convert List to MetricMessageWrapper
             MessageSender messageSender = new MessageSender();
             messageSender.sendMessage(messageWrapper);
-            
+        
         } else {
-            // XXX
+            // TODO
+            logger.warn("Send " + flushingList.size());
         }
         
     }

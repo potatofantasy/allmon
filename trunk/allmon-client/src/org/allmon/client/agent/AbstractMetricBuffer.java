@@ -135,7 +135,7 @@ public abstract class AbstractMetricBuffer<M> {
 
         	// call to abstract method which in concrete implements specific sending functionality
         	try {
-        	    AbstractMetricBuffer.this.send(flushingList);
+        	    AbstractMetricBuffer.this.send((List<M>)flushingList);
         	} catch (Throwable t) {
         	    logger.error(t.getMessage(), t);
         	}
@@ -162,7 +162,7 @@ public abstract class AbstractMetricBuffer<M> {
     /**
      * 
      */
-    public abstract void send(List flushingList);
+    public abstract void send(List<M> flushingList);
     
     /**
      * Add metric message object to buffer ready to send.

@@ -1,5 +1,9 @@
 package org.allmon.client.agent;
 
+/**
+ * This AgentMetricMessageSender is used for all agents. 
+ * 
+ */
 abstract class AgentMetricMessageSender {
 
     private final Agent agent;
