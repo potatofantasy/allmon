@@ -447,3 +447,10 @@ ALTER INDEX AM_MET_AM_SRC_IDX1 REBUILD UNRECOVERABLE;
 ALTER INDEX AM_MET_AM_CAL_IDX1 REBUILD UNRECOVERABLE;
 ALTER INDEX AM_MET_AM_TIM_IDX1 REBUILD UNRECOVERABLE;
 ALTER INDEX AM_CAL_PK REBUILD UNRECOVERABLE;
+
+-- check data allocated segments space
+SELECT us.segment_name, us.segment_type, us.bytes, us.bytes/1024/1024 AS mb, us.blocks
+FROM   user_segments us
+WHERE  us.segment_name LIKE 'AM_%'
+ORDER BY mb DESC, 1;
+
