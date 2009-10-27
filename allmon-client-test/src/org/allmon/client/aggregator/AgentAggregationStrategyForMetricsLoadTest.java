@@ -22,7 +22,7 @@ public class AgentAggregationStrategyForMetricsLoadTest extends TestCase {
 
     private static final Log logger = LogFactory.getLog(AgentAggregationStrategyForMetricsLoadTest.class);
     
-    private final static long THREADS_COUNT = 5;
+    private final static long THREADS_COUNT = 1;
     private final static long STARTING_TIME_MILLIS = 1 * 1000;
     private final static long SUBSEQUENT_CALLS_IN_THREAD = 2000;
     private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 1;
@@ -43,14 +43,13 @@ public class AgentAggregationStrategyForMetricsLoadTest extends TestCase {
                     Endpoint endpoint = new JmsEndpoint();
                     JmsBinding jmsBinding = new JmsBinding();
                                         
-                    Exchange oldExchange = null;
-                    
                     AgentAggregationStrategyForMetrics aggregationStrategy = new AgentAggregationStrategyForMetrics();
 
                     long t1 = System.nanoTime();
                     
+                    // test metric message
+                    Exchange oldExchange = null;
                     for (int i = 0; i < SUBSEQUENT_CALLS_IN_THREAD; i++) {
-                        
                         // for every aggregation brand new message object is needed
                         Exchange newExchange = new JmsExchange(endpoint, ExchangePattern.InOut, jmsBinding);
                         Message message = new JmsMessage();
@@ -59,11 +58,28 @@ public class AgentAggregationStrategyForMetricsLoadTest extends TestCase {
                         
                         // aggregating messages
                         oldExchange = aggregationStrategy.aggregate(oldExchange, newExchange);
-                        
                     }
-                    long t2 = System.nanoTime();
                     
                     assertEquals(SUBSEQUENT_CALLS_IN_THREAD, ((MetricMessageWrapper)oldExchange.getIn().getBody()).size());
+                    
+                    // test metric message wrapper
+                    oldExchange = null;
+                    for (int i = 0; i < SUBSEQUENT_CALLS_IN_THREAD; i++) {
+                        // for every aggregation brand new message object is needed
+                        Exchange newExchange = new JmsExchange(endpoint, ExchangePattern.InOut, jmsBinding);
+                        Message message = new JmsMessage();
+                        MetricMessageWrapper messageWrapper = new MetricMessageWrapper();
+                        messageWrapper.add(MetricMessageFactory.createClassMessage("className", "methodName", "classNameX", "methodNameX", i));
+                        message.setBody(messageWrapper);
+                        newExchange.setIn(message);
+                        
+                        // aggregating messages
+                        oldExchange = aggregationStrategy.aggregate(oldExchange, newExchange);
+                    }
+                    
+                    assertEquals(SUBSEQUENT_CALLS_IN_THREAD, ((MetricMessageWrapper)oldExchange.getIn().getBody()).size());
+                                        
+                    long t2 = System.nanoTime();
                     
                     logger.debug("MetricMessage initialized in " + (t1 - t0)/1000000);
                     logger.debug("MetricMessage metrics sent in " + (t2 - t1)/1000000);

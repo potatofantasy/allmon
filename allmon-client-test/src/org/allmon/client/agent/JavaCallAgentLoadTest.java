@@ -22,7 +22,7 @@ public class JavaCallAgentLoadTest extends TestCase {
     // stress test
     private final static long THREADS_COUNT = 10; // TODO find out WHY above 5 for 500 calls - sending messages process hangs!!!
     private final static long STARTING_TIME_MILLIS = 1 * 1000;
-    private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 100;
+    private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 10;
     private final static long SUBSEQUENT_CALLS_IN_THREAD = 1000;
     // soak test - around 20min
 //    private final static long THREADS_COUNT = 50;
@@ -87,6 +87,7 @@ public class JavaCallAgentLoadTest extends TestCase {
         }
         
         // wait to finish flushing all messages
+        logger.debug("m2 - waiting for all messages to be flushed");
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
