@@ -6,14 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This MetricMessageSender is used for all agents. 
  * 
- * It ensures that:
- * (1) JMS broker is up and listening, 
- * (2) TODO sending messages are buffered and pre-aggregated.<br><br>
- * 
- * <b>Every JVM instance which uses <u>an agent</u> has JmsBrokerSampler 
- * class instantiated for the whole live time.</b>
  * 
  */
 class PassiveAgentMetricMessageSender extends AgentMetricMessageSender {
