@@ -11,23 +11,19 @@ import org.allmon.server.loader.LoadTestedClass;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * @deprecated
- * 
- */
-public class PassiveAgentMetricMessageSenderLoadTest extends TestCase {
+public class JavaCallAgentLoadTest extends TestCase {
 
     static {
         AllmonPropertiesReader.readLog4jProperties();
     }
     
-    private static final Log logger = LogFactory.getLog(PassiveAgentMetricMessageSenderLoadTest.class);
+    private static final Log logger = LogFactory.getLog(JavaCallAgentLoadTest.class);
     
     // stress test
-    private final static long THREADS_COUNT = 5; // TODO find out WHY above 5 for 500 calls - sending messages process hangs!!!
+    private final static long THREADS_COUNT = 10; // TODO find out WHY above 5 for 500 calls - sending messages process hangs!!!
     private final static long STARTING_TIME_MILLIS = 1 * 1000;
     private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 100;
-    private final static long SUBSEQUENT_CALLS_IN_THREAD = 500;
+    private final static long SUBSEQUENT_CALLS_IN_THREAD = 1000;
     // soak test - around 20min
 //    private final static long THREADS_COUNT = 50;
 //    private final static long STARTING_TIME_MILLIS = 1 * 60 * 1000; // rump-up 1 min
@@ -52,13 +48,17 @@ public class PassiveAgentMetricMessageSenderLoadTest extends TestCase {
                     for (int i = 0; i < SUBSEQUENT_CALLS_IN_THREAD; i++) {
                         MetricMessage metricMessage = 
                             MetricMessageFactory4Test.createClassMessage("className"+i, "methodName", "classNameX", "methodNameX", 1);
-                        PassiveAgentMetricMessageSender sender = new PassiveAgentMetricMessageSender(null); // TODO finish - (passiveAgent);
-                        sender.insertEntryPoint();
+                        
+                        JavaCallAgent agent = new JavaCallAgent(metricMessage);
+                        agent.entryPoint();
+                        
                         try {
                             Thread.sleep((long)(Math.random() * SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX));
                         } catch (InterruptedException e) {
                         }
-                        sender.insertNextPoint();
+                        
+                        agent.exitPoint();
+                        
                     }
                     
                     long t2 = System.nanoTime();
@@ -84,6 +84,12 @@ public class PassiveAgentMetricMessageSenderLoadTest extends TestCase {
         for (int i = 0; i < THREADS_COUNT; i++) {
             Thread t = (Thread)loadThreadsMap.get(new Integer(i));
             t.join();
+        }
+        
+        // wait to finish flushing all messages
+        try {
+            Thread.sleep((long)(Math.random() * SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX));
+        } catch (InterruptedException e) {
         }
         
         logger.debug("m2 - end");
