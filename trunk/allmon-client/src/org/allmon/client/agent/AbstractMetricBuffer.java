@@ -132,11 +132,13 @@ public abstract class AbstractMetricBuffer<M> {
         	logger.debug("sending items: " + flushingList.size());
             
         	long t0 = System.currentTimeMillis();
-        	
-        	// convert
-        	
+
         	// call to abstract method which in concrete implements specific sending functionality
-        	AbstractMetricBuffer.this.send(flushingList);
+        	try {
+        	    AbstractMetricBuffer.this.send(flushingList);
+        	} catch (Throwable t) {
+        	    logger.error(t.getMessage(), t);
+        	}
         	
         	flushingList.clear(); // can help with GC
         	

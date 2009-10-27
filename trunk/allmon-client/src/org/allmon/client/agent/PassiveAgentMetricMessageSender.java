@@ -33,6 +33,8 @@ class PassiveAgentMetricMessageSender extends AgentMetricMessageSender {
     final void insertEntryPoint() {
         lastTimeCheck = System.currentTimeMillis();
         MetricMessage metricMessage = getAgent().getBaseMetricMessage();
+        metricMessage.setPoint(AllmonCommonConstants.METRIC_POINT_ENTRY);
+        metricMessage.setDurationTime(0);
         getAgent().addMetricMessage(metricMessage);
     }
 
