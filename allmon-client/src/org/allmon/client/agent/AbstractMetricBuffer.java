@@ -67,7 +67,7 @@ public abstract class AbstractMetricBuffer<M> {
                     List<T> list = flush();
                     // execute send method only if there is something to send
                     if (list.size() > 0) {
-                        send(list);
+                        sendFlushingBuffer(list);
                     }
                 }
             } catch (Throwable t) {
@@ -125,7 +125,7 @@ public abstract class AbstractMetricBuffer<M> {
          * 
          * @param flushingList
          */
-        public void send(List<T> flushingList) {
+        private void sendFlushingBuffer(List<T> flushingList) {
         	logger.debug("sending " + flushCount + " starts...");
         	logger.debug("sending items: " + flushingList.size());
             
@@ -133,7 +133,7 @@ public abstract class AbstractMetricBuffer<M> {
 
         	// call to abstract method which in concrete implements specific sending functionality
         	try {
-        	    AbstractMetricBuffer.this.send((List<M>)flushingList);
+        	    send((List<M>)flushingList);
         	} catch (Throwable t) {
         	    logger.error(t.getMessage(), t);
         	}
