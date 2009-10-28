@@ -6,7 +6,7 @@
 Client-side metrics data acquisition (extraction) and transformation (aggregation).
 
 Modules:
-  * Agent (Monitoring API - plug-in-able structure)
+  * Agent (Monitoring API : plug-in-able structure)
     * Active agents (actively executing/collecting metrics from monitored system)
       * JMX
       * SMTP
