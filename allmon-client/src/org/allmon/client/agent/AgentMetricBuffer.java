@@ -16,7 +16,7 @@ import org.apache.commons.logging.LogFactory;
  * class instantiated for the whole live time.</b>
  * 
  */
-public class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
+class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
 
     // creates singleton instance of JmsBrokerSampler
     static {
