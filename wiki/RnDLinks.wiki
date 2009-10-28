@@ -33,6 +33,8 @@
 
   * Databases and Application Servers
     * Oracle® Application Server Performance Guide - Performance Metrics - http://download.oracle.com/docs/cd/B14099_19/core.1012/b14001/metrics.htm
+      * Optimizing J2EE Applications In OC4J - http://download.oracle.com/docs/cd/B14099_19/core.1012/b14001/optj2ee.htm#sthref455
+      * Oracle Application Server High Availability Guide - Middle-tier High Availability - http://database.in2p3.fr/doc/oracle/Oracle_Application_Server_10g_Release_2/core.1012/b14003/midtierdesc.htm#CIHCBFIJ
 
   * Similar Not-Open Source Projects
     * Monitoring Application Performance in Sun Java System Application Server 7.x with PerformaSure - http://developers.sun.com/appserver/reference/techart/performasure.html
