@@ -5,9 +5,9 @@ import java.util.HashMap;
 import junit.framework.TestCase;
 
 import org.allmon.common.AllmonPropertiesReader;
+import org.allmon.common.LoadTestedClass;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory4Test;
-import org.allmon.server.loader.LoadTestedClass;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
