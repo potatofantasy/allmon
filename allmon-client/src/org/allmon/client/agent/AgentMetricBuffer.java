@@ -2,6 +2,7 @@ package org.allmon.client.agent;
 
 import java.util.List;
 
+import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
@@ -33,6 +34,10 @@ class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
      */
     static boolean isJmsBrokerUp() {
         return JmsBrokerHealthSampler.getInstance().isJmsBrokerUp();
+    }
+    
+    public AgentMetricBuffer() {
+        setFlushingInterval(AllmonCommonConstants.ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL);
     }
     
     public void send(List<MetricMessage> flushingList) {
