@@ -1,7 +1,7 @@
 #summary Allmon datamodel rnd.
 #labels Phase-Requirements,Phase-Design
 
-= Allmon Data Tiers = 
+= Allmon Database Transformation Tiers = 
 
 http://www.rittmanmead.com/2009/07/16/drilling-down-in-the-oracle-next-generation-reference-dw-architecture/
 
@@ -20,6 +20,13 @@ Issues:
   * Flexibility!
   * Partitioning?
   * Scalability?
+
+  * RRD tool limitations
+    * Only scalar metrics can be stored
+    * Lack of fine grained stats over a period of time
+    * No SQL support
+    * ....but much more effective as a storage of scalar metrics!
+
 
 == Scalar vs. Vector variables (metrics) ==
 
