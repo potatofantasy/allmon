@@ -136,6 +136,9 @@ public class MetricMessage implements Serializable {
     }
 
     public void setPoint(String point) {
+        if (point == null || "".equals(point.trim())) {
+            throw new RuntimeException("Point value cannot be null, blank or only white characters");
+        }
         this.point = point;
     }
         

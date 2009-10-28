@@ -46,7 +46,7 @@ public abstract class AbstractMetricBuffer<M> {
         
         //private List<T> buffer = Collections.synchronizedList(new ArrayList<T>()); // Slow!
     	private List<T> buffer = new ArrayList<T>();
-        private long flushingInterval = 1000;
+        private long flushingInterval = 2000;
         
         private long flushCount = 0;
         private long flushedItemsCount = 0;

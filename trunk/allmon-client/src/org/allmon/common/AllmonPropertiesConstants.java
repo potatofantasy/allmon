@@ -6,6 +6,8 @@ public class AllmonPropertiesConstants {
     static final String TESTVALUE_NULL = "testvalue_null";
     static final String TESTVALUE_INT = "testvalue_int";
 
+    
+    public static final String ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL = "allmon.client.agent.metricbuffer.flushinginterval";
     public static final String ALLMON_CLIENT_AGENT_PROXY_ACTIVE = "allmon.client.agent.proxy.active";
     public static final String ALLMON_CLIENT_AGENT_PROXY_HOST = "allmon.client.agent.proxy.host";
     public static final String ALLMON_CLIENT_AGENT_PROXY_PORT = "allmon.client.agent.proxy.port";
