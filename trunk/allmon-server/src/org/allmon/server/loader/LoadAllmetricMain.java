@@ -2,7 +2,6 @@ package org.allmon.server.loader;
 
 import it.sauronsoftware.cron4j.Scheduler;
 
-import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.AllmonPropertiesConstants;
 import org.allmon.common.AllmonPropertiesReader;
 import org.apache.commons.logging.Log;
