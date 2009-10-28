@@ -15,7 +15,7 @@ http://www.rittmanmead.com/2009/07/16/drilling-down-in-the-oracle-next-generatio
 
 = Allmon core data model RnD =
 
-Issues:
+Issues and Challenges:
   * No need for transactions!
   * Flexibility!
   * Partitioning?
