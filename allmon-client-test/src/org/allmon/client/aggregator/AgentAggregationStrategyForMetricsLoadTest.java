@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 import junit.framework.TestCase;
 
+import org.allmon.common.LoadTestedClass;
 import org.allmon.common.MetricMessageFactory;
 import org.allmon.common.MetricMessageWrapper;
-import org.allmon.server.loader.LoadTestedClass;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
