@@ -13,7 +13,7 @@ public class JavaApplicationMain {
         for (int i = 0; i < 5; i++) {
             
             System.out.println("Press a button...");
-            System.in.read();
+            //System.in.read();
             
             MetricMessage message = MetricMessageFactory.createClassMessage(
                     JavaApplicationMain.class.getName(), "main", "ClassB", "methodB", 1);
@@ -23,7 +23,7 @@ public class JavaApplicationMain {
             
             // emulating some computations
             try {
-                Thread.sleep((long)(Math.random() * 2000));
+                Thread.sleep((long)(Math.random() * 1000));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
