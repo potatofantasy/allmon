@@ -1,4 +1,4 @@
-package org.allmon.server.loader;
+package org.allmon.common;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
