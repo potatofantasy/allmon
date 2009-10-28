@@ -10,7 +10,7 @@ public class AllmonCommonConstants {
     public final static String METRIC_POINT_CONSUMED = "CONSUMED";
     
     // settings for agents
-    public static final long ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL = Long.parseLong(AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL));
+    public static final long ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL = AllmonPropertiesReader.getInstance().getValueInt(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL, 2000);
     
     public static final boolean ALLMON_CLIENT_AGENT_PROXY_ACTIVE = Boolean.parseBoolean(AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_ACTIVE));
     public static final String ALLMON_CLIENT_AGENT_PROXY_HOST = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_HOST);
