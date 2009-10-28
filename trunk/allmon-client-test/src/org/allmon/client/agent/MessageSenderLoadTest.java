@@ -1,13 +1,8 @@
 package org.allmon.client.agent;
 
-import java.util.HashMap;
-
-import junit.framework.TestCase;
-
 import org.allmon.common.AbstractLoadTest;
 import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.AllmonPropertiesReader;
-import org.allmon.common.LoadTestedClass;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory4Test;
 import org.apache.commons.logging.Log;
@@ -35,7 +30,6 @@ public class MessageSenderLoadTest extends AbstractLoadTest<MessageSender, Objec
 //    private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 1000; // (!) 2 calls per1 sec
 //    private final static long SUBSEQUENT_CALLS_IN_THREAD = 1200 * (1000 / SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX);
     
-
     public void testMain() throws InterruptedException {
         runLoadTest(THREADS_COUNT, 
                 STARTING_TIME_MILLIS, SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX, 
@@ -48,8 +42,8 @@ public class MessageSenderLoadTest extends AbstractLoadTest<MessageSender, Objec
     }
     
     public Object preCall(int iteration, MessageSender messageSender) {
-        MetricMessage metricMessage = 
-            MetricMessageFactory4Test.createClassMessage("className" + iteration, "methodName", "classNameX", "methodNameX", 1);
+        MetricMessage metricMessage = MetricMessageFactory4Test.createClassMessage(
+                "className" + iteration, "methodName", "classNameX", "methodNameX", 1);
         metricMessage.setPoint(AllmonCommonConstants.METRIC_POINT_ENTRY);
         messageSender.sendMessage(metricMessage);
         return null;
