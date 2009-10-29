@@ -48,9 +48,9 @@ public class AbstractBufferLoadTest extends AbstractLoadTest<AbstractMetricBuffe
         return metricBuffer;
     }
     
-    public Object preCall(int iteration, AbstractMetricBuffer<String> metricBuffer) {
+    public Object preCall(int thread, int iteration, AbstractMetricBuffer<String> metricBuffer) {
         String string = "string" + iteration; 
-        metricBuffer.add(string);                     
+        metricBuffer.add(string);   
         return null;
     }
     

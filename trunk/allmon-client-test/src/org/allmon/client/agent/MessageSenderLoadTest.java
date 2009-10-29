@@ -41,7 +41,7 @@ public class MessageSenderLoadTest extends AbstractLoadTest<MessageSender, Objec
         return messageSender;
     }
     
-    public Object preCall(int iteration, MessageSender messageSender) {
+    public Object preCall(int thread, int iteration, MessageSender messageSender) {
         MetricMessage metricMessage = MetricMessageFactory4Test.createClassMessage(
                 "className" + iteration, "methodName", "classNameX", "methodNameX", 1);
         metricMessage.setPoint(AllmonCommonConstants.METRIC_POINT_ENTRY);
