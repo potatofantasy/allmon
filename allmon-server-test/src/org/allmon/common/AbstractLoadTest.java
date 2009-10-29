@@ -7,22 +7,48 @@ import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public abstract class AbstractLoadTest<OP, PCP> extends TestCase {
+public abstract class AbstractLoadTest<InitParam, PreCallParam> extends TestCase {
 
     private static final Log logger = LogFactory.getLog(AbstractLoadTest.class);
     
-    public abstract OP initialize();
+    /**
+     * Initialise object(s) before iterating
+     * 
+     * @return
+     */
+    public abstract InitParam initialize();
     
-    public abstract PCP preCall(int thread, int iteration, OP initParameters);
+    /**
+     * First method in an iteration
+     * 
+     * @param thread
+     * @param iteration
+     * @param initParameters
+     * @return
+     */
+    public abstract PreCallParam preCall(int thread, int iteration, InitParam initParameters);
     
-    public abstract void postCall(PCP preCallParameters);
+    /**
+     * Second method in an iteration
+     * 
+     * @param preCallParameters
+     */
+    public abstract void postCall(PreCallParam preCallParameters);
     
     //public abstract void ending(OP initParameters, PCP preCallParameters);
-        
+    
+    /**
+     * 
+     * 
+     * @param threadCount 
+     * @param startingTimeMills 
+     * @param maxSleepBetweenPreAndPostCall it is a maximum time slept between preCall and postCall in an iteration
+     * @param subsequentCallsInThread
+     * @param sleepAfterTest
+     */
     public void runLoadTest(long threadCount, long startingTimeMills, 
-            final long subsequentCallsInThreadSleepMax, final long subsequentCallsInThread, 
+            final long maxSleepBetweenPreAndPostCall, final long subsequentCallsInThread, 
             long sleepAfterTest) throws InterruptedException {
-                
         logger.debug("runLoadTest - start");
         
         HashMap<Integer, Thread> loadThreadsMap = new HashMap<Integer, Thread>();
@@ -35,31 +61,31 @@ public abstract class AbstractLoadTest<OP, PCP> extends TestCase {
                     logger.debug("Thread " + threadNum + " started");
                     long t0 = System.nanoTime();
                     
-                    OP initParameters = initialize();
+                    InitParam initParameters = initialize();
                     
                     long t1 = System.nanoTime();
                     for (int i = 0; i < subsequentCallsInThread; i++) {
                         
-                        PCP object = preCall(threadNum, i, initParameters);
-                                                
-                        if (subsequentCallsInThreadSleepMax > 0) {
+                        // call pre-method
+                        PreCallParam object = preCall(threadNum, i, initParameters);
+                                    
+                        // sleep
+                        if (maxSleepBetweenPreAndPostCall > 0) {
                             try {
-                                Thread.sleep((long)(Math.random() * subsequentCallsInThreadSleepMax));
+                                Thread.sleep((long)(Math.random() * maxSleepBetweenPreAndPostCall));
                             } catch (InterruptedException e) {
                             }
                         }
                         
+                        // call post-method
                         postCall(object);
                         
                     }
-                    
                     long t2 = System.nanoTime();
                     
-                    logger.debug("run initialized in " + (t1 - t0)/1000000);
-                    logger.debug("run pre processed in " + (t2 - t1)/1000000);
-                    //logger.debug("run post processed in " + (t3 - t2)/1000000);
-                    
-                    logger.debug("MetricMessage end");
+                    logger.debug("Thread " + threadNum + " run initialized in " + (t1 - t0)/1000000);
+                    logger.debug("Thread " + threadNum + " run pre processed in " + (t2 - t1)/1000000);
+                    logger.debug("Thread " + threadNum + " run end");
                 }
             });
             
