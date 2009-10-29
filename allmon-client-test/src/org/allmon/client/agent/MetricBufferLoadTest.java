@@ -44,7 +44,7 @@ public class MetricBufferLoadTest extends AbstractLoadTest<AgentMetricBuffer, Ob
         return metricBuffer;
     }
     
-    public Object preCall(int iteration, AgentMetricBuffer metricBuffer) {
+    public Object preCall(int thread, int iteration, AgentMetricBuffer metricBuffer) {
         MetricMessage metricMessage = MetricMessageFactory4Test.createClassMessage(
                     "className" + iteration, "methodName", "classNameX", "methodNameX", 1);
         metricBuffer.add(metricMessage);                     
