@@ -12,7 +12,7 @@ public class ExampleLoadTest extends AbstractLoadTest<ArrayList<String>, Object>
     // stress test
     private final static long THREADS_COUNT = 40;
     private final static long STARTING_TIME_MILLIS = 1;
-    private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 0; // no sleep
+    private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 10; // no sleep
     private final static long SUBSEQUENT_CALLS_IN_THREAD = 100;
     
     private final ArrayList<String> buffer = new ArrayList<String>();
