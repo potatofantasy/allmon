@@ -21,6 +21,12 @@ public class HttpUrlCallAgent extends UrlCallAgent {
     private String contentType = "application/json; charset=utf-8";
     private String urlParameters = "{ 'componentChecker': 'TTC.iTropics.ComponentCheckers.TropicsDawsComponentChecker, TTC.iTropics.ComponentCheckers' }";
     
+    private Class strategyClass;
+    
+    public void setStrategy(Class strategyClass) {
+        this.strategyClass = strategyClass;
+    }
+    
     MetricMessage collectMetrics() {
         String metric = "0";
         
@@ -66,7 +72,14 @@ public class HttpUrlCallAgent extends UrlCallAgent {
             }
         }
         
-        double metricValue = Double.parseDouble(metric);
+        double metricValue;
+        if (Boolean.class.isInstance(strategyClass)) {
+            metricValue = Double.parseDouble(metric);
+        } else {
+            metricValue = 0;
+        }
+        
+        // create metrics object
         MetricMessage metricMessage = MetricMessageFactory.createURLCallMessage(
                 urlAddress, searchPhrase, metricValue);
         return metricMessage;
