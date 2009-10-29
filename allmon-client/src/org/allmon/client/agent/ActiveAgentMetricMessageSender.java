@@ -16,6 +16,4 @@ class ActiveAgentMetricMessageSender extends AgentMetricMessageSender {
         getAgent().addMetricMessage(metricMessage);
     }
     
-    
-    
 }
