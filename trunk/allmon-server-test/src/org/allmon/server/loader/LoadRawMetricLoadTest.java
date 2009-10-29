@@ -17,7 +17,7 @@ public class LoadRawMetricLoadTest extends AbstractLoadTest<LoadRawMetric, Objec
         return new LoadRawMetric();
     }
     
-    public Object preCall(int iteration, LoadRawMetric loadRawMetric) {
+    public Object preCall(int thread, int iteration, LoadRawMetric loadRawMetric) {
         RawMetric metric = new RawMetric();
         String str = ">" + Math.random() + ">" + Math.random() + ">" + Math.random() + ">" + Math.random();
         metric.setMetric(str);
