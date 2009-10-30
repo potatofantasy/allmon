@@ -55,21 +55,23 @@ public abstract class AbstractMetricBuffer<M> {
         private long lastSendTime = 0;
         private long summarySendTime = 0;
         
-        private boolean killPill = false;
+        private boolean poisonPill = false;
         
         public final void run() {
             logger.info("run and keep buffering ...");
             try {
-                while (!killPill) {
+                while (!poisonPill) {
                     try {
                         Thread.sleep(flushingInterval);
                     } catch (InterruptedException e) {
                     	logger.error(e.getMessage(), e);
                     }
-                    List<T> list = flush();
-                    // execute send method only if there is something to send
-                    if (list.size() > 0) {
-                        sendFlushingBuffer(list);
+                    if (!poisonPill) {
+                        List<T> list = flush();
+                        // execute send method only if there is something to send
+                        if (list.size() > 0) {
+                            sendFlushingBuffer(list);
+                        }
                     }
                 }
             } catch (Throwable t) {
@@ -114,7 +116,7 @@ public abstract class AbstractMetricBuffer<M> {
             summaryFlushTime += lastFlushTime;
             
             logger.debug("summary of metric messages flushed: " + flushedItemsCount + " items, flushing list is ready to be sent");
-        	logger.debug("flushing end.");
+        	logger.debug("flushing end");
         	
         	return flushingList;
         }
@@ -145,7 +147,7 @@ public abstract class AbstractMetricBuffer<M> {
         	lastSendTime = System.currentTimeMillis() - t0;
         	summarySendTime += lastSendTime;
             
-        	logger.debug("sending end.");
+        	logger.debug("sending end");
         }
         
         private void add(T t) {
@@ -176,17 +178,20 @@ public abstract class AbstractMetricBuffer<M> {
      * finishing work with the class object.
      */
     public void flush() {
+        logger.debug("forced flush...");
         bufferingThread.flush();
     }
 
     /**
-     * Force flushing the buffer. Must be called before 
-     * finishing work with the class object and finishes 
-     * work of the buffering thread.
+     * Force flushing the buffer. Must be called before finishing work with 
+     * the class object and finishes work of the buffering thread by sending poison pill.
+     * After the pill is sent buffering thread cannot start flushing or sending again.
+     * It stops as soon as finishes one of three main procedures (waiting, flushing, sending). 
      */
     public void flushAndTerminate() {
+        logger.debug("forced flush and terminating buffering thread...");
         bufferingThread.flush();
-        bufferingThread.killPill = true;
+        bufferingThread.poisonPill = true; // soft way of bufferingThread.interrupt();
     }
     
     public long getFlushCount() {

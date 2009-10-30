@@ -23,7 +23,7 @@ import org.allmon.common.MetricMessageWrapper;
  */
 abstract class ActiveAgent extends Agent implements AgentTaskable {
 
-    private final ActiveAgentMetricBuffer metricBuffer = new ActiveAgentMetricBuffer();
+    //private final ActiveAgentMetricBuffer metricBuffer = new ActiveAgentMetricBuffer();
     
     private ActiveAgentMetricMessageSender messageSender = new ActiveAgentMetricMessageSender(this);
     
@@ -60,7 +60,7 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
     
     // TODO move this implementation to Agent
     void addMetricMessage(MetricMessage metricMessage) {
-        metricBuffer.add(metricMessage);
+        getMetricBuffer().add(metricMessage); // TODO review for multiton
     }
     
     // TODO review this property - it is forcing to use decodeAgentTaskableParams implementation for all active agents 

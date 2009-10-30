@@ -19,8 +19,8 @@ abstract class Agent {
         AllmonPropertiesReader.readLog4jProperties();
     }
     
-    // TODO review static field, if necessary maybe make a proper singleton implementation 
-    private final static AgentMetricBuffer metricBuffer = new AgentMetricBuffer();
+    // TODO review static field, if necessary maybe make a proper singleton/multiton implementation 
+    private final static AgentMetricBuffer metricBuffer = AgentMetricBuffer.getInstance();
     
 	Agent() {
 	}
@@ -33,4 +33,4 @@ abstract class Agent {
         return metricBuffer;
     }
 	
-}
+ }
