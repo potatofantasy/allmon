@@ -4,6 +4,7 @@
 package org.allmon.client.agent;
 
 import org.allmon.common.MetricMessage;
+import org.allmon.common.MetricMessageWrapper;
 
 /**
  * Active agents are used in active monitoring, where metric 
@@ -32,7 +33,7 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
      * 
      * @return MetricMessage
      */
-    abstract MetricMessage collectMetrics();
+    abstract MetricMessageWrapper collectMetrics();
     
     /**
      * This method is used by AgentCallerMain to execute process of:
@@ -42,16 +43,19 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
      */
     public final void execute() {
         decodeAgentTaskableParams();
-        MetricMessage metricMessage = collectMetrics();
-        if (metricMessage == null) {
-            throw new RuntimeException("MetricMessage hasn't been initialized properly");
+        MetricMessageWrapper metricMessageWrapper = collectMetrics();
+        if (metricMessageWrapper == null || metricMessageWrapper.size() == 0) {
+            throw new RuntimeException("MetricMessages havent't been initialized properly");
         }
-        sendMessage(metricMessage);
+        sendMessage(metricMessageWrapper);
     }
     
-    private void sendMessage(MetricMessage metricMessage) {
+    private void sendMessage(MetricMessageWrapper metricMessageWrapper) {
         // TODO review creating different explicitly specified MetricMessageSender
-        messageSender.insertPoint(metricMessage);
+        for (int i = 0; i < metricMessageWrapper.size(); i++) {
+            MetricMessage metricMessage = metricMessageWrapper.get(i);
+            messageSender.insertPoint(metricMessage);
+        }
     }
     
     // TODO move this implementation to Agent

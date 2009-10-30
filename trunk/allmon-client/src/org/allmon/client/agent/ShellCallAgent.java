@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
+import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -20,7 +21,7 @@ public class ShellCallAgent extends ActiveAgent {
 	private String shellCommand = "ping google.com";
 	private String searchPhrase = "";
 	
-	public MetricMessage collectMetrics() {
+	public MetricMessageWrapper collectMetrics() {
 	    String metricValue= "0";
         try {
 			logger.debug("Executing shell command: [" + shellCommand + "]...");
@@ -46,7 +47,8 @@ public class ShellCallAgent extends ActiveAgent {
         
 		MetricMessage message = MetricMessageFactory.createShellMessage(
 				shellCommand, Long.parseLong(metricValue));
-		return message;
+		
+		return new MetricMessageWrapper(message);
 	}
 	
 	void decodeAgentTaskableParams() {

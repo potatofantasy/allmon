@@ -11,6 +11,7 @@ import java.util.Properties;
 import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
+import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -23,10 +24,10 @@ public class UrlCallAgent extends ActiveAgent {
     private static final Log logger = LogFactory.getLog(UrlCallAgent.class);
     
     protected String urlAddress; // = "http://www.google.com";
-    protected String searchPhrase;
+    protected String searchPhrase; // TODO potentially searchPrase can be a more complex object
     protected boolean useProxy = true;
 
-    MetricMessage collectMetrics() {
+    MetricMessageWrapper collectMetrics() {
         String metric = "0";
         
         try {
@@ -46,7 +47,7 @@ public class UrlCallAgent extends ActiveAgent {
         double metricValue = Double.parseDouble(metric);
         MetricMessage metricMessage = MetricMessageFactory.createURLCallMessage(
         		urlAddress, searchPhrase, metricValue);
-        return metricMessage;
+        return new MetricMessageWrapper(metricMessage);
     }
     
     protected URLConnection makeConnection() throws IOException {

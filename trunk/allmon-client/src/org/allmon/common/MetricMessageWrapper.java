@@ -15,6 +15,13 @@ public class MetricMessageWrapper implements Serializable {
 
     private ArrayList<MetricMessage> list = new ArrayList<MetricMessage>();
 
+    public MetricMessageWrapper() {
+    }
+
+    public MetricMessageWrapper(MetricMessage metricMessage) {
+        add(metricMessage);
+    }
+    
     public boolean add(MetricMessage o) {
         return list.add(o);
     }

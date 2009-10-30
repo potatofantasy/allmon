@@ -1,10 +1,10 @@
 package org.allmon.client.agent;
 
-import org.allmon.common.MetricMessage;
+import org.allmon.common.MetricMessageWrapper;
 
 public class JmxServerAgent extends ActiveAgent {
 
-	public MetricMessage collectMetrics() {
+	public MetricMessageWrapper collectMetrics() {
         return null;
 	}
 
