@@ -9,6 +9,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * AgentMetricBuffer is a singleton. TODO go to multiton!!!
+ * 
  * It ensures that:
  * (1) JMS broker is up and listening, 
  * (2) TODO sending messages are buffered and pre-aggregated.<br><br>
@@ -36,9 +38,22 @@ public class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
         return JmsBrokerHealthSampler.getInstance().isJmsBrokerUp();
     }
     
-    public AgentMetricBuffer() {
+    private AgentMetricBuffer() {
         setFlushingInterval(AllmonCommonConstants.ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL);
     }
+    
+    /**
+     * SingletonHolder is loaded on the first execution of Singleton.getInstance() 
+     * or the first access to SingletonHolder.INSTANCE, not before.
+     */
+    private static class SingletonHolder {
+        private static final AgentMetricBuffer instance = new AgentMetricBuffer();
+    }
+    
+    public static AgentMetricBuffer getInstance() {
+        return SingletonHolder.instance;
+    }
+    
     
     public void send(List<MetricMessage> flushingList) {
         
