@@ -7,13 +7,13 @@ import org.allmon.common.MetricMessageFactory4Test;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class MetricBufferLoadTest extends AbstractLoadTest<AgentMetricBuffer, Object> {
+public class AgentMetricBufferLoadTest extends AbstractLoadTest<AgentMetricBuffer, Object> {
 
     static {
         AllmonPropertiesReader.readLog4jProperties();
     }
     
-    private static final Log logger = LogFactory.getLog(MetricBufferLoadTest.class);
+    private static final Log logger = LogFactory.getLog(AgentMetricBufferLoadTest.class);
     
     // stress test
     private final static long THREADS_COUNT = 30;
@@ -21,7 +21,7 @@ public class MetricBufferLoadTest extends AbstractLoadTest<AgentMetricBuffer, Ob
     private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 0; // no sleep
     private final static long SUBSEQUENT_CALLS_IN_THREAD = 1000;
     
-    private final AgentMetricBuffer metricBuffer = new AgentMetricBuffer();
+    private final AgentMetricBuffer metricBuffer = AgentMetricBuffer.getInstance();
     
     public void testMain() throws InterruptedException {
         runLoadTest(THREADS_COUNT, 
