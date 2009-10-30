@@ -1,6 +1,6 @@
 package org.allmon.client.agent;
 
-import org.allmon.common.MetricMessage;
+import org.allmon.common.MetricMessageWrapper;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
 import org.snmp4j.Snmp;
@@ -19,7 +19,7 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 public class SnmpAgent extends ActiveAgent {
 
-    MetricMessage collectMetrics() {
+    MetricMessageWrapper collectMetrics() {
         // TODO Auto-generated method stub
         return null;
     }

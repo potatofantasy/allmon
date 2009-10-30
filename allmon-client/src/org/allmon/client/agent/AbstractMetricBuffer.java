@@ -55,10 +55,12 @@ public abstract class AbstractMetricBuffer<M> {
         private long lastSendTime = 0;
         private long summarySendTime = 0;
         
+        private boolean killPill = false;
+        
         public final void run() {
             logger.info("run and keep buffering ...");
             try {
-                while (true) {
+                while (!killPill) {
                     try {
                         Thread.sleep(flushingInterval);
                     } catch (InterruptedException e) {
@@ -175,6 +177,16 @@ public abstract class AbstractMetricBuffer<M> {
      */
     public void flush() {
         bufferingThread.flush();
+    }
+
+    /**
+     * Force flushing the buffer. Must be called before 
+     * finishing work with the class object and finishes 
+     * work of the buffering thread.
+     */
+    public void flushAndTerminate() {
+        bufferingThread.flush();
+        bufferingThread.killPill = true;
     }
     
     public long getFlushCount() {

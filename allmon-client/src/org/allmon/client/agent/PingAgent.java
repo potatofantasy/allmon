@@ -2,6 +2,7 @@ package org.allmon.client.agent;
 
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
+import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -11,12 +12,13 @@ public class PingAgent extends ActiveAgent  {
     
     private String pingedHoust = "google.com";
     
-    MetricMessage collectMetrics() {
+    MetricMessageWrapper collectMetrics() {
         // TODO add logic
         // TODO use common functionality with ShellCallAgent and ...Parser
         
         MetricMessage metricMessage = MetricMessageFactory.createPingMessage(pingedHoust, 1);
-        return metricMessage;
+        
+        return new MetricMessageWrapper(metricMessage);
     }
 
     void decodeAgentTaskableParams() {

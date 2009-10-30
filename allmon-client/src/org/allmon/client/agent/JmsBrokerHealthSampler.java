@@ -43,26 +43,28 @@ public class JmsBrokerHealthSampler {
 	private void runCheckerProcess() {
 	    Thread checkerProcess = new Thread(new Runnable() {
             public void run() {
-                // Creates a Scheduler instance
-                Scheduler scheduler = new Scheduler();
+//                // Creates a Scheduler instance
+//                Scheduler scheduler = new Scheduler();
+//                
+//                // schedule and run the JMS broker checking job
+//                scheduler.schedule("* * * * *", new Runnable() {
+//                    public void run() {
+//                        JmsBrokerHealthSampler.getInstance().checkJmsBrokerIsUp();
+//                    }
+//                });
+//                
+//                // Starts the scheduler
+//                scheduler.start();
+//                // Will run for five minutes
+//                try {
+//                    Thread.sleep(Long.MAX_VALUE);
+//                } catch (InterruptedException e) {
+//                }
+//                // Stops the scheduler.
+//                scheduler.stop();
+//                // Scheduler has killed all open and running tasks
                 
-                // schedule and run the JMS broker checking job
-                scheduler.schedule("* * * * *", new Runnable() {
-                    public void run() {
-                        JmsBrokerHealthSampler.getInstance().checkJmsBrokerIsUp();
-                    }
-                });
                 
-                // Starts the scheduler
-                scheduler.start();
-                // Will run for five minutes
-                try {
-                    Thread.sleep(Long.MAX_VALUE);
-                } catch (InterruptedException e) {
-                }
-                // Stops the scheduler.
-                scheduler.stop();
-                // Scheduler has killed all open and running tasks
             }
 	    });
 	    checkerProcess.start();
@@ -131,6 +133,10 @@ public class JmsBrokerHealthSampler {
 	
 	public long getLastCheckTime() {
 		return lastCheckTime;
+	}
+	
+	public void terminateProcess() {
+	    
 	}
 	
 }

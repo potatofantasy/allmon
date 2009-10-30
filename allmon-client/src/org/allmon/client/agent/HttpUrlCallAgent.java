@@ -6,8 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 
-import org.allmon.common.MetricMessage;
-import org.allmon.common.MetricMessageFactory;
+import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -21,15 +20,16 @@ public class HttpUrlCallAgent extends UrlCallAgent {
     private String contentType = "application/json; charset=utf-8";
     private String urlParameters = "{ 'componentChecker': 'TTC.iTropics.ComponentCheckers.TropicsDawsComponentChecker, TTC.iTropics.ComponentCheckers' }";
     
-    private Class strategyClass;
+    private HttpUrlCallAgentAbstractStrategy strategy;
     
-    public void setStrategy(Class strategyClass) {
-        this.strategyClass = strategyClass;
+    public void setStrategy(HttpUrlCallAgentAbstractStrategy strategy) {
+        this.strategy = strategy;
     }
     
-    MetricMessage collectMetrics() {
+    MetricMessageWrapper collectMetrics() {
         String metric = "0";
         
+        MetricMessageWrapper messageWrapper = null;
         HttpURLConnection connection = null;
         try {
             connection = (HttpURLConnection)makeConnection();
@@ -58,8 +58,15 @@ public class HttpUrlCallAgent extends UrlCallAgent {
             //Get Response    
             //DataInputStream dis = new DataInputStream(connection.getInputStream());
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            metric = OutputParser.findFirst(br, searchPhrase);
-            br.close();
+            
+            // process the response depending on used strategy
+            try {
+                strategy.setUp(this, br);
+                messageWrapper = strategy.extractMetrics();
+            } finally {
+                br.close();
+            }
+            
         } catch (MalformedURLException me) {
             //fullSearchResults.append(me.getMessage());
             logger.debug("MalformedURLException: " + me, me);
@@ -72,17 +79,7 @@ public class HttpUrlCallAgent extends UrlCallAgent {
             }
         }
         
-        double metricValue;
-        if (Boolean.class.isInstance(strategyClass)) {
-            metricValue = Double.parseDouble(metric);
-        } else {
-            metricValue = 0;
-        }
-        
-        // create metrics object
-        MetricMessage metricMessage = MetricMessageFactory.createURLCallMessage(
-                urlAddress, searchPhrase, metricValue);
-        return metricMessage;
+        return messageWrapper;
     }
    
     void decodeAgentTaskableParams() {
