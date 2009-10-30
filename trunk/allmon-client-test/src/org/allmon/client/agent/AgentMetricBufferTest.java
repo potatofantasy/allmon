@@ -8,19 +8,19 @@ import org.allmon.common.MetricMessageFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class MetricBufferTest extends TestCase {
+public class AgentMetricBufferTest extends TestCase {
 
     static {
         AllmonPropertiesReader.readLog4jProperties();
     }
     
-    private static final Log logger = LogFactory.getLog(MetricBufferTest.class);
+    private static final Log logger = LogFactory.getLog(AgentMetricBufferTest.class);
     
-    private static final long INTERVAL = 1000;
+    private static final long INTERVAL = 2000;
     
     public void test() {
         // first invocation creates and starts buffering process
-    	ActiveAgentMetricBuffer metricBuffer = new ActiveAgentMetricBuffer();
+    	AgentMetricBuffer metricBuffer = AgentMetricBuffer.getInstance();
         assertEquals(0, metricBuffer.getFlushCount());
         assertEquals(0, metricBuffer.getFlushedItemsCount());
         
@@ -57,6 +57,15 @@ public class MetricBufferTest extends TestCase {
         
         assertEquals(3, metricBuffer.getFlushCount());
         assertEquals(7, metricBuffer.getFlushedItemsCount());
+        
+        sleep(INTERVAL);
+        assertEquals(4, metricBuffer.getFlushCount());
+        
+        metricBuffer.flushAndTerminate(); // from this point on buffering thread cannot flush/send anything else
+        assertEquals(5, metricBuffer.getFlushCount()); // 5 - because 5th flush is forced
+        
+        sleep(INTERVAL);
+        assertEquals(5, metricBuffer.getFlushCount()); // still 5
         
         logger.debug("the end.");
         

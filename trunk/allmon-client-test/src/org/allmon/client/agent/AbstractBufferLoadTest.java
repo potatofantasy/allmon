@@ -13,7 +13,7 @@ public class AbstractBufferLoadTest extends AbstractLoadTest<AbstractMetricBuffe
         AllmonPropertiesReader.readLog4jProperties();
     }
     
-    private static final Log logger = LogFactory.getLog(MetricBufferLoadTest.class);
+    private static final Log logger = LogFactory.getLog(AgentMetricBufferLoadTest.class);
     
     // stress test
     private final static long THREADS_COUNT = 30;
