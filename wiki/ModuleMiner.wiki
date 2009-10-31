@@ -8,6 +8,8 @@ This component is responsible for mining knowledge from collected in allmon data
 Provides: 
   * Access layer to allmon database - used for viewer and other visualization tools 
   * Aggregating procedures (algorithms)
+    * Pruning old metrics in allmetric storage after aggregating (saving space)
+    * Algorithms
   * Statistical analysis procedures
     * Correlation across set up dimensions
       * Detecting related events in metrics of many layers of monitored systems infrastructure
@@ -18,11 +20,22 @@ Provides:
 
 == Aggregates ==
 
-  * Aggregated calls in days/hours
-  * Aggregated calls by count of concurrent calls (in second grain)
-  * ...
+  * Scalar metrics
+        * In-time 
+          * For boolean values - point to point change aggregation (very effective if changes not often)
+          * 
+    * ...
+  * Vector metrics
+    * In-time aggregation (day, hour, etc.)
+      * Aggregated calls in days/hours
+    * In resource/source hierarchy level aggregation 
+    * Aggregated calls by count of concurrent calls (in second grain)
+    * ...
 
+      
 == Statistical analysis ==
 
   * Correlation
+  * Finding pseudo-related events (before/after) health check value change
+  * ...
   * ...
