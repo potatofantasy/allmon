@@ -14,7 +14,7 @@ Provides:
     * Correlation across set up dimensions
   * Storing events history log
   * Data mining algorithms
-    * Clusterization - hierarchical and mean-based - identifying similarities in users/methods behaviour  
+    * Clusterization
     * ...
 
 == Aggregates ==
@@ -43,4 +43,6 @@ Provides:
 
 == Data mining ==
 
+  * Clusterization - hierarchical and mean-based - identifying similarities in users/methods behaviour
+  * Graphs of interconnections between resources and sources (who/what is using what)
   * ...
