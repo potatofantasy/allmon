@@ -37,6 +37,8 @@ Provides:
     * Detecting related events in metrics of many layers of monitored systems infrastructure
     * Finding pseudo-related events (before/after) health check value change
   * Trend detection
+  * Simple statistics
+    * Up time (in log) 
   * ...
 
 == Data mining ==
