@@ -113,3 +113,4 @@
     * Producing  Open Source Software - How to Run a Successful Free Software Project by Karl Fogel - http://producingoss.com/
     * How to start an open source project - http://www.slideshare.net/gnunify/how-to-start-an-open-source-project
     * http://www.slideshare.net/directi/how-to-run-an-open-source-project-presentation
+    * http://www.slideshare.net/Gomez_Inc/best-practices-to-fix-5-common-web-application-problems-gomez
