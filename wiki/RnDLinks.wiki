@@ -111,3 +111,4 @@
 
   * Open Source Projects Management
     * Producing  Open Source Software - How to Run a Successful Free Software Project by Karl Fogel - http://producingoss.com/
+    * How to start an open source project - http://www.slideshare.net/gnunify/how-to-start-an-open-source-project
