@@ -12,7 +12,6 @@ Provides:
     * Algorithms
   * Statistical analysis procedures
     * Correlation across set up dimensions
-      * Detecting related events in metrics of many layers of monitored systems infrastructure
   * Storing events history log
   * Data mining algorithms
     * Clusterization - hierarchical and mean-based - identifying similarities in users/methods behaviour  
@@ -31,11 +30,15 @@ Provides:
     * In resource/source hierarchy level aggregation 
     * Aggregated calls by count of concurrent calls (in second grain)
     * ...
-
       
 == Statistical analysis ==
 
   * Correlation
-  * Finding pseudo-related events (before/after) health check value change
+    * Detecting related events in metrics of many layers of monitored systems infrastructure
+    * Finding pseudo-related events (before/after) health check value change
+  * Trend detection
   * ...
+
+== Data mining ==
+
   * ...
