@@ -118,3 +118,10 @@
     * http://www.slideshare.net/directi/how-to-run-an-open-source-project-presentation
     * http://www.slideshare.net/Gomez_Inc/best-practices-to-fix-5-common-web-application-problems-gomez
     * System monitoring from the cloud - http://www.slideshare.net/Hovhannes/monitis-allinone-systems-monitoring-from-the-cloud
+
+= Interchange =
+
+  * http://www.monitoringexchange.org/
+  * freshmeat.net/projects/allmon
+  * https://www.ohloh.net/p/allmon
+  * java-source.net/open-source/profilers
