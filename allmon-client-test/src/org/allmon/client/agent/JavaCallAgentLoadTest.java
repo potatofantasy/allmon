@@ -39,7 +39,7 @@ public class JavaCallAgentLoadTest extends AbstractLoadTest<Object, JavaCallAgen
     public JavaCallAgent preCall(int thread, int iteration, Object initParameters) {
         MetricMessage metricMessage = MetricMessageFactory4Test.createClassMessage(
                 "className" + iteration, "methodName", "classNameX", "methodNameX", 1);
-        JavaCallAgent agent = new JavaCallAgent(metricMessage);
+        JavaCallAgent agent = new JavaCallAgent(AgentContext.getInstance(), metricMessage);
         agent.entryPoint();
         return agent;
     }
