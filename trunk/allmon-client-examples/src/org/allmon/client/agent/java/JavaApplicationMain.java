@@ -2,6 +2,7 @@ package org.allmon.client.agent.java;
 
 import java.io.IOException;
 
+import org.allmon.client.agent.HttpUrlCallAgent;
 import org.allmon.client.agent.JavaCallAgent;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
@@ -33,8 +34,13 @@ public class JavaApplicationMain {
         }
 
         System.out.println("Five messages after users interacins have been sent.");
-        System.out.println("End.");
+
+        // kill buffering thread
+        JavaCallAgent.getMetricBuffer().flushAndTerminate();
+        
+        System.out.println("end.");
+
         
     }
-
+    
 }
