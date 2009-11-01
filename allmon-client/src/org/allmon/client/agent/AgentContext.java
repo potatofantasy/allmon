@@ -37,7 +37,7 @@ public class AgentContext {
      * - close connections pool to JMS broker.
      */
 	public void stop() {
-		// remove instance
+		// TODO remove instance
 		//instance = null;
 		
 		// kill buffering thread
