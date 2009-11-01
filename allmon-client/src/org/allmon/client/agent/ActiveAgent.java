@@ -45,6 +45,7 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
         decodeAgentTaskableParams();
         MetricMessageWrapper metricMessageWrapper = collectMetrics();
         if (metricMessageWrapper == null || metricMessageWrapper.size() == 0) {
+        	//TODO create named exception! Necessary to handle metrics collection process exceptions
             throw new RuntimeException("MetricMessages havent't been initialized properly");
         }
         sendMessage(metricMessageWrapper);
