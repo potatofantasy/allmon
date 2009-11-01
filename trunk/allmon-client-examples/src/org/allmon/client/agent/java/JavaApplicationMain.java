@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.allmon.client.agent.HttpUrlCallAgent;
 import org.allmon.client.agent.JavaCallAgent;
+import org.allmon.client.agent.MessageSender;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
 
@@ -11,7 +12,7 @@ public class JavaApplicationMain {
 
     public static void main(String[] args) throws IOException {
         
-        for (int i = 0; i < 5; i++) {
+    	for (int i = 0; i < 5; i++) {
             
             System.out.println("Press a button...");
             //System.in.read();
@@ -39,7 +40,9 @@ public class JavaApplicationMain {
         JavaCallAgent.getMetricBuffer().flushAndTerminate();
         
         System.out.println("end.");
-
+        
+        // stopping conection pool to broker
+        MessageSender.stop();
         
     }
     
