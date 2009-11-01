@@ -104,7 +104,6 @@
     * Active vs passive monitoring in soa management - http://jaxview.blogspot.com/2007/12/active-vs-passive-monitoring-in-soa.html
     * Measure CPU and memory consumption of a Java application - http://articles.techrepublic.com.com/5100-10878_11-6067049.html?tag=rbxccnbtr1
 
-    * using free tools to monitor the web - http://www.slideshare.net/MarkGoren/using-free-tools-to-monitor-the-web-how-to-collect-information-that-aligns-with-your-business-goals
 
   * Metrics 
     * Software Metrics
