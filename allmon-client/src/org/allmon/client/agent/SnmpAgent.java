@@ -19,8 +19,12 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 public class SnmpAgent extends ActiveAgent {
 
-    MetricMessageWrapper collectMetrics() {
-        // TODO Auto-generated method stub
+    public SnmpAgent(AgentContext agentContext) {
+		super(agentContext);
+	}
+
+	MetricMessageWrapper collectMetrics() {
+        // TODO add collecting snmp metrics code
         return null;
     }
 

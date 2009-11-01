@@ -21,7 +21,8 @@ abstract class PassiveAgent extends Agent {
     
     private MetricMessage baseMetricMessage;
     
-    PassiveAgent(MetricMessage metricMessage) {
+    PassiveAgent(AgentContext agentContext, MetricMessage metricMessage) {
+    	super(agentContext);
         messageSender = new PassiveAgentMetricMessageSender(this);
         baseMetricMessage = metricMessage;
     }

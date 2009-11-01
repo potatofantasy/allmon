@@ -25,7 +25,11 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
 
     //private final ActiveAgentMetricBuffer metricBuffer = new ActiveAgentMetricBuffer();
     
-    private ActiveAgentMetricMessageSender messageSender = new ActiveAgentMetricMessageSender(this);
+    ActiveAgent(AgentContext agentContext) {
+		super(agentContext);
+	}
+
+	private ActiveAgentMetricMessageSender messageSender = new ActiveAgentMetricMessageSender(this);
     
     /**
      * This method force all active agents to contain specific collectMetrics implementations

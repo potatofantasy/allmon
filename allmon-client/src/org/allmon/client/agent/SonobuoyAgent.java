@@ -11,7 +11,11 @@ import org.apache.commons.logging.LogFactory;
  */
 public class SonobuoyAgent extends ActiveAgent  {
 
-    private static final Log logger = LogFactory.getLog(SonobuoyAgent.class);
+	private static final Log logger = LogFactory.getLog(SonobuoyAgent.class);
+
+	private SonobuoyAgent(AgentContext agentContext) {
+		super(agentContext);
+	}
     
     MetricMessageWrapper collectMetrics() {
         MetricMessage metricMessage = MetricMessageFactory.createPingMessage();

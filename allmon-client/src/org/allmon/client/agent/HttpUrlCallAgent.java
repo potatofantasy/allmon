@@ -14,13 +14,17 @@ import sun.net.www.protocol.http.HttpURLConnection;
 
 public class HttpUrlCallAgent extends UrlCallAgent {
 
-    private static final Log logger = LogFactory.getLog(HttpUrlCallAgent.class);
+	private static final Log logger = LogFactory.getLog(HttpUrlCallAgent.class);
     
     private String requestMethod = "POST";
     private String contentType = "application/json; charset=utf-8";
     private String urlParameters = "{ 'componentChecker': 'TTC.iTropics.ComponentCheckers.TropicsDawsComponentChecker, TTC.iTropics.ComponentCheckers' }";
     
     private HttpUrlCallAgentAbstractStrategy strategy;
+    
+    public HttpUrlCallAgent(AgentContext agentContext) {
+		super(agentContext);
+	}
     
     public void setStrategy(HttpUrlCallAgentAbstractStrategy strategy) {
         this.strategy = strategy;

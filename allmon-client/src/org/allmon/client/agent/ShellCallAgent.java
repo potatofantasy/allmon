@@ -16,11 +16,15 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ShellCallAgent extends ActiveAgent {
     
-    private static final Log logger = LogFactory.getLog(ShellCallAgent.class);
+	private static final Log logger = LogFactory.getLog(ShellCallAgent.class);
     
 	private String shellCommand = "ping google.com";
 	private String searchPhrase = "";
 	
+	public ShellCallAgent(AgentContext agentContext) {
+		super(agentContext);
+	}
+    
 	public MetricMessageWrapper collectMetrics() {
 	    String metricValue= "0";
         try {
