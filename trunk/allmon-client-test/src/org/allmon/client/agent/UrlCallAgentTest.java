@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 public class UrlCallAgentTest extends TestCase {
 
     public void testExecute() {
-        UrlCallAgent agent = new UrlCallAgent();
+        UrlCallAgent agent = new UrlCallAgent(AgentContext.getInstance());
         agent.setParameters(new String[]{
                 //"http://www.google.com", 
                 "http://www.google.com/#hl=en&q=qwerty",

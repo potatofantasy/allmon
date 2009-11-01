@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 public class HttpUrlCallAgentTest extends TestCase {
 
     public void testExecute() throws InterruptedException {
-        HttpUrlCallAgent agent = new HttpUrlCallAgent();
+        HttpUrlCallAgent agent = new HttpUrlCallAgent(AgentContext.getInstance());
         agent.setStrategy(new HttpUrlCallAgentBooleanStrategy());
         agent.setParameters(new String[]{
                 //"http://www.google.com/#hl=en&q=qwerty",

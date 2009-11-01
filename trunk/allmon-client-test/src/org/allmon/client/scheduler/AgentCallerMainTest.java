@@ -2,6 +2,7 @@ package org.allmon.client.scheduler;
 
 import junit.framework.TestCase;
 
+import org.allmon.client.agent.AgentContext;
 import org.allmon.client.agent.SonobuoyAgent;
 import org.allmon.client.agent.UrlCallAgent;
 
@@ -15,7 +16,7 @@ public class AgentCallerMainTest extends TestCase {
 	}
 
     public void testExecuteAgentTaskable() throws Exception {
-        UrlCallAgent agent = new UrlCallAgent();
+        UrlCallAgent agent = new UrlCallAgent(AgentContext.getInstance());
         String[] classParamsString = new String[]{"http://www.google.com", "\\d\\d\\d\\d"};        
         AgentCallerMain caller = new AgentCallerMain();
         caller.executeAgentTaskable(agent, classParamsString);
