@@ -22,7 +22,10 @@ abstract class Agent {
     // TODO review static field, if necessary maybe make a proper singleton/multiton implementation 
     private final static AgentMetricBuffer metricBuffer = AgentMetricBuffer.getInstance();
     
-	Agent() {
+    AgentContext agentContext;
+    
+	Agent(AgentContext agentContext) {
+		this.agentContext = agentContext;
 	}
 	
     void addMetricMessage(MetricMessage metricMessage) {

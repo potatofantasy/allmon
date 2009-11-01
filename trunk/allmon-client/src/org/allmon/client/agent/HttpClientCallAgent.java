@@ -14,8 +14,8 @@ import org.allmon.common.MetricMessage;
  */
 public class HttpClientCallAgent extends PassiveAgent {
     
-    public HttpClientCallAgent(MetricMessage metricMessage) {
-        super(metricMessage);
+    public HttpClientCallAgent(AgentContext agentContext, MetricMessage metricMessage) {
+        super(agentContext, metricMessage);
     }
     
     public void dataSentToClient() {

@@ -9,8 +9,8 @@ import org.allmon.common.MetricMessage;
  */
 public class JmsCallAgent extends PassiveAgent {
     
-    public JmsCallAgent(MetricMessage metricMessage) {
-        super(metricMessage);
+    public JmsCallAgent(AgentContext agentContext, MetricMessage metricMessage) {
+        super(agentContext, metricMessage);
     }
     
     public void entryMessageSent() {

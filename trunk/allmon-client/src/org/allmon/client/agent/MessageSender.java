@@ -19,7 +19,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * 
  */
-public class MessageSender {
+class MessageSender {
 
     private final static Log logger = LogFactory.getLog(MessageSender.class);
     

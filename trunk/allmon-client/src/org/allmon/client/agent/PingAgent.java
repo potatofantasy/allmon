@@ -8,7 +8,11 @@ import org.apache.commons.logging.LogFactory;
 
 public class PingAgent extends ActiveAgent  {
 
-    private static final Log logger = LogFactory.getLog(PingAgent.class);
+    public PingAgent(AgentContext agentContext) {
+		super(agentContext);
+	}
+
+	private static final Log logger = LogFactory.getLog(PingAgent.class);
     
     private String pingedHoust = "google.com";
     

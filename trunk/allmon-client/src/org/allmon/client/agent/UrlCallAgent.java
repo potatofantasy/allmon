@@ -21,11 +21,15 @@ import org.apache.commons.logging.LogFactory;
  */
 public class UrlCallAgent extends ActiveAgent {
 
-    private static final Log logger = LogFactory.getLog(UrlCallAgent.class);
+	private static final Log logger = LogFactory.getLog(UrlCallAgent.class);
     
     protected String urlAddress; // = "http://www.google.com";
     protected String searchPhrase; // TODO potentially searchPrase can be a more complex object
     protected boolean useProxy = true;
+
+    public UrlCallAgent(AgentContext agentContext) {
+		super(agentContext);
+	}
 
     MetricMessageWrapper collectMetrics() {
         String metric = "0";
