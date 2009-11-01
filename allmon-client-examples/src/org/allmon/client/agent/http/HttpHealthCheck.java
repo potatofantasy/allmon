@@ -22,7 +22,6 @@ public class HttpHealthCheck {
         
         // kill thread
         HttpUrlCallAgent.getMetricBuffer().flushAndTerminate();
-  
         
         System.out.println("end.");
     }
