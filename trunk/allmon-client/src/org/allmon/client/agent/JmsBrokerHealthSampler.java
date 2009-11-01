@@ -1,7 +1,5 @@
 package org.allmon.client.agent;
 
-import it.sauronsoftware.cron4j.Scheduler;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -32,6 +30,11 @@ public class JmsBrokerHealthSampler {
     
 	private static final String shellCommand = "netstat -an";
 	//private static final String shellCommand = "netstat -an|find \"61616\""; // problems with running the command
+	private static final String matchString = "TCP.*:61616"; // "61616.*LISTENING";
+	
+	private Thread checkerProcess;
+	private boolean poisonPill = false;
+    private static final long heartBeatRate = 30000; //30sec
 	
 	private boolean brokerUp = false;
 	private long lastCheckTime;
@@ -41,8 +44,8 @@ public class JmsBrokerHealthSampler {
 	 * every minute if JMS broker is up and listening.
 	 */
 	private void runCheckerProcess() {
-	    Thread checkerProcess = new Thread(new Runnable() {
-            public void run() {
+	    checkerProcess = new Thread(new Runnable() {
+	    	public void run() {
 //                // Creates a Scheduler instance
 //                Scheduler scheduler = new Scheduler();
 //                
@@ -64,6 +67,22 @@ public class JmsBrokerHealthSampler {
 //                scheduler.stop();
 //                // Scheduler has killed all open and running tasks
                 
+            	logger.info("run and keep checking ...");
+                try {
+                    while (!poisonPill) {
+                        try {
+                            Thread.sleep(heartBeatRate);
+                        } catch (InterruptedException e) {
+                        }
+                        if (!poisonPill) {
+                        	JmsBrokerHealthSampler.getInstance().checkJmsBrokerIsUp();
+                        }
+                    }
+                } catch (Throwable t) {
+                    logger.error(t.getMessage(), t);  
+                } finally {
+                    logger.warn("run method has been finished - check won't be performed anymore");  
+                }
                 
             }
 	    });
@@ -107,7 +126,7 @@ public class JmsBrokerHealthSampler {
 	    	//p.waitFor();
             logger.debug("Shell command has been executed successfully.");
 	        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String match = OutputParser.findFirst(br, "61616.*LISTENING");
+            String match = OutputParser.findFirst(br, matchString);
 	        p.destroy();
 	        if (!"".equals(match)) {
 	        	brokerUp = true;
@@ -136,7 +155,8 @@ public class JmsBrokerHealthSampler {
 	}
 	
 	public void terminateProcess() {
-	    
+		checkerProcess.interrupt(); // immediately interrupting checking thread
+		poisonPill = true; // avoids checking last time
 	}
 	
 }
