@@ -128,7 +128,8 @@
   * http://java-source.net/open-source/profilers
   
   * Articles:
-    * serverside
-    * java
-    * knol.google.com
+    * http://www.theserverside.com/
+    * http://www.javaworld.com/
+    * http://www.javaranch.com/
+    * http://knol.google.com
     * ...
