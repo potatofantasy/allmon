@@ -122,6 +122,6 @@
 = Interchange =
 
   * http://www.monitoringexchange.org/
-  * freshmeat.net/projects/allmon
-  * https://www.ohloh.net/p/allmon
-  * java-source.net/open-source/profilers
+  * http://freshmeat.net/projects/allmon
+  * http://www.ohloh.net/p/allmon
+  * http://java-source.net/open-source/profilers
