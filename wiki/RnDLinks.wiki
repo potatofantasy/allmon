@@ -126,6 +126,7 @@
   * http://freshmeat.net/projects/allmon
   * http://www.ohloh.net/p/allmon
   * http://java-source.net/open-source/profilers
+  * http://swik.net/
   
   * Articles:
     * http://www.theserverside.com/
