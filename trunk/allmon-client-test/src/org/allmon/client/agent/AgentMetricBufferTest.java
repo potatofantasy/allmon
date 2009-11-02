@@ -19,8 +19,10 @@ public class AgentMetricBufferTest extends TestCase {
     private static final long INTERVAL = 2000;
     
     public void test() {
+        AgentContext agentContext = new AgentContext();
+        
         // first invocation creates and starts buffering process
-    	AgentMetricBuffer metricBuffer = AgentMetricBuffer.getInstance();
+    	AgentMetricBuffer metricBuffer = new AgentMetricBuffer(agentContext);
         assertEquals(0, metricBuffer.getFlushCount());
         assertEquals(0, metricBuffer.getFlushedItemsCount());
         
@@ -66,6 +68,8 @@ public class AgentMetricBufferTest extends TestCase {
         
         sleep(INTERVAL);
         assertEquals(5, metricBuffer.getFlushCount()); // still 5
+        
+        agentContext.stop();
         
         logger.debug("the end.");
         
