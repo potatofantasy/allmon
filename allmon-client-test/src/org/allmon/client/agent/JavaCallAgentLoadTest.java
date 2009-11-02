@@ -26,10 +26,15 @@ public class JavaCallAgentLoadTest extends AbstractLoadTest<Object, JavaCallAgen
 //    private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 1000; // (!) 2 calls per1 sec
 //    private final static long SUBSEQUENT_CALLS_IN_THREAD = 1200 * (1000 / SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX);
     
+    private final AgentContext agentContext = new AgentContext();
+    
     public void testMain() throws InterruptedException {
         runLoadTest(THREADS_COUNT, 
                 STARTING_TIME_MILLIS, SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX, 
                 SUBSEQUENT_CALLS_IN_THREAD, 10000);
+        
+        //Thread.sleep(5000);
+        //agentContext.stop(); // FIXME if uncommented hangs
     }
     
     public Object initialize() {
@@ -39,7 +44,7 @@ public class JavaCallAgentLoadTest extends AbstractLoadTest<Object, JavaCallAgen
     public JavaCallAgent preCall(int thread, int iteration, Object initParameters) {
         MetricMessage metricMessage = MetricMessageFactory4Test.createClassMessage(
                 "className" + iteration, "methodName", "classNameX", "methodNameX", 1);
-        JavaCallAgent agent = new JavaCallAgent(AgentContext.getInstance(), metricMessage);
+        JavaCallAgent agent = new JavaCallAgent(agentContext, metricMessage);
         agent.entryPoint();
         return agent;
     }

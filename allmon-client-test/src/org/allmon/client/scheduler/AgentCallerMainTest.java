@@ -16,10 +16,12 @@ public class AgentCallerMainTest extends TestCase {
 	}
 
     public void testExecuteAgentTaskable() throws Exception {
-        UrlCallAgent agent = new UrlCallAgent(AgentContext.getInstance());
+        AgentContext agentContext = new AgentContext();
+        UrlCallAgent agent = new UrlCallAgent(agentContext);
         String[] classParamsString = new String[]{"http://www.google.com", "\\d\\d\\d\\d"};        
         AgentCallerMain caller = new AgentCallerMain();
         caller.executeAgentTaskable(agent, classParamsString);
+        agentContext.stop();
     }
 	
 } 	

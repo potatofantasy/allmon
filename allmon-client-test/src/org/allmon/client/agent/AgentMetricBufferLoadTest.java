@@ -19,9 +19,10 @@ public class AgentMetricBufferLoadTest extends AbstractLoadTest<AgentMetricBuffe
     private final static long THREADS_COUNT = 30;
     private final static long STARTING_TIME_MILLIS = 1 * 1000;
     private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 0; // no sleep
-    private final static long SUBSEQUENT_CALLS_IN_THREAD = 1000;
+    private final static long SUBSEQUENT_CALLS_IN_THREAD = 2000;
     
-    private final AgentMetricBuffer metricBuffer = AgentMetricBuffer.getInstance();
+    private final AgentContext agentContext = new AgentContext();
+    private final AgentMetricBuffer metricBuffer = new AgentMetricBuffer(agentContext);
     
     public void testMain() throws InterruptedException {
         runLoadTest(THREADS_COUNT, 
@@ -34,6 +35,8 @@ public class AgentMetricBufferLoadTest extends AbstractLoadTest<AgentMetricBuffe
         long expected = THREADS_COUNT * SUBSEQUENT_CALLS_IN_THREAD;
         long actual = metricBuffer.getFlushedItemsCount();
         assertEquals(expected, actual);
+        
+        agentContext.stop();
         
         logger.info("Total flushing time (handy for tuning FlushingInterval): " + metricBuffer.getSummaryFlushTime());
     }
