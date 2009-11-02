@@ -19,21 +19,18 @@ abstract class Agent {
         AllmonPropertiesReader.readLog4jProperties();
     }
     
-    // TODO review static field, if necessary maybe make a proper singleton/multiton implementation 
-    private final static AgentMetricBuffer metricBuffer = AgentMetricBuffer.getInstance();
-    
-    AgentContext agentContext;
+    final AgentContext agentContext;
     
 	Agent(AgentContext agentContext) {
 		this.agentContext = agentContext;
 	}
 	
     void addMetricMessage(MetricMessage metricMessage) {
-        metricBuffer.add(metricMessage);
+        agentContext.getMetricBuffer().add(metricMessage);
     }
     
-    public final static AgentMetricBuffer getMetricBuffer() {
-        return metricBuffer;
+    public final AgentMetricBuffer getMetricBuffer() {
+        return agentContext.getMetricBuffer();
     }
 	
  }

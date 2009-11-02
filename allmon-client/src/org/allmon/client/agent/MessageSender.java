@@ -10,7 +10,6 @@ import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
 
-import org.allmon.common.AllmonActiveMQConnectionFactory;
 import org.allmon.common.AllmonCommonConstants;
 import org.apache.activemq.pool.PooledConnectionFactory;
 import org.apache.commons.logging.Log;
@@ -35,9 +34,11 @@ class MessageSender {
     private final static boolean transacted = false;
     private final static boolean persistent = false;
     
-    private final static ConnectionFactory cf; //PooledConnectionFactory pcf;
+    private final ConnectionFactory cf; //PooledConnectionFactory pcf;
     
-    static {
+    MessageSender(ConnectionFactory cf) {
+        this.cf = cf;
+        
         logger.debug("Connecting to URL: " + AllmonCommonConstants.CLIENT_BROKER_URL);
         //logger.debug("Publishing a Message with size " + messageSize + " to " + (topic ? "topic" : "queue") + ": " + subject);
         logger.debug("Using " + (persistent ? "persistent" : "non-persistent") + " messages");
@@ -45,13 +46,13 @@ class MessageSender {
         if (timeToLive != 0) {
             logger.debug("Messages time to live " + timeToLive + " ms");
         }
-
+        
         //JmsBrokerHealthSampler.getInstance().checkJmsBrokerIsUp();
         
         //cf = new PooledConnectionFactory(new ActiveMQConnectionFactory(AllmonCommonConstants.CLIENT_BROKER_USER, AllmonCommonConstants.CLIENT_BROKER_PASSWORD, url));
-        cf = AllmonActiveMQConnectionFactory.client(); // is using pooled connections
+        //cf = AllmonActiveMQConnectionFactory.client(); // is using pooled connections
         
-    	logPoolStats();
+    	//logPoolStats();
     	
     }
     
@@ -119,16 +120,12 @@ class MessageSender {
         }
     }
     
-    private static void logPoolStats() {
+    void logPoolStats() {
     	PooledConnectionFactory pcf = (PooledConnectionFactory)cf;
     	logger.debug(">>> IdleTimeout: " + pcf.getIdleTimeout());
     	logger.debug(">>> MaxConnections:" + pcf.getMaxConnections());
     	logger.debug(">>> MaximumActive:" + pcf.getMaximumActive());
     }
     
-    public static void stop() {
-    	logPoolStats();
-    	((PooledConnectionFactory)cf).stop();
-    }
     
 }

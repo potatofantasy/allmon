@@ -1,53 +1,62 @@
 package org.allmon.client.agent;
 
+import javax.jms.ConnectionFactory;
+
+import org.allmon.common.AllmonActiveMQConnectionFactory;
+import org.apache.activemq.pool.PooledConnectionFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class is a singleton. Its instance is necessary 
- * to monitor - create agents classes. Object of this class 
- * protects live-cycle of all vital for metrics data mechanisms
- * (i.e. sending data to JMS broker, maintaining internal buffers). 
+ * This class instance is necessary to monitor - create agents classes. Object
+ * of this class protects live-cycle of all vital for metrics data mechanisms
+ * (i.e. sending data to JMS broker, maintaining internal buffers).
  * 
  * After all monitoring work method stop must be called.
  * 
  */
 public class AgentContext {
 
-	private static final Log logger = LogFactory.getLog(AgentContext.class);
-    
-	private AgentContext() {
-	}
-	
-    /**
-     * SingletonHolder is loaded on the first execution of Singleton.getInstance() 
-     * or the first access to SingletonHolder.INSTANCE, not before.
-     */
-    private static class SingletonHolder {
-        private static final AgentContext instance = new AgentContext();
+    private static final Log logger = LogFactory.getLog(AgentContext.class);
+
+    private final ConnectionFactory cf; // PooledConnectionFactory pcf;
+
+    private final AgentMetricBuffer metricBuffer;
+
+    public AgentContext() {
+        // is using pooled connections
+        cf = AllmonActiveMQConnectionFactory.client();
+        metricBuffer = new AgentMetricBuffer(this);
     }
-    
-    public static AgentContext getInstance() {
-        return SingletonHolder.instance;
-    }
-    
+
     /**
-     * This method:
-     * - kills buffering thread,
-     * - close connections pool to JMS broker.
+     * This method: - kills buffering thread, - close connections pool to JMS
+     * broker.
      */
-	public void stop() {
-		// TODO remove instance
-		//instance = null;
-		
-		// kill buffering thread
-        JavaCallAgent.getMetricBuffer().flushAndTerminate();
-        
+    public void stop() {
+        // TODO remove instance
+        // instance = null;
+
+        // kill buffering thread
+        metricBuffer.flushAndTerminate();
+
         // stopping connection pool to broker
-        MessageSender.stop();
-        
+        PooledConnectionFactory pcf = (PooledConnectionFactory) cf;
+        //logger.debug(">>> IdleTimeout: " + pcf.getIdleTimeout());
+        //logger.debug(">>> MaxConnections:" + pcf.getMaxConnections());
+        //logger.debug(">>> MaximumActive:" + pcf.getMaximumActive());
+        pcf.stop();
+
         logger.info("Agent context end.");
-        
-	}
-	
+
+    }
+
+    ConnectionFactory getCf() {
+        return cf;
+    }
+    
+    AgentMetricBuffer getMetricBuffer() {
+        return metricBuffer;
+    }
+
 }

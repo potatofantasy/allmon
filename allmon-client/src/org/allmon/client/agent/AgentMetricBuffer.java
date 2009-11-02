@@ -9,11 +9,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * AgentMetricBuffer is a singleton. TODO go to multiton!!!
+ * AgentMetricBuffer is a singleton. 
+ * 
+ * TODO go to multiton or with instance per AgentContext!!!
  * 
  * It ensures that:
  * (1) JMS broker is up and listening, 
- * (2) TODO sending messages are buffered and pre-aggregated.<br><br>
+ * (2) sending messages are buffered and pre-aggregated.<br><br>
  * 
  * <b>Every JVM instance which uses <u>an agent</u> has JmsBrokerSampler 
  * class instantiated for the whole live time.</b>
@@ -38,22 +40,24 @@ public class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
         return JmsBrokerHealthSampler.getInstance().isJmsBrokerUp();
     }
     
-    private AgentMetricBuffer() {
+    private final AgentContext agentContext;
+    
+    AgentMetricBuffer(AgentContext agentContext) {
+        this.agentContext= agentContext;
         setFlushingInterval(AllmonCommonConstants.ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL);
     }
     
-    /**
-     * SingletonHolder is loaded on the first execution of Singleton.getInstance() 
-     * or the first access to SingletonHolder.INSTANCE, not before.
-     */
-    private static class SingletonHolder {
-        private static final AgentMetricBuffer instance = new AgentMetricBuffer();
-    }
-    
-    public static AgentMetricBuffer getInstance() {
-        return SingletonHolder.instance;
-    }
-    
+//    /**
+//     * SingletonHolder is loaded on the first execution of Singleton.getInstance() 
+//     * or the first access to SingletonHolder.INSTANCE, not before.
+//     */
+//    private static class SingletonHolder {
+//        private static final AgentMetricBuffer instance = new AgentMetricBuffer();
+//    }
+//    
+//    public static AgentMetricBuffer getInstance() {
+//        return SingletonHolder.instance;
+//    }
     
     public void send(List<MetricMessage> flushingList) {
         
@@ -70,7 +74,7 @@ public class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
         
         if (isJmsBrokerUp()) {
             logger.debug("Sending " + flushingList.size() + " metrics in one wrapper object");
-            MessageSender messageSender = new MessageSender();
+            MessageSender messageSender = new MessageSender(agentContext.getCf());
             messageSender.sendMessage(messageWrapper);
         } else {
             // TODO is it enough

@@ -57,6 +57,10 @@ public abstract class AbstractMetricBuffer<M> {
         
         private boolean poisonPill = false;
         
+        private BufferingThread() {
+            //setName("BufferingThread-" + getId());
+        }
+        
         public final void run() {
             logger.info("run and keep buffering ...");
             try {
