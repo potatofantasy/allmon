@@ -7,7 +7,7 @@ import org.allmon.client.agent.HttpUrlCallAgentBooleanStrategy;
 public class HttpHealthCheck {
 
     public static void main(String[] args) throws InterruptedException {
-    	AgentContext agentContext = AgentContext.getInstance();
+    	AgentContext agentContext = new AgentContext();
     	try {
 		    HttpUrlCallAgent agent = new HttpUrlCallAgent(agentContext);
 	        agent.setStrategy(new HttpUrlCallAgentBooleanStrategy());

@@ -10,7 +10,7 @@ import org.allmon.common.MetricMessageFactory;
 public class JavaApplicationMain {
 
     public static void main(String[] args) throws IOException {
-    	AgentContext agentContext = AgentContext.getInstance();
+    	AgentContext agentContext = new AgentContext();
     	try {
 	    	for (int i = 0; i < 5; i++) {
 	            System.out.println("Press a button...");
