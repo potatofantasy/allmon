@@ -30,21 +30,22 @@ public class AgentContext {
     }
 
     /**
-     * This method: - kills buffering thread, - close connections pool to JMS
-     * broker.
+     * This method:
+     * <li> kills buffering thread,
+     * <li> close connections pool to JMS broker.
      */
     public void stop() {
         // TODO remove instance
         // instance = null;
 
         // kill buffering thread
-        metricBuffer.flushAndTerminate();
+        metricBuffer.flushSendTerminate();
 
         // stopping connection pool to broker
         PooledConnectionFactory pcf = (PooledConnectionFactory) cf;
-        //logger.debug(">>> IdleTimeout: " + pcf.getIdleTimeout());
-        //logger.debug(">>> MaxConnections:" + pcf.getMaxConnections());
-        //logger.debug(">>> MaximumActive:" + pcf.getMaximumActive());
+        // logger.debug(">>> IdleTimeout: " + pcf.getIdleTimeout());
+        // logger.debug(">>> MaxConnections:" + pcf.getMaxConnections());
+        // logger.debug(">>> MaximumActive:" + pcf.getMaximumActive());
         pcf.stop();
 
         logger.info("Agent context end.");
@@ -54,7 +55,7 @@ public class AgentContext {
     ConnectionFactory getCf() {
         return cf;
     }
-    
+
     AgentMetricBuffer getMetricBuffer() {
         return metricBuffer;
     }

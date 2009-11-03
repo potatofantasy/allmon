@@ -9,9 +9,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class runs simple scheduler to run all set up (configured) tasks
- * which will be responsible for gathering metrics *actively* from monitored
- * systems/environments. <br><br>
+ * This class runs simple scheduler to run all set up (configured) tasks which
+ * will be responsible for gathering metrics *actively* from monitored
+ * systems/environments. <br>
+ * <br>
  * 
  * To meet active monitoring requirement we need to add a simple scheduling
  * mechanism. At this stage Apache Camel does not contain built-in simple
@@ -31,7 +32,7 @@ public class AgentSchedulerMain {
     public static void main(String[] args) {
         // Creates a Scheduler instance
         Scheduler scheduler = new Scheduler();
-        
+
         // Schedule a once-a-minute task
         scheduler.schedule("* * * * *", new Runnable() {
             public void run() {
@@ -42,12 +43,12 @@ public class AgentSchedulerMain {
         });
 
         // Schedule another task
-        //ProcessTask task = new ProcessTask("C:\\Windows\\System32\\notepad.exe");
-        //scheduler.schedule("* * * * *", task);
-        
+        // ProcessTask task = new ProcessTask("C:\\Windows\\System32\\notepad.exe");
+        // scheduler.schedule("* * * * *", task);
+
         // Schedule file - the file is re-read every minute
         scheduler.scheduleFile(new File("allmon-client.cron"));
-        
+
         // Starts the scheduler
         scheduler.start();
         try {
