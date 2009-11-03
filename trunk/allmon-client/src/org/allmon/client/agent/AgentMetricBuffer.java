@@ -24,9 +24,9 @@ import org.apache.commons.logging.LogFactory;
 public class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
 
     // creates singleton instance of JmsBrokerSampler
-    static {
-        JmsBrokerHealthSampler.getInstance();
-    }
+//    static {
+//        JmsBrokerHealthSampler.getInstance();
+//    }
     
     private static final Log logger = LogFactory.getLog(AgentMetricBuffer.class);
     
@@ -37,7 +37,7 @@ public class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
      * @return true if JMS broker is up and running
      */
     static boolean isJmsBrokerUp() {
-        return JmsBrokerHealthSampler.getInstance().isJmsBrokerUp();
+        return true; //JmsBrokerHealthSampler.getInstance().isJmsBrokerUp();
     }
     
     private final AgentContext agentContext;
@@ -83,9 +83,9 @@ public class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
         
     }
     
-    public void flushAndTerminate() {
-        super.flushAndTerminate();
-        JmsBrokerHealthSampler.getInstance().terminateProcess();
+    public void flushSendTerminate() {
+        super.flushSendTerminate();
+        //JmsBrokerHealthSampler.getInstance().terminateProcess();
     }
     
 }

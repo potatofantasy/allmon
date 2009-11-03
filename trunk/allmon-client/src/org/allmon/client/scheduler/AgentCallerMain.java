@@ -7,8 +7,6 @@ import java.util.Arrays;
 
 import org.allmon.client.agent.AgentContext;
 import org.allmon.client.agent.AgentTaskable;
-import org.allmon.client.agent.JavaCallAgent;
-import org.allmon.client.agent.UrlCallAgent;
 import org.allmon.common.AllmonLoggerConstants;
 import org.allmon.common.AllmonPropertiesReader;
 import org.apache.commons.logging.Log;
@@ -17,7 +15,12 @@ import org.apache.commons.logging.LogFactory;
 /**
  * This class is run by AgentSchedulerMain to call execute method of ActiveAgents 
  * (implementing interface AgentTaskable). This class also sets parameters ActiveAgent
- * instances.
+ * instances.<br><br>
+ * 
+ * NOTE:
+ * This class is called by cron4j (run by AgentSchedulerMain) and is deployed 
+ * under allmon-client.jar. If you added any changes to Agents functionality the jar
+ * file has to be rebuilt.
  * 
  */
 class AgentCallerMain {
@@ -30,53 +33,55 @@ class AgentCallerMain {
     
     public static void main(String[] args) {
         logger.debug(AllmonLoggerConstants.ENTERED);
-        logger.debug("param size : " + args.length);
         
         boolean success = false;
         try {  
 	        if (args.length > 0) {
-	            String className = args[0]; //ex: "org.allmon.client.agent.MetricCollector";
-	            String [] classParamsString = null;
-	            if (args.length > 1) {
-	                classParamsString = Arrays.copyOfRange(args, 1, args.length);
-	            }
-	            logger.debug("Loading class: " + className + ", for parameters: " + classParamsString);
-	            
-	            // run in the same thread
-	            AgentCallerMain agentCaller = new AgentCallerMain();
-	            agentCaller.createInstanceAndExecute(className, classParamsString);
+	            // run agent caller in the same thread
+                AgentCallerMain agentCaller = new AgentCallerMain();
                 
+	            String className = args[0]; //ex: "org.allmon.client.agent.MetricCollector";
+	            String [] classParamsString = agentCaller.decodeParameters(args);
+                logger.debug("loading class: " + className + ", for parameters: " + classParamsString);
+                agentCaller.createInstanceAndExecute(className, classParamsString);
+	            
                 success = true;
             }
-        } catch (ClassNotFoundException e) {
-            logger.error(e.getMessage(), e);
-        } catch (InstantiationException e) {
-            logger.error(e.getMessage(), e);
-        } catch (IllegalAccessException e) {
-            logger.error(e.getMessage(), e);
         } catch (Throwable e) {
             logger.error(e.getMessage(), e);
         } finally {
         	if (success) {
-        		logger.debug("Run finished successfully");
+        		logger.debug("run finished successfully");
         	} else {
-        		logger.debug("Run finished NOT successfully");
+        		logger.debug("run finished NOT successfully");
         	}
         }
         
         logger.debug(AllmonLoggerConstants.EXITED);
     }
     
-    void createInstanceAndExecute(String className, String [] classParamsString) 
+    private String[] decodeParameters(String[] args) {
+        logger.debug("param size: " + args.length);
+        for (int i = 0; i < args.length; i++) {
+            logger.debug("param[" + i + "]: " + args[i]);
+        }
+        
+        String [] classParamsString = null;
+        if (args.length > 1) {
+            classParamsString = Arrays.copyOfRange(args, 1, args.length);
+        }
+        return classParamsString;
+    }
+    
+    private void createInstanceAndExecute(String className, String [] classParamsString) 
     throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalClassFormatException {
         Class c = Class.forName(className);
-        //Object o = c.newInstance();
         // TODO check if c = AgentTaskable or ActiveAgent
         AgentContext agentContext = new AgentContext();
         try {
-            Constructor constr = c.getConstructor(AgentContext.class);
-            Object agent = constr.newInstance(agentContext);
-            
+            //Object o = c.newInstance();
+            Constructor constructor = c.getConstructor(AgentContext.class);
+            Object agent = constructor.newInstance(agentContext);
             if (agent instanceof AgentTaskable) {
                 AgentTaskable agentTask = (AgentTaskable)agent;
                 executeAgentTaskable(agentTask, classParamsString);
@@ -84,23 +89,20 @@ class AgentCallerMain {
                 throw new IllegalClassFormatException("The class (" + c.getCanonicalName() + ") passed as a parameter has to extend " + AgentTaskable.class.getName());
             }
         } catch (SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         } catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         } catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         } finally {
+            // closing agent context
             agentContext.stop();
         }
     }
     
-    void executeAgentTaskable(AgentTaskable task, String [] classParamsString) {
+    private void executeAgentTaskable(AgentTaskable task, String [] classParamsString) {
         String taskClassName = task.getClass().getCanonicalName();
         if (classParamsString != null) {
             logger.debug("Set parameters for: " + taskClassName);

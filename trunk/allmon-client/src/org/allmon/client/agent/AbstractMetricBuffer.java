@@ -28,7 +28,7 @@ public abstract class AbstractMetricBuffer<M> {
      */
     public AbstractMetricBuffer() {
         bufferingThread.start();
-    }
+    }   
     
 //    /**
 //     * SingletonHolder is loaded on the first execution of Singleton.getInstance() 
@@ -71,17 +71,21 @@ public abstract class AbstractMetricBuffer<M> {
                     	logger.error(e.getMessage(), e);
                     }
                     if (!poisonPill) {
-                        List<T> list = flush();
-                        // execute send method only if there is something to send
-                        if (list.size() > 0) {
-                            sendFlushingBuffer(list);
-                        }
+                        flushAndSend();
                     }
                 }
             } catch (Throwable t) {
                 logger.error(t.getMessage(), t);  
             } finally {
                 logger.warn("run method has been finished - flush method won't be performed anymore");  
+            }
+        }
+        
+        private void flushAndSend() {
+            List<T> list = flush();
+            // execute send method only if there is something to send
+            if (list.size() > 0) {
+                sendFlushingBuffer(list);
             }
         }
         
@@ -192,9 +196,9 @@ public abstract class AbstractMetricBuffer<M> {
      * After the pill is sent buffering thread cannot start flushing or sending again.
      * It stops as soon as finishes one of three main procedures (waiting, flushing, sending). 
      */
-    public void flushAndTerminate() {
+    public void flushSendTerminate() {
         logger.debug("forced flush and terminating buffering thread...");
-        bufferingThread.flush();
+        bufferingThread.flushAndSend();
         bufferingThread.poisonPill = true; // soft way of bufferingThread.interrupt();
     }
     

@@ -20,7 +20,7 @@ public class HttpUrlCallAgent extends UrlCallAgent {
     private String contentType = "application/json; charset=utf-8";
     private String urlParameters = "{ 'componentChecker': 'TTC.iTropics.ComponentCheckers.TropicsDawsComponentChecker, TTC.iTropics.ComponentCheckers' }";
     
-    private HttpUrlCallAgentAbstractStrategy strategy;
+    private HttpUrlCallAgentAbstractStrategy strategy = new HttpUrlCallAgentBooleanStrategy(); // default strategy
     
     public HttpUrlCallAgent(AgentContext agentContext) {
 		super(agentContext);
