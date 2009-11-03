@@ -63,7 +63,7 @@ public class AgentMetricBufferTest extends TestCase {
         sleep(INTERVAL);
         assertEquals(4, metricBuffer.getFlushCount());
         
-        metricBuffer.flushAndTerminate(); // from this point on buffering thread cannot flush/send anything else
+        metricBuffer.flushSendTerminate(); // from this point on buffering thread cannot flush/send anything else
         assertEquals(5, metricBuffer.getFlushCount()); // 5 - because 5th flush is forced
         
         sleep(INTERVAL);
