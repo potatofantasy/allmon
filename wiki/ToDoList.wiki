@@ -24,7 +24,9 @@
 
   * (O) (x) (code) Finish simple scheduler for active monitoring
 
-  * (O) (o) (code) Creating base (framework) for various listener agents for active and passive monitoring, with the most important examples (parsing file, ..., etc.)
+  * (O) (o/x) (code) Creating base (framework) for various listener agents for active and passive monitoring, with the most important examples (parsing file, ..., etc.)
+
+  * (O) (o) (code) Add xml mechanism of setting parameters for active metrics scheduler
 
   * (W) (o) (code) Creating a new metrics message sender based on log4j appender mechanism
 
