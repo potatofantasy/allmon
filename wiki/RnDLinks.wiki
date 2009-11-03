@@ -55,6 +55,10 @@
   * Instrumentation
     * Java Instrumentation - http://java.sun.com/j2se/1.5.0/docs/api/java/lang/instrument/Instrumentation.html
     * AOP
+      * AspectJ - 
+      * Spring-AOP - http://static.springsource.org/spring/docs/2.5.x/reference/aop.html
+        * http://www.javaworld.com/javaworld/jw-01-2007/jw-0105-aop.html
+      * Werkz
 
   * Monitoring service layer
     * Monitoring and Managing Tomcat Clusters Using JMX - http://www.devx.com/Java/Article/21726/1954
