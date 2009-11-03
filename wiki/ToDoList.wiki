@@ -20,13 +20,13 @@
 
   * (M) (x/o) (design) Design generic agent API and sender which can be used for various metrics collection purposes (passive: systems usage monitoring; active: health checks, heartbeats, metrics sampling, etc.)
     * (M) (x/o) (code) To increase performance of acquiring metrics process review possibility of collecting and caching metrics before sending them to agent (to the first queue).
-    * (M) (o) (code) Design various metrics sender strategies for different agents.
+    * (M) (x/o) (code) Design various metrics agents strategies for different agents.
 
   * (O) (x) (code) Finish simple scheduler for active monitoring
 
-  * (O) (o/x) (code) Creating base (framework) for various listener agents for active and passive monitoring, with the most important examples (parsing file, ..., etc.)
-
   * (O) (o) (code) Add xml mechanism of setting parameters for active metrics scheduler
+
+  * (O) (o/x) (code) Creating base (framework) for various listener agents for active and passive monitoring, with the most important examples (parsing file, ..., etc.)
 
   * (W) (o) (code) Creating a new metrics message sender based on log4j appender mechanism
 
