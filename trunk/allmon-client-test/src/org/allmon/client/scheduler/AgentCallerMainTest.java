@@ -2,17 +2,20 @@ package org.allmon.client.scheduler;
 
 import junit.framework.TestCase;
 
-import org.allmon.client.agent.AgentContext;
-import org.allmon.client.agent.SonobuoyAgent;
-import org.allmon.client.agent.UrlCallAgent;
-
 public class AgentCallerMainTest extends TestCase {
 
 	public void testMain() throws Exception {
 		//String [] args = {ShellCallAgent.class.getName(), ""};
 		//String [] args = {SimpleMetricMessageAgent.class.getName(), ""};
-	    String [] args = {SonobuoyAgent.class.getName(), ""};
-        AgentCallerMain.main(args);
+	    //String [] args = {SonobuoyAgent.class.getName(), ""};
+	    String [] args = {
+    	    org.allmon.client.agent.HttpUrlCallAgent.class.getName(), 
+    	    "http://lontd01/AdminConsole/statuscheck/default.aspx/CheckStatus", 
+    	    "\"Success\":true", 
+    	    "application/json;charset=utf-8",
+    	    "{'componentChecker':'TTC.iTropics.ComponentCheckers.ITropicsServiceComponentChecker,TTC.iTropics.ComponentCheckers'}"};
+	        
+	    AgentCallerMain.main(args);
 	}
 
 //    public void testExecuteAgentTaskable() throws Exception {
@@ -23,5 +26,16 @@ public class AgentCallerMainTest extends TestCase {
 //        caller.executeAgentTaskable(agent, classParamsString);
 //        agentContext.stop();
 //    }
+	
+	public static void main(String[] args) {
+        String [] args2 = {
+                org.allmon.client.agent.HttpUrlCallAgent.class.getName(), 
+                "http://lontd01/AdminConsole/statuscheck/default.aspx/CheckStatus", 
+                "\"Success\":true", 
+                "application/json;charset=utf-8",
+                "{'componentChecker':'TTC.iTropics.ComponentCheckers.ITropicsServiceComponentChecker,TTC.iTropics.ComponentCheckers'}"};
+                
+        AgentCallerMain.main(args2);
+    }
 	
 } 	
