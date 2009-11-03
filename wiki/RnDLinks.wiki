@@ -44,6 +44,7 @@
     * Monitoring Application Performance in Sun Java System Application Server 7.x with PerformaSure - http://developers.sun.com/appserver/reference/techart/performasure.html
     * Free service - External Monitoring - Internal Monitoring, Visitors Tracking - http://mon.itor.us/
     * Cloud based all-in-one external and internal monitoring provides - http://portal.monitis.com/
+    * Cloud real-time Web tracking and analysis application - http://www.woopra.com/
 
   * Presentation, Analysis & Data Mining
     * Pentaho - http://wiki.pentaho.com/display/COM/Latest+Stable+Builds
