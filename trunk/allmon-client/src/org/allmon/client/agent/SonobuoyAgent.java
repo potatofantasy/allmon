@@ -13,7 +13,7 @@ public class SonobuoyAgent extends ActiveAgent  {
 
 	private static final Log logger = LogFactory.getLog(SonobuoyAgent.class);
 
-	private SonobuoyAgent(AgentContext agentContext) {
+	public SonobuoyAgent(AgentContext agentContext) {
 		super(agentContext);
 	}
     
