@@ -23,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
  * file has to be rebuilt.
  * 
  */
-class AgentCallerMain {
+public class AgentCallerMain {
 
     static {
         AllmonPropertiesReader.readLog4jProperties();
@@ -33,16 +33,15 @@ class AgentCallerMain {
     
     public static void main(String[] args) {
         logger.debug(AllmonLoggerConstants.ENTERED);
-        
         boolean success = false;
-        try {  
+        try {
 	        if (args.length > 0) {
 	            // run agent caller in the same thread
                 AgentCallerMain agentCaller = new AgentCallerMain();
                 
 	            String className = args[0]; //ex: "org.allmon.client.agent.MetricCollector";
 	            String [] classParamsString = agentCaller.decodeParameters(args);
-                logger.debug("loading class: " + className + ", for parameters: " + classParamsString);
+                //logger.debug("loading class: " + className + ", for parameters: " + classParamsString);
                 agentCaller.createInstanceAndExecute(className, classParamsString);
 	            
                 success = true;
@@ -56,7 +55,6 @@ class AgentCallerMain {
         		logger.debug("run finished NOT successfully");
         	}
         }
-        
         logger.debug(AllmonLoggerConstants.EXITED);
     }
     
@@ -76,7 +74,6 @@ class AgentCallerMain {
     private void createInstanceAndExecute(String className, String [] classParamsString) 
     throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalClassFormatException {
         Class c = Class.forName(className);
-        // TODO check if c = AgentTaskable or ActiveAgent
         AgentContext agentContext = new AgentContext();
         try {
             //Object o = c.newInstance();
