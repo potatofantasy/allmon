@@ -56,6 +56,9 @@ Observing (or rather, debugging) a running program by modifying its source code 
 
 = Metrics =
 
+http://www.ignitesocialmedia.com/wp-content/uploads/2009/02/social-media-monitoring-funnel-final.png
+
+
 == Software ==
 
 === Java (JVM) ===
