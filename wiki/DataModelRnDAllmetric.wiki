@@ -29,6 +29,8 @@ Example of stored metrics data in denormalized fashion (1NF).
 || AppMet || ClientHost1 || AppInst1 || ClientSideRender || JSP1 || ? || ExecTime || TS || T ||
 || AppMet || ClientHost1 || AppInst1 || ClientSideReqWait || JSP1 || ? || ExecTime || TS || T ||
 || AppMet || ClientHost1 || AppInst1 || ClientSideRespWait || JSP1 || ? || ExecTime || TS || T ||
+|| AppMet || Host1 || AppInst1 || ServiceHealthCheck || Check1 || Detail1 || Up/Down (Boolean) || TS || T ||
+|| AppMet || Host1 || AppInst1 || ServiceHealthCheck || Check2 || Detail1  || ExecTime || TS || T ||
 || Rep || Host1 || RepServ1 || QueueLength || Rep1 || ? || NV || TS || T ||
 || Rep || Host1 || RepServ1 || RepExec || Rep1 || ? || ExecTime || TS || T ||
 || Rep || Host1 || RepServ1 || RepWait || Rep1 || ? || ExecTime || TS || T ||
