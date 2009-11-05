@@ -137,7 +137,9 @@
   * http://swik.net/
   * http://clipmarks.com/tags/performance/
   * http://java.dzone.com/ - Javalobby
-  
+  * opensymphony.com - OpenSymphony is an Open Source project dedicated to providing enterprise class J2EE components. Our components aim to stress simplicity, integration, pluggability and specification compliance. Please see the individual projects for more information.
+  * http://lowagie.com/ - Bruno Lowagie
+
   * Articles:
     * http://www.theserverside.com/
     * http://www.javaworld.com/
