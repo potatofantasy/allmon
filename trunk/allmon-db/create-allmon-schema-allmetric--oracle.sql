@@ -338,6 +338,7 @@ COMMIT;
 
 -- application metrics
 INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode, unit) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Struts Action Class', 'ACTCLS', 'ms'); 
+INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode, unit) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Java Class Calls', 'JAVCLS', 'ms'); 
 INSERT INTO am_metrictype(am_mty_id, am_arf_id, metricname, metriccode) VALUES(am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Service Level Check', 'APPSLC'); 
 COMMIT;
 
@@ -449,8 +450,9 @@ ALTER INDEX AM_MET_AM_TIM_IDX1 REBUILD UNRECOVERABLE;
 ALTER INDEX AM_CAL_PK REBUILD UNRECOVERABLE;
 
 -- check data allocated segments space
-SELECT us.segment_name, us.segment_type, us.bytes, us.bytes/1024/1024 AS mb, us.blocks
-FROM   user_segments us
-WHERE  us.segment_name LIKE 'AM_%'
+SELECT us.segment_name, us.segment_type, us.bytes, us.bytes/1024/1024 AS mb, us.blocks, 
+       tab.tablespace_name, tab.status, tab.num_rows, am_allmetric_mngr.get_number_of_rows(tab.table_name) AS actual_num_rows, tab.Avg_Row_Len, tab.last_analyzed
+FROM   user_segments us, user_tables tab --, user_indexes ind
+WHERE  (us.segment_name LIKE 'AM_%' OR us.segment_name LIKE 'VMAM_%')
+AND    us.segment_name = tab.table_name(+)
 ORDER BY mb DESC, 1;
-

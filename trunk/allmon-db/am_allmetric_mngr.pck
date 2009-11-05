@@ -80,6 +80,7 @@ CREATE OR REPLACE PACKAGE am_allmetric_mngr IS
   PROCEDURE admin_rebuilt_views_dyn;
   
   PROCEDURE admin_rebuilt_indexes;
+  FUNCTION get_number_of_rows(table_name IN VARCHAR2) RETURN NUMBER;
                                       
 END am_allmetric_mngr;
 /
@@ -150,6 +151,7 @@ CREATE OR REPLACE PACKAGE BODY am_allmetric_mngr IS
         LEFT OUTER JOIN am_resource ar ON (arm.resourcename = ar.resourcename)
         INNER JOIN am_metrictype amt ON (arm.metrictypecode = amt.metriccode)
         WHERE ar.am_rsc_id IS NULL
+        AND   arm.resourcename IS NOT NULL -- resource field is required 
         --WHERE rm.ts BETWEEN p_i_datetime_start AND p_i_datetime_end
       );
   
@@ -635,6 +637,16 @@ CREATE OR REPLACE PACKAGE BODY am_allmetric_mngr IS
       dbms_output.put_line(v.alter_index_code);
     END LOOP;
   END;
+
+  --
+  FUNCTION get_number_of_rows(table_name IN VARCHAR2) RETURN NUMBER IS
+    rows_count NUMBER := 0;
+  BEGIN
+    IF table_name IS NOT NULL THEN 
+      EXECUTE IMMEDIATE 'SELECT count(*) FROM ' || table_name INTO rows_count;
+    END IF;
+    RETURN(rows_count);
+  END get_number_of_rows;
 
 --BEGIN
   -- Initialization
