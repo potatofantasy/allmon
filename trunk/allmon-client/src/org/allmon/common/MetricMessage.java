@@ -22,6 +22,10 @@ public class MetricMessage implements Serializable {
     private double metricValue;
     private static final InetAddress addr = getInetAddress();
     private static final String hostIp = getIp(addr);
+
+    private String artifact; // TODO move to more OO design and abstract creation factory 
+    private String metricType; // TODO move to more OO design and abstract creation factory 
+
     private String host;
     private String instance;
     private String thread;
@@ -86,11 +90,39 @@ public class MetricMessage implements Serializable {
     public void setMetricValue(double metricValue) {
         this.metricValue = metricValue;
     }
+
+    /**
+     * @deprecated
+     */
+    public String getArtifact() {
+        return artifact;
+    }
+    
+    /**
+     * @deprecated
+     */
+    void setArtifact(String artifact) {
+        this.artifact = artifact;
+    }
+
+    /**
+     * @deprecated
+     */
+    public String getMetricType() {
+        return metricType;
+    }
+
+    /**
+     * @deprecated
+     */
+    void setMetricType(String metricType) {
+        this.metricType = metricType;
+    }
     
     public String getHostIp() {
         return hostIp;
     }
-
+    
     public String getHost() {
         return host;
     }

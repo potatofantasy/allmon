@@ -46,7 +46,11 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
      * This method is final, so no other concrete Agent implementation can override it.
      */
     public final void execute() {
-        decodeAgentTaskableParams();
+        try {
+            decodeAgentTaskableParams();
+        } catch (Exception e) {
+            throw new RuntimeException("Parameters couldn't been initialized properly");
+        }
         MetricMessageWrapper metricMessageWrapper = collectMetrics();
         if (metricMessageWrapper == null || metricMessageWrapper.size() == 0) {
         	//TODO create named exception! Necessary to handle metrics collection process exceptions
@@ -92,7 +96,7 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
      * Enforce implementation of decoding parameters set by AgentCallerMain
      * for all AgentTaskable classes
      */
-    abstract void decodeAgentTaskableParams();
+    abstract void decodeAgentTaskableParams() throws Exception;
     
     
 }
