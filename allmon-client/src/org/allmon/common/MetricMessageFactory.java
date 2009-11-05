@@ -28,17 +28,22 @@ public class MetricMessageFactory {
         }
     }
     
-    private static final MetricMessage createMessage() {
+    private static final MetricMessage createMessage(String artifact, String metricType) {
         MetricMessage metricMessage = new MetricMessage();
         if (!"".equals(HOSTNAME)) {
             metricMessage.setHost(HOSTNAME);
         }
         metricMessage.setInstance(INSTANCE);
+        // TODO move to more OO design 
+        metricMessage.setArtifact(artifact);
+        metricMessage.setMetricType(metricType);
         return metricMessage;
     }
     
     public static final MetricMessage createActionClassMessage(String className, String user, String webSessionId, ServletRequest request) {
-        MetricMessage metricMessage = createMessage();
+        MetricMessage metricMessage = createMessage(
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_ACTIONSERVLET);
         // resource - action class
         metricMessage.setResource(className);
         // source - user who triggered an action class to execute
@@ -77,7 +82,9 @@ public class MetricMessageFactory {
     }
 
     public static final MetricMessage createClassMessage(String classNameCalled, String methodNameCalled, String classNameCalling, String methodNameCalling, long durationTime) {
-        MetricMessage metricMessage = createMessage();
+        MetricMessage metricMessage = createMessage(
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_JAVACLASS);
         // resource - class and method which has been called
         metricMessage.setResource(classNameCalled + "." + methodNameCalled);
         // source - user which class triggered an action class to execute
@@ -87,14 +94,18 @@ public class MetricMessageFactory {
     }
 
     public static final MetricMessage createPingMessage() {
-        MetricMessage metricMessage = createMessage();
+        MetricMessage metricMessage = createMessage(
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_JAVACLASS); // TODO change type
         // resource - localhost name
         metricMessage.setResource(HOSTNAME);
         return metricMessage;
     }
     
     public static final MetricMessage createPingMessage(String pingedHost, long time) {
-        MetricMessage metricMessage = createMessage();
+        MetricMessage metricMessage = createMessage(
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_JAVACLASS); // TODO change type
         // resource - localhost name
         metricMessage.setResource(HOSTNAME);
         // source - hostname to which was sent ping
@@ -104,7 +115,9 @@ public class MetricMessageFactory {
     }
 
     public static final MetricMessage createShellMessage(String command, long metricValue) {
-        MetricMessage metricMessage = createMessage();
+        MetricMessage metricMessage = createMessage(
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_SERVICELEVELCHECK);
         // resource - localhost name
         metricMessage.setResource(HOSTNAME);
         metricMessage.setSource(command);
@@ -112,10 +125,12 @@ public class MetricMessageFactory {
         return metricMessage;
     }
     
-    public static final MetricMessage createURLCallMessage(String url, String searchPhrase, double metricValue) {
-        MetricMessage metricMessage = createMessage();
-        metricMessage.setResource(url);
-        metricMessage.setSource(searchPhrase);
+    public static final MetricMessage createURLCallMessage(String checkName, String host, double metricValue) {
+        MetricMessage metricMessage = createMessage(
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_SERVICELEVELCHECK);
+        metricMessage.setResource(checkName);
+        metricMessage.setSource(host);
         metricMessage.setMetricValue(metricValue);
         return metricMessage;
     }

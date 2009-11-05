@@ -26,7 +26,11 @@ public class UrlCallAgent extends ActiveAgent {
     protected String urlAddress; // = "http://www.google.com";
     protected String searchPhrase; // TODO potentially searchPrase can be a more complex object
     protected boolean useProxy = true;
-
+    
+    protected String checkingHost;
+    protected String checkName;
+    
+    
     public UrlCallAgent(AgentContext agentContext) {
 		super(agentContext);
 	}
@@ -83,7 +87,7 @@ public class UrlCallAgent extends ActiveAgent {
         connection.setRequestProperty("Proxy-Authorization", "Basic " + encodedUserPassword);
     }
     
-    void decodeAgentTaskableParams() {
+    void decodeAgentTaskableParams() throws Exception {
         urlAddress = getParamsString(0);
         searchPhrase = getParamsString(1);
     }

@@ -51,7 +51,9 @@ public class AllmonCommonConstants {
     public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_DB = "DB"; //"database";
     public final static String ALLMON_SERVER_RAWMETRIC_ARTIFACT_HARDWARE = "HW"; //"hardware";
     
-    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_ACTIONSERVLET = "ACTCLS"; //"application.action.servlet"; 
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_ACTIONSERVLET = "ACTCLS"; //"application.action.servlet"; 
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_JAVACLASS = "JAVCLS"; //"application.action.?"; 
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_SERVICELEVELCHECK = "APPSLC"; //"application.action.?"; 
     
     
 }

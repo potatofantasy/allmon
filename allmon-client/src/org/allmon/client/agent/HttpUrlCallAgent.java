@@ -15,7 +15,7 @@ import sun.net.www.protocol.http.HttpURLConnection;
 public class HttpUrlCallAgent extends UrlCallAgent {
 
 	private static final Log logger = LogFactory.getLog(HttpUrlCallAgent.class);
-    
+    	
     private String requestMethod = "POST";
     private String contentType = "application/json; charset=utf-8";
     private String urlParameters = "{ 'componentChecker': 'TTC.iTropics.ComponentCheckers.TropicsDawsComponentChecker, TTC.iTropics.ComponentCheckers' }";
@@ -25,6 +25,14 @@ public class HttpUrlCallAgent extends UrlCallAgent {
     public HttpUrlCallAgent(AgentContext agentContext) {
 		super(agentContext);
 	}
+    
+    public void setStrategy(String strategyClassName) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        Class c = Class.forName(strategyClassName);
+        Object o = c.newInstance();
+        if (o instanceof HttpUrlCallAgentAbstractStrategy) {
+            setStrategy((HttpUrlCallAgentAbstractStrategy)o);
+        }
+    }
     
     public void setStrategy(HttpUrlCallAgentAbstractStrategy strategy) {
         this.strategy = strategy;
@@ -77,6 +85,8 @@ public class HttpUrlCallAgent extends UrlCallAgent {
         } catch (IOException ioe) {
             //fullSearchResults.append(ioe.getMessage());
             logger.debug("IOException: " + ioe, ioe);
+        } catch (Throwable t) {
+            logger.debug("Throwable: " + t, t);
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -85,13 +95,16 @@ public class HttpUrlCallAgent extends UrlCallAgent {
         
         return messageWrapper;
     }
-   
-    void decodeAgentTaskableParams() {
-        urlAddress = getParamsString(0);
-        searchPhrase = getParamsString(1);
-        contentType = getParamsString(2);
-        urlParameters = getParamsString(3);
-        useProxy = false;
+    
+    void decodeAgentTaskableParams() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        setStrategy(getParamsString(0));
+        urlAddress = getParamsString(1);
+        searchPhrase = getParamsString(2);
+        contentType = getParamsString(3);
+        urlParameters = getParamsString(4);
+        checkingHost = getParamsString(5);
+        checkName = getParamsString(6);
+        useProxy = Boolean.parseBoolean(getParamsString(7)); //true;
     }
     
 }
