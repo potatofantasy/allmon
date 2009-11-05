@@ -10,12 +10,12 @@ public class HttpUrlCallAgentTest extends TestCase {
             HttpUrlCallAgent agent = new HttpUrlCallAgent(agentContext);
             agent.setStrategy(new HttpUrlCallAgentBooleanStrategy());
             agent.setParameters(new String[]{
-                    //"http://www.google.com/#hl=en&q=qwerty",
-                    "http://lontd01/AdminConsole/statuscheck/default.aspx/CheckStatus", 
-                    "\"Success\":true",
-                    "application/json; charset=utf-8", //"text/html", //"application/x-www-form-urlencoded",
-                    "{ 'componentChecker': 'TTC.iTropics.ComponentCheckers.ITropicsServiceComponentChecker, TTC.iTropics.ComponentCheckers' }"
-                });
+                    "http://www.google.com",
+                    "html",
+                    "text/html", 
+                    "0",
+                    "www.google.com", 
+                    "www.google.com-Checker"});
             agent.execute();
         
             Thread.sleep(5000);
