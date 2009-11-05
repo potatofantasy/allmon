@@ -456,3 +456,10 @@ FROM   user_segments us, user_tables tab --, user_indexes ind
 WHERE  (us.segment_name LIKE 'AM_%' OR us.segment_name LIKE 'VMAM_%')
 AND    us.segment_name = tab.table_name(+)
 ORDER BY mb DESC, 1;
+
+SELECT us.segment_type, SUM(us.bytes), SUM(us.bytes/1024/1024) AS mb, SUM(am_allmetric_mngr.get_number_of_rows(tab.table_name)) AS num_rows
+FROM   user_segments us, user_tables tab
+WHERE  (us.segment_name LIKE 'AM_%' OR us.segment_name LIKE 'VMAM_%')
+AND    us.segment_name = tab.table_name(+)
+GROUP BY us.segment_type
+ORDER BY mb DESC, 1;
