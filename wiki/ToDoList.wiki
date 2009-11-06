@@ -19,8 +19,11 @@
 
 
   * (M) (x/o) (design) Design generic agent API and sender which can be used for various metrics collection purposes (passive: systems usage monitoring; active: health checks, heartbeats, metrics sampling, etc.)
-    * (M) (x/o) (code) To increase performance of acquiring metrics process review possibility of collecting and caching metrics before sending them to agent (to the first queue).
+    * (M) (x/o) (code) To increase performance of acquiring metrics process review possibility of collecting and caching metrics before sending them to agent (to the first 'for aggregating' queue).
+      * (C) (o) (code) Throttling mechanism will be added - i.e. over 100k messages not sent because of broker failure will be suspended.
+        * (W) (o) (code) Messages can  be send to disk and resent to broker when is available. 
     * (M) (x/o) (code) Design various metrics agents strategies for different agents.
+      * (W) (o) (code) Creating a new metrics message sender based on log4j appender mechanism
 
   * (O) (x) (code) Finish simple scheduler for active monitoring
 
@@ -28,20 +31,20 @@
 
   * (O) (o/x) (code) Creating base (framework) for various listener agents for active and passive monitoring, with the most important examples (parsing file, ..., etc.)
 
-  * (W) (o) (code) Creating a new metrics message sender based on log4j appender mechanism
-
-  * (C) (x) (code) Check and improve performance of metrics wrapper and aggregation strategy
+  * (C) (x) (code) Check and improve performance of metrics wrapper and aggregation strategy.
 
   * (C) (o) (design) Review and test having agents behind proxies.
 
   * (C) (o) (test) Test separate allmon components in either wrong configuration scenarios or other software failures
-    * (C) (o) (test) Agent work if ActiveMQ instance is down
+    * (C) (x/o) (test) Agent work if ActiveMQ instance is down
 
   * (C) (o) (design) Design agent for client side web application user behaviour/experience monitoring 
 
   * (W) (o) (design) Evaluate compressing aggregated messages sent to allmon-server. This option could be suggested either for very remote agents or agents behind weak network connection. Crucial will be appropriate aggregation settings.
 
   * (W) (o) (code) Add mechanism similar to check sum or redundancy check sending message used for potential errors, lack of transfers detection.
+
+  * (W) (o) (code) Allmon can monitor itself modules instances, JMS broker, JVMs, and database.
 
 == [ModuleLoader Loader] (`*`) (allmon-server) ==
     * Loading data to the database
