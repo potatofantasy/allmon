@@ -14,8 +14,8 @@
 ----
 
 == [ModuleCollector Collector] (`*`) (allmon-client) ==
-    * Extraction (metrics data acquisition), 
-    * Transformation (aggregating metrics to packets) and transport to Loader
+  # Extraction (metrics data acquisition), 
+  # Transformation (aggregating metrics to packets) and transport to Loader
 
 
   * (M) (x/o) (design) Design generic agent API and sender which can be used for various metrics collection purposes (passive: systems usage monitoring; active: health checks, heartbeats, metrics sampling, etc.)
@@ -47,8 +47,8 @@
   * (W) (o) (code) Allmon can monitor itself modules instances, JMS broker, JVMs, and database.
 
 == [ModuleLoader Loader] (`*`) (allmon-server) ==
-    * Loading data to the database
-    * Transforming data to allmetrics allmon schema
+  # Loading data to the database
+  # Transforming data to allmetrics allmon schema
 
   * (M) (x) (research) Research in allmon potential schema models
     * (x) (code) Design and implement allmetrics and allgeneric schemas
@@ -70,9 +70,9 @@
   * (W) (o) (research) Deploy loader in a cloud.
 
 == [ModuleMiner Miner] (`**`) ==
-    * Mining knowledge from collected in the database data, 
-    * Statistical analysis, 
-    * Correlation across set up dimensions
+  # Mining knowledge from collected in the database data, 
+  # Statistical analysis, 
+  # Correlation across set up dimensions
 
   * (o) (design) Propose mechanism of building structures eligible for future multidimensional analysis
     * (x/o) (code) Creating views defined for all declared metric types (static and dynamic) 
@@ -83,7 +83,7 @@
 
 
 == [ModuleViewer Viewer] (`**`) ==
-    * Presentation and Front-end 
+  # Presentation and Front-end 
 
 
 == General (also allmon-common) ==
