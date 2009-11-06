@@ -106,7 +106,7 @@ public class AgentCallerMain {
             task.setParameters(classParamsString);
         }
         logger.debug("Execution : " + taskClassName + ".execute() ...");
-        task.execute(); //XXX is not finishing!
+        task.execute();
         logger.debug("Execution : " + taskClassName + ".execute() finished");
     }
     
