@@ -9,6 +9,7 @@ import java.net.URLConnection;
 import java.util.Properties;
 
 import org.allmon.common.AllmonCommonConstants;
+import org.allmon.common.AllmonPropertiesConstants;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
 import org.allmon.common.MetricMessageWrapper;
@@ -59,6 +60,7 @@ public class UrlCallAgent extends ActiveAgent {
     }
     
     protected URLConnection makeConnection() throws IOException {
+        logger.debug("establishing connection to: " + urlAddress);
         URL url = new URL(urlAddress);
         URLConnection connection = url.openConnection();
         if (useProxy) {
@@ -70,8 +72,11 @@ public class UrlCallAgent extends ActiveAgent {
     protected void ifProxySetAuthorize(URLConnection connection) {
         if (!AllmonCommonConstants.ALLMON_CLIENT_AGENT_PROXY_ACTIVE) {
             // proxy authorization is not active - is not set in properties
+            logger.debug(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_ACTIVE + " is set to not active - proxy authorization won't be proceded");
             return;
         }
+        
+        logger.debug("establilishing connection using proxy: " + AllmonCommonConstants.ALLMON_CLIENT_AGENT_PROXY_HOST + ":" + AllmonCommonConstants.ALLMON_CLIENT_AGENT_PROXY_PORT);
         
         // First set the Proxy settings on the System
         Properties systemSettings = System.getProperties();

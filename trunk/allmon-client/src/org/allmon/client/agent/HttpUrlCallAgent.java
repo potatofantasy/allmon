@@ -39,8 +39,6 @@ public class HttpUrlCallAgent extends UrlCallAgent {
     }
     
     MetricMessageWrapper collectMetrics() {
-        String metric = "0";
-        
         MetricMessageWrapper messageWrapper = null;
         HttpURLConnection connection = null;
         try {
@@ -76,7 +74,9 @@ public class HttpUrlCallAgent extends UrlCallAgent {
                 strategy.setUp(this, br);
                 messageWrapper = strategy.extractMetrics();
             } finally {
-                br.close();
+                if (br != null) {
+                    br.close();
+                }
             }
             
         } catch (MalformedURLException me) {

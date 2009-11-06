@@ -49,7 +49,7 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
         try {
             decodeAgentTaskableParams();
         } catch (Exception e) {
-            throw new RuntimeException("Parameters couldn't been initialized properly");
+            throw new RuntimeException("Parameters couldn't been initialized properly: " + e.toString());
         }
         MetricMessageWrapper metricMessageWrapper = collectMetrics();
         if (metricMessageWrapper == null || metricMessageWrapper.size() == 0) {
