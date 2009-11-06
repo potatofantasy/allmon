@@ -1,4 +1,4 @@
-#summary ToDo list.
+#summary ToDo list - a draft of everything what must, should, could and will be done to expand allmon functionality - the list is a base for creating allmon issues.
 #labels Phase-Requirements
 
 = Todo List =
