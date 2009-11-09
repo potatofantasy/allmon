@@ -17,9 +17,10 @@ public class HttpUrlCallAgentTest extends TestCase {
                     "-",
                     "www.wikipedia.com",
                     "www.wikipedia.com-Checker", 
-                    "true"});
+                    "true",
+                    "GET"});
             agent.execute();
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } finally {
             agentContext.stop();
         }
@@ -38,12 +39,35 @@ public class HttpUrlCallAgentTest extends TestCase {
                     "-",
                     "www.google.com",
                     "www.google.com-Checker",
-                    "true"});
+                    "true",
+                    "GET"});
             agent.execute();
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } finally {
             agentContext.stop();
         }
     }
     
+    public void testCallActiveMQAdmin() throws InterruptedException {
+        AgentContext agentContext = new AgentContext();
+        try {
+            HttpUrlCallAgent agent = new HttpUrlCallAgent(agentContext);
+            agent.setStrategy(new HttpUrlCallAgentBooleanStrategy());
+            agent.setParameters(new String[]{
+                    "org.allmon.client.agent.HttpUrlCallAgentBooleanStrategy",
+                    "http://localhost:8161/admin/",
+                    "Broker",
+                    "text/html",
+                    "-",
+                    "localhost:8161/admin/",
+                    "ActiveMQAdmin-Checker", 
+                    "false",
+                    "GET"});
+            agent.execute();
+            Thread.sleep(1000);
+        } finally {
+            agentContext.stop();
+        }
+    }
+        
 }
