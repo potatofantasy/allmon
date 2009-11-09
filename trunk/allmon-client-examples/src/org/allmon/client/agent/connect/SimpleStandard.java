@@ -1,4 +1,4 @@
-package org.allmon.client.agent.connect;
+package org.allmon.client.agent.jmxserver;
 
 /**
  * Simple definition of a standard MBean, named "SimpleStandard".
