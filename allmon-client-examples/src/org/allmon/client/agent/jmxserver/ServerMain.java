@@ -60,7 +60,7 @@ public class ServerMain {
 
 			// Create and register the SimpleStandard MBean
 			//
-			String mbeanClassName = "org.allmon.client.agent.connect.SimpleStandard";
+			String mbeanClassName = "org.allmon.client.agent.jmxserver.SimpleStandard";
 			String mbeanObjectNameStr = domain + ":type=" + mbeanClassName + ",index=1";
 			ObjectName mbeanObjectName = createSimpleMBean(mbs, mbeanClassName, mbeanObjectNameStr);
 			waitForEnterPressed();
@@ -78,7 +78,7 @@ public class ServerMain {
 
 			// Create and register the SimpleDynamic MBean
 			//
-			mbeanClassName = "org.allmon.client.agent.connect.SimpleDynamic";
+			mbeanClassName = "org.allmon.client.agent.jmxserver.SimpleDynamic";
 			mbeanObjectNameStr = domain + ":type=" + mbeanClassName + ",index=1";
 			mbeanObjectName = createSimpleMBean(mbs, mbeanClassName, mbeanObjectNameStr);
 			waitForEnterPressed();
@@ -137,7 +137,7 @@ public class ServerMain {
 		return null;
 	}
 
-	private static void printMBeanInfo(MBeanServer mbs,
+	public static void printMBeanInfo(MBeanServer mbs,
 			ObjectName mbeanObjectName, String mbeanClassName) {
 		System.out.println("\n>>> Retrieve the management information for the " + mbeanClassName);
 		System.out.println("    MBean using the getMBeanInfo() method of the MBeanServer");
