@@ -18,7 +18,9 @@ public class MetricMessageConverter {
 	}
 	
 	public RawMetric2 convert(MetricMessage metricMessage) {
-		RawMetric2 rawMetric = RawMetricFactory.createApplicationActionServletRawMetric(
+		RawMetric2 rawMetric = RawMetricFactory.createRawMetric(
+		        metricMessage.getArtifact(),
+		        metricMessage.getMetricType(),
 				metricMessage.getHost(),
 				metricMessage.getHostIp(),
 				metricMessage.getInstance(),
