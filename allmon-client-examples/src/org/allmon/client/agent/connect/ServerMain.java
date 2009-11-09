@@ -1,4 +1,4 @@
-package org.allmon.client.agent.connect;
+package org.allmon.client.agent.jmxserver;
 
 import java.io.IOException;
 
