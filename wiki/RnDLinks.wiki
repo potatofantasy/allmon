@@ -1,6 +1,33 @@
 #summary RnD Hub - Central point of Allmon research.
 #labels Phase-Requirements,Phase-Design
 
+= Buzzwords =
+
+  * monitoring
+  * metrics
+  * distributed
+  * isolated 
+  * collection
+  * messaging 
+    * connectivity 
+    * lously coupling
+    * reliable
+    * not interfering
+  * analysis
+  * auditability 
+    * code manipulation
+    * aop
+    * injections by annotations
+  * utilization 
+  * measuring application behaviour 
+  * high-performance
+  * low performance footprint
+  * allmon vs standard monitoring
+  * why allmon
+    * unblocking inserts to database
+    * unblocking remote calls
+
+
 = Technologies =
 
   * General
