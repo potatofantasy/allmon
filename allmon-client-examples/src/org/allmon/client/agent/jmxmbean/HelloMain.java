@@ -10,6 +10,10 @@ import javax.management.ObjectName;
  * register it, then wait forever (or until the program is interrupted).
  * 
  * java -Dcom.sun.management.jmxremote org.allmon.client.agent.jmxmbean.HelloMain
+ * 
+ * for remote access: 
+ * java -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9999 org.allmon.client.agent.jmxmbean.HelloMain
+ * 
  */
 public class HelloMain {
     
