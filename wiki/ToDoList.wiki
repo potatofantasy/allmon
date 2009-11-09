@@ -1,7 +1,7 @@
 #summary ToDo list - a draft of everything what must, should, could and will be done to expand allmon functionality - the list is a base for creating allmon issues.
 #labels Phase-Requirements
 
-= Todo List =
+= ToDo List =
 
   * Priority: high (M), medium (OS), low (C); (MOSCoW - Must Ought Should Could and Won't - http://en.wikipedia.org/wiki/MoSCoW_Method)
     * M - MUST have this.
@@ -27,7 +27,7 @@
 
   * (O) (x) (code) Finish simple scheduler for active monitoring
 
-  * (O) (o) (code) Add xml mechanism of setting parameters for active metrics scheduler
+  * (O) (o) (code) Add XML mechanism of setting parameters for active metrics scheduler - Tomasz.Koscinski
 
   * (O) (o/x) (code) Creating base (framework) for various listener agents for active and passive monitoring, with the most important examples (parsing file, ..., etc.)
 

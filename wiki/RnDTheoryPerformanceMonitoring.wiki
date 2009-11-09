@@ -49,9 +49,37 @@ Another example would be observing the performance of a CPU by running both the 
 
 Observing (or rather, debugging) a running program by modifying its source code (such as adding extra output or generating log files) or by running it in a debugger may sometimes cause certain bugs to diminish or change their behavior, creating extra difficulty for the person trying to isolate the bug (see Heisenbug)."
 
+
 = Agent vs. Agentless =
 
 [http://knol.google.com/k/anonymous/server-monitoring/3o4z1jgc0p47b/2?domain=knol.google.com&locale=en# Server Monitoring - Monitoring Enterprise Servers - Agent or Agentless?]
+
+
+= Service Checks =
+
+"The best way to check something out it to try using it"
+
+if you want to monitor your web site the best way to do this is to try emulate real user and try to check this out continously
+
+
+== What is Service Health Check ? ==
+
+Health check is a essence of active monitoring.
+
+
+== How to use Service Health Check ==
+
+  * What can be a service check
+  * What technologies
+    * 
+  * What metrics
+
+== Internal Allmon Health Checks ==
+
+  * Allmon has set of internal service helth checks (SHC), which:
+    * confirm/prove that allmon works - casn be used with correlation to other SHCs in monitoring systems
+    * ...
+
 
 
 = Metrics =
