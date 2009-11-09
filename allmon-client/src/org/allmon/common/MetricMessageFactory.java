@@ -134,5 +134,17 @@ public class MetricMessageFactory {
         metricMessage.setMetricValue(metricValue);
         return metricMessage;
     }
+
+    public static final MetricMessage createURLCallMessage(String checkName, String host, double metricValue, Exception exception) {
+        MetricMessage metricMessage = createMessage(
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_SERVICELEVELCHECK);
+        metricMessage.setResource(checkName);
+        metricMessage.setSource(host);
+        metricMessage.setMetricValue(metricValue);
+        metricMessage.setException(exception);
+        return metricMessage;
+    }
+
     
 }

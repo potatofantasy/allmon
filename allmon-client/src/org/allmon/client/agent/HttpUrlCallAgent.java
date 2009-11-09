@@ -2,10 +2,9 @@ package org.allmon.client.agent;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 
+import org.allmon.common.MetricMessageFactory;
 import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,8 +16,8 @@ public class HttpUrlCallAgent extends UrlCallAgent {
 	private static final Log logger = LogFactory.getLog(HttpUrlCallAgent.class);
     	
     private String requestMethod = "POST";
-    private String contentType = "application/json; charset=utf-8";
-    private String urlParameters = "{ 'componentChecker': 'TTC.iTropics.ComponentCheckers.TropicsDawsComponentChecker, TTC.iTropics.ComponentCheckers' }";
+    private String contentType = "text/html"; //"application/json; charset=utf-8";
+    private String urlParameters = "";
     
     private HttpUrlCallAgentAbstractStrategy strategy = new HttpUrlCallAgentBooleanStrategy(); // default strategy
     
@@ -56,15 +55,21 @@ public class HttpUrlCallAgent extends UrlCallAgent {
             
             //Send request
             if ("POST".equals(requestMethod)) {
-                //using "doSetOutput(true)" which forces HttpURLConnection to use POST, not GET, 
+                //using "setDoOutput(true)" which forces HttpURLConnection to use POST, not GET, 
+                connection.setDoOutput(true);
+
+            } else if ("GET".equals(requestMethod)) {
+                //connection.setDoOutput(false);
                 connection.setDoOutput(true);
                 
-                DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-                wr.writeBytes(urlParameters);
-                wr.flush();
-                wr.close();
+            } else {
+                throw new RuntimeException("Not supported request method");
             }
-            
+            DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+            wr.writeBytes(urlParameters);
+            wr.flush();
+            wr.close();
+                        
             //Get Response    
             //DataInputStream dis = new DataInputStream(connection.getInputStream());
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -74,19 +79,12 @@ public class HttpUrlCallAgent extends UrlCallAgent {
                 strategy.setUp(this, br);
                 messageWrapper = strategy.extractMetrics();
             } finally {
-                if (br != null) {
-                    br.close();
-                }
+                br.close();
             }
             
-        } catch (MalformedURLException me) {
-            //fullSearchResults.append(me.getMessage());
-            logger.debug("MalformedURLException: " + me, me);
-        } catch (IOException ioe) {
-            //fullSearchResults.append(ioe.getMessage());
-            logger.debug("IOException: " + ioe, ioe);
         } catch (Throwable t) {
             logger.debug("Throwable: " + t, t);
+            messageWrapper = new MetricMessageWrapper(MetricMessageFactory.createURLCallMessage(checkName,  checkingHost, 0));
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -105,6 +103,7 @@ public class HttpUrlCallAgent extends UrlCallAgent {
         checkingHost = getParamsString(5);
         checkName = getParamsString(6);
         useProxy = Boolean.parseBoolean(getParamsString(7)); //true;
+        requestMethod = getParamsString(8);
     }
     
 }
