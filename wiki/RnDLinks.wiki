@@ -164,14 +164,17 @@
   * http://freshmeat.net/projects/allmon
   * http://www.ohloh.net/p/allmon
   * http://java-source.net/open-source/profilers
+  * http://www.manageability.org/blog/stuff/open-source-profilers-for-java
   * http://swik.net/
   * http://clipmarks.com/tags/performance/
   * http://java.dzone.com/ - Javalobby
   * opensymphony.com - OpenSymphony is an Open Source project dedicated to providing enterprise class J2EE components. Our components aim to stress simplicity, integration, pluggability and specification compliance. Please see the individual projects for more information.
+
   * http://lowagie.com/ - Bruno Lowagie
 
   * http://javaposse.com/
   * http://www.se-radio.net/
+ 
 
   * Articles:
     * http://www.theserverside.com/
