@@ -71,13 +71,13 @@ public class ClientMain {
 			// Create SimpleStandard MBean
 			ObjectName stdMBeanName = new ObjectName(domain + ":type=SimpleStandard,index=2");
 			System.out.println("\nCreate SimpleStandard MBean...");
-			mbsc.createMBean("SimpleStandard", stdMBeanName, null, null);
+			mbsc.createMBean("org.allmon.client.agent.jmxserver.SimpleStandard", stdMBeanName, null, null);
 			waitForEnterPressed();
 
 			// Create SimpleDynamic MBean
 			ObjectName dynMBeanName = new ObjectName(domain + ":type=SimpleDynamic,index=2");
 			System.out.println("\nCreate SimpleDynamic MBean...");
-			mbsc.createMBean("SimpleDynamic", dynMBeanName, null, null);
+			mbsc.createMBean("org.allmon.client.agent.jmxserver.SimpleDynamic", dynMBeanName, null, null);
 			waitForEnterPressed();
 
 			// Get MBean count

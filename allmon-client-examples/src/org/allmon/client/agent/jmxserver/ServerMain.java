@@ -1,6 +1,8 @@
 package org.allmon.client.agent.jmxserver;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.util.Arrays;
 
 import javax.management.Attribute;
 import javax.management.MBeanAttributeInfo;
@@ -45,7 +47,14 @@ public class ServerMain {
 
 	public static void main(String[] args) {
 		try {
-			// Instantiate the MBean server
+		    // Print all domains in PlatformMBeanServer
+            System.out.println("\n>>> Print all domains in PlatformMBeanServer");
+		    MBeanServer pmbs = ManagementFactory.getPlatformMBeanServer();
+		    String[] domains = pmbs.getDomains();
+		    System.out.println("\t " + Arrays.toString(domains));
+            waitForEnterPressed();
+		    
+		    // Instantiate the MBean server
 			//
 			System.out.println("\n>>> Create the MBean server");
 			MBeanServer mbs = MBeanServerFactory.createMBeanServer();
