@@ -4,5 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/allmon-client"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/spring-2.5.6.jar" sourcepath="/allmon-lib/lib/spring-2.5.6-sources.jar"/>
+	<classpathentry kind="lib" path="/allmon-lib/lib/jdk1.6/jconsole.jar"/>
+	<classpathentry kind="lib" path="/allmon-lib/lib/jdk1.6/tools.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
