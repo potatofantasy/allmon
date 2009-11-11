@@ -1,13 +1,11 @@
 package org.allmon.client.agent.jmxmbean;
 
 import java.io.IOException;
-import java.lang.management.ManagementFactory;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import javax.management.MBeanServer;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
@@ -33,7 +31,7 @@ public class ReadHelloMain {
             lvm = pairs.getValue();
         }
         
-        System.out.println("-- connect to the last vm -------------------------");
+        System.out.println("-- connect to the last vm on the list -------------------------");
         JMXServiceURL jmxUrl = null;
 	    if (lvm != null) {
             if (!lvm.isManageable()) {
@@ -55,20 +53,20 @@ public class ReadHelloMain {
 	    // get local server
 	    //MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 	    
-        System.out.println("---------------------------");
+        System.out.println("- get list of domains --------------------------");
 	    String[] domains = mbs.getDomains();
 	    System.out.println(Arrays.toString(domains));
 	    for (String domain : domains) {
 	        System.out.println(domain);
         }
 	    
-	    System.out.println("---------------------------");
+	    System.out.println("- get list of mbeans names --------------------------");
 	    Set<ObjectName> mbeans = mbs.queryNames(null, null);
 	    for (ObjectName mbean : mbeans) {
 	        System.out.println(mbean);
         }
 	    
-	    System.out.println("---------------------------");
+	    System.out.println("- get list of mbeans (classes) instances --------------------------");
         Set<ObjectInstance> mbeanInstances = mbs.queryMBeans(null, null);
         for (ObjectInstance mbeanInstance : mbeanInstances) {
             System.out.println(mbeanInstance);
