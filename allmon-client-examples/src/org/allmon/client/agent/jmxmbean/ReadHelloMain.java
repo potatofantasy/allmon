@@ -47,13 +47,13 @@ public class ReadHelloMain {
                 jmxUrl = new JMXServiceURL(lvm.connectorAddress());
             }
         }
-	    JMXConnector jmxc = JMXConnectorFactory.connect(jmxUrl); //, env);
-	    MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
 	    
+	    // get server
+	    JMXConnector jmxc = JMXConnectorFactory.connect(jmxUrl, null);
+	    MBeanServerConnection mbs = jmxc.getMBeanServerConnection();
 	    
 	    // get local server
-	    MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-	    //MBeanServer mbs = mbsc.get
+	    //MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 	    
         System.out.println("---------------------------");
 	    String[] domains = mbs.getDomains();
@@ -63,19 +63,17 @@ public class ReadHelloMain {
         }
 	    
 	    System.out.println("---------------------------");
-	    Set<ObjectName> mbeans = ManagementFactory.getPlatformMBeanServer().queryNames(null, null);
+	    Set<ObjectName> mbeans = mbs.queryNames(null, null);
 	    for (ObjectName mbean : mbeans) {
 	        System.out.println(mbean);
         }
 	    
 	    System.out.println("---------------------------");
-        Set<ObjectInstance> mbeanInstances = ManagementFactory.getPlatformMBeanServer().queryMBeans(null, null);
+        Set<ObjectInstance> mbeanInstances = mbs.queryMBeans(null, null);
         for (ObjectInstance mbeanInstance : mbeanInstances) {
             System.out.println(mbeanInstance);
         }
 
-        
-        
         //"java.lang:type=Memory"
 	    
 //	    System.out.println("\nCreate an RMI connector client and connect it to the RMI connector server");
