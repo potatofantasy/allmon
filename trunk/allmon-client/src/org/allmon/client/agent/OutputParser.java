@@ -22,9 +22,7 @@ public class OutputParser {
 	
 	private void setBuffer(BufferedReader br) {
 	    logger.debug(AllmonLoggerConstants.ENTERED);
-        String foundString = "";
         String inputLine;
-        int i = 0;
         try {
             while ((inputLine = br.readLine()) != null) {
                 buffer.add(inputLine);
