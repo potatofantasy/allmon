@@ -17,17 +17,15 @@ import javax.management.MBeanServerConnection;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
 import javax.management.ReflectionException;
-import javax.management.openmbean.CompositeData;
 import javax.management.openmbean.CompositeDataSupport;
 import javax.management.openmbean.CompositeType;
-import javax.management.openmbean.SimpleType;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 
 import sun.tools.jconsole.LocalVirtualMachine;
 
-public class ReadHelloMain {
+public class ReadJmxAttributesMain {
 
 	public static void main(String[] args) throws IOException, NullPointerException, AttributeNotFoundException, InstanceNotFoundException, MBeanException, ReflectionException, IntrospectionException {
 
@@ -98,8 +96,6 @@ public class ReadHelloMain {
 	            
 	            System.out.println(" > " + mbeanAttributeInfo.getName() + " : " + mbeanAttributeInfo);
                 
-	            if ("HeapMemoryUsage".equals(mbeanAttributeInfo.getName())) {
-	            
 	            try {
                     Object attribute = mbs.getAttribute(mbean, mbeanAttributeInfo.getName());
                     
@@ -125,29 +121,10 @@ public class ReadHelloMain {
                     
                 } catch (Exception e) {
                 }
-	            
-	            }
-	            
-	            // 
-//	            String[] fieldNames = descriptor.getFieldNames();
-//	            for (int j = 0; j < fieldNames.length; j++) {
-//	                Object field = descriptor.getFieldValue(fieldNames[j]);
-//	                System.out.println("   : " + mbeanAttributeInfo + " : " + field);
-//                }
+	            	            
             }
-            
-	        
 	        
         }
-	    
-//	    //  Get and print attribute value
-//        Integer attrValue
-//            = (Integer)mbs.getAttribute(destConfigName, DestinationAttributes.MAX_NUM_PRODUCERS);
-//        System.out.println( "Maximum number of producers: " + attrValue );
-//    
-//        //  Close JMX connector
-//        jmxc.close();
-
 	    
 	}
 
