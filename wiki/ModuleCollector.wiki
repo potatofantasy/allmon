@@ -19,11 +19,11 @@ Modules:
   * Sender (sending data by asynchronous messaging; Active MQ) 
   * Collector core (aggreagating metrics before sending to server) - sending data every 60sec (conf) or every 64kB (conf), Apache Camel
 
-Diagram of supervised tiers (areas) of monitored system:
+== Diagram of supervised tiers (areas) of monitored system ==
 
 http://allmon.googlecode.com/svn/wiki/allmon-deployment-diagram-logical-overview-v1.03c.png
 
-Agents for various layers monitoring:
+== Agents for various layers monitoring ==
 
 <table border="1">
 <tr><th colspan="2">.</th><th colspan="2">Application</th><th colspan="5">Services</th><th colspan="3">Physical</th></tr>
@@ -43,6 +43,6 @@ Agents for various layers monitoring:
 </table>
 
 
-Taxonomy of allmon agents: 
+== Taxonomy of allmon agents ==
 
 http://allmon.googlecode.com/svn/wiki/allmon-deployment-diagram-logical-overview-v1.03d.png
