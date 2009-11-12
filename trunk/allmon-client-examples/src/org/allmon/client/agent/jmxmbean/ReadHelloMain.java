@@ -6,9 +6,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import javax.management.AttributeNotFoundException;
+import javax.management.InstanceNotFoundException;
+import javax.management.MBeanException;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
+import javax.management.ReflectionException;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
@@ -17,7 +21,7 @@ import sun.tools.jconsole.LocalVirtualMachine;
 
 public class ReadHelloMain {
 
-	public static void main(String[] args) throws IOException, NullPointerException {
+	public static void main(String[] args) throws IOException, NullPointerException, AttributeNotFoundException, InstanceNotFoundException, MBeanException, ReflectionException {
 
 	    LocalVirtualMachine lvm = null;
 	    
@@ -63,7 +67,8 @@ public class ReadHelloMain {
 	    System.out.println("- get list of mbeans names --------------------------");
 	    Set<ObjectName> mbeans = mbs.queryNames(null, null);
 	    for (ObjectName mbean : mbeans) {
-	        System.out.println(mbean);
+	    	System.out.println(mbean + 
+	    			" - " + mbean.getCanonicalKeyPropertyListString());
         }
 	    
 	    System.out.println("- get list of mbeans (classes) instances --------------------------");
@@ -72,13 +77,23 @@ public class ReadHelloMain {
             System.out.println(mbeanInstance);
         }
 
-        //"java.lang:type=Memory"
+	    System.out.println("- get list of mbeans names - attributes --------------------------");
+	    mbeans = mbs.queryNames(null, null);
+	    for (ObjectName mbean : mbeans) {
+	    	Object o = mbs.getAttribute(mbean, );
+	        System.out.println(mbean + " : " + o);
+	        
+        }
 	    
-//	    System.out.println("\nCreate an RMI connector client and connect it to the RMI connector server");
-//        JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:9999/server");
-//        
-//	    JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
+//	    //  Get and print attribute value
+//        Integer attrValue
+//            = (Integer)mbs.getAttribute(destConfigName, DestinationAttributes.MAX_NUM_PRODUCERS);
+//        System.out.println( "Maximum number of producers: " + attrValue );
+//    
+//        //  Close JMX connector
+//        jmxc.close();
 
+	    
 	}
 
 }
