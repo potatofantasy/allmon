@@ -8,7 +8,10 @@ import java.util.Set;
 
 import javax.management.AttributeNotFoundException;
 import javax.management.InstanceNotFoundException;
+import javax.management.IntrospectionException;
+import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanException;
+import javax.management.MBeanInfo;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
@@ -21,7 +24,7 @@ import sun.tools.jconsole.LocalVirtualMachine;
 
 public class ReadHelloMain {
 
-	public static void main(String[] args) throws IOException, NullPointerException, AttributeNotFoundException, InstanceNotFoundException, MBeanException, ReflectionException {
+	public static void main(String[] args) throws IOException, NullPointerException, AttributeNotFoundException, InstanceNotFoundException, MBeanException, ReflectionException, IntrospectionException {
 
 	    LocalVirtualMachine lvm = null;
 	    
@@ -80,9 +83,16 @@ public class ReadHelloMain {
 	    System.out.println("- get list of mbeans names - attributes --------------------------");
 	    mbeans = mbs.queryNames(null, null);
 	    for (ObjectName mbean : mbeans) {
-	    	Object o = mbs.getAttribute(mbean, );
-	        System.out.println(mbean + " : " + o);
-	        
+	    	//Object o = mbs.getAttribute(mbean, );
+	        //System.out.println(mbean + " : " + o);
+	        MBeanInfo mbeanInfo = mbs.getMBeanInfo(mbean);
+	        MBeanAttributeInfo[] mbeanAttributeInfos = mbeanInfo.getAttributes();
+	        //System.out.println(mbean + " : " + mbeanAttributeInfos);
+	        for (int i = 0; i < mbeanAttributeInfos.length; i++) {
+	            MBeanAttributeInfo mbeanAttributeInfo = mbeanAttributeInfos[i];
+	            //mbeanAttributeInfo.get
+	            System.out.println(mbean + " : " + mbeanAttributeInfo);
+            }
         }
 	    
 //	    //  Get and print attribute value
