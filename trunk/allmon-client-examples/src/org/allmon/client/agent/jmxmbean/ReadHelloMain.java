@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.management.AttributeNotFoundException;
+import javax.management.Descriptor;
 import javax.management.InstanceNotFoundException;
 import javax.management.IntrospectionException;
 import javax.management.MBeanAttributeInfo;
@@ -16,6 +17,10 @@ import javax.management.MBeanServerConnection;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
 import javax.management.ReflectionException;
+import javax.management.openmbean.CompositeData;
+import javax.management.openmbean.CompositeDataSupport;
+import javax.management.openmbean.CompositeType;
+import javax.management.openmbean.SimpleType;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
@@ -83,16 +88,56 @@ public class ReadHelloMain {
 	    System.out.println("- get list of mbeans names - attributes --------------------------");
 	    mbeans = mbs.queryNames(null, null);
 	    for (ObjectName mbean : mbeans) {
-	    	//Object o = mbs.getAttribute(mbean, );
-	        //System.out.println(mbean + " : " + o);
+	        System.out.println(mbean + " : " + mbean.getCanonicalKeyPropertyListString());
+	        
 	        MBeanInfo mbeanInfo = mbs.getMBeanInfo(mbean);
 	        MBeanAttributeInfo[] mbeanAttributeInfos = mbeanInfo.getAttributes();
-	        //System.out.println(mbean + " : " + mbeanAttributeInfos);
 	        for (int i = 0; i < mbeanAttributeInfos.length; i++) {
 	            MBeanAttributeInfo mbeanAttributeInfo = mbeanAttributeInfos[i];
-	            //mbeanAttributeInfo.get
-	            System.out.println(mbean + " : " + mbeanAttributeInfo);
+	            Descriptor descriptor = mbeanAttributeInfo.getDescriptor();
+	            
+	            System.out.println(" > " + mbeanAttributeInfo.getName() + " : " + mbeanAttributeInfo);
+                
+	            if ("HeapMemoryUsage".equals(mbeanAttributeInfo.getName())) {
+	            
+	            try {
+                    Object attribute = mbs.getAttribute(mbean, mbeanAttributeInfo.getName());
+                    
+                    if (attribute instanceof Number) {
+                        System.out.println("   > " + mbeanAttributeInfo.getName() + " : " + attribute);
+                    } else if (attribute instanceof Boolean) {
+                        System.out.println("   > " + mbeanAttributeInfo.getName() + " : " + attribute);
+                    } else if (attribute instanceof CompositeDataSupport) {
+                        // decompose
+                        CompositeDataSupport compositeDataSupportAttribute = (CompositeDataSupport)attribute;
+                        CompositeType compositeType = compositeDataSupportAttribute.getCompositeType();
+                        
+                        //ex: "LastGcInfo" - sun.management.GarbageCollectorImpl / com.sun.management.GarbageCollectorMXBean - GcThreadCount, duration, endTime, id, startTime
+                        //ex: "HeapMemoryUsage" - sun.management.MemoryImpl / java.lang.management.MemoryMXBean - {committed, init, max, used}
+                        
+                        for (String k : compositeType.keySet()) {
+                            Object o = compositeDataSupportAttribute.get(k);
+                            System.out.println("   > " + mbeanAttributeInfo.getName() + " : " + k + " : " + o);
+                        }
+                        
+                        //System.out.println("   > " + mbeanAttributeInfo.getName() + " : " + attribute);
+                    }
+                    
+                } catch (Exception e) {
+                }
+	            
+	            }
+	            
+	            // 
+//	            String[] fieldNames = descriptor.getFieldNames();
+//	            for (int j = 0; j < fieldNames.length; j++) {
+//	                Object field = descriptor.getFieldValue(fieldNames[j]);
+//	                System.out.println("   : " + mbeanAttributeInfo + " : " + field);
+//                }
             }
+            
+	        
+	        
         }
 	    
 //	    //  Get and print attribute value
