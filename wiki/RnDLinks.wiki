@@ -71,6 +71,7 @@
     * Beet - http://beet.sourceforge.net/
       * http://www.theserverside.com/news/thread.tss?thread_id=54367#307897
       * http://www.gridshore.nl/2009/09/01/using-beet-to-monitor-your-spring-framework-application/#more-875
+    * IxoraRMS - http://www.ixorarms.com/
 
   * Databases and Application Servers
     * Oracle® Application Server Performance Guide - Performance Metrics - http://download.oracle.com/docs/cd/B14099_19/core.1012/b14001/metrics.htm
@@ -172,6 +173,7 @@
   * http://freshmeat.net/projects/allmon
   * http://www.ohloh.net/p/allmon
   * http://java-source.net/open-source/profilers
+  * http://www.opensourcetesting.org/performance.php
   * http://www.manageability.org/blog/stuff/open-source-profilers-for-java
   * http://swik.net/
   * http://clipmarks.com/tags/performance/
