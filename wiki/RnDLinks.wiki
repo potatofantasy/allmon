@@ -45,6 +45,7 @@
     * Monitoring and Management for the Java Platform - http://java.sun.com/javase/6/docs/technotes/guides/management/
     * Daniel Fuchs blogs on JMX, SNMP, Java, etc... - http://blogs.sun.com/jmxetc/
     * Open Source implementation of the Java(TM) Management Extensions (JMX) and of the JMX Remote API (JSR 160) specifications - http://mx4j.sourceforge.net/
+    * hyperic HQ - http://support.hyperic.com/display/DOC/JMX+Plugin
 
   * JDMK
     * http://en.wikipedia.org/wiki/Java_Dynamic_Management_Kit
