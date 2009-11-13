@@ -31,7 +31,7 @@ import org.apache.commons.logging.LogFactory;
 
 import sun.tools.jconsole.LocalVirtualMachine;
 
-class ReadJmxAttributesMain {
+final class ReadJmxAttributesMain {
 
     static {
         AllmonPropertiesReader.readLog4jProperties();
@@ -39,7 +39,9 @@ class ReadJmxAttributesMain {
     
     private static final Log logger = LogFactory.getLog(ReadJmxAttributesMain.class);
     
-    static List<LocalVirtualMachine> getLocalVirtualMachine(String nameRegexp) {
+    List<LocalVirtualMachine> getLocalVirtualMachine(String nameRegexp) {
+        logger.debug("-- get virtual machines -------------------------");
+        
         Map<Integer, LocalVirtualMachine> map = LocalVirtualMachine.getAllVirtualMachines();
         List<LocalVirtualMachine> lvmList = new ArrayList<LocalVirtualMachine>();
         Iterator<Map.Entry<Integer, LocalVirtualMachine>> it = map.entrySet().iterator();
@@ -51,7 +53,7 @@ class ReadJmxAttributesMain {
                 ", displayName:" + pairs.getValue().displayName() +
                 ", connectorAddress:" + pairs.getValue().connectorAddress();
             logger.debug(vmString);
-            //
+            // check if name matches
             Pattern p = Pattern.compile(".*" + nameRegexp + ".*");
             Matcher m = p.matcher(vmString);
             if (m.find()) {
@@ -62,75 +64,36 @@ class ReadJmxAttributesMain {
         return lvmList;
     }
     
-    
-	public static void main(String[] args) throws IOException, NullPointerException, InstanceNotFoundException, ReflectionException, IntrospectionException {
-
-        System.out.println("-- get virtual machine -------------------------");
-        List<LocalVirtualMachine> lvmList = getLocalVirtualMachine("AgentAggregatorMain");
-	    LocalVirtualMachine lvm = lvmList.get(0);
-	    
-        System.out.println("-- connect to the last vm on the list -------------------------");
-        JMXServiceURL jmxUrl = null;
-	    if (lvm != null) {
-            if (!lvm.isManageable()) {
-                lvm.startManagementAgent();
-                if (!lvm.isManageable()) {
-                    // FIXME: what to throw
-                    throw new IOException(lvm + "not manageable");
-                }
-            }
-            if (jmxUrl == null) {
-                jmxUrl = new JMXServiceURL(lvm.connectorAddress());
-            }
-        }
-	    
-	    // get server
-	    JMXConnector jmxc = JMXConnectorFactory.connect(jmxUrl, null);
-	    MBeanServerConnection mbs = jmxc.getMBeanServerConnection();
-	    
-	    // get local server
-	    //MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-	    
-        System.out.println("- get list of domains --------------------------");
-	    String[] domains = mbs.getDomains();
-	    System.out.println(Arrays.toString(domains));
-	    for (String domain : domains) {
-	        System.out.println(domain);
-        }
-	    
-	    System.out.println("- get list of mbeans names --------------------------");
-	    Set<ObjectName> mbeans = mbs.queryNames(null, null);
-	    for (ObjectName mbean : mbeans) {
-	    	System.out.println(mbean + 
-	    			" - " + mbean.getCanonicalKeyPropertyListString());
-        }
-	    
-	    System.out.println("- get list of mbeans (classes) instances --------------------------");
-        Set<ObjectInstance> mbeanInstances = mbs.queryMBeans(null, null);
-        for (ObjectInstance mbeanInstance : mbeanInstances) {
-            System.out.println(mbeanInstance);
-        }
-
-	    System.out.println("- get list of mbeans names - attributes --------------------------");
-	    mbeans = mbs.queryNames(null, null);
-	    for (ObjectName mbean : mbeans) {
-	        System.out.println(mbean + " : " + mbean.getCanonicalKeyPropertyListString());
-	        
-	        MBeanInfo mbeanInfo = mbs.getMBeanInfo(mbean);
-	        MBeanAttributeInfo[] mbeanAttributeInfos = mbeanInfo.getAttributes();
-	        for (int i = 0; i < mbeanAttributeInfos.length; i++) {
-	            MBeanAttributeInfo mbeanAttributeInfo = mbeanAttributeInfos[i];
-	            Descriptor descriptor = mbeanAttributeInfo.getDescriptor();
-	            
-	            System.out.println(" > " + mbeanAttributeInfo.getName() + " : " + mbeanAttributeInfo);
+    List<MBeanAttributeData> getMBeansAttributesData(MBeanServerConnection mbs, String nameRegexp) 
+    throws IOException, InstanceNotFoundException, IntrospectionException, ReflectionException {
+        logger.debug("- get list of mbeans names - attributes --------------------------");
+        
+        ArrayList<MBeanAttributeData> attributeDataList = new ArrayList<MBeanAttributeData>();
+        
+        Set<ObjectName> mbeans = mbs.queryNames(null, null);
+        for (ObjectName mbean : mbeans) {
+            String mbeanDomain = mbean.getDomain();
+            logger.debug(mbeanDomain + " : " + mbean + " : " + mbean.getCanonicalKeyPropertyListString());
+            
+            MBeanInfo mbeanInfo = mbs.getMBeanInfo(mbean);
+            MBeanAttributeInfo[] mbeanAttributeInfos = mbeanInfo.getAttributes();
+            for (int i = 0; i < mbeanAttributeInfos.length; i++) {
+                MBeanAttributeInfo mbeanAttributeInfo = mbeanAttributeInfos[i];
+                //Descriptor descriptor = mbeanAttributeInfo.getDescriptor();
+                logger.debug(" > " + mbeanAttributeInfo.getName() + " : " + mbeanAttributeInfo);
                 
-	            try {
+                try {
                     Object attribute = mbs.getAttribute(mbean, mbeanAttributeInfo.getName());
                     
-                    if (attribute instanceof Number) {
-                        System.out.println("   > " + mbeanAttributeInfo.getName() + " : " + attribute);
-                    } else if (attribute instanceof Boolean) {
-                        System.out.println("   > " + mbeanAttributeInfo.getName() + " : " + attribute);
+                    // sun recommends using this types of complex attributes types
+                    // ArrayType, CompositeType, or TabularType
+                    // TODO extends types decomposition
+                    if (attribute instanceof Number 
+                            || attribute instanceof Boolean) {
+                        MBeanAttributeData attributeData = new MBeanAttributeData(
+                                mbeanDomain, mbeanInfo.getClassName(), mbeanAttributeInfo.getName());
+                        attributeData.setNumberValue(attribute);
+                        attributeDataList.add(attributeData);
                     } else if (attribute instanceof CompositeDataSupport) {
                         // decompose
                         CompositeDataSupport compositeDataSupportAttribute = (CompositeDataSupport)attribute;
@@ -141,18 +104,101 @@ class ReadJmxAttributesMain {
                         
                         for (String k : compositeType.keySet()) {
                             Object o = compositeDataSupportAttribute.get(k);
-                            System.out.println("   > " + mbeanAttributeInfo.getName() + " : " + k + " : " + o);
+                            MBeanAttributeData attributeData = new MBeanAttributeData(
+                                    mbeanDomain, mbeanInfo.getClassName(), mbeanAttributeInfo.getName() + ":" + k);
+                            attributeData.setNumberValue(o);
+                            attributeDataList.add(attributeData);
                         }
-                        
-                        //System.out.println("   > " + mbeanAttributeInfo.getName() + " : " + attribute);
                     }
                     
                 } catch (Exception e) {
+                    //logger.error(e, e);
                 }
-	            	            
             }
-	        
+            
         }
+        logger.debug("Found mbeans: " + attributeDataList.size());
+        
+        return attributeDataList;
+    }
+    
+        
+    public class MBeanAttributeData {
+        
+        private String domainName;
+        private String mbeanName;
+        private String mbeanAttributeName;
+        private double value = 0;
+        
+        MBeanAttributeData(String domainName, String mbeanName, String mbeanAttributeName) {
+            this.domainName = domainName;
+            this.mbeanName = mbeanName;
+            this.mbeanAttributeName = mbeanAttributeName;
+        }
+        
+        public String toString() {
+            return domainName + mbeanName + mbeanAttributeName;
+        }
+    
+        void setNumberValue(Object attribute) {
+            if (attribute instanceof Number) {
+                setNumberValue((Number)attribute);
+            } else if (attribute instanceof Boolean) {
+                setNumberValue((Boolean)attribute);
+            } else if (attribute instanceof CompositeDataSupport) {
+                // composite should be called
+            }
+        }
+        
+        void setNumberValue(Number attribute) {
+            logger.debug("   > " + mbeanAttributeName + " : " + attribute);
+            value = Double.parseDouble(attribute.toString());
+        }
+        
+        void setNumberValue(Boolean attribute) {
+            logger.debug("   > " + mbeanAttributeName + " : " + attribute);
+            value = "true".equals(attribute.toString())?1:0;
+        }
+        
+    }
+    
+    
+	public static void main(String[] args) throws IOException, NullPointerException, InstanceNotFoundException, ReflectionException, IntrospectionException {
+
+	    ReadJmxAttributesMain jmxReader = new ReadJmxAttributesMain();
+	    
+        logger.debug("-- get virtual machine -------------------------");
+        List<LocalVirtualMachine> lvmList = jmxReader.getLocalVirtualMachine("AgentAggregatorMain");
+	    LocalVirtualMachine lvm = lvmList.get(0);
+	    
+        logger.debug("-- connect to the last vm on the list -------------------------");
+        JMXServiceURL jmxUrl = null;
+	    if (lvm != null) {
+            if (!lvm.isManageable()) {
+                lvm.startManagementAgent();
+                if (!lvm.isManageable()) {
+                    throw new IOException(lvm + "not manageable");
+                }
+            }
+            jmxUrl = new JMXServiceURL(lvm.connectorAddress());
+        }
+	    
+	    // get server
+	    JMXConnector jmxc = JMXConnectorFactory.connect(jmxUrl, null);
+	    MBeanServerConnection mbs = jmxc.getMBeanServerConnection();
+	    
+	    // get local server
+	    //MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+
+	    logger.debug("- get list of mbeans (classes) instances --------------------------");
+        Set<ObjectInstance> mbeanInstances = mbs.queryMBeans(null, null);
+        for (ObjectInstance mbeanInstance : mbeanInstances) {
+            logger.debug(mbeanInstance);
+        }
+
+	    logger.debug("- get list of mbeans names - attributes --------------------------");
+	    List<MBeanAttributeData> attributeDataList = jmxReader.getMBeansAttributesData(mbs, ".*");
+
 	    
 	}
 
