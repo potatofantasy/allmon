@@ -129,6 +129,7 @@ public class MetricMessageFactory {
         MetricMessage metricMessage = createMessage(
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_SERVICELEVELCHECK);
+        //metricMessage.setInstance(jvmName + "(id:" + jvmId + ")"); // TODO review instance field for this metric type!!!
         metricMessage.setResource(checkName);
         metricMessage.setSource(host);
         metricMessage.setMetricValue(metricValue);
@@ -139,6 +140,7 @@ public class MetricMessageFactory {
         MetricMessage metricMessage = createMessage(
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_SERVICELEVELCHECK);
+        //metricMessage.setInstance(jvmName + "(id:" + jvmId + ")"); // TODO review instance field for this metric type!!!
         metricMessage.setResource(checkName);
         metricMessage.setSource(host);
         metricMessage.setMetricValue(metricValue);
@@ -153,8 +155,9 @@ public class MetricMessageFactory {
         MetricMessage metricMessage = createMessage(
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_JVM,
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_JVM_JMX); // general JMX
-        metricMessage.setResource(jvmName + "(" + jvmId + ")");
-        metricMessage.setSource(domainName + ":" + mbeanName + ":" + mbeanAttributeName);
+        metricMessage.setInstance(jvmName + "(id:" + jvmId + ")");
+        metricMessage.setResource(domainName + ":" + mbeanName);
+        metricMessage.setSource(mbeanAttributeName);
         metricMessage.setMetricValue(metricValue);
         metricMessage.setException(exception);
         return metricMessage;
