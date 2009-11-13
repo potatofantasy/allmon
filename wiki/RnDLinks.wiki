@@ -5,6 +5,7 @@
 
   * monitoring
   * metrics
+  * correlation
   * distributed
   * isolated 
   * collection
