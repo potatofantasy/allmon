@@ -4,7 +4,9 @@
 = Buzzwords =
 
   * monitoring
+    * active vs passive
   * metrics
+    * scalar vs vector
   * correlation
   * distributed
   * isolated 
