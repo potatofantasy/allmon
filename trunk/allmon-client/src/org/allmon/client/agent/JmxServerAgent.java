@@ -34,13 +34,9 @@ public class JmxServerAgent extends ActiveAgent {
                 // extract all attributes and create messages
                 for (MBeanAttributeData beanAttributeData : attributeDataList) {
                     MetricMessage metricMessage = MetricMessageFactory.createJMXMessage(
-                            beanAttributeData.getJvmId(),
-                            beanAttributeData.getJvmName(),
-                            beanAttributeData.getDomainName(),
-                            beanAttributeData.getMbeanName(),
-                            beanAttributeData.getMbeanAttributeName(),
-                            beanAttributeData.getValue(),
-                            null);
+                            beanAttributeData.getJvmId(), beanAttributeData.getJvmName(),
+                            beanAttributeData.getDomainName(), beanAttributeData.getMbeanName(), beanAttributeData.getMbeanAttributeName(),
+                            beanAttributeData.getValue(), null);
                     metricMessageWrapper.add(metricMessage);
                 }
             } catch (Exception e) {
@@ -51,6 +47,8 @@ public class JmxServerAgent extends ActiveAgent {
 	}
 
     void decodeAgentTaskableParams() {
+        lvmNamesRegexp = getParamsString(0);
+        mbeansAttributesNamesRegexp = getParamsString(1);
     }
 
 }

@@ -88,7 +88,7 @@ final class JmxAttributesReader {
 
         long jvmId = lvm.vmid();
         String jvmName = lvm.displayName();
-        logger.debug("connecting to local jvm: " + jvmId + ":" + jvmName);
+//        logger.debug("connecting to local jvm: " + jvmId + ":" + jvmName);
         
         MBeanServerConnection mbs = connectToMBeanServer(lvm);
         
@@ -97,14 +97,14 @@ final class JmxAttributesReader {
         Set<ObjectName> mbeans = mbs.queryNames(null, null);
         for (ObjectName mbean : mbeans) {
             String mbeanDomain = mbean.getDomain();
-            logger.debug(mbeanDomain + " : " + mbean + " : " + mbean.getCanonicalKeyPropertyListString());
+//            logger.debug(mbeanDomain + " : " + mbean + " : " + mbean.getCanonicalKeyPropertyListString());
             
             MBeanInfo mbeanInfo = mbs.getMBeanInfo(mbean);
             MBeanAttributeInfo[] mbeanAttributeInfos = mbeanInfo.getAttributes();
             for (int i = 0; i < mbeanAttributeInfos.length; i++) {
                 MBeanAttributeInfo mbeanAttributeInfo = mbeanAttributeInfos[i];
                 //Descriptor descriptor = mbeanAttributeInfo.getDescriptor();
-                logger.debug(" > " + mbeanAttributeInfo.getName() + " : " + mbeanAttributeInfo);
+//                logger.debug(" > " + mbeanAttributeInfo.getName() + " : " + mbeanAttributeInfo);
                 
                 try {
                     Object attribute = mbs.getAttribute(mbean, mbeanAttributeInfo.getName());
@@ -178,12 +178,12 @@ final class JmxAttributesReader {
         }
         
         void setNumberValue(Number attribute) {
-            logger.debug("   > " + mbeanAttributeName + " : " + attribute);
+//            logger.debug("   > " + mbeanAttributeName + " : " + attribute);
             value = Double.parseDouble(attribute.toString());
         }
         
         void setNumberValue(Boolean attribute) {
-            logger.debug("   > " + mbeanAttributeName + " : " + attribute);
+//            logger.debug("   > " + mbeanAttributeName + " : " + attribute);
             value = "true".equals(attribute.toString())?1:0;
         }
 
