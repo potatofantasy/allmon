@@ -146,5 +146,18 @@ public class MetricMessageFactory {
         return metricMessage;
     }
 
+    public static final MetricMessage createJMXMessage(
+            long jvmId, String jvmName, 
+            String domainName, String mbeanName, String mbeanAttributeName,
+            double metricValue, Exception exception) {
+        MetricMessage metricMessage = createMessage(
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_JVM,
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_JVM_JMX); // general JMX
+        metricMessage.setResource(jvmName + "(" + jvmId + ")");
+        metricMessage.setSource(domainName + ":" + mbeanName + ":" + mbeanAttributeName);
+        metricMessage.setMetricValue(metricValue);
+        metricMessage.setException(exception);
+        return metricMessage;
+    }
     
 }

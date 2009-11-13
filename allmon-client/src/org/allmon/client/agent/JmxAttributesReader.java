@@ -2,7 +2,6 @@ package org.allmon.client.agent;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -10,13 +9,11 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.management.Descriptor;
 import javax.management.InstanceNotFoundException;
 import javax.management.IntrospectionException;
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanInfo;
 import javax.management.MBeanServerConnection;
-import javax.management.ObjectInstance;
 import javax.management.ObjectName;
 import javax.management.ReflectionException;
 import javax.management.openmbean.CompositeDataSupport;
@@ -31,13 +28,16 @@ import org.apache.commons.logging.LogFactory;
 
 import sun.tools.jconsole.LocalVirtualMachine;
 
-final class ReadJmxAttributesMain {
+final class JmxAttributesReader {
 
     static {
         AllmonPropertiesReader.readLog4jProperties();
     }
     
-    private static final Log logger = LogFactory.getLog(ReadJmxAttributesMain.class);
+    private static final Log logger = LogFactory.getLog(JmxAttributesReader.class);
+    
+    JmxAttributesReader() {
+    }
     
     List<LocalVirtualMachine> getLocalVirtualMachine(String nameRegexp) {
         logger.debug("-- get virtual machines -------------------------");
@@ -64,9 +64,33 @@ final class ReadJmxAttributesMain {
         return lvmList;
     }
     
-    List<MBeanAttributeData> getMBeansAttributesData(MBeanServerConnection mbs, String nameRegexp) 
+    private MBeanServerConnection connectToMBeanServer(LocalVirtualMachine lvm) throws IOException {
+        JMXServiceURL jmxUrl = null;
+        if (lvm != null) {
+            if (!lvm.isManageable()) {
+                lvm.startManagementAgent();
+                if (!lvm.isManageable()) {
+                    throw new IOException(lvm + "not manageable");
+                }
+            }
+            jmxUrl = new JMXServiceURL(lvm.connectorAddress());
+        }
+        // get server
+        JMXConnector jmxc = JMXConnectorFactory.connect(jmxUrl, null);
+        // connect
+        MBeanServerConnection mbs = jmxc.getMBeanServerConnection();
+        return mbs;
+    }
+    
+    List<MBeanAttributeData> getMBeansAttributesData(LocalVirtualMachine lvm, String nameRegexp) 
     throws IOException, InstanceNotFoundException, IntrospectionException, ReflectionException {
-        logger.debug("- get list of mbeans names - attributes --------------------------");
+        logger.debug("-- get list of mbeans names - attributes --------------------------");
+
+        long jvmId = lvm.vmid();
+        String jvmName = lvm.displayName();
+        logger.debug("connecting to local jvm: " + jvmId + ":" + jvmName);
+        
+        MBeanServerConnection mbs = connectToMBeanServer(lvm);
         
         ArrayList<MBeanAttributeData> attributeDataList = new ArrayList<MBeanAttributeData>();
         
@@ -90,8 +114,8 @@ final class ReadJmxAttributesMain {
                     // TODO extends types decomposition
                     if (attribute instanceof Number 
                             || attribute instanceof Boolean) {
-                        MBeanAttributeData attributeData = new MBeanAttributeData(
-                                mbeanDomain, mbeanInfo.getClassName(), mbeanAttributeInfo.getName());
+                        MBeanAttributeData attributeData = new MBeanAttributeData(jvmId, jvmName, mbeanDomain, 
+                                mbeanInfo.getClassName(), mbeanAttributeInfo.getName());
                         attributeData.setNumberValue(attribute);
                         attributeDataList.add(attributeData);
                     } else if (attribute instanceof CompositeDataSupport) {
@@ -104,8 +128,8 @@ final class ReadJmxAttributesMain {
                         
                         for (String k : compositeType.keySet()) {
                             Object o = compositeDataSupportAttribute.get(k);
-                            MBeanAttributeData attributeData = new MBeanAttributeData(
-                                    mbeanDomain, mbeanInfo.getClassName(), mbeanAttributeInfo.getName() + ":" + k);
+                            MBeanAttributeData attributeData = new MBeanAttributeData(jvmId, jvmName, mbeanDomain, 
+                                    mbeanInfo.getClassName(), mbeanAttributeInfo.getName() + ":" + k);
                             attributeData.setNumberValue(o);
                             attributeDataList.add(attributeData);
                         }
@@ -115,7 +139,6 @@ final class ReadJmxAttributesMain {
                     //logger.error(e, e);
                 }
             }
-            
         }
         logger.debug("Found mbeans: " + attributeDataList.size());
         
@@ -125,12 +148,16 @@ final class ReadJmxAttributesMain {
         
     public class MBeanAttributeData {
         
+        private long jvmId;
+        private String jvmName;
         private String domainName;
         private String mbeanName;
         private String mbeanAttributeName;
         private double value = 0;
         
-        MBeanAttributeData(String domainName, String mbeanName, String mbeanAttributeName) {
+        MBeanAttributeData(long jvmId, String jvmName, String domainName, String mbeanName, String mbeanAttributeName) {
+            this.jvmId = jvmId;
+            this.jvmName = jvmName;
             this.domainName = domainName;
             this.mbeanName = mbeanName;
             this.mbeanAttributeName = mbeanAttributeName;
@@ -159,47 +186,43 @@ final class ReadJmxAttributesMain {
             logger.debug("   > " + mbeanAttributeName + " : " + attribute);
             value = "true".equals(attribute.toString())?1:0;
         }
+
+        public long getJvmId() {
+            return jvmId;
+        }
+
+        public String getJvmName() {
+            return jvmName;
+        }
+        
+        public String getDomainName() {
+            return domainName;
+        }
+
+        public String getMbeanName() {
+            return mbeanName;
+        }
+
+        public String getMbeanAttributeName() {
+            return mbeanAttributeName;
+        }
+
+        public double getValue() {
+            return value;
+        }
         
     }
     
-    
 	public static void main(String[] args) throws IOException, NullPointerException, InstanceNotFoundException, ReflectionException, IntrospectionException {
-
-	    ReadJmxAttributesMain jmxReader = new ReadJmxAttributesMain();
+	    JmxAttributesReader jmxReader = new JmxAttributesReader();
 	    
-        logger.debug("-- get virtual machine -------------------------");
         List<LocalVirtualMachine> lvmList = jmxReader.getLocalVirtualMachine("AgentAggregatorMain");
 	    LocalVirtualMachine lvm = lvmList.get(0);
 	    
-        logger.debug("-- connect to the last vm on the list -------------------------");
-        JMXServiceURL jmxUrl = null;
-	    if (lvm != null) {
-            if (!lvm.isManageable()) {
-                lvm.startManagementAgent();
-                if (!lvm.isManageable()) {
-                    throw new IOException(lvm + "not manageable");
-                }
-            }
-            jmxUrl = new JMXServiceURL(lvm.connectorAddress());
-        }
-	    
-	    // get server
-	    JMXConnector jmxc = JMXConnectorFactory.connect(jmxUrl, null);
-	    MBeanServerConnection mbs = jmxc.getMBeanServerConnection();
-	    
 	    // get local server
 	    //MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-
-	    logger.debug("- get list of mbeans (classes) instances --------------------------");
-        Set<ObjectInstance> mbeanInstances = mbs.queryMBeans(null, null);
-        for (ObjectInstance mbeanInstance : mbeanInstances) {
-            logger.debug(mbeanInstance);
-        }
-
-	    logger.debug("- get list of mbeans names - attributes --------------------------");
-	    List<MBeanAttributeData> attributeDataList = jmxReader.getMBeansAttributesData(mbs, ".*");
-
 	    
+	    List<MBeanAttributeData> attributeDataList = jmxReader.getMBeansAttributesData(lvm, ".*");
 	}
 
 }
