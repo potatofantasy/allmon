@@ -21,10 +21,11 @@
     * code manipulation
     * aop
     * injections by annotations
-  * utilization 
+  * resources utilization 
   * measuring application behaviour 
   * high-performance
   * low performance footprint
+  * platform independent (pure java implementations)
   * allmon vs standard monitoring
   * why allmon
     * unblocking inserts to database
