@@ -24,7 +24,7 @@ public class JmxServerAgent extends ActiveAgent {
 		super(agentContext);
 	}
 
-	public MetricMessageWrapper collectMetrics() {
+	public final MetricMessageWrapper collectMetrics() {
 	    MetricMessageWrapper metricMessageWrapper = new MetricMessageWrapper();
 	    List<LocalVirtualMachine> lvmList = jmxReader.getLocalVirtualMachine(lvmNamesRegexp);
         for (LocalVirtualMachine localVirtualMachine : lvmList) {
