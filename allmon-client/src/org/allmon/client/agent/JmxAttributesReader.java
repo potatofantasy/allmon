@@ -90,7 +90,10 @@ final class JmxAttributesReader {
         String jvmName = lvm.displayName();
 //        logger.debug("connecting to local jvm: " + jvmId + ":" + jvmName);
         
+        nameRegexp = ".*" + nameRegexp + ".*";
+        
         MBeanServerConnection mbs = connectToMBeanServer(lvm);
+        // get local server // MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
         
         ArrayList<MBeanAttributeData> attributeDataList = new ArrayList<MBeanAttributeData>();
         
@@ -117,7 +120,9 @@ final class JmxAttributesReader {
                         MBeanAttributeData attributeData = new MBeanAttributeData(jvmId, jvmName, mbeanDomain, 
                                 mbeanInfo.getClassName(), mbeanAttributeInfo.getName());
                         attributeData.setNumberValue(attribute);
-                        attributeDataList.add(attributeData);
+                        if (attributeData.toString().matches(nameRegexp)) {
+                            attributeDataList.add(attributeData);
+                        }
                     } else if (attribute instanceof CompositeDataSupport) {
                         // decompose
                         CompositeDataSupport compositeDataSupportAttribute = (CompositeDataSupport)attribute;
@@ -131,7 +136,9 @@ final class JmxAttributesReader {
                             MBeanAttributeData attributeData = new MBeanAttributeData(jvmId, jvmName, mbeanDomain, 
                                     mbeanInfo.getClassName(), mbeanAttributeInfo.getName() + ":" + k);
                             attributeData.setNumberValue(o);
-                            attributeDataList.add(attributeData);
+                            if (attributeData.toString().matches(nameRegexp)) {
+                                attributeDataList.add(attributeData);
+                            }
                         }
                     }
                     
@@ -145,7 +152,6 @@ final class JmxAttributesReader {
         return attributeDataList;
     }
     
-        
     public class MBeanAttributeData {
         
         private long jvmId;
@@ -164,7 +170,7 @@ final class JmxAttributesReader {
         }
         
         public String toString() {
-            return domainName + mbeanName + mbeanAttributeName;
+            return domainName + ":" + mbeanName + ":" + mbeanAttributeName;
         }
     
         void setNumberValue(Object attribute) {
@@ -213,16 +219,4 @@ final class JmxAttributesReader {
         
     }
     
-	public static void main(String[] args) throws IOException, NullPointerException, InstanceNotFoundException, ReflectionException, IntrospectionException {
-	    JmxAttributesReader jmxReader = new JmxAttributesReader();
-	    
-        List<LocalVirtualMachine> lvmList = jmxReader.getLocalVirtualMachine("AgentAggregatorMain");
-	    LocalVirtualMachine lvm = lvmList.get(0);
-	    
-	    // get local server
-	    //MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-	    
-	    List<MBeanAttributeData> attributeDataList = jmxReader.getMBeansAttributesData(lvm, ".*");
-	}
-
 }
