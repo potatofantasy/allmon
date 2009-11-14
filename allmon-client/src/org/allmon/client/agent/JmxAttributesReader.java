@@ -22,7 +22,6 @@ import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 
-import org.allmon.common.AllmonPropertiesReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -30,10 +29,6 @@ import sun.tools.jconsole.LocalVirtualMachine;
 
 final class JmxAttributesReader {
 
-    static {
-        AllmonPropertiesReader.readLog4jProperties();
-    }
-    
     private static final Log logger = LogFactory.getLog(JmxAttributesReader.class);
     
     JmxAttributesReader() {
