@@ -8,8 +8,9 @@ This component is responsible for mining knowledge from collected in allmon data
 Provides: 
   * Access layer to allmon database - used for viewer and other visualization tools 
   * Aggregating procedures (algorithms)
-    * Pruning old metrics in allmetric storage after aggregating (saving space)
-    * Algorithms
+    * Saving space, fastening queries
+    * Loosing details
+    * Possible pruning old metrics in allmetric storage after aggregating (saving space)
   * Statistical analysis procedures
     * Correlation across set up dimensions
   * Storing events history log
