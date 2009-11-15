@@ -106,7 +106,7 @@ CREATE SEQUENCE am_mty_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 CREATE TABLE am_instance (
   am_ins_id NUMBER(10) NOT NULL,
   am_arf_id NUMBER(10) NOT NULL,
-  instancename VARCHAR(50) NOT NULL,
+  instancename VARCHAR(200) NOT NULL,
   instancecode VARCHAR(10), -- NOT NULL,
   url VARCHAR(100),
   CONSTRAINT am_ins_pk PRIMARY KEY (am_ins_id) USING INDEX,
@@ -126,7 +126,7 @@ CREATE SEQUENCE am_hst_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 CREATE TABLE am_resource (
   am_rsc_id NUMBER(10) NOT NULL,
   am_mty_id NUMBER(10) NOT NULL,
-  resourcename VARCHAR(200) NOT NULL,
+  resourcename VARCHAR(1000) NOT NULL,
   resourcecode VARCHAR(10),
   unit VARCHAR(6),
   CONSTRAINT am_rsc_pk PRIMARY KEY (am_rsc_id) USING INDEX,
@@ -139,7 +139,7 @@ CREATE UNIQUE INDEX am_rsc_uk2 ON am_resource(resourcecode);
 CREATE TABLE am_source (
   am_src_id NUMBER(10) NOT NULL,
   am_mty_id NUMBER(10) NOT NULL,
-  sourcename VARCHAR(200) NOT NULL,
+  sourcename VARCHAR(1000) NOT NULL,
   sourcecode VARCHAR(10),
   CONSTRAINT am_src_pk PRIMARY KEY (am_src_id) USING INDEX,
   CONSTRAINT am_src_am_mty_fk1 FOREIGN KEY (am_mty_id) REFERENCES am_metrictype(am_mty_id)
@@ -181,11 +181,11 @@ CREATE TABLE am_raw_metric (
   artifactcode   VARCHAR2(100) NOT NULL,
   hostname       VARCHAR2(100) NOT NULL,
   hostip         VARCHAR2(100) NOT NULL,
-  instancename   VARCHAR2(100) NOT NULL,
+  instancename   VARCHAR2(200) NOT NULL,
   metricvalue    NUMBER(13,3),
   metrictypecode VARCHAR2(100),
-  resourcename   VARCHAR2(100),
-  sourcename     VARCHAR2(100),
+  resourcename   VARCHAR2(1000),
+  sourcename     VARCHAR2(1000),
   ts             DATE NOT NULL,
   entrypoint    VARCHAR2(10) NOT NULL,
   parametersbody VARCHAR2(1000),
@@ -268,8 +268,9 @@ AND   amm.am_rsc_id = amr.am_rsc_id
 AND   amm.am_src_id = ams.am_src_id(+)
 --
 AND   amt.am_arf_id = ama.am_arf_id
-AND   ami.am_arf_id = ama.am_arf_id
-AND   amr.am_mty_id = amt.am_mty_id;
+AND   ami.am_arf_id = ama.am_arf_id -- deleted??? - instatnces must not be associated with specific arifact
+AND   amr.am_mty_id = amt.am_mty_id
+AND   ams.am_mty_id = amt.am_mty_id(+);
 --AND   ams.am_mty_id = amt.am_mty_id(+); -- deleted from query to support metrics without specified sources
 
 CREATE OR REPLACE VIEW vam_metricsdata_cal AS
@@ -378,6 +379,10 @@ INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, p
 INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'physical read total IO requests', 'PHYREADIO', '', 'physical read total IO requests');
 INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, 5, 'physical write total IO requests', 'PHYWRITEIO', '', 'physical write total IO requests');
 COMMIT;
+
+-- java metrics
+INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'JVM'), 'Java JMX', 'JVMJMX', '', 'Java JMX Attributes');
+
 
 --example of dynamic dimensions data
 --INSERT INTO am_instance(am_ins_id, am_arf_id, instancename, instancecode) VALUES(am_ins_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Petstore', 'PETSTR'); 
