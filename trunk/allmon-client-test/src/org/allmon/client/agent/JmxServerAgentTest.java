@@ -1,5 +1,21 @@
 package org.allmon.client.agent;
 
-public class JmxServerAgentTest {
+import junit.framework.TestCase;
 
+public class JmxServerAgentTest extends TestCase {
+
+    public void testSending() {
+        AgentContext agentContext = new AgentContext();
+        try {
+            JmxServerAgent agent = new JmxServerAgent(agentContext);
+            agent.setParameters(new String[]{
+                    "", //"AgentAggregatorMain",
+                    ""
+                    });
+            agent.execute();
+        } finally {
+            agentContext.stop();
+        }
+    }
+    
 }
