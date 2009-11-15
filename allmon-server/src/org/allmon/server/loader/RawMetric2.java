@@ -95,7 +95,7 @@ public class RawMetric2 implements Serializable {
         this.hostIp = hostIp;
     }
     
-    @Column(name="INSTANCENAME", nullable=false, length=100)
+    @Column(name="INSTANCENAME", nullable=false, length=200)
     public String getInstance() {
 		return instance;
 	}
@@ -113,7 +113,7 @@ public class RawMetric2 implements Serializable {
 		this.metricType = metricType;
 	}
 
-	@Column(name="RESOURCENAME", nullable=true, length=100)
+	@Column(name="RESOURCENAME", nullable=true, length=1000)
     public String getResource() {
 		return resource;
 	}
@@ -122,7 +122,7 @@ public class RawMetric2 implements Serializable {
 		this.resource = resource;
 	}
 
-	@Column(name="SOURCENAME", nullable=true, length=100)
+	@Column(name="SOURCENAME", nullable=true, length=1000)
     public String getSource() {
 		return source;
 	}
