@@ -59,6 +59,8 @@ Provides:
   * Filtration
     * Detecting and removing outliners or noise - i.e. before aggregation to minimize round-off errors
   * Trend detection
+    * Extrapolation
+    * Forecasting
   * Simple statistics
     * Up time (in log) 
   * ...
