@@ -34,10 +34,11 @@ Provides:
     * ...
   
   * Aggregate functions
-    * Min
-    * Max
-    * Avg - base for most scalar metrics
+    * Min/Max - very good to describe spread
+    * Avg - base aggregation for most scalar metrics
     * Sum - basis for execution times metrics
+    * Median - can be useful because median is a central point which minimizes the average of the absolute deviations
+    * First/Last - together with Min/Max can be used to give candlestick analysis over time (http://en.wikipedia.org/wiki/Candlestick_chart)
     * Stddev - especially good for metrics describing activity with gausian (normal) distribution
     * Poison k, m
     * Distribution - storing histogram or bitmap function of metrics values - very effective way of aggregating for coarse grained aggregates
