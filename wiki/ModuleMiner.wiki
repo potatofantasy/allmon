@@ -20,14 +20,15 @@ Provides:
 == Aggregates ==
 
   * Scalar metrics
-        * In-time 
-          * For boolean values - point to point change aggregation (very effective if changes not often)
-          * ...
+    * In-time 
+      * For boolean values - point to point change aggregation (very effective if changes are not often)
+      * *1minute*, 15m, 30m, *1h*, 2h, 3h, 6h, 12h, *1d*, 2d, 1w, 1month, ...
     * ...
   * Vector metrics
     * In-time aggregation (day, hour, etc.)
-      * Aggregated calls in days/hours
+      * Aggregated servlet calls in days/hours
     * In resource/source hierarchy level aggregation 
+      * Aggregated servlet calls in hours for classes (resource) - users (source) and session is ambivalent  
     * Aggregated calls by count of concurrent calls (in second grain)
     * ...
   
