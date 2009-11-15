@@ -61,6 +61,7 @@ Provides:
   * Trend detection
     * Extrapolation
     * Forecasting
+    * "aberrant behavior detection"
   * Simple statistics
     * Up time (in log) 
   * ...
