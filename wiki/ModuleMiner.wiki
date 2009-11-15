@@ -28,7 +28,7 @@ Provides:
     * In-time aggregation (day, hour, etc.)
       * Aggregated servlet calls in days/hours
     * In resource/source hierarchy level aggregation 
-      * Aggregated servlet calls in hours for classes (resource) - users (source) and session is ambivalent  
+      * Aggregated servlet calls in hours for classes (resource) - users (source) and session is lost
     * Aggregated calls by count of concurrent calls (in second grain)
     * ...
   
