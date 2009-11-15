@@ -6,8 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.management.InstanceNotFoundException;
 import javax.management.IntrospectionException;
@@ -49,10 +47,7 @@ final class JmxAttributesReader {
                 ", connectorAddress:" + pairs.getValue().connectorAddress();
             logger.debug(vmString);
             // check if name matches
-            Pattern p = Pattern.compile(".*" + nameRegexp + ".*");
-            Matcher m = p.matcher(vmString);
-            if (m.find()) {
-                //CharSequence cs = m.group();
+            if (vmString.matches(".*" + nameRegexp + ".*")) {
                 lvmList.add(pairs.getValue());
             }
         }
@@ -86,12 +81,12 @@ final class JmxAttributesReader {
 //        logger.debug("connecting to local jvm: " + jvmId + ":" + jvmName);
         
         nameRegexp = ".*" + nameRegexp + ".*";
+
+        // result collection
+        ArrayList<MBeanAttributeData> attributeDataList = new ArrayList<MBeanAttributeData>();
         
         MBeanServerConnection mbs = connectToMBeanServer(lvm);
         // get local server // MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-        
-        ArrayList<MBeanAttributeData> attributeDataList = new ArrayList<MBeanAttributeData>();
-        
         Set<ObjectName> mbeans = mbs.queryNames(null, null);
         for (ObjectName mbean : mbeans) {
             String mbeanDomain = mbean.getDomain();
@@ -99,9 +94,8 @@ final class JmxAttributesReader {
             
             MBeanInfo mbeanInfo = mbs.getMBeanInfo(mbean);
             MBeanAttributeInfo[] mbeanAttributeInfos = mbeanInfo.getAttributes();
-            for (int i = 0; i < mbeanAttributeInfos.length; i++) {
-                MBeanAttributeInfo mbeanAttributeInfo = mbeanAttributeInfos[i];
-                //Descriptor descriptor = mbeanAttributeInfo.getDescriptor();
+            for (MBeanAttributeInfo mbeanAttributeInfo : mbeanAttributeInfos) {
+			    //Descriptor descriptor = mbeanAttributeInfo.getDescriptor();
 //                logger.debug(" > " + mbeanAttributeInfo.getName() + " : " + mbeanAttributeInfo);
                 
                 try {
@@ -142,7 +136,7 @@ final class JmxAttributesReader {
                 }
             }
         }
-        logger.debug("Found mbeans: " + attributeDataList.size());
+        logger.debug("Found MBeans: " + mbeans.size() + " and MBean attributes: " + attributeDataList.size());
         
         return attributeDataList;
     }
