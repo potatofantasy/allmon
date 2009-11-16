@@ -28,17 +28,18 @@
 		<copy todir="${global.dist.dir}/allmon-client/bin/">
 			<fileset file="${local.dist.dir}/set-classpath.bat" />
 			<fileset file="${local.dist.dir}/set-homes.bat" />
+			<fileset file="${local.dist.dir}/allmon-client.bat" />
 			<fileset file="${local.dist.dir}/allmon-client-agent-scheduler.bat" />
 			<fileset file="${local.dist.dir}/allmon-client-aggregator.bat" />
 		</copy>
 
-    <echo message="Coping allmon configuration files..." />
-    <copy todir="${global.dist.dir}/allmon-client/conf/">
-      <fileset file="${local.dist.dir}/allmon.properties" />
-      <fileset file="${local.dist.dir}/allmon-client.cron" />
-      <fileset file="${local.dist.dir}/log4jallmon.properties" />
-    </copy>
-		
+		<echo message="Coping allmon configuration files..." />
+		<copy todir="${global.dist.dir}/allmon-client/conf/">
+			<fileset file="${local.dist.dir}/allmon.properties" />
+			<fileset file="${local.dist.dir}/allmon-client.cron" />
+			<fileset file="${local.dist.dir}/log4jallmon.properties" />
+		</copy>
+
 		<echo message="Coping allmon client libraries..." />
 		<copy todir="${global.dist.dir}/allmon-client/lib/">
 			<fileset file="${local.dist.dir}/allmon-client.jar" />
@@ -73,6 +74,8 @@
 			<fileset file="${global.lib.dir}/junit-4.4.jar" />
 			<fileset file="${global.lib.dir}/log4j-1.2.15.jar" />
 			<fileset file="${global.lib.dir}/cron4j-2.1.1.jar" />
+			<fileset file="${global.lib.dir}/jdk1.6/jconsole.jar" />
+			<fileset file="${global.lib.dir}/jdk1.6/tools.jar" />
 		</copy>
 
 	</target>
