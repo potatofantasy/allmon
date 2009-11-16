@@ -47,7 +47,7 @@ public class AgentSchedulerMain {
         // scheduler.schedule("* * * * *", task);
 
         // Schedule file - the file is re-read every minute
-        scheduler.scheduleFile(new File("allmon-client.cron"));
+        scheduler.scheduleFile(new File("../conf/allmon-client.cron"));
 
         // Starts the scheduler
         scheduler.start();
