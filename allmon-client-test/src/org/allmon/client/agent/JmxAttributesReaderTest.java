@@ -19,20 +19,20 @@ public class JmxAttributesReaderTest extends TestCase {
 		JmxAttributesReader jmxReader = new JmxAttributesReader();
 
 		List<LocalVirtualMachine> lvmList = jmxReader.getLocalVirtualMachine(this.getClass().getName());
-		assertTrue(lvmList.size() > 0);
+		assertEquals(1, lvmList.size());
 		
 		LocalVirtualMachine lvm = lvmList.get(0);
-		assertTrue(lvm.vmid() > 0);
+		assertNotSame(0, lvm.vmid());
 	}
 	
 	public void testMBeansAttributes() throws Exception {
 		JmxAttributesReader jmxReader = new JmxAttributesReader();
 
 		List<LocalVirtualMachine> lvmList = jmxReader.getLocalVirtualMachine(this.getClass().getName());
-		assertTrue(lvmList.size() > 0);
-
+		assertEquals(1, lvmList.size());
+		
 		LocalVirtualMachine lvm = lvmList.get(0);
-		assertTrue(lvm.vmid() > 0);
+		assertNotSame(0, lvm.vmid());
 		
 		List<MBeanAttributeData> attributeDataList = jmxReader.getMBeansAttributesData(lvm, "");
 		assertTrue(attributeDataList.size() > 0);
