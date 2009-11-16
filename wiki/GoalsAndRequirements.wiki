@@ -7,17 +7,17 @@ The main project goal is to create a generic system storing various metrics coll
 
 = Modules =
 
-  # [ModuleCollector Collector] (`*`) (allmon-client) 
+  # *[ModuleCollector Collector]* (`*`) (allmon-client) 
     * Agents - Extraction (metrics data acquisition), 
     * Aggregator - Transformation (aggregating metrics to packets) and transport to Loader
-  # [ModuleLoader Loader] (`*`) (allmon-server)
+  # *[ModuleLoader Loader]* (`*`) (allmon-server)
     * MetricReceiver - Loading data to the database
     * Loader - Transforming data to allmetrics allmon schema
-  # [ModuleMiner Miner] (`**`) 
+  # *[ModuleMiner Miner]* (`**`) 
     * Mining knowledge from collected in the database data, 
     * Statistical analysis, 
     * Correlation across set up dimensions
-  # [ModuleViewer Viewer] (`**`) 
+  # *[ModuleViewer Viewer]* (`**`) 
     * Presentation and Front-end 
 
 (`*`) Core modules. 
