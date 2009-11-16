@@ -27,9 +27,9 @@
 		<copy todir="${global.dist.dir}/allmon-client/bin/">
 			<fileset file="${local.dist.dir}/set-classpath.bat" />
 			<fileset file="${local.dist.dir}/set-homes.bat" />
-			<fileset file="${local.dist.dir}/allmon-client.bat" />
-			<fileset file="${local.dist.dir}/allmon-client-agent-scheduler.bat" />
-			<fileset file="${local.dist.dir}/allmon-client-aggregator.bat" />
+			<fileset file="${local.dist.dir}/allmon-server.bat" />
+			<fileset file="${local.dist.dir}/allmon-server-allmetric-loader.bat" />
+			<fileset file="${local.dist.dir}/allmon-server-receiver-loader.bat" />
 		</copy>
 
 		<echo message="Coping allmon configuration files..." />
