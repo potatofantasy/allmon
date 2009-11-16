@@ -6,8 +6,8 @@
 	<property file="build.properties" />
 	<property name="build.no" value="00000" />
 
-	<property name="classes.dir" value="bin" />
-	<property name="local.dist.dir" value="/" />
+	<property name="classes.dir" value="classes" />
+	<property name="local.dist.dir" value="./" />
 	<property name="global.lib.dir" value="../allmon-lib/lib/" />
 	<property name="global.dist.dir" value="../allmon-dist/" />
 
@@ -26,17 +26,17 @@
 
 		<echo message="Coping allmon server batch..." />
 		<copy todir="${global.dist.dir}/allmon-server/bin/">
-			<fileset file="${local.dist.dir}/set-classpath.bat" />
-			<fileset file="${local.dist.dir}/set-homes.bat" />
-			<fileset file="${local.dist.dir}/allmon-server.bat" />
-			<fileset file="${local.dist.dir}/allmon-server-allmetric-loader.bat" />
-			<fileset file="${local.dist.dir}/allmon-server-receiver-loader.bat" />
+			<fileset file="${local.dist.dir}/bin/set-classpath.bat" />
+			<fileset file="${local.dist.dir}/bin/set-homes.bat" />
+			<fileset file="${local.dist.dir}/bin/allmon-server.bat" />
+			<fileset file="${local.dist.dir}/bin/allmon-server-allmetric-loader.bat" />
+			<fileset file="${local.dist.dir}/bin/allmon-server-receiver-loader.bat" />
 		</copy>
 
 		<echo message="Coping allmon configuration files..." />
 		<copy todir="${global.dist.dir}/allmon-server/conf/">
-			<fileset file="${local.dist.dir}/allmon.properties" />
-			<fileset file="${local.dist.dir}/log4jallmon.properties" />
+			<fileset file="${local.dist.dir}/conf/allmon.properties" />
+			<fileset file="${local.dist.dir}/conf/log4jallmon.properties" />
 		</copy>
 
 		<echo message="Coping allmon client libraries..." />

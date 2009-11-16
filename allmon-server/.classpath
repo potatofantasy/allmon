@@ -40,5 +40,5 @@
 	<classpathentry kind="lib" path="/allmon-lib/lib/log4j-1.2.15.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/allmon-client"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/cron4j-2.1.1.jar" sourcepath="C:/eclipse-j2ee-3.3-lomboz/workspace/cron4j-2.1.1.zip"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="classes"/>
 </classpath>
