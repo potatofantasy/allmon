@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="camel-example-spring-jms" default="run" basedir=".">
+<project name="allmon-server" default="run" basedir=".">
 
 	<property environment="system" />
 	<property file="build.properties" />
@@ -17,14 +17,15 @@
 		<jar destfile="${local.dist.dir}/allmon-server.jar">
 			<fileset dir="${classes.dir}">
 				<include name="org/allmon/**/*.class" />
+        <include name="org/allmon/**/*.xml" />
 			</fileset>
 		</jar>
 
 		<echo message="Cleaning distribution directory..." />
-		<delete dir="${global.dist.dir}" />
+		<delete dir="${global.dist.dir}/allmon-server/" />
 
-		<echo message="Coping allmon client batch..." />
-		<copy todir="${global.dist.dir}/allmon-client/bin/">
+		<echo message="Coping allmon server batch..." />
+		<copy todir="${global.dist.dir}/allmon-server/bin/">
 			<fileset file="${local.dist.dir}/set-classpath.bat" />
 			<fileset file="${local.dist.dir}/set-homes.bat" />
 			<fileset file="${local.dist.dir}/allmon-server.bat" />
@@ -33,16 +34,15 @@
 		</copy>
 
 		<echo message="Coping allmon configuration files..." />
-		<copy todir="${global.dist.dir}/allmon-client/conf/">
+		<copy todir="${global.dist.dir}/allmon-server/conf/">
 			<fileset file="${local.dist.dir}/allmon.properties" />
-			<fileset file="${local.dist.dir}/allmon-client.cron" />
 			<fileset file="${local.dist.dir}/log4jallmon.properties" />
 		</copy>
 
 		<echo message="Coping allmon client libraries..." />
-		<copy todir="${global.dist.dir}/allmon-client/lib/">
+		<copy todir="${global.dist.dir}/allmon-server/lib/">
 			<fileset file="${local.dist.dir}/allmon-server.jar" />
-			<fileset file="${global.lib.dir}/allmon-client/allmon-client.jar" />
+			<fileset file="../allmon-client/allmon-client.jar" />
 			<fileset file="${global.lib.dir}/cron4j-2.1.1.jar" />
 			<fileset file="${global.lib.dir}/cglib-nodep-2.2.jar" />
 			<fileset file="${global.lib.dir}/commons-collections-3.2.jar" />
