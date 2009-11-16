@@ -34,5 +34,5 @@
 	<classpathentry kind="lib" path="/allmon-lib/lib/SNMP4J.jar"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/jdk1.6/jconsole.jar"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/jdk1.6/tools.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="classes"/>
 </classpath>
