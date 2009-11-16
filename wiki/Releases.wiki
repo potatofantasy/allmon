@@ -3,7 +3,7 @@
 
 = Releases theory =
 
-  * Pre-Alpha - not feature complete; during requirements analysis, software design, software development and unit testing
+  * Pre-Alpha (PA) - not feature complete; during requirements analysis, software design, software development and unit testing
     * Milestones - Service Health Checks - 0.1.0
   * Alpha - released for testing (external/internal)
   * Beta - passed the alpha testing stage, release "prototype/technical preview" for users' testing (beta testers)
