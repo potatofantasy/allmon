@@ -19,7 +19,7 @@ public class AllmonPropertiesReader {
     public static void readLog4jProperties() {
         //Properties prop = new Properties();
         //String file = prop.getProperty("log4jpropertiespath");
-        String file = "log4jallmon.properties";
+        String file = "../conf/log4jallmon.properties";
         PropertyConfigurator.configure(file);
         //System.out.println("log4j.configured");
     }
@@ -42,7 +42,7 @@ public class AllmonPropertiesReader {
                 // lBundle = ResourceBundle.getBundle(allmonPropertiesReader.file);
                 // String strFilePath = System.getProperty("AllmonProperties");
                 // TODO check if this not should be split to client and server side
-                String strFilePath = "allmon.properties"; 
+                String strFilePath = "../conf/allmon.properties"; 
                 File file = new File(strFilePath);
                 FileInputStream fis = new FileInputStream(file);
                 properties.load(fis);
