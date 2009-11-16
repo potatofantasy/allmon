@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="camel-example-spring-jms" default="run" basedir=".">
+<project name="allmon-client" default="run" basedir=".">
 
 	<property environment="system" />
 	<property file="build.properties" />
@@ -22,7 +22,7 @@
 		</jar>
 
 		<echo message="Cleaning distribution directory..." />
-		<delete dir="${global.dist.dir}" />
+		<delete dir="${global.dist.dir}/allmon-client/" />
 
 		<echo message="Coping allmon client batch..." />
 		<copy todir="${global.dist.dir}/allmon-client/bin/">
