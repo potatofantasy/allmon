@@ -1,5 +1,10 @@
 @echo off
 
+set CONF=../conf/
+
+set JVM_PROPERTIES=
+set JVM_PROPERTIES=%JVM_PROPERTIES% -Dlog4jallmon.properties.path=%CONF%/log4jallmon.properties
+
 set CLASS_PATH=
 set CLASS_PATH=%CLASS_PATH%../lib/allmon-server.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/allmon-client.jar;
