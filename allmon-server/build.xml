@@ -26,7 +26,7 @@
 
 		<echo message="Coping allmon server batch..." />
 		<copy todir="${global.dist.dir}/allmon-server/bin/">
-			<fileset file="${local.dist.dir}/bin/set-classpath.bat" />
+			<fileset file="${local.dist.dir}/bin/set-variables.bat" />
 			<fileset file="${local.dist.dir}/bin/set-homes.bat" />
 			<fileset file="${local.dist.dir}/bin/allmon-server.bat" />
 			<fileset file="${local.dist.dir}/bin/allmon-server-allmetric-loader.bat" />
