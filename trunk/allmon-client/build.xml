@@ -26,7 +26,7 @@
 
 		<echo message="Coping allmon client batch..." />
 		<copy todir="${global.dist.dir}/allmon-client/bin/">
-			<fileset file="${local.dist.dir}/bin/set-classpath.bat" />
+			<fileset file="${local.dist.dir}/bin/set-variables.bat" />
 			<fileset file="${local.dist.dir}/bin/set-homes.bat" />
 			<fileset file="${local.dist.dir}/bin/allmon-client.bat" />
 			<fileset file="${local.dist.dir}/bin/allmon-client-agent-scheduler.bat" />
