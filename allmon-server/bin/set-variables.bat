@@ -3,6 +3,7 @@
 set CONF=../conf/
 
 set JVM_PROPERTIES=
+set JVM_PROPERTIES=%JVM_PROPERTIES% -Dallmon.properties.path=%CONF%/allmon.properties
 set JVM_PROPERTIES=%JVM_PROPERTIES% -Dlog4jallmon.properties.path=%CONF%/log4jallmon.properties
 
 set CLASS_PATH=
