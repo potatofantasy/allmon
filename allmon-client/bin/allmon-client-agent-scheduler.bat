@@ -1,3 +1,3 @@
-call set-classpath.bat
+call set-variables.bat
 
-java -cp %CLASS_PATH% org.allmon.client.scheduler.AgentSchedulerMain
+java -cp %CLASS_PATH% %JVM_PROPERTIES% org.allmon.client.scheduler.AgentSchedulerMain
