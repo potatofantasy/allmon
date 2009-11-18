@@ -2,15 +2,20 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
+	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	  <property name="locations">
+	    <list>
+        <value>classpath:allmon.properties</value>
+	    </list>
+	  </property>
+	  <property name="ignoreUnresolvablePlaceholders"><value>true</value></property>
+	</bean>
+	
 	<bean id="allmonDataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName">
-			<value>oracle.jdbc.OracleDriver</value>
-		</property>
-		<property name="url">
-			<value>jdbc:oracle:thin:@lontd05:1521:proddev</value>
-		</property>
-		<property name="username" value="rs_ttc" />
-		<property name="password" value="rs_ttc" />
+		<property name="driverClassName" value="${allmon.server.db.driverClassName}" />
+		<property name="url" value="${allmon.server.db.url}" />
+		<property name="username" value="${allmon.server.db.username}" />
+		<property name="password" value="${allmon.server.db.password}" />
 		<!--
 		<property name="initialSize" value="10"/>
     <property name="maxActive" value="20"/>
@@ -18,7 +23,7 @@
     <property name="poolPreparedStatements" value="false"/>
 		<property name="defaultTransactionIsolation" value="2"/>
 		-->
-		<!--    
+		<!--  
 			<property name="url"><value>jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=LONTD03.CORP.TTC)(PORT=1521))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=realtime)))</value></property>
 			<property name="driverClassName"><value>org.apache.derby.jdbc.EmbeddedDriver</value></property>
 			<property name="url"><value>jdbc:derby:springallmon;create=true</value></property>

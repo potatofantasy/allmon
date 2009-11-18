@@ -35,8 +35,7 @@
 
 		<echo message="Coping allmon configuration files..." />
 		<copy todir="${global.dist.dir}/allmon-server/conf/">
-			<fileset file="${local.dist.dir}/conf/allmon.properties" />
-			<fileset file="${local.dist.dir}/conf/log4jallmon.properties" />
+			<fileset file="${local.dist.dir}/conf/*.properties" />
 		</copy>
 
 		<echo message="Coping allmon client libraries..." />
