@@ -187,6 +187,9 @@
   * http://javaposse.com/
   * http://www.se-radio.net/
  
+  * apache
+    * http://incubator.apache.org/
+    * http://projects.apache.org/
 
   * Articles:
     * http://www.theserverside.com/
