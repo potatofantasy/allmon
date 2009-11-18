@@ -7,6 +7,7 @@ set JVM_PROPERTIES=%JVM_PROPERTIES% -Dallmon.properties.path=%CONF%/allmon.prope
 set JVM_PROPERTIES=%JVM_PROPERTIES% -Dlog4jallmon.properties.path=%CONF%/log4jallmon.properties
 
 set CLASS_PATH=
+set CLASS_PATH=%CLASS_PATH%%CONF%;
 set CLASS_PATH=%CLASS_PATH%../lib/allmon-server.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/allmon-client.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/cron4j-2.1.1.jar;
