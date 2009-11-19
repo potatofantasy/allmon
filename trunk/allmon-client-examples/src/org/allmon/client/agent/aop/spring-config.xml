@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
-    <bean id="MessageBean" class="org.allmon.client.agent.aop.SpringHelloWorld">
-        <property name="message" value="HELLO WORLD!!!"></property>
-    </bean>
-    
-    <bean id="performanceLogger" class="org.allmon.client.agent.aop.Advisor" />
-    
-    <aop:config>
-	<aop:aspect id="someAspect" ref="performanceLogger">
-		<aop:pointcut expression="execution(* org.allmon.client.agent.aop.*.*(..))" id="MethodJoinPoint"/>
-		
-		<aop:before method= "logBeforeMethodCall" pointcut-ref="MethodJoinPoint"/>
-		<aop:after method= "logAfterMethodCall" pointcut-ref="MethodJoinPoint"/>
-	
-	</aop:aspect>
-</aop:config>		
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	<bean id="MessageBean" class="org.allmon.client.agent.aop.SpringHelloWorld">
+		<property name="message" value="allmon AOP"></property>
+	</bean>
+
+	<bean id="performanceLogger"
+		class="org.allmon.client.agent.aop.Advisor4Allmon" />
+
+	<aop:config>
+		<aop:aspect id="someAspect" ref="performanceLogger">
+			<aop:pointcut
+				expression="execution(* org.allmon.client.agent.aop.*.*(..))"
+				id="MethodJoinPoint" />
+
+			<aop:before method="logBeforeMethodCall" pointcut-ref="MethodJoinPoint" />
+			<aop:after method="logAfterMethodCall" pointcut-ref="MethodJoinPoint" />
+
+		</aop:aspect>
+	</aop:config>
 </beans>

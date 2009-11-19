@@ -92,7 +92,7 @@ public class ReadJmxAttributesMain {
 	        MBeanAttributeInfo[] mbeanAttributeInfos = mbeanInfo.getAttributes();
 	        for (int i = 0; i < mbeanAttributeInfos.length; i++) {
 	            MBeanAttributeInfo mbeanAttributeInfo = mbeanAttributeInfos[i];
-	            Descriptor descriptor = mbeanAttributeInfo.getDescriptor();
+	            //Descriptor descriptor = mbeanAttributeInfo.getDescriptor();
 	            
 	            System.out.println(" > " + mbeanAttributeInfo.getName() + " : " + mbeanAttributeInfo);
                 
@@ -111,9 +111,9 @@ public class ReadJmxAttributesMain {
                         //ex: "LastGcInfo" - sun.management.GarbageCollectorImpl / com.sun.management.GarbageCollectorMXBean - GcThreadCount, duration, endTime, id, startTime
                         //ex: "HeapMemoryUsage" - sun.management.MemoryImpl / java.lang.management.MemoryMXBean - {committed, init, max, used}
                         
-                        for (String k : compositeType.keySet()) {
-                            Object o = compositeDataSupportAttribute.get(k);
-                            System.out.println("   > " + mbeanAttributeInfo.getName() + " : " + k + " : " + o);
+                        for (Object k : compositeType.keySet()) {
+                            Object o = compositeDataSupportAttribute.get(k.toString());
+                            System.out.println("   > " + mbeanAttributeInfo.getName() + " : " + k.toString() + " : " + o);
                         }
                         
                         //System.out.println("   > " + mbeanAttributeInfo.getName() + " : " + attribute);
