@@ -23,6 +23,7 @@
     * injections by annotations
   * resources utilization 
   * measuring application behaviour 
+  * flexible and easy in use
   * high-performance
   * low performance footprint
   * platform independent (pure java implementations)
@@ -30,6 +31,7 @@
   * why allmon
     * unblocking inserts to database
     * unblocking remote calls
+  * compatible with monitoring standards 
 
 
 = Technologies =
