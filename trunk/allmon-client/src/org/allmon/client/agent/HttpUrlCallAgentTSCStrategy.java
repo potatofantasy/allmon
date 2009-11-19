@@ -53,8 +53,11 @@ public class HttpUrlCallAgentTSCStrategy extends HttpUrlCallAgentAbstractStrateg
                 metricValue = Long.parseLong(cs.toString());
             }
         }
-        return MetricMessageFactory.createURLCallMessage(
-                agent.checkName + "-" + subcheckName, agent.checkingHost, metricValue);
+        
+        MetricMessage metricMessage = MetricMessageFactory.createUrlCallMessage(
+                agent.checkName + "-" + subcheckName, agent.instanceName, agent.checkingHost, metricValue, null);
+        
+        return metricMessage;
     }
 
 }

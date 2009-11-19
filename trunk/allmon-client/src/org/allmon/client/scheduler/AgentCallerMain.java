@@ -66,7 +66,11 @@ public class AgentCallerMain {
         
         String [] classParamsString = null;
         if (args.length > 1) {
-            classParamsString = Arrays.copyOfRange(args, 1, args.length);
+            //classParamsString = Arrays.copyOfRange(args, 1, args.length); // jdk-1.6
+            classParamsString = new String[args.length - 1];
+            for (int i = 0; i < classParamsString.length; i++) {
+                classParamsString[i] = args[i + 1];
+            }
         }
         return classParamsString;
     }
