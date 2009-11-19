@@ -12,7 +12,7 @@ public class JavaCallAgentTest extends TestCase {
     public void testSimple() throws Exception {
 
         MetricMessage message = MetricMessageFactory.createActionClassMessage(
-                JavaCallAgentTest.class.getName(), "user", "webSessionId", null);
+                this.getClass().getName(), "user", "webSessionId", null);
 
         JavaCallAgent agent = new JavaCallAgent(agentContext, message);
         agent.entryPoint();

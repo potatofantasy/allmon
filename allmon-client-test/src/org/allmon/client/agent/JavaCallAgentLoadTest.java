@@ -16,10 +16,10 @@ public class JavaCallAgentLoadTest extends AbstractLoadTest<Object, JavaCallAgen
     private static final Log logger = LogFactory.getLog(JavaCallAgentLoadTest.class);
     
     // stress test
-    private final static long THREADS_COUNT = 10;
+    private final static long THREADS_COUNT = 20;
     private final static long STARTING_TIME_MILLIS = 1 * 1000;
     private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 50;
-    private final static long SUBSEQUENT_CALLS_IN_THREAD = 20000;
+    private final static long SUBSEQUENT_CALLS_IN_THREAD = 5000;
     // soak test - around 20min
 //    private final static long THREADS_COUNT = 50;
 //    private final static long STARTING_TIME_MILLIS = 1 * 60 * 1000; // rump-up 1 min
@@ -41,8 +41,11 @@ public class JavaCallAgentLoadTest extends AbstractLoadTest<Object, JavaCallAgen
     }
     
     public JavaCallAgent preCall(int thread, int iteration, Object initParameters) {
-        MetricMessage metricMessage = MetricMessageFactory4Test.createClassMessage(
-                "className" + iteration, "methodName", "classNameX", "methodNameX", 1);
+//        MetricMessage metricMessage = MetricMessageFactory4Test.createClassMessage(
+//                "className" + iteration, "methodName", "classNameX", "methodNameX", 1);
+        MetricMessage metricMessage = MetricMessageFactory4Test.createActionClassMessage(
+                this.getClass().getName(), "user", "webSessionId", null);
+        
         JavaCallAgent agent = new JavaCallAgent(agentContext, metricMessage);
         agent.entryPoint();
         return agent;
