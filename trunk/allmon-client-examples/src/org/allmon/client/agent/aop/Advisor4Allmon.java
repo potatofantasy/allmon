@@ -7,7 +7,7 @@ import org.allmon.common.MetricMessageFactory;
 public class Advisor4Allmon {
     
     public void logBeforeMethodCall() {
-//        param: JavaCallAgent agent
+//        param: AgentContext agentContext
 //        param: String classNameCalled, String methodNameCalled, String classNameCalling, String methodNameCalling
         MetricMessage metricMessage = MetricMessageFactory.createClassMessage(
                 this.getClass().getName(), "method", "", "", -1); // TODO review duration time param
