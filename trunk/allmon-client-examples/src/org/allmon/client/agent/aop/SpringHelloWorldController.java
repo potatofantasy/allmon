@@ -6,14 +6,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SpringHelloWorldController {
 
-    public final static AgentContext agentContext = new AgentContext(); // FIXME flushing problem!!!
+    public final static AgentContext agentContext = new AgentContext(); // FIXME flushing problem!!! make this not static
+
+    private final static String SPRING_CONFIG_LOCATION = "org/allmon/client/agent/aop/spring-config.xml";
     
     public static void main(String[] args) {
-        String configLocations = new String("org/allmon/client/agent/aop/spring-config.xml");
 
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(configLocations);
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(SPRING_CONFIG_LOCATION);
         HelloWorldInterface bean = (HelloWorldInterface) applicationContext.getBean("MessageBean");
-        bean.printMessage();
+        
+        for (int i = 0; i < 10; i++) {
+            bean.printMessage();
+        }
         
         System.out.println("End");
         agentContext.stop();
