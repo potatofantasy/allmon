@@ -125,22 +125,20 @@ public class MetricMessageFactory {
         return metricMessage;
     }
     
-    public static final MetricMessage createURLCallMessage(String checkName, String host, double metricValue) {
+    /**
+     * 
+     * @param checkName name of resource/health check which is monitored
+     * @param instanceName monitored web application/service instance name
+     * @param host monitored host (source)
+     * @param metricValue
+     * @param exception
+     * @return
+     */
+    public static final MetricMessage createUrlCallMessage(String checkName, String instanceName, String host, double metricValue, Exception exception) {
         MetricMessage metricMessage = createMessage(
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_SERVICELEVELCHECK);
-        //metricMessage.setInstance(jvmName + "(id:" + jvmId + ")"); // TODO review instance field for this metric type!!!
-        metricMessage.setResource(checkName);
-        metricMessage.setSource(host);
-        metricMessage.setMetricValue(metricValue);
-        return metricMessage;
-    }
-
-    public static final MetricMessage createURLCallMessage(String checkName, String host, double metricValue, Exception exception) {
-        MetricMessage metricMessage = createMessage(
-                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
-                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_SERVICELEVELCHECK);
-        //metricMessage.setInstance(jvmName + "(id:" + jvmId + ")"); // TODO review instance field for this metric type!!!
+        metricMessage.setInstance(instanceName);
         metricMessage.setResource(checkName);
         metricMessage.setSource(host);
         metricMessage.setMetricValue(metricValue);

@@ -82,9 +82,10 @@ public class HttpUrlCallAgent extends UrlCallAgent {
                 br.close();
             }
             
-        } catch (Throwable t) {
-            logger.debug("Throwable: " + t, t);
-            messageWrapper = new MetricMessageWrapper(MetricMessageFactory.createURLCallMessage(checkName,  checkingHost, 0));
+        } catch (Exception e) {
+            logger.debug("Exception: " + e, e);
+            messageWrapper = new MetricMessageWrapper(MetricMessageFactory.createUrlCallMessage(
+                    checkName, instanceName, checkingHost, 0, e));
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -102,8 +103,9 @@ public class HttpUrlCallAgent extends UrlCallAgent {
         urlParameters = getParamsString(4);
         checkingHost = getParamsString(5);
         checkName = getParamsString(6);
-        useProxy = Boolean.parseBoolean(getParamsString(7)); //true;
-        requestMethod = getParamsString(8);
+        instanceName = getParamsString(7);
+        useProxy = Boolean.parseBoolean(getParamsString(8)); //true;
+        requestMethod = getParamsString(9);
     }
     
 }

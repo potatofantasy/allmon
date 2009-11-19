@@ -30,6 +30,7 @@ public class UrlCallAgent extends ActiveAgent {
     
     protected String checkingHost;
     protected String checkName;
+    protected String instanceName;
     
     
     public UrlCallAgent(AgentContext agentContext) {
@@ -54,8 +55,9 @@ public class UrlCallAgent extends ActiveAgent {
         }
         
         double metricValue = Double.parseDouble(metric);
-        MetricMessage metricMessage = MetricMessageFactory.createURLCallMessage(
-        		urlAddress, searchPhrase, metricValue);
+        MetricMessage metricMessage = MetricMessageFactory.createUrlCallMessage(
+                urlAddress, instanceName, searchPhrase, metricValue, null);
+
         return new MetricMessageWrapper(metricMessage);
     }
     

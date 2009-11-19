@@ -55,12 +55,14 @@ final class JmxAttributesReader {
     }
     
     private MBeanServerConnection connectToMBeanServer(LocalVirtualMachine lvm) throws IOException {
+        logger.debug("connecting to local jvm: id:" + lvm.vmid());
+
         JMXServiceURL jmxUrl = null;
         if (lvm != null) {
             if (!lvm.isManageable()) {
                 lvm.startManagementAgent();
                 if (!lvm.isManageable()) {
-                    throw new IOException(lvm + "not manageable");
+                    throw new IOException(lvm + " not manageable");
                 }
             }
             jmxUrl = new JMXServiceURL(lvm.connectorAddress());
@@ -86,6 +88,7 @@ final class JmxAttributesReader {
         ArrayList<MBeanAttributeData> attributeDataList = new ArrayList<MBeanAttributeData>();
         
         MBeanServerConnection mbs = connectToMBeanServer(lvm);
+        
         // get local server // MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
         Set<ObjectName> mbeans = mbs.queryNames(null, null);
         for (ObjectName mbean : mbeans) {
@@ -120,10 +123,10 @@ final class JmxAttributesReader {
                         //ex: "LastGcInfo" - sun.management.GarbageCollectorImpl / com.sun.management.GarbageCollectorMXBean - GcThreadCount, duration, endTime, id, startTime
                         //ex: "HeapMemoryUsage" - sun.management.MemoryImpl / java.lang.management.MemoryMXBean - {committed, init, max, used}
                         
-                        for (String k : compositeType.keySet()) {
-                            Object o = compositeDataSupportAttribute.get(k);
+                        for (Object k : compositeType.keySet()) {
+                            Object o = compositeDataSupportAttribute.get(k.toString());
                             MBeanAttributeData attributeData = new MBeanAttributeData(jvmId, jvmName, mbeanDomain, 
-                                    mbeanInfo.getClassName(), mbeanAttributeInfo.getName() + ":" + k);
+                                    mbeanInfo.getClassName(), mbeanAttributeInfo.getName() + ":" + k.toString());
                             attributeData.setNumberValue(o);
                             if (attributeData.toString().matches(nameRegexp)) {
                                 attributeDataList.add(attributeData);
