@@ -1,6 +1,5 @@
 package org.allmon.client.agent.aop;
 
-import org.allmon.client.agent.AgentContext;
 import org.allmon.client.agent.JavaCallAgent;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
@@ -8,7 +7,8 @@ import org.allmon.common.MetricMessageFactory;
 public class Advisor4Allmon {
     
     public void logBeforeMethodCall() {
-//        String classNameCalled, String methodNameCalled, String classNameCalling, String methodNameCalling
+//        param: JavaCallAgent agent
+//        param: String classNameCalled, String methodNameCalled, String classNameCalling, String methodNameCalling
         MetricMessage metricMessage = MetricMessageFactory.createClassMessage(
                 this.getClass().getName(), "method", "", "", -1); // TODO review duration time param
         
@@ -17,7 +17,8 @@ public class Advisor4Allmon {
     }
 
     public void logAfterMethodCall() {
-//        JavaCallAgent agent
+//        param: JavaCallAgent agent
+//        param: Exception exception
 //        agent.exitPoint();
     }
     
