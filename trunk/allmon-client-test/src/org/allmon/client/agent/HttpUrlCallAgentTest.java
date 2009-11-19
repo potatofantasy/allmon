@@ -17,6 +17,7 @@ public class HttpUrlCallAgentTest extends TestCase {
                     "-",
                     "www.wikipedia.com",
                     "www.wikipedia.com-Checker", 
+                    "original-wikipedia-instance",
                     "true",
                     "GET"});
             agent.execute();
@@ -39,6 +40,7 @@ public class HttpUrlCallAgentTest extends TestCase {
                     "-",
                     "www.google.com",
                     "www.google.com-Checker",
+                    "original-google-instance",
                     "true",
                     "GET"});
             agent.execute();
@@ -60,7 +62,8 @@ public class HttpUrlCallAgentTest extends TestCase {
                     "text/html",
                     "-",
                     "localhost:8161/admin/",
-                    "ActiveMQAdmin-Checker", 
+                    "ActiveMQAdmin-Checker",
+                    "local-activemq-admin-instance",
                     "false",
                     "GET"});
             agent.execute();
