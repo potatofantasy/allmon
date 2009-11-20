@@ -7,9 +7,15 @@
 		<property name="message" value="allmon AOP"></property>
 	</bean>
 
-	<bean id="performanceLogger"
-		class="org.allmon.client.agent.aop.Advisor4Allmon" />
-
+	<bean id="performanceLogger" class="org.allmon.client.agent.aop.Advisor4Allmon" >
+		<property name="agentContext" ref="AgentContext" />
+	</bean>
+	
+	<!-- at the begining of monitored app -->
+	<bean id="AgentContext" class="org.allmon.client.agent.AgentContext" />
+	<!-- call stop agentContext.stop(); -->
+	
+	
 	<aop:config>
 		<aop:aspect id="someAspect" ref="performanceLogger">
 			<aop:pointcut
@@ -18,6 +24,7 @@
 
 			<aop:before method="logBeforeMethodCall" pointcut-ref="MethodJoinPoint" />
 			<aop:after method="logAfterMethodCall" pointcut-ref="MethodJoinPoint" />
+			<aop:after-throwing method="logAfterMethodCall" pointcut-ref="MethodJoinPoint" />
 
 		</aop:aspect>
 	</aop:config>
