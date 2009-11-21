@@ -9,7 +9,7 @@ http://en.wikipedia.org/wiki/Software_release
 
   * Pre-Alpha (PA) - not feature complete; during requirements analysis, software design, software development and unit testing
     * Milestones:
-      * 0.1.0 First release
+      * 0.1.0 First release - http://allmon.googlecode.com/files/allmon-0.1.0-PA.zip
       * 0.1.1 (M1) HTTP Service Health Checks
       * 0.1.2 (M2) JMX
       * 0.1.2 (M2) AOP support for Java calls monitoring
