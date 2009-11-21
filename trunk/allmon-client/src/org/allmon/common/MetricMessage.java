@@ -17,6 +17,8 @@ import java.util.Date;
  */
 public class MetricMessage implements Serializable {
 
+    private static final int MAX_STRING_LENGHT = 1000;
+    
     private long eventTime;
     private long durationTime;
     private double metricValue;
@@ -60,6 +62,17 @@ public class MetricMessage implements Serializable {
     private static String getIp(InetAddress inetAddress) {
         if (inetAddress != null)
             return inetAddress.getHostAddress();
+        return "";
+    }
+    
+    private String trimAndCut(String s) {
+        if (s != null) {
+            s = s.trim();
+            if (s.length() > MAX_STRING_LENGHT) {
+                return s.substring(0, MAX_STRING_LENGHT);
+            }
+            return s;
+        }
         return "";
     }
     
@@ -131,10 +144,6 @@ public class MetricMessage implements Serializable {
         this.host = host;
     }
 
-    public String getInstance() {
-        return instance;
-    }
-
     public String getThread() {
         return thread;
     }
@@ -143,8 +152,12 @@ public class MetricMessage implements Serializable {
         this.thread = thread;
     }
 
+    public String getInstance() {
+        return instance;
+    }
+
     public void setInstance(String instance) {
-        this.instance = instance;
+        this.instance = trimAndCut(instance);
     }
 
     public String getResource() {
@@ -152,7 +165,7 @@ public class MetricMessage implements Serializable {
     }
 
     public void setResource(String resource) {
-        this.resource = resource;
+        this.resource = trimAndCut(resource);
     }
 
     public String getSource() {
@@ -160,9 +173,9 @@ public class MetricMessage implements Serializable {
     }
 
     public void setSource(String source) {
-        this.source = source;
+        this.source = trimAndCut(source);
     }
-
+    
     public String getPoint() {
         return point;
     }
@@ -205,14 +218,14 @@ public class MetricMessage implements Serializable {
         buffer.append(getHost());
         buffer.append("(");
         buffer.append(getHostIp());
-        buffer.append(") ");
+        buffer.append(")");
         buffer.append(", Instance:");
         buffer.append(getInstance());
         buffer.append(", Resource:");
         buffer.append(getResource());
         buffer.append(", Source:");
         buffer.append(getSource());
-        buffer.append(", DurationTime(ms):");
+        buffer.append(", MetricValue:");
         buffer.append(metricValue);
         buffer.append(", Parameters:");
         buffer.append(getParametersString());
