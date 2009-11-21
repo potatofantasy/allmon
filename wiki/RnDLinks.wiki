@@ -55,9 +55,11 @@
     * hyperic HQ - http://support.hyperic.com/display/DOC/JMX+Plugin
     * Java theory and practice: Instrumenting applications with JMX (ibm.com) - http://www.ibm.com/developerworks/java/library/j-jtp09196/index.html
 
-  * JDMK
+  * JDMK - The Java Dynamic Management Kit (Java DMK) provides a set of Java classes and tools that allow easy development of secure monitoring and management solutions based on the Java Management Extensions (JMX) specifications and on the SNMP standards
     * http://en.wikipedia.org/wiki/Java_Dynamic_Management_Kit
     * http://java.sun.com/products/jdmk/
+    * http://www.sun.com/software/jdmk/
+    * https://opendmk.dev.java.net/
 
   * Similar Open Source Projects
     * Jamon - http://jamonapi.sourceforge.net/
