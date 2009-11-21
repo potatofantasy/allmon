@@ -95,7 +95,7 @@ public class RawMetric2 implements Serializable {
         this.hostIp = hostIp;
     }
     
-    @Column(name="INSTANCENAME", nullable=false, length=200)
+    @Column(name="INSTANCENAME", nullable=false, length=1000)
     public String getInstance() {
 		return instance;
 	}
