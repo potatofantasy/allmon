@@ -33,11 +33,13 @@ public class JmxServerAgent extends ActiveAgent {
                 attributeDataList = jmxReader.getMBeansAttributesData(localVirtualMachine, mbeansAttributesNamesRegexp);
                 // extract all attributes and create messages
                 for (MBeanAttributeData beanAttributeData : attributeDataList) {
-                    MetricMessage metricMessage = MetricMessageFactory.createJMXMessage(
+                    //logger.debug("Creating jmx message: " + beanAttributeData.getJvmId() + ":" + beanAttributeData.getJvmName() + " - " + beanAttributeData.toString());
+                    MetricMessage metricMessage = MetricMessageFactory.createJmxMessage(
                             beanAttributeData.getJvmId(), beanAttributeData.getJvmName(),
                             beanAttributeData.getDomainName(), beanAttributeData.getMbeanName(), beanAttributeData.getMbeanAttributeName(),
                             beanAttributeData.getValue(), null);
                     metricMessageWrapper.add(metricMessage);
+                    //logger.debug("jmx message created: " + metricMessage.toString());
                 }
             } catch (Exception e) {
                 logger.error(e.getLocalizedMessage(), e);
