@@ -61,7 +61,7 @@
     * http://www.sun.com/software/jdmk/
     * https://opendmk.dev.java.net/
 
-  * Similar Open Source Projects
+  * Similar Open Source Projects (is it "reinventing the wheel" antipattern? :) - http://notes-on-haskell.blogspot.com/2007/08/rewriting-software.html)
     * Jamon - http://jamonapi.sourceforge.net/
     * Usemon - http://code.google.com/p/usemon/ http://www.slideshare.net/paulrene/an-introduction-to-usemon 
     * Apache Commons Monitoring (sandbox) - http://commons.apache.org/sandbox/monitoring/index.html
