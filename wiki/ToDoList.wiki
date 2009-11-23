@@ -24,6 +24,7 @@
         * (W) (o) (code) Messages can  be send to disk and resent to broker when is available. 
     * (M) (x/o) (code) Design various metrics agents strategies for different agents.
       * (W) (o) (code) Creating a new metrics message sender based on log4j appender mechanism
+      * (W) (o) (code) Creating agent (base on HttpCallAgent) which can be used to monitor how google (or any other browser site) is positioning certain pages/services.
 
   * (O) (x) (code) Finish simple scheduler for active monitoring
 
