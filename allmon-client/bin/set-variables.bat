@@ -1,5 +1,20 @@
 @echo off
 
+echo setting homes...
+call set-homes.bat
+
+echo JAVA_HOME variable is set to: %JAVA_HOME%
+
+if "%JAVA_HOME%" == "" goto noJavaHome
+if not exist "%JAVA_HOME%\bin\java.exe" goto noJavaHome
+if "%_JAVACMD%" == "" set _JAVACMD=%JAVA_HOME%\bin\java.exe 
+goto setVariables
+
+:noJavaHome
+if "%_JAVACMD%" == "" set _JAVACMD=java.exe
+echo JAVA_HOME environment variable is not set!
+
+:setVariables
 set CONF=../conf/
 
 set JVM_PROPERTIES=
@@ -38,7 +53,12 @@ set CLASS_PATH=%CLASS_PATH%../lib/camel-spring-integration-2.0-M2.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/junit-4.4.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/log4j-1.2.15.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/cron4j-2.1.1.jar;
-set CLASS_PATH=%CLASS_PATH%../lib/jconsole.jar;
-set CLASS_PATH=%CLASS_PATH%../lib/tools.jar
+rem set CLASS_PATH=%CLASS_PATH%../lib/jconsole.jar;
+rem set CLASS_PATH=%CLASS_PATH%../lib/tools.jar
+set CLASS_PATH=%CLASS_PATH%%JAVA_HOME%/lib/jconsole.jar;
+set CLASS_PATH=%CLASS_PATH%%JAVA_HOME%/lib/tools.jar
+
+echo _JAVACMD variable is set to: %_JAVACMD%
+echo CLASS_PATH variable is set to: %CLASS_PATH%
 
 @echo on

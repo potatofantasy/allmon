@@ -74,8 +74,10 @@
 			<fileset file="${global.lib.dir}/junit-4.4.jar" />
 			<fileset file="${global.lib.dir}/log4j-1.2.15.jar" />
 			<fileset file="${global.lib.dir}/cron4j-2.1.1.jar" />
+			<!--
 			<fileset file="${global.lib.dir}/jdk1.6/jconsole.jar" />
 			<fileset file="${global.lib.dir}/jdk1.6/tools.jar" />
+			-->
 		</copy>
 
 	</target>

@@ -2,9 +2,11 @@ package org.allmon.client.agent;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.management.InstanceNotFoundException;
@@ -23,6 +25,17 @@ import javax.management.remote.JMXServiceURL;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.sun.tools.attach.AttachNotSupportedException;
+import com.sun.tools.attach.VirtualMachine;
+import com.sun.tools.attach.VirtualMachineDescriptor;
+
+import sun.jvmstat.monitor.HostIdentifier;
+import sun.jvmstat.monitor.MonitorException;
+import sun.jvmstat.monitor.MonitoredHost;
+import sun.jvmstat.monitor.MonitoredVm;
+import sun.jvmstat.monitor.MonitoredVmUtil;
+import sun.jvmstat.monitor.VmIdentifier;
+import sun.management.ConnectorAddressLink;
 import sun.tools.jconsole.LocalVirtualMachine;
 
 final class JmxAttributesReader {
@@ -143,6 +156,88 @@ final class JmxAttributesReader {
         
         return attributeDataList;
     }
+    
+    /*
+    class LocalVirtualMachine2 {
+        
+        // This method returns the list of all virtual machines currently
+        // running on the machine
+        public Map<Integer, LocalVirtualMachine> getAllVirtualMachines() {
+            Map<Integer, LocalVirtualMachine> map =
+                new HashMap<Integer, LocalVirtualMachine>();
+            getMonitoredVMs(map);
+            getAttachableVMs(map);
+            return map;
+        }
+
+        private void getMonitoredVMs(Map<Integer, LocalVirtualMachine> map) {
+            MonitoredHost host;
+            Set vms;
+            try {
+                host = MonitoredHost.getMonitoredHost(new HostIdentifier((String)null));
+                vms = host.activeVms();
+            } catch (java.net.URISyntaxException sx) {
+                throw new InternalError(sx.getMessage());
+            } catch (MonitorException mx) {
+                throw new InternalError(mx.getMessage());
+            }
+            for (Object vmid: vms) {
+                if (vmid instanceof Integer) {
+                    int pid = ((Integer) vmid).intValue();
+                    String name = vmid.toString(); // default to pid if name not available
+                    boolean attachable = false;
+                    String address = null;
+                    try {
+                         MonitoredVm mvm = host.getMonitoredVm(new VmIdentifier(name));
+                         // use the command line as the display name
+                         name =  MonitoredVmUtil.commandLine(mvm);
+                         attachable = MonitoredVmUtil.isAttachable(mvm);
+                         address = ConnectorAddressLink.importFrom(pid);
+                         mvm.detach();
+                    } catch (Exception x) {
+                         // ignore
+                    }
+                    map.put((Integer) vmid,
+                            new LocalVirtualMachine(pid, name, attachable, address));
+                }
+            }
+        }
+        
+        private static final String LOCAL_CONNECTOR_ADDRESS_PROP =
+            "com.sun.management.jmxremote.localConnectorAddress";
+        
+        private void getAttachableVMs(Map<Integer, LocalVirtualMachine> map) {
+            List<VirtualMachineDescriptor> vms = VirtualMachine.list();
+            for (VirtualMachineDescriptor vmd : vms) {
+                try {
+                    Integer vmid = Integer.valueOf(vmd.id());
+                    if (!map.containsKey(vmid)) {
+                        boolean attachable = false;
+                        String address = null;
+                        try {
+                            VirtualMachine vm = VirtualMachine.attach(vmd);
+                            attachable = true;
+                            Properties agentProps = vm.getAgentProperties();
+                            address = (String) agentProps.get(LOCAL_CONNECTOR_ADDRESS_PROP);
+                            vm.detach();
+                        } catch (AttachNotSupportedException x) {
+                            // not attachable
+                        } catch (IOException x) {
+                            // ignore
+                        }
+                        map.put(vmid, new LocalVirtualMachine(vmid.intValue(),
+                                                              vmd.displayName(),
+                                                              attachable,
+                                                              address));
+                    }
+                } catch (NumberFormatException e) {
+                    // do not support vmid different than pid
+                }
+            }
+        }
+        
+    }
+    */
     
     public class MBeanAttributeData {
         
