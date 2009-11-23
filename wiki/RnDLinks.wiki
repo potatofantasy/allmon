@@ -21,6 +21,10 @@
     * code manipulation
     * aop
     * injections by annotations
+  * preventing performance issues
+  * anomaly detection
+    * system responses, utilizations
+    * users behaviour 
   * resources utilization 
   * measuring application behaviour 
   * flexible and easy in use
