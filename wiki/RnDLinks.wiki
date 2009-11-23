@@ -61,7 +61,7 @@
     * http://www.sun.com/software/jdmk/
     * https://opendmk.dev.java.net/
 
-  * Similar Open Source Projects (is it "reinventing the wheel" antipattern? :) - http://notes-on-haskell.blogspot.com/2007/08/rewriting-software.html)
+  * Similar Open Source Projects (is it "reinventing the wheel" antipattern? :) - http://notes-on-haskell.blogspot.com/2007/08/rewriting-software.html and http://www.newyorker.com/reporting/2008/05/12/080512fa_fact_gladwell?currentPage=all)
     * Jamon - http://jamonapi.sourceforge.net/
     * Usemon - http://code.google.com/p/usemon/ http://www.slideshare.net/paulrene/an-introduction-to-usemon 
     * Apache Commons Monitoring (sandbox) - http://commons.apache.org/sandbox/monitoring/index.html
@@ -80,12 +80,6 @@
     * perf4j - http://perf4j.codehaus.org/ 
       * http://www.slideshare.net/craigsdickson/performance-analysis-and-monitoring-with-perf4j
 
-  * Databases and Application Servers
-    * Oracle® Application Server Performance Guide - Performance Metrics - http://download.oracle.com/docs/cd/B14099_19/core.1012/b14001/metrics.htm
-      * Optimizing J2EE Applications In OC4J - http://download.oracle.com/docs/cd/B14099_19/core.1012/b14001/optj2ee.htm#sthref455
-      * Oracle Application Server High Availability Guide - Middle-tier High Availability - http://database.in2p3.fr/doc/oracle/Oracle_Application_Server_10g_Release_2/core.1012/b14003/midtierdesc.htm#CIHCBFIJ
-      * Measuring Performance With the Oracle Dynamic Monitoring System (DMS) - http://www.oracle.com/technology/products/ias/toplink/doc/1013/MAIN/_html/optimiz004.htm
-
   * Similar Not-Open Source Projects
     * Monitoring Application Performance in Sun Java System Application Server 7.x with PerformaSure - http://developers.sun.com/appserver/reference/techart/performasure.html
     * Free service - External Monitoring - Internal Monitoring, Visitors Tracking - http://mon.itor.us/
@@ -93,6 +87,12 @@
       * http://twitter.com/webloadtester
     * Cloud real-time Web tracking and analysis application - http://www.woopra.com/
     * IBM Monitoring & Diagnostic Tools for Java - http://www.theserverside.com/news/thread.tss?thread_id=58400
+
+  * Databases and Application Servers
+    * Oracle® Application Server Performance Guide - Performance Metrics - http://download.oracle.com/docs/cd/B14099_19/core.1012/b14001/metrics.htm
+      * Optimizing J2EE Applications In OC4J - http://download.oracle.com/docs/cd/B14099_19/core.1012/b14001/optj2ee.htm#sthref455
+      * Oracle Application Server High Availability Guide - Middle-tier High Availability - http://database.in2p3.fr/doc/oracle/Oracle_Application_Server_10g_Release_2/core.1012/b14003/midtierdesc.htm#CIHCBFIJ
+      * Measuring Performance With the Oracle Dynamic Monitoring System (DMS) - http://www.oracle.com/technology/products/ias/toplink/doc/1013/MAIN/_html/optimiz004.htm
 
   * Presentation, Analysis & Data Mining
     * Pentaho - http://wiki.pentaho.com/display/COM/Latest+Stable+Builds
