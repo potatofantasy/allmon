@@ -135,6 +135,8 @@
     * Cross-correlation function in time-domain
     * Coherence function in frequency-domain (http://www.bme.bio.keio.ac.jp/01news/report.pdf - the functions distortions as the amplitudes of the noise increases)
  
+  * Anomaly detection - http://www.slideshare.net/iparedes/anomaly-detection-in-traffic-monitoring
+
   * Correlation 
     * in high-multidimensional spaces
     * in time domain
@@ -165,6 +167,12 @@
     * Active vs passive monitoring in soa management - http://jaxview.blogspot.com/2007/12/active-vs-passive-monitoring-in-soa.html
     * Measure CPU and memory consumption of a Java application - http://articles.techrepublic.com.com/5100-10878_11-6067049.html?tag=rbxccnbtr1
 
+
+  * Monitoring
+    * http://www.slideshare.net/gigamonster/gigamon-u-web-performance-monitoring
+    * http://www.slideshare.net/siddharth4mba/composition-performance-analysis-and-simulation-of-web-services-973897
+    * http://www.slideshare.net/watchingwebsites/complete-web-monitoring-web-performance-at-emetrics http://www.slideshare.net/MeasureWorks/who-cares-about-web-performance-event-sean-power-and-alistair-croll
+    * http://www.slideshare.net/Gomez_Inc/best-practices-to-fix-5-common-web-application-problems-gomez
 
   * Metrics 
     * Software Metrics
