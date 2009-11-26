@@ -106,7 +106,7 @@ CREATE SEQUENCE am_mty_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 CREATE TABLE am_instance (
   am_ins_id NUMBER(10) NOT NULL,
   am_arf_id NUMBER(10) NOT NULL,
-  instancename VARCHAR(200) NOT NULL,
+  instancename VARCHAR(1000) NOT NULL,
   instancecode VARCHAR(10), -- NOT NULL,
   url VARCHAR(100),
   CONSTRAINT am_ins_pk PRIMARY KEY (am_ins_id) USING INDEX,
@@ -181,7 +181,7 @@ CREATE TABLE am_raw_metric (
   artifactcode   VARCHAR2(100) NOT NULL,
   hostname       VARCHAR2(100) NOT NULL,
   hostip         VARCHAR2(100) NOT NULL,
-  instancename   VARCHAR2(200) NOT NULL,
+  instancename   VARCHAR2(1000) NOT NULL,
   metricvalue    NUMBER(13,3),
   metrictypecode VARCHAR2(100),
   resourcename   VARCHAR2(1000),
@@ -281,7 +281,7 @@ SELECT ama.am_arf_id, ama.artifactname, ama.artifactcode,
        amr.am_rsc_id, amr.resourcename, amr.resourcecode,
        ams.am_src_id, ams.sourcename, ams.sourcecode,
        amm.metricvalue, amm.ts, amm.loadts,
-       amc.year, amc.month, amc.day, amc.week_day, amc.year_day, amc.quarter, amc.week_of_year, amti.hour, amti.minute
+       amc.caldate, amc.year, amc.month, amc.day, amc.week_day, amc.year_day, amc.quarter, amc.week_of_year, amti.hour, amti.minute
 FROM  am_metricsdata amm, 
       am_metrictype amt, am_instance ami, am_host amh, am_resource amr, am_source ams, 
       am_artifact ama,

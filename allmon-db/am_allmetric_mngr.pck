@@ -163,6 +163,7 @@ CREATE OR REPLACE PACKAGE BODY am_allmetric_mngr IS
         LEFT OUTER JOIN am_source asr ON (arm.sourcename = asr.sourcename)
         INNER JOIN am_metrictype amt ON (arm.metrictypecode = amt.metriccode)
         WHERE asr.am_src_id IS NULL
+        AND   asr.sourcename IS NOT NULL -- source field is required 
         --WHERE rm.ts BETWEEN p_i_datetime_start AND p_i_datetime_end
       );
   END;
@@ -178,7 +179,7 @@ CREATE OR REPLACE PACKAGE BODY am_allmetric_mngr IS
       INNER JOIN am_artifact aa ON (arm.artifactcode = aa.artifactcode) -- redundant join (additional check)
       INNER JOIN am_host ah ON (arm.hostname = ah.hostname)
       INNER JOIN am_resource ar ON (arm.resourcename = ar.resourcename)
-      INNER JOIN am_source asr ON (arm.sourcename = asr.sourcename)
+      LEFT OUTER JOIN am_source asr ON (arm.sourcename = asr.sourcename)
       INNER JOIN am_metrictype amt ON (arm.metrictypecode = amt.metriccode) -- redundant join (additional check)
       INNER JOIN am_calendar cal ON (trunc(arm.ts) = cal.caldate)
       INNER JOIN am_time tm ON (to_char(arm.ts, 'HH24:MI') = to_char(tm.t, 'HH24:MI')) -- TODO review the join in case of performance
