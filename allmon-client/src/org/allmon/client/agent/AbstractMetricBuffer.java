@@ -27,6 +27,7 @@ public abstract class AbstractMetricBuffer<M> {
      * Constructor starts the buffer process.
      */
     public AbstractMetricBuffer() {
+        //bufferingThread.setDaemon(true);
         bufferingThread.start();
     }   
     
