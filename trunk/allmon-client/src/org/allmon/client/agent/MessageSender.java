@@ -16,6 +16,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * This class is responsible for sending serializable data 
+ * to client-side JMS broker.
  * 
  */
 class MessageSender {
