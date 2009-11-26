@@ -64,6 +64,8 @@ Provides:
     * "aberrant behavior detection"
   * Simple statistics
     * Up time (in log) 
+  * Analysis in frequency domain (after Fourier transform)
+    * http://en.wikipedia.org/wiki/Frequency_domain
   * ...
 
 == Data mining ==
