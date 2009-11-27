@@ -14,10 +14,13 @@ import sun.net.www.protocol.http.HttpURLConnection;
 public class HttpUrlCallAgent extends UrlCallAgent {
 
 	private static final Log logger = LogFactory.getLog(HttpUrlCallAgent.class);
-    	
+    
     private String requestMethod = "POST";
     private String contentType = "text/html"; //"application/json; charset=utf-8";
     private String urlParameters = "";
+    
+    protected long stratTime = 0;
+    protected long responseTime = 0;
     
     private HttpUrlCallAgentAbstractStrategy strategy = new HttpUrlCallAgentBooleanStrategy(); // default strategy
     
@@ -41,6 +44,8 @@ public class HttpUrlCallAgent extends UrlCallAgent {
         MetricMessageWrapper messageWrapper = null;
         HttpURLConnection connection = null;
         try {
+            stratTime = System.currentTimeMillis();
+            
             connection = (HttpURLConnection)makeConnection();
             
             connection.setRequestMethod(requestMethod);
@@ -73,6 +78,8 @@ public class HttpUrlCallAgent extends UrlCallAgent {
             //Get Response    
             //DataInputStream dis = new DataInputStream(connection.getInputStream());
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                        
+            responseTime = System.currentTimeMillis() - stratTime;
             
             // process the response depending on used strategy
             try {
