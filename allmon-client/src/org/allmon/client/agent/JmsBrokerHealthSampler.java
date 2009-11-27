@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.AllmonPropertiesReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,9 +33,10 @@ public class JmsBrokerHealthSampler {
 	//private static final String shellCommand = "netstat -an|find \"61616\""; // problems with running the command
 	private static final String matchString = "TCP.*:61616"; // "61616.*LISTENING";
 	
+	private static final long heartBeatRate = AllmonCommonConstants.ALLMON_CLIENT_BROKER_HEALTH_SAMPLER_HEARTBEATRATE;
+    
 	private Thread checkerProcess;
 	private boolean poisonPill = false;
-    private static final long heartBeatRate = 30000; //30sec
 	
 	private boolean brokerUp = false;
 	private long lastCheckTime;

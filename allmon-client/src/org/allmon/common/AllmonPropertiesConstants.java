@@ -26,6 +26,8 @@ public class AllmonPropertiesConstants {
     
     public static final String ALLMON_CLIENT_AGGREGATOR_BATCHSIZE = "allmon.client.aggregator.batchsize";
     public static final String ALLMON_CLIENT_AGGREGATOR_BATCHTIMEOUT = "allmon.client.aggregator.batchtimeout";
+
+    public static final String ALLMON_CLIENT_BROKER_HEALTH_SAMPLER_HEARTBEATRATE = "allmon.client.broker-health-sampler.heartbeatrate";
     
     // allmon server only properties
     public static final String ALLMON_SERVER_LOADER_ALLMETRIC_SCHEDULER_CRON = "allmon.server.loader.allmetric.scheduler.cron";
