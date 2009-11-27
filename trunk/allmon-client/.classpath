@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.5.0_12-jre"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/acivemq-5.2.0/activemq-camel-5.2.0.jar"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/acivemq-5.2.0/activemq-core-5.2.0.jar"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/acivemq-5.2.0/geronimo-j2ee-management_1.0_spec-1.0.jar"/>
@@ -32,7 +32,7 @@
 	<classpathentry kind="lib" path="/allmon-lib/lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/cron4j-2.1.1.jar"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/SNMP4J.jar"/>
-	<classpathentry kind="lib" path="/allmon-lib/lib/jdk1.6/jconsole.jar"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/jdk1.6/tools.jar"/>
+	<classpathentry kind="lib" path="/allmon-lib/lib/jdk1.6/jconsole.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
