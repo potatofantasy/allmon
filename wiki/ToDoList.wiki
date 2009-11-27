@@ -21,7 +21,7 @@
 
   * (M) (o) (code) Research option of persisting not sent yet messages by local agent metric buffer, when client side broker is not available. At this stage allmon is not storing acquired metrics in this case at all, due to maxim “primum non nocere” – first, do not harm.
 
-  * (M) (o) (code) Create parameter which is responsible for client side heartbeat check of broker instance. Now this value is hardcoded.
+  * (M) (x) (code) Create parameter which is responsible for client side heartbeat check of broker instance. Now this value is hard-coded.
 
   * (M) (x/o) (design) Design generic agent API and sender which can be used for various metrics collection purposes (passive: systems usage monitoring; active: health checks, heartbeats, metrics sampling, etc.)
     * (M) (x/o) (code) To increase performance of acquiring metrics process review possibility of collecting and caching metrics before sending them to agent (to the first 'for aggregating' queue).
