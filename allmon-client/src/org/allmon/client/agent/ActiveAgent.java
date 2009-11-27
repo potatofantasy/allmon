@@ -5,6 +5,8 @@ package org.allmon.client.agent;
 
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageWrapper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Active agents are used in active monitoring, where metric 
@@ -23,7 +25,7 @@ import org.allmon.common.MetricMessageWrapper;
  */
 abstract class ActiveAgent extends Agent implements AgentTaskable {
 
-    //private final ActiveAgentMetricBuffer metricBuffer = new ActiveAgentMetricBuffer();
+    private static final Log logger = LogFactory.getLog(ActiveAgent.class);
     
     ActiveAgent(AgentContext agentContext) {
 		super(agentContext);
@@ -60,6 +62,9 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
     }
     
     private void sendMessage(MetricMessageWrapper metricMessageWrapper) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Sending acquired metrics: " + metricMessageWrapper.toString());
+        }
         // TODO review creating different explicitly specified MetricMessageSender
         for (int i = 0; i < metricMessageWrapper.size(); i++) {
             MetricMessage metricMessage = metricMessageWrapper.get(i);
