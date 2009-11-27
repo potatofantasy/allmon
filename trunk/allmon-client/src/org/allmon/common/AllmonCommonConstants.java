@@ -38,9 +38,11 @@ public class AllmonCommonConstants {
     public final static String ALLMON_SERVER_CAMEL_QUEUE_READYFORLOADING = ALLMON_CAMEL_JMSQUEUE + ":queue:" + SERVER_BROKER_QUEUE_SUBJECT_READYFORLOADING;
     
     // for aggregator
-    public final static int ALLMON_CLIENT_AGGREGATOR_BATCHSIZE = AllmonPropertiesReader.getInstance().getValueInt(AllmonPropertiesConstants.ALLMON_CLIENT_AGGREGATOR_BATCHSIZE, 10);
+    public final static int ALLMON_CLIENT_AGGREGATOR_BATCHSIZE = AllmonPropertiesReader.getInstance().getValueInt(AllmonPropertiesConstants.ALLMON_CLIENT_AGGREGATOR_BATCHSIZE, 100);
     public final static long ALLMON_CLIENT_AGGREGATOR_BATCHTIMEOUT = AllmonPropertiesReader.getInstance().getValueInt(AllmonPropertiesConstants.ALLMON_CLIENT_AGGREGATOR_BATCHTIMEOUT, 10 * 1000);
     
+    // for local agents
+    public final static long ALLMON_CLIENT_BROKER_HEALTH_SAMPLER_HEARTBEATRATE = AllmonPropertiesReader.getInstance().getValueInt(AllmonPropertiesConstants.ALLMON_CLIENT_BROKER_HEALTH_SAMPLER_HEARTBEATRATE, 30 * 1000);
     
     // for allmon-server loader - TODO review moving those constants to separate class visible only for allmon-server 
     // all values must be in sync with values defined in allmon database in static dimensions
