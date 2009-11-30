@@ -7,6 +7,12 @@ import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * This class is a very simple generic load test case.
+ * 
+ * @param <InitParam>
+ * @param <PreCallParam>
+ */
 public abstract class AbstractLoadTest<InitParam, PreCallParam> extends TestCase {
 
     private static final Log logger = LogFactory.getLog(AbstractLoadTest.class);
@@ -50,6 +56,12 @@ public abstract class AbstractLoadTest<InitParam, PreCallParam> extends TestCase
             final long maxSleepBetweenPreAndPostCall, final long subsequentCallsInThread, 
             long sleepAfterTest) throws InterruptedException {
         logger.debug("runLoadTest - start");
+        
+        logger.info("load test will execute " + threadCount * subsequentCallsInThread + " calls in " + threadCount + " independent threads");
+        logger.info("calls per thread: " + subsequentCallsInThread);
+        logger.info("rump up period is (all thread should run in): " + startingTimeMills + "ms");
+        logger.info("active part of load test should take: " + (maxSleepBetweenPreAndPostCall / 2 * subsequentCallsInThread / 1000) + "sec");
+        logger.info("whole load test should take: " + ((sleepAfterTest + maxSleepBetweenPreAndPostCall / 2 * subsequentCallsInThread) / 1000) + "sec");
         
         HashMap<Integer, Thread> loadThreadsMap = new HashMap<Integer, Thread>();
         
