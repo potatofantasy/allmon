@@ -7,13 +7,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This agents sends ping messages (signals) only.
+ * This agents sends heart-beat (signals) ping messages only. 
+ * Server is notified that active agents scheduler and allmon client-side 
+ * infrastructure works fine.
+ * 
  */
-public class SonobuoyAgent extends ActiveAgent  {
+public class HeartbeatAgent extends ActiveAgent  {
 
-	private static final Log logger = LogFactory.getLog(SonobuoyAgent.class);
+	private static final Log logger = LogFactory.getLog(HeartbeatAgent.class);
 
-	public SonobuoyAgent(AgentContext agentContext) {
+	public HeartbeatAgent(AgentContext agentContext) {
 		super(agentContext);
 	}
     
