@@ -454,6 +454,9 @@ ALTER INDEX AM_MET_AM_CAL_IDX1 REBUILD UNRECOVERABLE;
 ALTER INDEX AM_MET_AM_TIM_IDX1 REBUILD UNRECOVERABLE;
 ALTER INDEX AM_CAL_PK REBUILD UNRECOVERABLE;
 
+-------------------------------------------------------------------------------------------------------------------------
+-- administration queries - in the future can be a part of allmon aministration console
+
 -- check data allocated segments space
 SELECT us.segment_name, us.segment_type, us.bytes, us.bytes/1024/1024 AS mb, us.blocks, 
        tab.tablespace_name, tab.status, tab.num_rows, am_allmetric_mngr.get_number_of_rows(tab.table_name) AS actual_num_rows, tab.Avg_Row_Len, tab.last_analyzed
@@ -468,3 +471,9 @@ WHERE  (us.segment_name LIKE 'AM_%' OR us.segment_name LIKE 'VMAM_%')
 AND    us.segment_name = tab.table_name(+)
 GROUP BY us.segment_type
 ORDER BY mb DESC, 1;
+
+-- data consistency checks 
+SELECT 'am_metricsdata', COUNT(*) FROM am_metricsdata
+UNION ALL
+SELECT 'vam_metricsdata_cal', COUNT(*) FROM vam_metricsdata_cal;
+
