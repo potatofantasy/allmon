@@ -3,7 +3,6 @@ package org.allmon.client.scheduler;
 import java.lang.instrument.IllegalClassFormatException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 
 import org.allmon.client.agent.AgentContext;
 import org.allmon.client.agent.AgentTaskable;
@@ -30,6 +29,10 @@ public class AgentCallerMain {
     }
 
     private static final Log logger = LogFactory.getLog(AgentCallerMain.class);
+
+    private String className;
+    private int shift = 0;
+    private String [] classParamsString;
     
     public static void main(String[] args) {
         logger.debug(AllmonLoggerConstants.ENTERED);
@@ -39,10 +42,11 @@ public class AgentCallerMain {
 	            // run agent caller in the same thread
                 AgentCallerMain agentCaller = new AgentCallerMain();
                 
-	            String className = args[0]; //ex: "org.allmon.client.agent.MetricCollector";
-	            String [] classParamsString = agentCaller.decodeParameters(args);
+                agentCaller.className = args[0]; //mandatory parameter, ex: "org.allmon.client.agent.MetricCollector"
+	            agentCaller.shift = Integer.parseInt(args[1]); //mandatory parameter, integer value (0 - 3600) shift time in sec
+                agentCaller.setParameters(args);
                 //logger.debug("loading class: " + className + ", for parameters: " + classParamsString);
-                agentCaller.createInstanceAndExecute(className, classParamsString);
+                agentCaller.createInstanceAndExecute();
 	            
                 success = true;
             }
@@ -58,25 +62,31 @@ public class AgentCallerMain {
         logger.debug(AllmonLoggerConstants.EXITED);
     }
     
-    private String[] decodeParameters(String[] args) {
+    private void setParameters(String[] args) {
         logger.debug("param size: " + args.length);
         for (int i = 0; i < args.length; i++) {
             logger.debug("param[" + i + "]: " + args[i]);
         }
         
-        String [] classParamsString = null;
-        if (args.length > 1) {
+        classParamsString = null;
+        if (args.length > 2) {
             //classParamsString = Arrays.copyOfRange(args, 1, args.length); // jdk-1.6
-            classParamsString = new String[args.length - 1];
+            classParamsString = new String[args.length - 2];
             for (int i = 0; i < classParamsString.length; i++) {
-                classParamsString[i] = args[i + 1];
+                classParamsString[i] = args[i + 2];
             }
         }
-        return classParamsString;
     }
     
-    private void createInstanceAndExecute(String className, String [] classParamsString) 
-    throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalClassFormatException {
+    private void createInstanceAndExecute() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalClassFormatException {
+        logger.debug("Preparing for scheduled execution of " + className + ".execute() waiting " + shift + "secs...");
+        // waiting additional shift
+        try {
+            Thread.sleep(shift * 1000);
+        } catch (InterruptedException e) {
+            logger.error(e.getMessage(), e);
+        }
+        
         Class c = Class.forName(className);
         AgentContext agentContext = new AgentContext();
         try {
@@ -85,7 +95,7 @@ public class AgentCallerMain {
             Object agent = constructor.newInstance(agentContext);
             if (agent instanceof AgentTaskable) {
                 AgentTaskable agentTask = (AgentTaskable)agent;
-                executeAgentTaskable(agentTask, classParamsString);
+                executeAgentTaskable(agentTask);
             } else {
                 throw new IllegalClassFormatException("The class (" + c.getCanonicalName() + ") passed as a parameter has to extend " + AgentTaskable.class.getName());
             }
@@ -103,7 +113,7 @@ public class AgentCallerMain {
         }
     }
     
-    private void executeAgentTaskable(AgentTaskable task, String [] classParamsString) {
+    private void executeAgentTaskable(AgentTaskable task) {
         String taskClassName = task.getClass().getCanonicalName();
         if (classParamsString != null) {
             logger.debug("Set parameters for: " + taskClassName);
