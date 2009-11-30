@@ -72,5 +72,28 @@ public class HttpUrlCallAgentTest extends TestCase {
             agentContext.stop();
         }
     }
+    
+    public void testCallActiveMQAdminRsponseTime() throws InterruptedException {
+        AgentContext agentContext = new AgentContext();
+        try {
+            HttpUrlCallAgent agent = new HttpUrlCallAgent(agentContext);
+            agent.setStrategy(new HttpUrlCallAgentBooleanStrategy());
+            agent.setParameters(new String[]{
+                    org.allmon.client.agent.HttpUrlCallAgentFullResponseTimeStrategy.class.getName(),
+                    "http://localhost:8161/admin/",
+                    "Broker",
+                    "text/html",
+                    "-",
+                    "localhost:8161/admin/",
+                    "ActiveMQAdmin-Checker",
+                    "local-activemq-admin-instance",
+                    "false",
+                    "GET"});
+            agent.execute();
+            Thread.sleep(1000);
+        } finally {
+            agentContext.stop();
+        }
+    }
         
 }
