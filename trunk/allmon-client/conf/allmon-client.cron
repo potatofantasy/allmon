@@ -2,9 +2,12 @@
 #the file is re-read every minute
 
 #checks if google, wikipedia works
-#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "0" "org.allmon.client.agent.HttpUrlCallAgent" setStrategy(getParamsString(0)); urlAddress = getParamsString(1); searchPhrase = getParamsString(2); contentType = getParamsString(3); urlParameters = getParamsString(4); checkingHost = getParamsString(5); checkName = getParamsString(6); instanceName = getParamsString(7); useProxy = Boolean.parseBoolean(getParamsString(8)) (true|false); requestMethod = getParamsString(9);
-#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "0" "org.allmon.client.agent.HttpUrlCallAgent" "org.allmon.client.agent.HttpUrlCallAgentBooleanStrategy" "http://www.wikipedia.org" "wikipedia" "text/html" "-" "www.wikipedia.com" "www.wikipedia.com-Checker" "original-wikipedia-instance" "true" "GET"
-#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "0" "org.allmon.client.agent.HttpUrlCallAgent" "org.allmon.client.agent.HttpUrlCallAgentBooleanStrategy" "http://www.google.com" "http" "text/html" "-" "www.google.com" "www.google.com-Checker" "original-google-instance" "true" "GET"
+#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HttpUrlCallAgent" shift setStrategy(getParamsString(0)); urlAddress = getParamsString(1); searchPhrase = getParamsString(2); contentType = getParamsString(3); urlParameters = getParamsString(4); checkingHost = getParamsString(5); checkName = getParamsString(6); instanceName = getParamsString(7); useProxy = Boolean.parseBoolean(getParamsString(8)) (true|false); requestMethod = getParamsString(9);
+#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HttpUrlCallAgent" "0" "org.allmon.client.agent.HttpUrlCallAgentBooleanStrategy" "http://www.wikipedia.org" "wikipedia" "text/html" "-" "www.wikipedia.com" "www.wikipedia.com-Checker" "original-wikipedia-instance" "true" "GET"
+#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HttpUrlCallAgent" "0" "org.allmon.client.agent.HttpUrlCallAgentBooleanStrategy" "http://www.google.com" "http" "text/html" "-" "www.google.com" "www.google.com-Checker" "original-google-instance" "true" "GET"
+
+#checks if localhost active mq works
+* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HttpUrlCallAgent" "0" "org.allmon.client.agent.HttpUrlCallAgentFullResponseTimeStrategy" "http://localhost:8161/admin/" "Broker" "text/html" "" "localhost" "local-broker-check" "local-broker" "false" "POST"
 
 #all local JVM - all JMX metrics
-* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "0" "org.allmon.client.agent.JmxServerAgent" "" ""
+* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.JmxServerAgent" "0" "" ""
