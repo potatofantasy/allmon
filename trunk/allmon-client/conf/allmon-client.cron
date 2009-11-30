@@ -1,6 +1,9 @@
 #scheduling-pattern [options] command [args]
 #the file is re-read every minute
 
+#sends heart beat (ping message) to server - confirms that active agents scheduler and allmon client-side infrastructure works fine
+* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HeartbeatAgent" "0"
+
 #checks if google, wikipedia works
 #* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HttpUrlCallAgent" shift setStrategy(getParamsString(0)); urlAddress = getParamsString(1); searchPhrase = getParamsString(2); contentType = getParamsString(3); urlParameters = getParamsString(4); checkingHost = getParamsString(5); checkName = getParamsString(6); instanceName = getParamsString(7); useProxy = Boolean.parseBoolean(getParamsString(8)) (true|false); requestMethod = getParamsString(9);
 #* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HttpUrlCallAgent" "0" "org.allmon.client.agent.HttpUrlCallAgentBooleanStrategy" "http://www.wikipedia.org" "wikipedia" "text/html" "-" "www.wikipedia.com" "www.wikipedia.com-Checker" "original-wikipedia-instance" "true" "GET"

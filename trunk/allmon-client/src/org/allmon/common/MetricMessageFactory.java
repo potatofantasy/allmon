@@ -99,6 +99,7 @@ public class MetricMessageFactory {
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_JAVACLASS); // TODO change type
         // resource - localhost name
         metricMessage.setResource(HOSTNAME);
+        metricMessage.setMetricValue(1);
         return metricMessage;
     }
     
