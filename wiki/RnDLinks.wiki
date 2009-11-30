@@ -83,6 +83,7 @@
     * IxoraRMS - http://www.ixorarms.com/
     * perf4j - http://perf4j.codehaus.org/ 
       * http://www.slideshare.net/craigsdickson/performance-analysis-and-monitoring-with-perf4j
+    * OpenSMART - http://opensmart.sourceforge.net/ - lots of os/services level checks were implemented http://opensmart.sourceforge.net/docs/documentation/userguide/overview_checks.html
 
   * Similar Not-Open Source Projects
     * Monitoring Application Performance in Sun Java System Application Server 7.x with PerformaSure - http://developers.sun.com/appserver/reference/techart/performasure.html
