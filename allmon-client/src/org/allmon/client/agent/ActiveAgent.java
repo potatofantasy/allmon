@@ -30,7 +30,7 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
     ActiveAgent(AgentContext agentContext) {
 		super(agentContext);
 	}
-
+    
 	private ActiveAgentMetricMessageSender messageSender = new ActiveAgentMetricMessageSender(this);
     
     /**
@@ -102,6 +102,5 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
      * for all AgentTaskable classes
      */
     abstract void decodeAgentTaskableParams() throws Exception;
-    
     
 }

@@ -55,7 +55,8 @@ public class AllmonCommonConstants {
     
     public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_ACTIONSERVLET = "ACTCLS"; //"application.action.servlet"; 
     public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_JAVACLASS = "JAVCLS"; //"application.action.?"; 
-    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_SERVICELEVELCHECK = "APPSLC"; //"application.action.?"; 
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_SERVICELEVELCHECK = "APPSLC"; //"application.slc.?"; 
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_ALLMON_HEARTBEAT = "APPAHB"; //"application.slc.allmon.heartbeat"; 
     
     public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_JVM_JMX = "JVMJMX"; //"java.jmx.?"; 
     

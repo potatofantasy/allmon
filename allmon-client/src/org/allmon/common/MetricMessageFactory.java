@@ -28,6 +28,7 @@ public class MetricMessageFactory {
         }
     }
     
+    // TODO add resource as a mandatory field
     private static final MetricMessage createMessage(String artifact, String metricType) {
         MetricMessage metricMessage = new MetricMessage();
         if (!"".equals(HOSTNAME)) {
@@ -93,25 +94,26 @@ public class MetricMessageFactory {
         return metricMessage;
     }
 
-    public static final MetricMessage createPingMessage() {
+    public static final MetricMessage createPingMessage(String activeAgentName) {
         MetricMessage metricMessage = createMessage(
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
-                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_JAVACLASS); // TODO change type
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_ALLMON_HEARTBEAT);
         // resource - localhost name
-        metricMessage.setResource(HOSTNAME);
+        metricMessage.setResource(activeAgentName);
         metricMessage.setMetricValue(1);
         return metricMessage;
     }
     
-    public static final MetricMessage createPingMessage(String pingedHost, long time) {
+    public static final MetricMessage createPingMessage(String activeAgentName, String pingedHost, long time, Exception exception) {
         MetricMessage metricMessage = createMessage(
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
-                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_JAVACLASS); // TODO change type
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_ALLMON_HEARTBEAT);
         // resource - localhost name
-        metricMessage.setResource(HOSTNAME);
+        metricMessage.setResource(activeAgentName);
         // source - hostname to which was sent ping
         metricMessage.setSource(pingedHost);
         metricMessage.setMetricValue(time);
+        metricMessage.setException(exception);
         return metricMessage;
     }
 
