@@ -33,4 +33,8 @@ abstract class Agent {
         return agentContext.getMetricBuffer();
     }
 	
- }
+    String getAgentContextName() {
+        return agentContext.getName();
+    }
+
+}

@@ -21,7 +21,7 @@ public class HeartbeatAgent extends ActiveAgent  {
 	}
     
     MetricMessageWrapper collectMetrics() {
-        MetricMessage metricMessage = MetricMessageFactory.createPingMessage();
+        MetricMessage metricMessage = MetricMessageFactory.createPingMessage(getAgentContextName());
         return new MetricMessageWrapper(metricMessage);
     }
 

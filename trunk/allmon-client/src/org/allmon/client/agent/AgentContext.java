@@ -60,4 +60,8 @@ public class AgentContext {
         return metricBuffer;
     }
 
+    String getName() {
+        return "AgentContext-" + toString();
+    }
+    
 }
