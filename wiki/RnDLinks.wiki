@@ -58,6 +58,7 @@
     * Open Source implementation of the Java(TM) Management Extensions (JMX) and of the JMX Remote API (JSR 160) specifications - http://mx4j.sourceforge.net/
     * hyperic HQ - http://support.hyperic.com/display/DOC/JMX+Plugin
     * Java theory and practice: Instrumenting applications with JMX (ibm.com) - http://www.ibm.com/developerworks/java/library/j-jtp09196/index.html
+    * JVMTI -  JVMTM Tool Interface Version 1.0 - http://java.sun.com/j2se/1.5.0/docs/guide/jvmti/jvmti.html
 
   * JDMK - The Java Dynamic Management Kit (Java DMK) provides a set of Java classes and tools that allow easy development of secure monitoring and management solutions based on the Java Management Extensions (JMX) specifications and on the SNMP standards
     * http://en.wikipedia.org/wiki/Java_Dynamic_Management_Kit
@@ -158,6 +159,8 @@
   * Performance tuning
     * Java performance tuning - http://www.javaperformancetuning.com/
     * Code ranch performance forum - http://www.coderanch.com/forums/f-15/Performance
+    * Sun - Java performance tuning workshop - http://www.sun.com/training/catalog/courses/EXL-2025.xml
+    * The Box - Kirk Pepperdine - http://www.infoq.com/articles/the-box
 
   * Statistics 
     * Statistical Data and Metadata Exchange - http://sdmx.org/
