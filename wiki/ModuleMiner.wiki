@@ -20,7 +20,8 @@ Provides:
 
 == Aggregates ==
 
-allmon-deployment-diagram-logical-overview-v1.03e.png
+Allmon aggregates processes diagram:
+http://allmon.googlecode.com/svn/wiki/allmon-deployment-diagram-logical-overview-v1.03e.png
 
   * Scalar metrics
     * In-time 
