@@ -20,6 +20,8 @@ Provides:
 
 == Aggregates ==
 
+allmon-deployment-diagram-logical-overview-v1.03e.png
+
   * Scalar metrics
     * In-time 
       * For boolean values - point to point change aggregation (very effective if changes are not often)
