@@ -29,13 +29,17 @@ http://allmon.googlecode.com/svn/wiki/allmon-deployment-diagram-logical-overview
 
 = Deployment and data live-cycle =
 
-Allmon server-side can work with many distributed (remote) [ModuleCollector collectors]. Every instance of Collector can use (configurable) many set up *agents*, providing constant system(s) *active and/or passive monitoring*. Collected data are being *aggregated* and sent to allmon server. On server side *metric receiver* instance is listening for coming metrics and persists them to the database in raw form (1NF). The raw metrics are being transformed and loaded to allmetric schema by *loader*. Stored metrics can be taken by [ModuleMiner Miner] and [ModuleViewer Viewer] for further performance and availability analysis.
+Allmon server-side can work with many distributed (remote) [ModuleCollector collectors]. Every instance of Collector can use (configurable) many set up *agents*, providing constant system(s) *active and/or passive monitoring*. Collected data are being *aggregated* and sent to allmon server. On server side *metric receiver* instance is listening for coming metrics and persists them to the database in raw form (1NF). The raw metrics are being transformed and loaded to allmetric schema by *loader* process. 
 
 _For more detailed description search allmon wiki._
 
 Allmon deployment diagram:
 http://allmon.googlecode.com/svn/wiki/allmon-deployment-diagram-logical-overview-v1.03b.png
 
+Stored metrics can be taken by [ModuleMiner Miner] and [ModuleViewer Viewer] for further performance and availability analysis.
+
+Allmon aggregates processes diagram:
+http://allmon.googlecode.com/svn/wiki/allmon-deployment-diagram-logical-overview-v1.03e.png
 
 = Research =
 
