@@ -10,7 +10,7 @@
 #* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HttpUrlCallAgent" "0" "org.allmon.client.agent.HttpUrlCallAgentBooleanStrategy" "http://www.google.com" "http" "text/html" "-" "www.google.com" "www.google.com-Checker" "original-google-instance" "true" "GET"
 
 #checks if localhost active mq works
-* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HttpUrlCallAgent" "0" "org.allmon.client.agent.HttpUrlCallAgentFullResponseTimeStrategy" "http://localhost:8161/admin/" "Broker" "text/html" "" "localhost" "local-broker-check" "local-broker" "false" "POST"
+#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HttpUrlCallAgent" "0" "org.allmon.client.agent.HttpUrlCallAgentFullResponseTimeStrategy" "http://localhost:8161/admin/" "Broker" "text/html" "-" "localhost" "local-broker-check" "local-broker" "false" "POST"
 
 #all local JVM - all JMX metrics
-* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.JmxServerAgent" "0" "" ""
+#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.JmxServerAgent" "0" "" ""
