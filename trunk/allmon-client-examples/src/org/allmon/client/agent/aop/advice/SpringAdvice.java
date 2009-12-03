@@ -1,6 +1,6 @@
-package org.allmon.client.agent.aop;
+package org.allmon.client.agent.aop.advice;
 
-public class Advisor {
+public class SpringAdvice {
 
     public void logBeforeMethodCall() {
         // TODO: Code to collect Metrics

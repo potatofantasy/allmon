@@ -1,4 +1,6 @@
-package org.allmon.client.agent.aop;
+package org.allmon.client.agent.aop.services;
+
+import java.util.ArrayList;
 
 public class SpringHelloWorld implements HelloWorldInterface {
     private String message;
@@ -12,7 +14,13 @@ public class SpringHelloWorld implements HelloWorldInterface {
     }
 
     public void printMessage() {
-        System.out.println(message);
+    	ArrayList<String> arrayList = new ArrayList<String>();
+    	
+    	for(int i=0; i< 100; i++)
+    	{
+    		arrayList.add(new String("" + i));
+    	}
+    	System.out.println(message);
     }
 
 }
