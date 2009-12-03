@@ -1,0 +1,1 @@
+-- allmon allmetric schema (by Tomasz Sikora)

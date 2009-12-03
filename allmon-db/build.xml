@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="allmon-db" default="run" basedir=".">
+
+	<property environment="system" />
+	<property file="build.properties" />
+	<property name="build.no" value="00000" />
+
+	<property name="local.dist.dir" value="./" />
+	<property name="global.dist.dir" value="../allmon-dist/" />
+
+	<property name="local.dist.dir.oracle" value="${local.dist.dir}/oracle/" />
+	<property name="local.dist.dir.psql" value="${local.dist.dir}/psql/" />
+
+	<target name="run" description="run">
+
+		<echo message="Cleaning distribution directory..." />
+		<delete dir="${global.dist.dir}/allmon-db/" />
+
+		<echo message="Coping allmon database creation scripts for oracle..." />
+		<copy todir="${global.dist.dir}/allmon-db/oracle/">
+			<fileset file="${local.dist.dir.oracle}/create-allmon-schema.bat" />
+			<fileset file="${local.dist.dir.oracle}/create-allmon-schema.sql" />
+			<fileset file="${local.dist.dir.oracle}/create-allmon-schema-allmetric--oracle.sql" />
+			<fileset file="${local.dist.dir.oracle}/am_allmetric_mngr.pck" />
+		</copy>
+
+		<echo message="Coping allmon database creation scripts for postgresql..." />
+		<copy todir="${global.dist.dir}/allmon-db/psql/">
+			<fileset file="${local.dist.dir.psql}/create-allmon-schema.bat" />
+			<fileset file="${local.dist.dir.psql}/create-allmon-schema.sql" />
+			<fileset file="${local.dist.dir.psql}/create-allmon-schema-allmetric--psql.sql" />
+			<fileset file="${local.dist.dir.psql}/am_allmetric_mngr.pck" />
+		</copy>
+
+	</target>
+
+</project>
