@@ -115,6 +115,7 @@ public class AgentCallerMain {
     
     private void executeAgentTaskable(AgentTaskable task) {
         String taskClassName = task.getClass().getCanonicalName();
+        task.setAgentSchedulerName(AgentSchedulerMain.NAME);
         if (classParamsString != null) {
             logger.debug("Set parameters for: " + taskClassName);
             task.setParameters(classParamsString);
@@ -123,5 +124,5 @@ public class AgentCallerMain {
         task.execute();
         logger.debug("Execution : " + taskClassName + ".execute() finished");
     }
-    
+        
 }

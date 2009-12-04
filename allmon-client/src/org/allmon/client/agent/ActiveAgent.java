@@ -103,4 +103,15 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
      */
     abstract void decodeAgentTaskableParams() throws Exception;
     
+    
+    private String agentSchedulerName;
+    
+    public final void setAgentSchedulerName(String agentSchedulerName) {
+        this.agentSchedulerName = agentSchedulerName;
+    }
+    
+    public final String getAgentSchedulerName() {
+        return agentSchedulerName;
+    }
+        
 }
