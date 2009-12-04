@@ -14,7 +14,7 @@ We have two answers:
 Example of stored metrics data in denormalized fashion (1NF).
 
 || (meta-data) || || || (meta-data) || (dynamic-dim) || (dynamic-dim) || || || ||
-|| *Artifact* || *Host* (AgentHost) || *Instance* || *Metric Type* || *Resource* || *Source* || *Metric* || *Time Stamp* || *Time* ||
+|| *Artifact* || *Host* (AgentHost) || *Instance* || *Metric Type* || *Resource* || *Source* || *Metric Value* || *Time Stamp* || *Time* ||
 || OS || Host1 || - || CPU || CPUn || - || NV || TS || T ||
 || OS || Host1 || - || Mem || Usr || - || NV || TS || T ||
 || OS || Host1 || - || Mem || Sys || - || NV || TS || T ||
@@ -40,7 +40,7 @@ Example of stored metrics data in denormalized fashion (1NF).
 || JVM || Host1 || JVMInst1 || Threads || - || - || NV || TS || T ||
 || DB || Host1 || DBInst1 || Sessions || - || - || NV || TS || T ||
 || HW || Machine1 || - || Temp || CPUTemp1 || - || NV || TS || T ||
-
+|| HW || SwitchIP1 || - || Bandwidth || -|| - || kBit || TS || T ||
 
 Fields Description;
 
