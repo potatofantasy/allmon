@@ -7,4 +7,7 @@ public interface AgentTaskable {
     
     public void setParameters(String[] paramsString);
     
+    public void setAgentSchedulerName(String agentSchedulerName);
+    public String getAgentSchedulerName();
+    
 }
