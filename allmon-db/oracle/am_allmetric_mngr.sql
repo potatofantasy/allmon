@@ -163,7 +163,7 @@ CREATE OR REPLACE PACKAGE BODY am_allmetric_mngr IS
         LEFT OUTER JOIN am_source asr ON (arm.sourcename = asr.sourcename)
         INNER JOIN am_metrictype amt ON (arm.metrictypecode = amt.metriccode)
         WHERE asr.am_src_id IS NULL
-        --AND   asr.sourcename IS NOT NULL -- source field is required 
+        AND   asr.sourcename IS NOT NULL -- source field is required 
         --WHERE rm.ts BETWEEN p_i_datetime_start AND p_i_datetime_end
       );
   END;
