@@ -60,7 +60,7 @@ DROP SEQUENCE am_ins_seq;
 DROP SEQUENCE am_met_seq;
 DROP SEQUENCE am_rsc_seq;
 DROP SEQUENCE am_src_seq;
-
+drop sequence am_rme_seq;
 -- drop fact table
 DROP TABLE am_metricsdata;
 
@@ -220,6 +220,7 @@ CREATE TABLE am_metricsdata (
   CONSTRAINT am_met_am_tim_fk1 FOREIGN KEY (am_tim_id) REFERENCES am_time(am_tim_id)
   --CONSTRAINT am_met_am_rme_fk1 FOREIGN KEY (am_rme_id) REFERENCES am_raw_metric(am_rme_id)
 );
+
 CREATE SEQUENCE am_met_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1 CACHE 100;
 --CREATE INDEX am_met_am_mty_idx1 ON am_metricsdata(am_mty_id);
 CREATE INDEX am_met_am_ins_idx1 ON am_metricsdata(am_ins_id);
@@ -383,7 +384,7 @@ COMMIT;
 
 -- java metrics
 INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, phrase) VALUES (am_mty_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'JVM'), 'Java JMX', 'JVMJMX', '', 'Java JMX Attributes');
-
+commit;
 
 --example of dynamic dimensions data
 --INSERT INTO am_instance(am_ins_id, am_arf_id, instancename, instancecode) VALUES(am_ins_seq.NEXTVAL, (SELECT aa.am_arf_id FROM am_artifact aa WHERE aa.artifactcode = 'APP'), 'Petstore', 'PETSTR'); 
@@ -395,7 +396,7 @@ INSERT INTO am_metrictype (am_mty_id, am_arf_id, metricname, metriccode, unit, p
 
 -------------------------------------------------------------------------------------------------------------------------
 -- check data
-
+/*
 SELECT COUNT(*) FROM am_calendar;
 SELECT COUNT(*) FROM am_time;
 SELECT COUNT(*) FROM am_artifact;
@@ -424,7 +425,7 @@ SELECT vmc.artifactname, vmc.metricname, vmc.unit, vmc.hour, COUNT(*), AVG(vmc.m
 FROM vam_metricsdata_cal vmc
 GROUP BY vmc.artifactname, vmc.metricname, vmc.unit, vmc.hour
 ORDER BY 1, 2, 3, 4;
-
+*/
 -------------------------------------------------------------------------------------------------------------------------
 -- rebuild indexes - advisable after heavy loading
 
@@ -459,6 +460,7 @@ ALTER INDEX AM_CAL_PK REBUILD UNRECOVERABLE;
 -- administration queries - in the future can be a part of allmon aministration console
 
 -- check data allocated segments space
+/*
 SELECT us.segment_name, us.segment_type, us.bytes, us.bytes/1024/1024 AS mb, us.blocks, 
        tab.tablespace_name, tab.status, tab.num_rows, am_allmetric_mngr.get_number_of_rows(tab.table_name) AS actual_num_rows, tab.Avg_Row_Len, tab.last_analyzed
 FROM   user_segments us, user_tables tab --, user_indexes ind
@@ -477,4 +479,4 @@ ORDER BY mb DESC, 1;
 SELECT 'am_metricsdata', COUNT(*) FROM am_metricsdata
 UNION ALL
 SELECT 'vam_metricsdata_cal', COUNT(*) FROM vam_metricsdata_cal;
-
+*/
