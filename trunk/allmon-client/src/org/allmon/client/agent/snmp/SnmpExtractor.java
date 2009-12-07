@@ -8,24 +8,24 @@ import org.snmp4j.event.ResponseEvent;
 import org.snmp4j.smi.VariableBinding;
 import org.snmp4j.util.TableEvent;
 
-public class SNMPExtractor {
+public class SnmpExtractor {
 
-	public SNMPResponse getResponse(ResponseEvent response) {
+	public SnmpResponse getResponse(ResponseEvent response) {
 		PDU responsePDU = null;
-		SNMPResponse snmpResponse = null;
+		SnmpResponse snmpResponse = null;
 		if (response != null) {
 			responsePDU = response.getResponse();
 		}
 
 		if (responsePDU == null) {
 			// request timed out
-			snmpResponse = new SNMPResponse();
+			snmpResponse = new SnmpResponse();
 			snmpResponse.setError("Time out");
 		}
 		else {
 			if(responsePDU.getErrorStatus() != 0)
 			{
-				snmpResponse = new SNMPResponse();
+				snmpResponse = new SnmpResponse();
 				snmpResponse.setError("SNMP4j error code: " + responsePDU.getErrorStatus());
 			}
 			else
@@ -39,16 +39,21 @@ public class SNMPExtractor {
 		}
 		return snmpResponse;
 	}
-
-	public List<SNMPResponseRow> getResponseTable(List<TableEvent> listOfTableEvents) {
-		List<SNMPResponseRow> responseTable = new ArrayList<SNMPResponseRow>();
+	
+	/**
+	 * 
+	 * @param listOfTableEvents
+	 * @return
+	 */
+	public List<SnmpResponseRow> getResponseTable(List<TableEvent> listOfTableEvents) {
+		List<SnmpResponseRow> responseTable = new ArrayList<SnmpResponseRow>();
 		if (listOfTableEvents != null) {
 			// each instance represents successfully retrieved row or an error condition
 			for (TableEvent tableEvent : listOfTableEvents) {
 				if(tableEvent.getStatus() != 0)
 				{
 					// error for the row
-					SNMPResponseRow snmpResponseRow = new SNMPResponseRow();
+					SnmpResponseRow snmpResponseRow = new SnmpResponseRow();
 					snmpResponseRow.setError("Error for the row: " + tableEvent.getErrorMessage());
 					responseTable.add(snmpResponseRow);
 				}
@@ -57,10 +62,10 @@ public class SNMPExtractor {
 					// row OK					
 					VariableBinding[] vbColumns = tableEvent.getColumns();
 					// output row
-					SNMPResponseRow snmpResponseRow = new SNMPResponseRow();
+					SnmpResponseRow snmpResponseRow = new SnmpResponseRow();
 					responseTable.add(snmpResponseRow);
 					// list of columns in the row
-					List<SNMPResponse> rowList = new ArrayList<SNMPResponse>();
+					List<SnmpResponse> rowList = new ArrayList<SnmpResponse>();
 					snmpResponseRow.setRow(rowList);
 					for (int i = 0; i < vbColumns.length; i++) {
 						rowList.add(extractData(vbColumns[i].toString()));
@@ -70,9 +75,41 @@ public class SNMPExtractor {
 		}	
 		return responseTable;
 	}
+	
+	/**
+	 * Extracts 1st column from the response as SNMPResponseRow
+	 * @param listOfTableEvents
+	 * @return
+	 */
+	public SnmpResponseRow getResponseColumn(List<TableEvent> listOfTableEvents) {
+		SnmpResponseRow responseRow = new SnmpResponseRow();
+		List<SnmpResponse> colList = new ArrayList<SnmpResponse>();
+		responseRow.setRow(colList);
+		if (listOfTableEvents != null) {
+			// each instance represents successfully retrieved row or an error condition
+			for (TableEvent tableEvent : listOfTableEvents) {
+				if(tableEvent.getStatus() != 0)
+				{
+					// error for the row
+					SnmpResponse snmpResponse = new SnmpResponse();
+					snmpResponse.setError("Error for the row: " + tableEvent.getErrorMessage());
+					colList.add(snmpResponse);
+				}
+				else
+				{
+					// row OK					
+					VariableBinding[] vbColumns = tableEvent.getColumns();
+					// add 1st column only
+					colList.add(extractData(vbColumns[0].toString()));
+					// list of columns in the row
+				}
+			}
+		}	
+		return responseRow;
+	}	
 
-	protected SNMPResponse extractData(String responseStr) {
-		SNMPResponse response = new SNMPResponse();
+	protected SnmpResponse extractData(String responseStr) {
+		SnmpResponse response = new SnmpResponse();
 		if (responseStr.contains("=")) {
 			int equalIndex = responseStr.indexOf("=");
 			response.setValue(responseStr.substring(equalIndex + 2));

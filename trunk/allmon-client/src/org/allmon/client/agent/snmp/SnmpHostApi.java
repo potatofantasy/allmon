@@ -3,9 +3,9 @@ package org.allmon.client.agent.snmp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SNMPHostAPI {
-	private SNMPSettings settings;
-	public SNMPHostAPI(SNMPSettings settings) {
+public class SnmpHostApi {
+	private SnmpSettings settings;
+	public SnmpHostApi(SnmpSettings settings) {
 		this.settings = settings;
 	}	
 	
@@ -14,15 +14,15 @@ public class SNMPHostAPI {
 	 * @return cpu load in [%] for each processor 
 	 */
 	public List<Integer> getCPULoad() {
-        SNMPResponder res = new SNMPResponder(settings);	
+        SnmpResponder res = new SnmpResponder(settings);	
         String[] columns = new String[1];
-        columns[0] = HostResourcesMIB.HR_PROCESSOR_LOAD_OID;
-        List<SNMPResponseRow> rows = res.getTable(columns);
+        columns[0] = HostResourcesMib.HR_PROCESSOR_LOAD_OID;
+        List<SnmpResponseRow> rows = res.getTable(columns);
         
         List<Integer> cpuLoad= new ArrayList<Integer>();
-        for (SNMPResponseRow snmpResponseRow : rows) {
-        	List<SNMPResponse> rowList = snmpResponseRow.getRow();
-        	for (SNMPResponse snmpResponse : rowList) {
+        for (SnmpResponseRow snmpResponseRow : rows) {
+        	List<SnmpResponse> rowList = snmpResponseRow.getRow();
+        	for (SnmpResponse snmpResponse : rowList) {
         		cpuLoad.add(new Integer(snmpResponse.getValue()));
 			}
 		}

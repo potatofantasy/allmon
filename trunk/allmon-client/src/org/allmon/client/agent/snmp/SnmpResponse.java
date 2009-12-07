@@ -1,6 +1,6 @@
 package org.allmon.client.agent.snmp;
 
-public class SNMPResponse {
+public class SnmpResponse {
 	private String value;
 	private String oid;
 	private String error;
