@@ -188,6 +188,7 @@
       * http://en.wikipedia.org/wiki/Software_metric
       * http://www.cs.ucl.ac.uk/staff/A.Finkelstein/advmsc/11.pdf
       * http://books.google.co.uk/books?id=9dNw2_RYNLYC&printsec=frontcover#v=onepage&q=&f=false
+      * web analytics maturity model - http://www.slideshare.net/shamel67/web-analytics-maturity-model?src=related_normal&rel=294971
 
   * Open Source Projects Management
     * Producing  Open Source Software - How to Run a Successful Free Software Project by Karl Fogel - http://producingoss.com/
