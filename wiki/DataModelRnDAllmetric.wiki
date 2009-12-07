@@ -14,28 +14,28 @@ We have two answers:
 Example of stored metrics data in denormalized fashion (1NF).
 
 || (static meta-data) || (dynamic-dim)  || (dynamic-dim)  || (static meta-data) || (dynamic-dim) || (dynamic-dim) || (values) || || ||
-|| *Artifact* || *Host* (AgentHost) || *Instance* || *Metric Type* || *Resource* || *Source* || *Metric Values* || *Time Stamp* || *Time* ||
-|| OS || Host1 || - || CPU || CPUn || - || NV || TS || T ||
-|| OS || Host1 || - || Mem || Usr || - || NV || TS || T ||
-|| OS || Host1 || - || Mem || Sys || - || NV || TS || T ||
+|| *Artifact* || *Host* (AgentHost) || *Instance* || *Metric Type* || *Resource* || *Source* || *Metric Values* || *Time Stamp* || *Comment* ||
+|| OS || Host1 || - || CPU || CPUn || - || NV || TS ||  ||
+|| OS || Host1 || - || Mem || Usr || - || NV || TS ||  ||
+|| OS || Host1 || - || Mem || Sys || - || NV || TS ||  ||
 || OS || Host1 || ProcessName1 || Process || Allocated Memory || - || NV || TS || Review ??? ||
 || OS || Host1 || - || Average disk reads in time || Disc1 || - || NV || TS || Review ??? ||
-|| OS || Host1 || - || IO || - || ? || NV || TS || T ||
-|| OS || Host1 || - || Page || - || - || NV || TS || T ||
-|| OS || Host1 || - || Net || - || ? || NV || TS || T ||
-|| AppMet || Host1 || AppInst1 || Action/Servlet || ActionClass1 || User || ExecTime || TS || T ||
-|| AppMet || Host1 || AppInst1 || POJO || Class1.method || Class.method || ExecTime || TS || T ||
-|| AppMet || Host1 || AppInst1 || EJB || EJB1.method || ? || ExecTime || TS || T ||
-|| AppMet || Host1 || AppInst1 || MDBExec || MDB1 || ? || ExecTime || TS || T ||
-|| AppMet || Host1 || AppInst1 || MDBWait || MDB1 || ? || ExecTime || TS || T ||
-|| AppMet || ClientHost1 || AppInst1 || ClientSideRender || JSP1 || ? || ExecTime || TS || T ||
-|| AppMet || ClientHost1 || AppInst1 || ClientSideReqWait || JSP1 || ? || ExecTime || TS || T ||
-|| AppMet || ClientHost1 || AppInst1 || ClientSideRespWait || JSP1 || ? || ExecTime || TS || T ||
-|| AppMet || AgentHost1 || AppInst1 || HTTPServiceHealthCheck || CheckName1 || CheckedHost || Up/Down (Boolean) || TS || T ||
-|| AppMet || AgentHost1 || AppInst1 || HTTPServiceHealthCheck || CheckName2 || CheckedHost || ExecTime || TS || T ||
-|| Rep || Host1 || RepServ1 || QueueLength || Rep1 || ? || NV || TS || T ||
-|| Rep || Host1 || RepServ1 || RepExec || Rep1 || ? || ExecTime || TS || T ||
-|| Rep || Host1 || RepServ1 || RepWait || Rep1 || ? || ExecTime || TS || T ||
+|| OS || Host1 || - || IO || - || ? || NV || TS ||  ||
+|| OS || Host1 || - || Page || - || - || NV || TS ||  ||
+|| OS || Host1 || - || Net || - || ? || NV || TS ||  ||
+|| AppMet || Host1 || AppInst1 || Action/Servlet || ActionClass1 || User || ExecTime || TS ||  ||
+|| AppMet || Host1 || AppInst1 || POJO || Class1.method || Class.method || ExecTime || TS ||  ||
+|| AppMet || Host1 || AppInst1 || EJB || EJB1.method || ? || ExecTime || TS ||  ||
+|| AppMet || Host1 || AppInst1 || MDBExec || MDB1 || ? || ExecTime || TS ||  ||
+|| AppMet || Host1 || AppInst1 || MDBWait || MDB1 || ? || ExecTime || TS ||  ||
+|| AppMet || ClientHost1 || AppInst1 || ClientSideRender || JSP1 || ? || ExecTime || TS ||  ||
+|| AppMet || ClientHost1 || AppInst1 || ClientSideReqWait || JSP1 || ? || ExecTime || TS ||  ||
+|| AppMet || ClientHost1 || AppInst1 || ClientSideRespWait || JSP1 || ? || ExecTime || TS ||  ||
+|| AppMet || AgentHost1 || AppInst1 || HTTPServiceHealthCheck || CheckName1 || CheckedHost || Up/Down (Boolean) || TS ||  ||
+|| AppMet || AgentHost1 || AppInst1 || HTTPServiceHealthCheck || CheckName2 || CheckedHost || ExecTime || TS ||  ||
+|| Rep || Host1 || RepServ1 || QueueLength || Rep1 || ? || NV || TS ||  ||
+|| Rep || Host1 || RepServ1 || RepExec || Rep1 || ? || ExecTime || TS ||  ||
+|| Rep || Host1 || RepServ1 || RepWait || Rep1 || ? || ExecTime || TS ||  ||
 || JVM || Host1 || JVMInst1 || JMX || Directory:MBeanName:AttributeName || - || NV || TS || Proposition to review ??? ||
 || JVM || Host1 || JVMInst1 || JMX || java.lang:sun.management.MemoryPool || Eden Space || NV || TS || Review ??? ||
 || JVM || Host1 || JVMInst1 || JMX || java.lang:sun.management.MemoryImpl || Tenured Gen || NV || TS || Review ??? ||
@@ -44,9 +44,9 @@ Example of stored metrics data in denormalized fashion (1NF).
 || JVM || Host1 || JVMInst1 || JMX || java.lang:sun.management.ThreadImpl || ThreadCount || NV || TS || T ||
 || JVM || Host1 || JVMInst1 || JMX || java.lang:sun.management.ThreadImpl || CurrentThreadCpuTime || NV || TS || Review ???  ||
 || JVM || Host1 || JVMInst1 || JMX || org.apache.activemq:org.apache.activemq.broker.jmx.QueueView || ProducerCount || NV || TS || Review ???  ||
-|| DB || Host1 || DBInst1 || Sessions || - || - || NV || TS || T ||
-|| HW || Machine1 || - || Temp || CPUTemp1 || - || NV || TS || T ||
-|| HW || SwitchIP1 || - || Bandwidth || -|| - || kBit || TS || T ||
+|| DB || Host1 || DBInst1 || Sessions || - || - || NV || TS ||  ||
+|| HW || Machine1 || - || Temp || CPUTemp1 || - || NV || TS ||  ||
+|| HW || SwitchIP1 || - || Bandwidth || -|| - || kBit || TS ||  ||
 
 Fields Description;
 
