@@ -36,7 +36,7 @@ Example of stored metrics data in denormalized fashion (1NF).
 || Rep || Host1 || RepServ1 || QueueLength || Rep1 || ? || NV || TS || T ||
 || Rep || Host1 || RepServ1 || RepExec || Rep1 || ? || ExecTime || TS || T ||
 || Rep || Host1 || RepServ1 || RepWait || Rep1 || ? || ExecTime || TS || T ||
-|| JVM || Host1 || JVMInst1 || JMX || Directory:MBeanName:AttributeName || HeapMemoryUsage:init || NV || TS || Review ??? ||
+|| JVM || Host1 || JVMInst1 || JMX || Directory:MBeanName:AttributeName || - || NV || TS || Proposition to review ??? ||
 || JVM || Host1 || JVMInst1 || JMX || java.lang:sun.management.MemoryPool || Eden Space || NV || TS || Review ??? ||
 || JVM || Host1 || JVMInst1 || JMX || java.lang:sun.management.MemoryImpl || Tenured Gen || NV || TS || Review ??? ||
 || JVM || Host1 || JVMInst1 || JMX || java.lang:sun.management.GarbageCollectorImpl || CollectionCount || NV || TS || Review ??? ||
