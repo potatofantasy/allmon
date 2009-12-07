@@ -18,6 +18,8 @@ Example of stored metrics data in denormalized fashion (1NF).
 || OS || Host1 || - || CPU || CPUn || - || NV || TS || T ||
 || OS || Host1 || - || Mem || Usr || - || NV || TS || T ||
 || OS || Host1 || - || Mem || Sys || - || NV || TS || T ||
+|| OS || Host1 || ProcessName1 || Process || Allocated Memory || - || NV || TS || T || ???
+|| OS || Host1 || - || Average disk reads in time || Disc1 || - || NV || TS || T || ???
 || OS || Host1 || - || IO || - || ? || NV || TS || T ||
 || OS || Host1 || - || Page || - || - || NV || TS || T ||
 || OS || Host1 || - || Net || - || ? || NV || TS || T ||
