@@ -2,8 +2,8 @@ package org.allmon.client.agent;
 
 import java.util.List;
 
-import org.allmon.client.agent.snmp.SNMPHostAPI;
-import org.allmon.client.agent.snmp.SNMPSettings;
+import org.allmon.client.agent.snmp.SnmpHostApi;
+import org.allmon.client.agent.snmp.SnmpSettings;
 import org.allmon.common.MetricMessageWrapper;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
@@ -29,9 +29,9 @@ public class SnmpAgent extends ActiveAgent {
 
 	MetricMessageWrapper collectMetrics() {
         // TODO add collecting snmp metrics code
-        SNMPSettings settings = new SNMPSettings();
+        SnmpSettings settings = new SnmpSettings();
         settings.setIPAddress("192.168.200.130");
-        SNMPHostAPI snmpHostAPI = new SNMPHostAPI(settings);
+        SnmpHostApi snmpHostAPI = new SnmpHostApi(settings);
         List<Integer> cpuLoad = snmpHostAPI.getCPULoad();
         
         // TODO: send metrics...

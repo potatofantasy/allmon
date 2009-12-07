@@ -2,7 +2,7 @@ package org.allmon.client.agent.snmp;
 
 import org.snmp4j.mp.SnmpConstants;
 
-public class SNMPSettings {
+public class SnmpSettings {
     private String readCommunity = "public";
     private String writeCommunity = "private";
     private int SnmpVersion =  SnmpConstants.version1;

@@ -19,15 +19,15 @@ import org.snmp4j.util.TableEvent;
 import org.snmp4j.util.TableUtils;
 
 
-public class SNMPResponder {
-	private SNMPSettings settings;
-	private SNMPExtractor extractor;
+public class SnmpResponder {
+	private SnmpSettings settings;
+	private SnmpExtractor extractor;
 	private Snmp snmp;
 	private CommunityTarget target;
 
-	public SNMPResponder(SNMPSettings settings) {
+	public SnmpResponder(SnmpSettings settings) {
 		this.settings = settings;
-		this.extractor = new SNMPExtractor();
+		this.extractor = new SnmpExtractor();
 		init();		
 	}
 
@@ -61,7 +61,7 @@ public class SNMPResponder {
 	/**
 	 *  SNMP GET
 	 */	
-	public SNMPResponse get(String oid) 
+	public SnmpResponse get(String oid) 
 	{
 		return get(oid, PDU.GET);	
 	}
@@ -69,7 +69,7 @@ public class SNMPResponder {
 	/**
 	 *  SNMP GETNEXT
 	 */	
-	public SNMPResponse getNext(String oid) 
+	public SnmpResponse getNext(String oid) 
 	{
 		return get(oid, PDU.GETNEXT);
 	}		
@@ -77,7 +77,7 @@ public class SNMPResponder {
 	/*
 	 *  SNMP getTable operation
 	 */
-	public List<SNMPResponseRow> getTable(String[] oidColumnsStr) 
+	public List<SnmpResponseRow> getTable(String[] oidColumnsStr) 
 	{
 
 		// Invoke the listen() method on the Snmp object
@@ -109,10 +109,41 @@ public class SNMPResponder {
 		return extractor.getResponseTable(listOfTableEvents);
 	}	
 
+	public SnmpResponseRow getColumn(String oidColumnsStr) 
+	{
+
+		// Invoke the listen() method on the Snmp object
+		try 
+		{
+			snmp.listen();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+			return null;
+		}
+
+		// Create a TableUtils 
+		TableUtils utils = new TableUtils(snmp, new DefaultPDUFactory());
+
+		// Set the lower/upper bounds for the table operation
+		OID lowerIndex = null;
+		OID upperIndex = null;
+
+		// Create an array of the OID's that need to be checked
+		OID[] oidColumns = new OID[1];
+	    oidColumns[0] = new OID(oidColumnsStr);
+
+		// Transfer output to a data structure
+		List<TableEvent> listOfTableEvents = utils.getTable(target, oidColumns, lowerIndex, upperIndex);
+
+		return extractor.getResponseColumn(listOfTableEvents);
+	}	
+	
 	/**
 	 *  get/getNext operation
 	 */ 
-	private SNMPResponse get(String oid, int pduType)  
+	private SnmpResponse get(String oid, int pduType)  
 	{
 		// Create a PDU
 		PDU requestPDU = new PDU();

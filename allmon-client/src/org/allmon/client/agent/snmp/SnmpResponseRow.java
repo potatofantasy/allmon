@@ -2,13 +2,13 @@ package org.allmon.client.agent.snmp;
 
 import java.util.List;
 
-public class SNMPResponseRow {
-	private List<SNMPResponse> row;
+public class SnmpResponseRow {
+	private List<SnmpResponse> row;
 	private String error;
-	public List<SNMPResponse> getRow() {
+	public List<SnmpResponse> getRow() {
 		return row;
 	}
-	public void setRow(List<SNMPResponse> row) {
+	public void setRow(List<SnmpResponse> row) {
 		this.row = row;
 	}
 	public String getError() {
