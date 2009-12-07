@@ -36,10 +36,14 @@ Example of stored metrics data in denormalized fashion (1NF).
 || Rep || Host1 || RepServ1 || QueueLength || Rep1 || ? || NV || TS || T ||
 || Rep || Host1 || RepServ1 || RepExec || Rep1 || ? || ExecTime || TS || T ||
 || Rep || Host1 || RepServ1 || RepWait || Rep1 || ? || ExecTime || TS || T ||
-|| JVM || Host1 || JVMInst1 || Mem || Heap || - || NV || TS || T ||
-|| JVM || Host1 || JVMInst1 || Mem || Tenured || - || NV || TS || T ||
-|| JVM || Host1 || JVMInst1 || Mem || Eden || - || NV || TS || T ||
-|| JVM || Host1 || JVMInst1 || Threads || - || - || NV || TS || T ||
+|| JVM || Host1 || JVMInst1 || JMX || Memory || Heap || NV || TS || Review ??? ||
+|| JVM || Host1 || JVMInst1 || JMX || Memory || Tenured || NV || TS || Review ??? ||
+|| JVM || Host1 || JVMInst1 || JMX || Memory || Eden || NV || TS || Review ??? ||
+|| JVM || Host1 || JVMInst1 || JMX || java.lang:sun.management.GarbageCollectorImpl || CollectionCount || NV || TS || Review ??? ||
+|| JVM || Host1 || JVMInst1 || JMX || java.lang:sun.management.GarbageCollectorImpl || CollectionTime || NV || TS || Review ??? ||
+|| JVM || Host1 || JVMInst1 || JMX || java.lang:sun.management.ThreadImpl || ThreadCount || NV || TS || T ||
+|| JVM || Host1 || JVMInst1 || JMX || java.lang:sun.management.ThreadImpl || CurrentThreadCpuTime || NV || TS || Review ???  ||
+|| JVM || Host1 || JVMInst1 || JMX || org.apache.activemq:org.apache.activemq.broker.jmx.QueueView || ProducerCount || NV || TS || Review ???  ||
 || DB || Host1 || DBInst1 || Sessions || - || - || NV || TS || T ||
 || HW || Machine1 || - || Temp || CPUTemp1 || - || NV || TS || T ||
 || HW || SwitchIP1 || - || Bandwidth || -|| - || kBit || TS || T ||
