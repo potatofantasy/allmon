@@ -45,10 +45,10 @@ Example of stored metrics data in denormalized fashion (1NF).
 Fields Description;
 
   * Artifact -- (static) a part of infrastructure under monitoring: OS, AppMet, Rep, JVM, DB, HW, etc.
-  * Instance -- (dynamic) related to Artifact - concrete instance of artifact: CPU, MEM, IO, AppInstance, RepServInst, JVMInst
-  * Metric Type	-- (static) related to Artifact - represents type of collected metric: CPU1, CPU2, Mem Usr, ...
+  * Instance -- (dynamic) related to Artifact - concrete instance of an artifact: AppInstance, RepServInst, JVMInst
+  * Metric Type	-- (static) related to Artifact - represents type of collected metric: CPU, MEM, IO, Mem Usr, ...
   * Host -- (dynamic) - monitored host name
-  * Resource -- (dynamic) related to Metric Type - represents resource under monitoring
+  * Resource -- (dynamic) related to Metric Type - represents resource under monitoring: CPU1, CPU2, Mem usr, Action class, POJO Class, Count of connections to database ...
   * Source -- (dynamic) related to Metric Type - source of a call to monitored resource 
   * Metric -- (values)
   * Time Stamp -- Time Stamp and Calendar references
