@@ -47,7 +47,7 @@ Fields Description;
   * Artifact -- (static) a part of infrastructure under monitoring: OS, AppMet, Rep, JVM, DB, HW, etc.
   * Instance -- (dynamic) related to Artifact - concrete instance of an artifact: AppInstance, RepServInst, JVMInst
   * Metric Type	-- (static) related to Artifact - represents type of collected metric: CPU, MEM, IO, Mem Usr, ...
-  * Host -- (dynamic) - monitored host name
+  * Host -- (dynamic) - always host of a machine where agents run 
   * Resource -- (dynamic) related to Metric Type - represents resource under monitoring: CPU1, CPU2, Mem usr, Action class, POJO Class, Count of connections to database ...
   * Source -- (dynamic) related to Metric Type - source of a call to monitored resource 
   * Metric -- (values)
