@@ -17,9 +17,9 @@ public class AgentMetricBufferLoadTest extends AbstractLoadTest<AgentMetricBuffe
     
     // stress test
     private final static long THREADS_COUNT = 30;
-    private final static long STARTING_TIME_MILLIS = 1 * 1000;
+    private final static long STARTING_TIME_MILLIS = 1 * 10;
     private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 0; // no sleep
-    private final static long SUBSEQUENT_CALLS_IN_THREAD = 2000;
+    private final static long SUBSEQUENT_CALLS_IN_THREAD = 3000;
     
     private final AgentContext agentContext = new AgentContext();
     private final AgentMetricBuffer metricBuffer = new AgentMetricBuffer(agentContext);
