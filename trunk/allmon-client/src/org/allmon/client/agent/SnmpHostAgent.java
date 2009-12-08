@@ -12,8 +12,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class SnmpHostAgent extends ActiveAgent {
+
     private static final Log logger = LogFactory.getLog(SnmpHostAgent.class);
+    
     private String managedHost;
+    
     public SnmpHostAgent(AgentContext agentContext) {
 		super(agentContext);
 	}
@@ -37,11 +40,12 @@ public class SnmpHostAgent extends ActiveAgent {
         for (String cpuLoad : cpuLoadList) {
         	Exception snmpException = null;
         	double cpuLoadValue = 0;
-			if (cpuLoad.indexOf(SnmpHostApi.ERROR_STR) != -1) {
+			if (cpuLoad.indexOf(SnmpHostApi.ERROR_STR) == -1) {
 				// no error string
-				cpuLoadValue = new Double(cpuLoadValue);
+				cpuLoadValue = Double.valueOf(cpuLoad);
 			} else {
-				snmpException = new SnmpException(cpuLoad.substring(SnmpHostApi.ERROR_STR.length()));
+				//snmpException = new SnmpException(cpuLoad.substring(SnmpHostApi.ERROR_STR.length()));
+			    snmpException = new SnmpException(cpuLoad.substring(SnmpHostApi.ERROR_STR.length()));
 			}
 	        MetricMessage metricMessage = MetricMessageFactory.createCpuLoadMessage(cpuNum++, cpuLoadValue, snmpException);
 	        metricMessageWrapper.add(metricMessage);
@@ -57,6 +61,4 @@ public class SnmpHostAgent extends ActiveAgent {
     	}
     }
     
-
-
 }
