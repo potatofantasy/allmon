@@ -54,7 +54,7 @@ public class SnmpExtractor {
 				{
 					// error for the row
 					SnmpResponseRow snmpResponseRow = new SnmpResponseRow();
-					snmpResponseRow.setError("Error for the row: " + tableEvent.getErrorMessage());
+					snmpResponseRow.setError(tableEvent.getErrorMessage());
 					responseTable.add(snmpResponseRow);
 				}
 				else
@@ -92,7 +92,7 @@ public class SnmpExtractor {
 				{
 					// error for the row
 					SnmpResponse snmpResponse = new SnmpResponse();
-					snmpResponse.setError("Error for the row: " + tableEvent.getErrorMessage());
+					snmpResponse.setError(tableEvent.getErrorMessage());
 					colList.add(snmpResponse);
 				}
 				else

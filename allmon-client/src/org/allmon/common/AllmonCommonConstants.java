@@ -58,7 +58,10 @@ public class AllmonCommonConstants {
     public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_SERVICELEVELCHECK = "APPSLC"; //"application.slc.?"; 
     public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_ALLMON_HEARTBEAT = "APPAHB"; //"application.slc.allmon.heartbeat"; 
     
-    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_JVM_JMX = "JVMJMX"; //"java.jmx.?"; 
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_JVM_JMX = "JVMJMX"; //"java.jmx.?";
+    
+    // Snmp host metrics:
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_CPULOAD = "CPULOAD";
     
     
 }
