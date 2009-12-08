@@ -16,5 +16,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/allmon-server-test"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/jdk1.6/jconsole.jar"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/jdk1.6/tools.jar"/>
+	<classpathentry kind="lib" path="/allmon-lib/lib/SNMP4J.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

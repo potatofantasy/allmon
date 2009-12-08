@@ -32,7 +32,7 @@ public class SnmpAgent extends ActiveAgent {
         SnmpSettings settings = new SnmpSettings();
         settings.setIPAddress("192.168.200.130");
         SnmpHostApi snmpHostAPI = new SnmpHostApi(settings);
-        List<Integer> cpuLoad = snmpHostAPI.getCPULoad();
+        List<String> cpuLoad = snmpHostAPI.getCpuLoad();
         
         // TODO: send metrics...
         return null;

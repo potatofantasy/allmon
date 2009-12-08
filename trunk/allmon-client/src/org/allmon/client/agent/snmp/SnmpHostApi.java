@@ -10,22 +10,27 @@ public class SnmpHostApi {
 	}	
 	
 	/**
-	 * Reads cpu load from the SNMP managed host
+	 * Reads cpu load from the SNMP managed host. The output is [%] of usage in last 1 minute.
+	 * There is no point in calling this agent more than once/minute.
+	 * If error the result contains error string which starts with 'Error:'
+	 * This implementation uses getColumn which is faster than getTable.
+	 * 
 	 * @return cpu load in [%] for each processor 
 	 */
-	public List<Integer> getCPULoad() {
-        SnmpResponder res = new SnmpResponder(settings);	
-        String[] columns = new String[1];
-        columns[0] = HostResourcesMib.HR_PROCESSOR_LOAD_OID;
-        List<SnmpResponseRow> rows = res.getTable(columns);
-        
-        List<Integer> cpuLoad= new ArrayList<Integer>();
-        for (SnmpResponseRow snmpResponseRow : rows) {
-        	List<SnmpResponse> rowList = snmpResponseRow.getRow();
-        	for (SnmpResponse snmpResponse : rowList) {
-        		cpuLoad.add(new Integer(snmpResponse.getValue()));
+	public List<String> getCpuLoad() {
+        SnmpResponder res = new SnmpResponder(settings);	       
+		SnmpResponseRow responseColumn = res
+				.getColumn(HostResourcesMib.HR_PROCESSOR_LOAD_OID);
+
+		List<String> result = new ArrayList<String>();
+		List<SnmpResponse> rowList = responseColumn.getRow();
+		for (SnmpResponse snmpResponse : rowList) {
+			if (snmpResponse.getError() == null) {
+				result.add(snmpResponse.getValue());
+			} else {
+				result.add("Error: " + snmpResponse.getError());
 			}
 		}
-        return cpuLoad;
+        return result;
 	}
 }

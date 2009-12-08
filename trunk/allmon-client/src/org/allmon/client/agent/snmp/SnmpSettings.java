@@ -5,7 +5,7 @@ import org.snmp4j.mp.SnmpConstants;
 public class SnmpSettings {
     private String readCommunity = "public";
     private String writeCommunity = "private";
-    private int SnmpVersion =  SnmpConstants.version1;
+    private int SnmpVersion =  SnmpConstants.version2c;
     private int SnmpPortRes = SnmpConstants.DEFAULT_COMMAND_RESPONDER_PORT;
     private int SnmpPortRcv = SnmpConstants.DEFAULT_NOTIFICATION_RECEIVER_PORT;    
     private String IPAddress = "127.0.0.1";    
