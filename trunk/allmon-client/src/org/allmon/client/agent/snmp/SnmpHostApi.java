@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SnmpHostApi {
+	public static final String ERROR_STR = "Error: ";
 	private SnmpSettings settings;
 	public SnmpHostApi(SnmpSettings settings) {
 		this.settings = settings;
@@ -18,8 +19,8 @@ public class SnmpHostApi {
 	 * @return cpu load in [%] for each processor 
 	 */
 	public List<String> getCpuLoad() {
-        SnmpResponder res = new SnmpResponder(settings);	       
-		SnmpResponseRow responseColumn = res
+        SnmpResponder responder = new SnmpResponder(settings);	       
+		SnmpResponseRow responseColumn = responder
 				.getColumn(HostResourcesMib.HR_PROCESSOR_LOAD_OID);
 
 		List<String> result = new ArrayList<String>();
@@ -28,7 +29,7 @@ public class SnmpHostApi {
 			if (snmpResponse.getError() == null) {
 				result.add(snmpResponse.getValue());
 			} else {
-				result.add("Error: " + snmpResponse.getError());
+				result.add(ERROR_STR + snmpResponse.getError());
 			}
 		}
         return result;

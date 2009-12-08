@@ -164,4 +164,16 @@ public class MetricMessageFactory {
         return metricMessage;
     }
     
+	public static final MetricMessage createCpuLoadMessage(int cpuNum, double metricValue,
+			Exception exception) {
+		MetricMessage metricMessage = createMessage(
+				AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_OS,
+				AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_CPULOAD);
+		metricMessage.setResource("CPU" + cpuNum);
+		metricMessage.setMetricValue(metricValue);
+		metricMessage.setException(exception);
+		metricMessage.setSource(null);
+		return metricMessage;
+	}
+    
 }
