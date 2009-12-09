@@ -1,8 +1,0 @@
-#summary Allgeneric data model research.
-
-= Introduction =
-
-Allgeneric data model research.
-
-
-= Details =
