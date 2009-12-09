@@ -53,6 +53,7 @@ set CLASS_PATH=%CLASS_PATH%../lib/camel-spring-integration-2.0-M2.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/junit-4.4.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/log4j-1.2.15.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/cron4j-2.1.1.jar;
+set CLASS_PATH=%CLASS_PATH%../lib/snmp4j.jar;
 rem set CLASS_PATH=%CLASS_PATH%../lib/jconsole.jar;
 rem set CLASS_PATH=%CLASS_PATH%../lib/tools.jar
 set CLASS_PATH=%CLASS_PATH%%JAVA_HOME%/lib/jconsole.jar;
