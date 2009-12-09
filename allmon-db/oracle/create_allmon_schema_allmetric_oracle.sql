@@ -461,11 +461,13 @@ ALTER INDEX AM_CAL_PK REBUILD UNRECOVERABLE;
 
 -- check data allocated segments space
 /*
-SELECT us.segment_name, us.segment_type, us.bytes, us.bytes/1024/1024 AS mb, us.blocks, 
-       tab.tablespace_name, tab.status, tab.num_rows, am_allmetric_mngr.get_number_of_rows(tab.table_name) AS actual_num_rows, tab.Avg_Row_Len, tab.last_analyzed
-FROM   user_segments us, user_tables tab --, user_indexes ind
-WHERE  (us.segment_name LIKE 'AM_%' OR us.segment_name LIKE 'VMAM_%')
-AND    us.segment_name = tab.table_name(+)
+SELECT sel.*, 
+       CASE WHEN actual_num_rows > 0 THEN bytes / actual_num_rows ELSE NULL END AS bytes_per_row 
+FROM (SELECT us.segment_name, us.segment_type, us.bytes, us.bytes/1024/1024 AS mb, us.blocks, 
+             tab.tablespace_name, tab.status, tab.num_rows, am_allmetric_mngr.get_number_of_rows(tab.table_name) AS actual_num_rows, tab.Avg_Row_Len, tab.last_analyzed
+      FROM   user_segments us, user_tables tab --, user_indexes ind
+      WHERE  (us.segment_name LIKE 'AM_%' OR us.segment_name LIKE 'VMAM_%')
+      AND    us.segment_name = tab.table_name(+)) sel
 ORDER BY mb DESC, 1;
 
 SELECT us.segment_type, SUM(us.bytes), SUM(us.bytes/1024/1024) AS mb, SUM(am_allmetric_mngr.get_number_of_rows(tab.table_name)) AS num_rows
