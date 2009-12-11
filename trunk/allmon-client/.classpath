@@ -33,6 +33,8 @@
 	<classpathentry kind="lib" path="/allmon-lib/lib/SNMP4J.jar"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/jdk1.6/tools.jar"/>
 	<classpathentry kind="lib" path="/allmon-lib/lib/jdk1.6/jconsole.jar"/>
+	<classpathentry kind="lib" path="/allmon-lib/lib/aspectjrt.jar"/>
+	<classpathentry kind="lib" path="/allmon-lib/lib/aspectjweaver.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
