@@ -16,4 +16,6 @@
 #* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.JmxServerAgent" "0" "" ""
 
 #SNMP for CPU
-* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.SnmpHostAgent" "5" "10.1.132.99"
+* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.SnmpHostAgent" "5" "10.1.132.99" "-cpu"
+#SNMP for process cpuTime and memory
+* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.SnmpHostAgent" "5" "10.1.132.99" "eclipse.exe"
