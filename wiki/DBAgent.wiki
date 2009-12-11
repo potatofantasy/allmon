@@ -19,7 +19,7 @@ _`*` TBA_
 <br>
 `*` http://www.tc.umn.edu/~hause011/
 <br>
-`*` http://www.dba-oracle.com/d__dba_view_menu.htm<
+`*` http://www.dba-oracle.com/d__dba_view_menu.htm
 <br>
 `*` select * from dictionary;  ß most important
 <br>
