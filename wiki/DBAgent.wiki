@@ -13,4 +13,15 @@ _`*` TBA_
 
 *Interesting pages, info and documentation:*
 <br>
-_`*` TBA_
+
+=ORACLE=
+`*` http://www.harmanresearch.com/oracle/
+`*` http://www.tc.umn.edu/~hause011/
+`*` http://www.dba-oracle.com/d__dba_view_menu.htm
+`*` select * from dictionary;  ß most important
+
+
+=PostgreSQL=
+`*` http://momjian.us/main/writings/pgsql/administration.pdf - some interesting stuff starts on 72 page.
+
+ 
