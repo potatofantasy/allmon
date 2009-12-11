@@ -16,9 +16,13 @@ _`*` TBA_
 
 =ORACLE=
 `*` http://www.harmanresearch.com/oracle/
+<br>
 `*` http://www.tc.umn.edu/~hause011/
-`*` http://www.dba-oracle.com/d__dba_view_menu.htm
+<br>
+`*` http://www.dba-oracle.com/d__dba_view_menu.htm<
+<br>
 `*` select * from dictionary;  ß most important
+<br>
 
 
 =PostgreSQL=
