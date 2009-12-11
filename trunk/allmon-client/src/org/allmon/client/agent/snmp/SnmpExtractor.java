@@ -19,14 +19,12 @@ public class SnmpExtractor {
 
 		if (responsePDU == null) {
 			// request timed out
-			snmpResponse = new SnmpResponse();
-			snmpResponse.setError("Time out");
+			snmpResponse = SnmpErrors.getErrorResponse(SnmpErrors.TIME_OUT);
 		}
 		else {
 			if(responsePDU.getErrorStatus() != 0)
 			{
-				snmpResponse = new SnmpResponse();
-				snmpResponse.setError("SNMP4j error code: " + responsePDU.getErrorStatus());
+				snmpResponse = SnmpErrors.getErrorResponse(SnmpErrors.RESPONSE_ERR_CODE + responsePDU.getErrorStatus());
 			}
 			else
 			{
@@ -109,15 +107,18 @@ public class SnmpExtractor {
 	}	
 
 	protected SnmpResponse extractData(String responseStr) {
-		SnmpResponse response = new SnmpResponse();
-		if (responseStr.contains("=")) {
+		SnmpResponse response = null;
+		if (responseStr !=null && responseStr.contains("=")) {
+			response = new SnmpResponse();
 			int equalIndex = responseStr.indexOf("=");
 			response.setValue(responseStr.substring(equalIndex + 2));
 			response.setOid(responseStr.substring(0, equalIndex - 1));
 		}		
 		else {
-			response.setError("Extractor error");
+			response = SnmpErrors.getErrorResponse(SnmpErrors.EXTRACTOR);
 		}
 		return response;
 	}
+	
+	
 }

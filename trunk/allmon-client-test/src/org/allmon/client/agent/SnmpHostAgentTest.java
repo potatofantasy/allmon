@@ -9,7 +9,7 @@ public class SnmpHostAgentTest extends TestCase {
         try {
             SnmpHostAgent agent = new SnmpHostAgent(agentContext);
             agent.setParameters(new String[]{
-                    "10.1.132.99"});
+                    "192.168.200.129"});
             agent.execute();
             Thread.sleep(1000);
         } finally {

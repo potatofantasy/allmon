@@ -86,4 +86,16 @@ public class SnmpHostApiTest {
 		assertEquals("There should timeout error while reading cpu load", 0, cpuLoad1.indexOf("Error"));
 		System.out.println("Result = " + cpuLoad1);
 	}	
+	
+	@Test
+	public void testGetProcessList() {
+		System.out.println("testGetProcessList() - Windows host");
+		SnmpSettings settings = new SnmpSettings();
+		settings.setIPAddress(WINDOWS_HOST_IP);
+
+		SnmpHostApi api = new SnmpHostApi(settings);
+		List<ProcessPerfData> procTable = api.getProcessList();
+		assertNotNull("result is null", procTable);
+
+	}	
 }
