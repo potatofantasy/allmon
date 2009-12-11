@@ -62,6 +62,8 @@ public class AllmonCommonConstants {
     
     // Snmp host metrics:
     public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_CPULOAD = "CPULOAD";
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_PROCESS_CPU_TIME = "PROCESS_CPU_TIME";
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_PROCESS_MEMORY = "PROCESS_MEM";
     
     
 }

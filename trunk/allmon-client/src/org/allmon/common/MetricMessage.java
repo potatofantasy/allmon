@@ -118,16 +118,10 @@ public class MetricMessage implements Serializable {
         this.artifact = artifact;
     }
 
-    /**
-     * @deprecated
-     */
     public String getMetricType() {
         return metricType;
     }
 
-    /**
-     * @deprecated
-     */
     void setMetricType(String metricType) {
         this.metricType = metricType;
     }
@@ -221,6 +215,8 @@ public class MetricMessage implements Serializable {
         buffer.append(")");
         buffer.append(", Instance:");
         buffer.append(getInstance());
+        buffer.append(", MetricType:");
+        buffer.append(getMetricType());        
         buffer.append(", Resource:");
         buffer.append(getResource());
         buffer.append(", Source:");

@@ -76,7 +76,7 @@ public class MetricMessageWrapper implements Serializable {
     public String toString() {
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < list.size(); i++) {
-            buffer.append("[");
+            buffer.append("\n[");
             buffer.append(list.get(i).toString());
             buffer.append("], ");
         }
