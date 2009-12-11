@@ -1,4 +1,4 @@
-#labels DBstatscollection
+#labels Oracle
 =News, updates, assumptions and research info regarding DB agent.=
 <br>
 *Assumptions:*
