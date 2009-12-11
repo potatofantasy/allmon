@@ -1,13 +1,13 @@
-News, updates, assumptions and research info regarding DB agent.
+=News, updates, assumptions and research info regarding DB agent.=
 
-Assumptions:
+*Assumptions:*
 * DB stats has to be collectable via SQL, can be vendor specific
 
 
 
-Data gathered:
-* TBA
+*Data gathered:*
+_* TBA_
 
 
-Interesting pages, info and documentation:
-* TBA
+*Interesting pages, info and documentation:*
+_* TBA_
