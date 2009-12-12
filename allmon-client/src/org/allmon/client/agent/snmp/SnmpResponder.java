@@ -73,37 +73,41 @@ public class SnmpResponder {
 	 * SNMP getTable operation
 	 */
 	public List<SnmpResponseRow> getTable(String[] oidColumnsStr) {
-
-		// Invoke the listen() method on the Snmp object
+		List<TableEvent> listOfTableEvents = null;
+		if (snmp == null) {
+			return SnmpErrors
+					.getErrorResponseRowList(SnmpErrors.CANT_LISTEN_PORT);
+		}
 		try {
-			if (snmp != null) {
-				snmp.listen();
-			} else {
-				return SnmpErrors
-						.getErrorResponseRowList(SnmpErrors.CANT_LISTEN_PORT);
-			}
+			snmp.listen();
+			
+			// Create a TableUtils
+			TableUtils utils = new TableUtils(snmp, new DefaultPDUFactory());
+
+			// Set the lower/upper bounds for the table operation
+			OID lowerIndex = null;
+			OID upperIndex = null;
+
+			// Create an array of the OID's that need to be checked
+			OID[] oidColumns = new OID[oidColumnsStr.length];
+			for (int i = 0; i < oidColumnsStr.length; i++)
+				oidColumns[i] = new OID(oidColumnsStr[i]);
+
+			// Transfer output to a data structure
+			listOfTableEvents = utils.getTable(target, oidColumns, lowerIndex,
+					upperIndex);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return SnmpErrors
 					.getErrorResponseRowList(SnmpErrors.CANT_LISTEN_PORT);
+		} finally {
+			try {
+				// close the port
+				snmp.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-
-		// Create a TableUtils
-		TableUtils utils = new TableUtils(snmp, new DefaultPDUFactory());
-
-		// Set the lower/upper bounds for the table operation
-		OID lowerIndex = null;
-		OID upperIndex = null;
-
-		// Create an array of the OID's that need to be checked
-		OID[] oidColumns = new OID[oidColumnsStr.length];
-		for (int i = 0; i < oidColumnsStr.length; i++)
-			oidColumns[i] = new OID(oidColumnsStr[i]);
-
-		// Transfer output to a data structure
-		List<TableEvent> listOfTableEvents = utils.getTable(target, oidColumns,
-				lowerIndex, upperIndex);
-
 		return extractor.getResponseTable(listOfTableEvents);
 	}
 
@@ -114,35 +118,39 @@ public class SnmpResponder {
 	 * @return
 	 */
 	public SnmpResponseRow getColumn(String oidColumnsStr) {
-
+		List<TableEvent> listOfTableEvents = null;
 		// Invoke the listen() method on the Snmp object
+		if (snmp == null) {
+			return SnmpErrors.getErrorResponseRow(SnmpErrors.CANT_LISTEN_PORT);
+		}
 		try {
-			if (snmp != null) {
-				snmp.listen();
-			} else {
-				return SnmpErrors
-						.getErrorResponseRow(SnmpErrors.CANT_LISTEN_PORT);
-			}
+			snmp.listen();
+
+			// Create a TableUtils
+			TableUtils utils = new TableUtils(snmp, new DefaultPDUFactory());
+
+			// Set the lower/upper bounds for the table operation
+			OID lowerIndex = null;
+			OID upperIndex = null;
+
+			// Create an array of the OID's that need to be checked
+			OID[] oidColumns = new OID[1];
+			oidColumns[0] = new OID(oidColumnsStr);
+
+			// Transfer output to a data structure
+			listOfTableEvents = utils.getTable(target, oidColumns, lowerIndex,
+					upperIndex);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return SnmpErrors.getErrorResponseRow(SnmpErrors.CANT_LISTEN_PORT);
+		} finally {
+			try {
+				// close the port
+				snmp.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-
-		// Create a TableUtils
-		TableUtils utils = new TableUtils(snmp, new DefaultPDUFactory());
-
-		// Set the lower/upper bounds for the table operation
-		OID lowerIndex = null;
-		OID upperIndex = null;
-
-		// Create an array of the OID's that need to be checked
-		OID[] oidColumns = new OID[1];
-		oidColumns[0] = new OID(oidColumnsStr);
-
-		// Transfer output to a data structure
-		List<TableEvent> listOfTableEvents = utils.getTable(target, oidColumns,
-				lowerIndex, upperIndex);
-
 		return extractor.getResponseColumn(listOfTableEvents);
 	}
 
@@ -150,20 +158,18 @@ public class SnmpResponder {
 	 * get/getNext operation
 	 */
 	private SnmpResponse get(String oid, int pduType) {
+		if (snmp == null) {
+			return SnmpErrors.getErrorResponse(SnmpErrors.CANT_LISTEN_PORT);
+		}
 		// Create a PDU
 		PDU requestPDU = new PDU();
 		requestPDU.add(new VariableBinding(new OID(oid)));
 		requestPDU.setType(pduType);
 
 		ResponseEvent response = null;
-		// get OID value
 		try {
-			if (snmp != null) {
-				// set snmp port into listen mode
-				snmp.listen();
-			} else {
-				return SnmpErrors.getErrorResponse(SnmpErrors.CANT_LISTEN_PORT);
-			}
+			// set snmp port into listen mode
+			snmp.listen();
 
 			// Send the PDU constructed, to the target
 			response = snmp.send(requestPDU, target);
