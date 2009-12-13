@@ -20,6 +20,9 @@ set CONF=../conf/
 set JVM_PROPERTIES=
 set JVM_PROPERTIES=%JVM_PROPERTIES% -Dallmon.properties.path=%CONF%/allmon.properties
 set JVM_PROPERTIES=%JVM_PROPERTIES% -Dlog4jallmon.properties.path=%CONF%/log4jallmon.properties
+set JVM_PROPERTIES=%JVM_PROPERTIES% -Dcom.sun.management.jmxremote
+rem for debug
+set JVM_PROPERTIES=%JVM_PROPERTIES% -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=12345
 
 set CLASS_PATH=
 set CLASS_PATH=%CLASS_PATH%../lib/allmon-client.jar;

@@ -11,7 +11,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This agent is responsible for calling OS Shell.
+ * This agent can be used to calling OS Shell and retrieve various 
+ * eligible from OS level metrics.<br><br>
+ * 
+ * Examples for windows:
+ * <li> Get allmon task count (using: tasklist)
+ * param1: "tasklist /V /FO csv /NH | find /c \"allmon\"" 
+ * param2: "[0-9]+"
+ * 
+ * <li> ...
  * 
  */
 public class ShellCallAgent extends ActiveAgent {
@@ -33,15 +41,18 @@ public class ShellCallAgent extends ActiveAgent {
 	    	//p.waitFor();
 			logger.debug("Shell command has been executed successfully.");
 	        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            //StringBuffer sb = new StringBuffer();
+			//StringBuffer sb = new StringBuffer();
 	        //int ch;
 	        //while ((ch = in.read()) != -1) {
 			//	sb.append((char) ch);
 			//}
 	        //logger.debug(sb.toString());
 	        
-	        metricValue = OutputParser.findFirst(br, searchPhrase);
+	        //metricValue = OutputParser.findFirst(br, searchPhrase);
 	        
+	        OutputParser outputParser = new OutputParser(br);
+	        metricValue = outputParser.findFirst(searchPhrase);
+            
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
 		} 

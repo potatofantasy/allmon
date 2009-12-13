@@ -153,12 +153,34 @@ public class MetricMessageFactory {
             long jvmId, String jvmName, 
             String domainName, String mbeanName, String mbeanAttributeName,
             double metricValue, Exception exception) {
+        MetricMessage metricMessage = createJmxMessage(
+                jvmName.split(" ")[0] + "(id:" + jvmId + ")", 
+                domainName + ":" + mbeanName, 
+                mbeanAttributeName, metricValue, exception);
+        return metricMessage;
+    }
+    public static final MetricMessage createJmxMessage(
+            String jvmNameId, String domainNameMBeanName, String mbeanAttributeName,
+            double metricValue, Exception exception) {
         MetricMessage metricMessage = createMessage(
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_JVM,
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_JVM_JMX); // general JMX
-        metricMessage.setInstance(jvmName.split(" ")[0] + "(id:" + jvmId + ")");
-        metricMessage.setResource(domainName + ":" + mbeanName);
-        metricMessage.setSource(mbeanAttributeName);
+        metricMessage.setInstance(jvmNameId);
+        metricMessage.setResource(domainNameMBeanName + ":" + mbeanAttributeName);
+        //metricMessage.setSource();
+        metricMessage.setMetricValue(metricValue);
+        metricMessage.setException(exception);
+        return metricMessage;
+    }
+    public static final MetricMessage createJmxMessage(
+            String domainNameMBeanName, String mbeanAttributeName,
+            double metricValue, Exception exception) {
+        MetricMessage metricMessage = createMessage(
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_JVM,
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_JVM_JMX); // general JMX
+        //metricMessage.setInstance(jvmNameId);
+        metricMessage.setResource(domainNameMBeanName + ":" + mbeanAttributeName);
+        //metricMessage.setSource();
         metricMessage.setMetricValue(metricValue);
         metricMessage.setException(exception);
         return metricMessage;
@@ -167,8 +189,8 @@ public class MetricMessageFactory {
 	public static final MetricMessage createSnmpOSMessage(String metricType, String resource, double metricValue,
 			Exception exception) {
 		MetricMessage metricMessage = createMessage(
-				AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_OS, metricType
-				);
+				AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_OS, 
+				metricType);
 		metricMessage.setResource(resource);
 		metricMessage.setMetricValue(metricValue);
 		metricMessage.setException(exception);
