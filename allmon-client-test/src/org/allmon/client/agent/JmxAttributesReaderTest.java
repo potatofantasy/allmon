@@ -4,7 +4,8 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import org.allmon.client.agent.JmxAttributesReader.MBeanAttributeData;
+import org.allmon.client.agent.jmx.JmxAttributesReader;
+import org.allmon.client.agent.jmx.MBeanAttributeData;
 import org.allmon.common.AllmonPropertiesReader;
 
 import sun.tools.jconsole.LocalVirtualMachine;
