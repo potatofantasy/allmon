@@ -8,6 +8,11 @@ import org.allmon.common.MetricMessageFactory;
 public class JavaCallAgentTest extends TestCase {
 
     private final AgentContext agentContext = new AgentContext();
+
+    public static void main(String[] args) throws Exception {
+        JavaCallAgentTest test = new JavaCallAgentTest();
+        test.testSimple();
+    }
     
     public void testSimple() throws Exception {
 
@@ -20,6 +25,7 @@ public class JavaCallAgentTest extends TestCase {
         agent.exitPoint();
 
         Thread.sleep(2000);
+        agentContext.stop();
 
     }
 
