@@ -59,7 +59,7 @@ public abstract class AbstractMetricBuffer<M> {
         private boolean poisonPill = false;
         
         private BufferingThread() {
-            //setName("BufferingThread-" + getId());
+            setName("BufferingThread-" + getId());
         }
         
         public final void run() {
@@ -103,7 +103,7 @@ public abstract class AbstractMetricBuffer<M> {
             synchronized (buffer) {
                 // because no other than this thread can add or remove items from buffer list,
                 // we can check how many items we have in the list and move them to the flushing buffer backwards,
-                // so the synchronized block in add method is not needed and other items can be still added to the list
+                // so the synchronised block in add method is not needed and other items can be still added to the list
             	
             	for (int i = buffer.size() - 1; i >= 0; i--) {
             	    T t = buffer.get(i);

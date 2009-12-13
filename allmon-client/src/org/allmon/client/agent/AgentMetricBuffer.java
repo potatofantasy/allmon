@@ -43,7 +43,7 @@ public class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
     private final AgentContext agentContext;
     
     AgentMetricBuffer(AgentContext agentContext) {
-        this.agentContext= agentContext;
+        this.agentContext = agentContext;
         setFlushingInterval(AllmonCommonConstants.ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL);
     }
     
@@ -77,7 +77,7 @@ public class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
             MessageSender messageSender = new MessageSender(agentContext.getCf());
             messageSender.sendMessage(messageWrapper);
         } else {
-            // TODO is it enough
+            // TODO is it enough?
             logger.warn("Sending of " + flushingList.size() + " couldn't been performed because JMS Broker instance was not up");
         }
         

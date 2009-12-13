@@ -1,8 +1,21 @@
-#scheduling-pattern [options] command [args]
-#the file is re-read every minute
+###  scheduling-pattern [options] command [args]
+###  the file is re-read every minute
 
-#sends heart beat (ping message) to server - confirms that active agents scheduler and allmon client-side infrastructure works fine
+###  Note!
+###  Please, pay attention to how often your agents are being executed 
+###  and how long they take for acquiring metrics from observed object!
+###  If the time is longer than interval between calls, allmon will 
+###  create more an more active agents threads, what can easily overload 
+###  the mechanism and cause out of memory error and the scheduler process crash.
+
+#sends heart-beat (ping message) to server - confirms that active agents scheduler and allmon client-side infrastructure works fine
 * * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HeartbeatAgent" "0"
+#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HeartbeatAgent" "20"
+#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HeartbeatAgent" "40"
+
+#allmon agent self health check - use in debug mode only - avoid in production
+* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.SelfHealthCheckAgent" "5"
+* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.SelfHealthCheckAgent" "35"
 
 #checks if google, wikipedia works
 #* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HttpUrlCallAgent" shift setStrategy(getParamsString(0)); urlAddress = getParamsString(1); searchPhrase = getParamsString(2); contentType = getParamsString(3); urlParameters = getParamsString(4); checkingHost = getParamsString(5); checkName = getParamsString(6); instanceName = getParamsString(7); useProxy = Boolean.parseBoolean(getParamsString(8)) (true|false); requestMethod = getParamsString(9);
@@ -19,3 +32,9 @@
 * * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.SnmpHostAgent" "5" "10.1.132.99" "-cpu"
 #SNMP for process cpuTime and memory
 * * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.SnmpHostAgent" "5" "10.1.132.99" "eclipse.exe"
+
+#Shell call example: get task count (using: tasklist for windows)
+#all processes
+*/10 * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.ShellCallAgent" "10" "tasklist /V /FO csv /NH | find /c \",\"" "[0-9]+"
+#only allmon processes
+*/10 * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.ShellCallAgent" "11" "tasklist /V /FO csv /NH | find /c \"allmon\"" "[0-9]+"

@@ -2,7 +2,8 @@ package org.allmon.client.agent;
 
 import java.util.List;
 
-import org.allmon.client.agent.JmxAttributesReader.MBeanAttributeData;
+import org.allmon.client.agent.jmx.JmxAttributesReader;
+import org.allmon.client.agent.jmx.MBeanAttributeData;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
 import org.allmon.common.MetricMessageWrapper;
