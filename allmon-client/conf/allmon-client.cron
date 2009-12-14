@@ -26,15 +26,19 @@
 #* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.HttpUrlCallAgent" "0" "org.allmon.client.agent.HttpUrlCallAgentFullResponseTimeStrategy" "http://localhost:8161/admin/" "Broker" "text/html" "-" "localhost" "local-broker-check" "local-broker" "false" "POST"
 
 #all local JVM - all JMX metrics
-#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.JmxServerAgent" "0" "" ""
+#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.JmxServerAgent" "0" ".*" ".*"
+#checking local Active MQ JVM instance: all memory metrics
+* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.JmxServerAgent" "2" ".*activemq.*" ".*java.lang:type=Memory.*"
+#checking local Active MQ JVM instance: used memory and GC metrics
+#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.JmxServerAgent" "4" ".*activemq.*" "(.*java.lang:type=Memory.*used.*)|(.*java.lang:type=GarbageCollector.*)"
 
 #SNMP for CPU
-* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.SnmpHostAgent" "5" "10.1.132.99" "-cpu"
+#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.SnmpHostAgent" "6" "10.1.132.99" "-cpu"
 #SNMP for process cpuTime and memory
-* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.SnmpHostAgent" "5" "10.1.132.99" "eclipse.exe"
+#* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.SnmpHostAgent" "8" "10.1.132.99" "eclipse.exe"
 
 #Shell call example: get task count (using: tasklist for windows)
 #all processes
-*/10 * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.ShellCallAgent" "10" "tasklist /V /FO csv /NH | find /c \",\"" "[0-9]+"
+#*/10 * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.ShellCallAgent" "10" "tasklist /V /FO csv /NH | find /c \",\"" "[0-9]+"
 #only allmon processes
-*/10 * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.ShellCallAgent" "11" "tasklist /V /FO csv /NH | find /c \"allmon\"" "[0-9]+"
+#*/10 * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.ShellCallAgent" "11" "tasklist /V /FO csv /NH | find /c \"allmon\"" "[0-9]+"

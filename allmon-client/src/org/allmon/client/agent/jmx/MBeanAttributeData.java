@@ -7,22 +7,24 @@ public class MBeanAttributeData {
     private long jvmId;
     private String jvmName;
     private String domainName;
+    private String mbeanClass;
     private String mbeanName;
     private String mbeanAttributeName;
     private double value = 0;
     
-    MBeanAttributeData(long jvmId, String jvmName, String domainName, String mbeanName, String mbeanAttributeName) {
+    MBeanAttributeData(long jvmId, String jvmName, String domainName, String mbeanClass, String mbeanName, String mbeanAttributeName) {
         this.jvmId = jvmId;
         this.jvmName = jvmName;
         this.domainName = domainName;
+        this.mbeanClass = mbeanClass;
         this.mbeanName = mbeanName;
         this.mbeanAttributeName = mbeanAttributeName;
     }
     
     public String toString() {
-        return domainName + ":" + mbeanName + ":" + mbeanAttributeName;
+        return mbeanClass + ":" + mbeanName + ":" + mbeanAttributeName;
     }
-
+    
     void setNumberValue(Object attribute) {
         if (attribute instanceof Number) {
             setNumberValue((Number)attribute);

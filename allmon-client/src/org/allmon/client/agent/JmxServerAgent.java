@@ -27,17 +27,17 @@ public class JmxServerAgent extends ActiveAgent {
 
 	public final MetricMessageWrapper collectMetrics() {
 	    MetricMessageWrapper metricMessageWrapper = new MetricMessageWrapper();
-	    List<LocalVirtualMachine> lvmList = jmxReader.getLocalVirtualMachine(lvmNamesRegexp);
+	    List<LocalVirtualMachine> lvmList = jmxReader.getLocalVirtualMachine(lvmNamesRegexp, true);
         for (LocalVirtualMachine localVirtualMachine : lvmList) {
             List<MBeanAttributeData> attributeDataList;
             try {
-                attributeDataList = jmxReader.getMBeansAttributesData(localVirtualMachine, mbeansAttributesNamesRegexp);
+                attributeDataList = jmxReader.getMBeansAttributesData(localVirtualMachine, mbeansAttributesNamesRegexp, true);
                 // extract all attributes and create messages
                 for (MBeanAttributeData beanAttributeData : attributeDataList) {
                     //logger.debug("Creating jmx message: " + beanAttributeData.getJvmId() + ":" + beanAttributeData.getJvmName() + " - " + beanAttributeData.toString());
                     MetricMessage metricMessage = MetricMessageFactory.createJmxMessage(
                             beanAttributeData.getJvmId(), beanAttributeData.getJvmName(),
-                            beanAttributeData.getDomainName(), beanAttributeData.getMbeanName(), beanAttributeData.getMbeanAttributeName(),
+                            beanAttributeData.getMbeanName(), beanAttributeData.getMbeanAttributeName(),
                             beanAttributeData.getValue(), null);
                     metricMessageWrapper.add(metricMessage);
                     //logger.debug("jmx message created: " + metricMessage.toString());
