@@ -13,6 +13,7 @@ import javax.management.IntrospectionException;
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanInfo;
 import javax.management.MBeanServerConnection;
+import javax.management.ObjectInstance;
 import javax.management.ObjectName;
 import javax.management.ReflectionException;
 import javax.management.openmbean.CompositeDataSupport;
@@ -30,8 +31,13 @@ public final class JmxAttributesReader {
 
     private static final Log logger = LogFactory.getLog(JmxAttributesReader.class);
     
-    public List<LocalVirtualMachine> getLocalVirtualMachine(String nameRegexp) {
+    // TODO replace LocalVirtualMachine and add consistent toString implementation 
+    public List<LocalVirtualMachine> getLocalVirtualMachine(String nameRegexp, boolean restrictive) {
         logger.debug("-- get virtual machines -------------------------");
+        
+        if (!restrictive) {
+            nameRegexp = ".*" + nameRegexp + ".*";
+        }
         
         Map<Integer, LocalVirtualMachine> map = LocalVirtualMachine.getAllVirtualMachines();
         List<LocalVirtualMachine> lvmList = new ArrayList<LocalVirtualMachine>();
@@ -45,31 +51,36 @@ public final class JmxAttributesReader {
                 ", connectorAddress:" + pairs.getValue().connectorAddress();
             logger.debug(vmString);
             // check if name matches
-            if (vmString.matches(".*" + nameRegexp + ".*")) {
+            if (vmString.matches(nameRegexp)) {
                 lvmList.add(pairs.getValue());
             }
         }
         return lvmList;
     }
     
-    private MBeanServerConnection connect(LocalVirtualMachine lvm) throws IOException {
-        logger.debug("connecting to local jvm: id:" + lvm.vmid());
+    //private MBeanServerConnection connect(LocalVirtualMachine lvm) throws IOException {
+    private JMXConnector connect(LocalVirtualMachine lvm) throws IOException {
+        String lvmString = "(id:" + lvm.vmid() + ") " + lvm.displayName();
+        
+        logger.debug("connecting to local jvm: (id:" + lvm.vmid() + ") " + lvm.displayName());
         
         JMXServiceURL jmxUrl = null;
         //if (lvm != null) {
             if (!lvm.isManageable()) {
-                lvm.startManagementAgent();
-                if (!lvm.isManageable()) {
-                    throw new IOException(lvm + " not manageable");
+                if (lvm.isAttachable()) {
+                    lvm.startManagementAgent();
+                    if (!lvm.isManageable()) {
+                        throw new IOException(lvmString + " is not manageable");
+                    }
+                } else {
+                    throw new IOException(lvmString + " is not attachable");
                 }
             }
             jmxUrl = new JMXServiceURL(lvm.connectorAddress());
         //}
         // get server
-        JMXConnector jmxc = JMXConnectorFactory.connect(jmxUrl, null);
-        // connect
-        MBeanServerConnection mbs = jmxc.getMBeanServerConnection();
-        return mbs;
+        JMXConnector jmxc = JMXConnectorFactory.connect(jmxUrl, null); // XXX 
+        return jmxc;
     }
     
     /**
@@ -98,14 +109,14 @@ public final class JmxAttributesReader {
             JMXConnector jmxc = JMXConnectorFactory.connect(url);
             server = jmxc.getMBeanServerConnection();
         } catch (MalformedURLException e) {
-            logger.error("Wrong url: " + e.getMessage());
+            logger.error("Wrong url: " + e.getMessage()); 
         } catch (IOException e) {
             logger.error("Communication error: " + e.getMessage());
         }
         return server;
     }
     
-    public List<MBeanAttributeData> getMBeansAttributesData(LocalVirtualMachine lvm, String nameRegexp) 
+    public List<MBeanAttributeData> getMBeansAttributesData(LocalVirtualMachine lvm, String nameRegexp, boolean restrictive) 
     throws IOException, InstanceNotFoundException, IntrospectionException, ReflectionException {
         logger.debug("-- get list of mbeans names - attributes --------------------------");
 
@@ -113,64 +124,82 @@ public final class JmxAttributesReader {
         String jvmName = lvm.displayName();
 //        logger.debug("connecting to local jvm: " + jvmId + ":" + jvmName);
         
-        nameRegexp = ".*" + nameRegexp + ".*";
-
+        if (!restrictive) {
+            nameRegexp = ".*" + nameRegexp + ".*";
+        }
+        
         // result collection
         ArrayList<MBeanAttributeData> attributeDataList = new ArrayList<MBeanAttributeData>();
         
-        MBeanServerConnection mbs = connect(lvm);
+        //MBeanServerConnection mbs = connect(lvm); // XXX creating a thread!!!
+        JMXConnector jmxc = connect(lvm);
         
-        // get local server // MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-        Set<ObjectName> mbeans = mbs.queryNames(null, null);
-        for (ObjectName mbean : mbeans) {
-            String mbeanDomain = mbean.getDomain();
-//            logger.debug(mbeanDomain + " : " + mbean + " : " + mbean.getCanonicalKeyPropertyListString());
+        try {
+            // connect
+            MBeanServerConnection mbs = jmxc.getMBeanServerConnection();
             
-            MBeanInfo mbeanInfo = mbs.getMBeanInfo(mbean);
-            MBeanAttributeInfo[] mbeanAttributeInfos = mbeanInfo.getAttributes();
-            for (MBeanAttributeInfo mbeanAttributeInfo : mbeanAttributeInfos) {
-			    //Descriptor descriptor = mbeanAttributeInfo.getDescriptor();
-//                logger.debug(" > " + mbeanAttributeInfo.getName() + " : " + mbeanAttributeInfo);
+            Set<ObjectInstance> objectInstances = mbs.queryMBeans(null, null);
+    //        Set<ObjectInstance> objectInstances = mbs.queryMBeans(null, objectNameSearch);
+            for (ObjectInstance objectInstance : objectInstances) {
+                String objectClassName = objectInstance.getClassName();
+                ObjectName objectName = objectInstance.getObjectName();
+                String objectNameString = objectName.toString(); // String objectCanonicalName = objectName.getCanonicalName();
+                String objectDomain = objectName.getDomain();
                 
-                try {
-                    Object attribute = mbs.getAttribute(mbean, mbeanAttributeInfo.getName());
+                MBeanInfo mbeanInfo = mbs.getMBeanInfo(objectName);
+                MBeanAttributeInfo[] mbeanAttributeInfos = mbeanInfo.getAttributes();
+                for (MBeanAttributeInfo mbeanAttributeInfo : mbeanAttributeInfos) {
+    			    //Descriptor descriptor = mbeanAttributeInfo.getDescriptor();
+    //                logger.debug(" > " + mbeanAttributeInfo.getName() + " : " + mbeanAttributeInfo);
                     
-                    // sun recommends using this types of complex attributes types
-                    // ArrayType, CompositeType, or TabularType
-                    // TODO extends types decomposition
-                    if (attribute instanceof Number 
-                            || attribute instanceof Boolean) {
-                        MBeanAttributeData attributeData = new MBeanAttributeData(jvmId, jvmName, mbeanDomain, 
-                                mbeanInfo.getClassName(), mbeanAttributeInfo.getName());
-                        attributeData.setNumberValue(attribute);
-                        if (attributeData.toString().matches(nameRegexp)) {
-                            attributeDataList.add(attributeData);
-                        }
-                    } else if (attribute instanceof CompositeDataSupport) {
-                        // decompose
-                        CompositeDataSupport compositeDataSupportAttribute = (CompositeDataSupport)attribute;
-                        CompositeType compositeType = compositeDataSupportAttribute.getCompositeType();
+                    try {
+                        Object attribute = mbs.getAttribute(objectName, mbeanAttributeInfo.getName());
                         
-                        //ex: "LastGcInfo" - sun.management.GarbageCollectorImpl / com.sun.management.GarbageCollectorMXBean - GcThreadCount, duration, endTime, id, startTime
-                        //ex: "HeapMemoryUsage" - sun.management.MemoryImpl / java.lang.management.MemoryMXBean - {committed, init, max, used}
-                        
-                        for (Object k : compositeType.keySet()) {
-                            Object o = compositeDataSupportAttribute.get(k.toString());
-                            MBeanAttributeData attributeData = new MBeanAttributeData(jvmId, jvmName, mbeanDomain, 
-                                    mbeanInfo.getClassName(), mbeanAttributeInfo.getName() + ":" + k.toString());
-                            attributeData.setNumberValue(o);
+                        // sun recommends using this types of complex attributes types
+                        // ArrayType, CompositeType, or TabularType
+                        // TODO extends types decomposition
+                        if (attribute instanceof Number 
+                                || attribute instanceof Boolean) {
+                            MBeanAttributeData attributeData = new MBeanAttributeData(
+                                    jvmId, jvmName, 
+                                    objectDomain, objectClassName, objectNameString, mbeanAttributeInfo.getName());
+                            attributeData.setNumberValue(attribute);
                             if (attributeData.toString().matches(nameRegexp)) {
                                 attributeDataList.add(attributeData);
                             }
+                        } else if (attribute instanceof CompositeDataSupport) {
+                            // decompose
+                            CompositeDataSupport compositeDataSupportAttribute = (CompositeDataSupport)attribute;
+                            CompositeType compositeType = compositeDataSupportAttribute.getCompositeType();
+                            
+                            //ex: "LastGcInfo" - sun.management.GarbageCollectorImpl / com.sun.management.GarbageCollectorMXBean - GcThreadCount, duration, endTime, id, startTime
+                            //ex: "HeapMemoryUsage" - sun.management.MemoryImpl / java.lang.management.MemoryMXBean - {committed, init, max, used}
+                            
+                            for (Object k : compositeType.keySet()) {
+                                Object o = compositeDataSupportAttribute.get(k.toString());
+                                MBeanAttributeData attributeData = new MBeanAttributeData(
+                                        jvmId, jvmName, 
+                                        objectDomain, objectClassName, objectNameString, mbeanAttributeInfo.getName() + "/" + k.toString());
+                                attributeData.setNumberValue(o);
+                                if (attributeData.toString().matches(nameRegexp)) {
+                                    attributeDataList.add(attributeData);
+                                }
+                            }
                         }
+                        
+                    } catch (Exception e) {
+                        //logger.error(e, e);
                     }
-                    
-                } catch (Exception e) {
-                    //logger.error(e, e);
                 }
             }
+            //logger.debug("Found MBeans: " + objectNames.size() + " and MBean attributes: " + attributeDataList.size());
+            
+        } finally {
+            // dissconnect
+            if (jmxc != null) {
+                jmxc.close();
+            }
         }
-        logger.debug("Found MBeans: " + mbeans.size() + " and MBean attributes: " + attributeDataList.size());
         
         return attributeDataList;
     }

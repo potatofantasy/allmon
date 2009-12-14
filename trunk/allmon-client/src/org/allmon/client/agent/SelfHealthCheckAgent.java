@@ -67,11 +67,11 @@ public class SelfHealthCheckAgent extends ActiveAgent {
         long daemonThreadCount = threads.getDaemonThreadCount();
         long threadCount = threads.getThreadCount();
         
-        messageWrapper.add(MetricMessageFactory.createJmxMessage(
+        messageWrapper.add(MetricMessageFactory.createJmxMessageAgentVM(
                 domainNameMBeanName, "totalStartedThreadCount", totalStartedThreadCount, null));
-        messageWrapper.add(MetricMessageFactory.createJmxMessage(
+        messageWrapper.add(MetricMessageFactory.createJmxMessageAgentVM(
                 domainNameMBeanName, "daemonThreadCount", daemonThreadCount, null));
-        messageWrapper.add(MetricMessageFactory.createJmxMessage(
+        messageWrapper.add(MetricMessageFactory.createJmxMessageAgentVM(
                 domainNameMBeanName, "threadCount", threadCount, null));
         
         //long[] threadIds = threads.getAllThreadIds();
@@ -88,13 +88,13 @@ public class SelfHealthCheckAgent extends ActiveAgent {
             
             logger.debug("threadName: " + threadName + ", blockedCount: " + blockedCount + ", blockedTime:" + blockedTime + ", waitedCount:" + waitedCount + ", waitedTime : " + waitedTime);
             
-            messageWrapper.add(MetricMessageFactory.createJmxMessage(
+            messageWrapper.add(MetricMessageFactory.createJmxMessageAgentVM(
                     threadClassName + ":" + threadName, "blockedCount", blockedCount, null));
-            messageWrapper.add(MetricMessageFactory.createJmxMessage(
+            messageWrapper.add(MetricMessageFactory.createJmxMessageAgentVM(
                     threadClassName + ":" + threadName, "blockedTime", blockedTime, null));
-            messageWrapper.add(MetricMessageFactory.createJmxMessage(
+            messageWrapper.add(MetricMessageFactory.createJmxMessageAgentVM(
                     threadClassName + ":" + threadName, "waitedCount", waitedCount, null));
-            messageWrapper.add(MetricMessageFactory.createJmxMessage(
+            messageWrapper.add(MetricMessageFactory.createJmxMessageAgentVM(
                     threadClassName + ":" + threadName, "waitedTime", waitedTime, null));
         }
         return messageWrapper;
