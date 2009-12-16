@@ -2,6 +2,7 @@ package org.allmon.client.agent;
 
 import java.util.List;
 
+import org.allmon.client.agent.jmx.LocalVirtualMachineDescriptor;
 import org.allmon.client.agent.jmx.JmxAttributesReader;
 import org.allmon.client.agent.jmx.MBeanAttributeData;
 import org.allmon.common.MetricMessage;
@@ -10,8 +11,15 @@ import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import sun.tools.jconsole.LocalVirtualMachine;
-
+/**
+ * This agent is responsible for active monitoring of metrics accessible through JMX. 
+ * The agent is scanning all accessible virtual machines on the localhost 
+ * (for canonical names containing regexp phrase - the first parameter) and retrieves 
+ * all numeric values from all MBeans which meets regexp names criteria - the second parameter.
+ * 
+ * This agent works (compile) with jdk 6 only.
+ * 
+ */
 public class JmxServerAgent extends ActiveAgent {
 
     private static final Log logger = LogFactory.getLog(JmxServerAgent.class);
@@ -27,8 +35,8 @@ public class JmxServerAgent extends ActiveAgent {
 
 	public final MetricMessageWrapper collectMetrics() {
 	    MetricMessageWrapper metricMessageWrapper = new MetricMessageWrapper();
-	    List<LocalVirtualMachine> lvmList = jmxReader.getLocalVirtualMachine(lvmNamesRegexp, true);
-        for (LocalVirtualMachine localVirtualMachine : lvmList) {
+	    List<LocalVirtualMachineDescriptor> lvmList = jmxReader.getLocalVirtualMachine(lvmNamesRegexp, true);
+        for (LocalVirtualMachineDescriptor localVirtualMachine : lvmList) {
             List<MBeanAttributeData> attributeDataList;
             try {
                 attributeDataList = jmxReader.getMBeansAttributesData(localVirtualMachine, mbeansAttributesNamesRegexp, true);
