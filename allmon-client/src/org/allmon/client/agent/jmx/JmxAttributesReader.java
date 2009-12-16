@@ -25,29 +25,26 @@ import javax.management.remote.JMXServiceURL;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import sun.tools.jconsole.LocalVirtualMachine;
-
 public final class JmxAttributesReader {
 
     private static final Log logger = LogFactory.getLog(JmxAttributesReader.class);
     
     // TODO replace LocalVirtualMachine and add consistent toString implementation 
-    public List<LocalVirtualMachine> getLocalVirtualMachine(String nameRegexp, boolean restrictive) {
+    public List<LocalVirtualMachineDescriptor> getLocalVirtualMachine(String nameRegexp, boolean restrictive) {
         logger.debug("-- get virtual machines -------------------------");
         
         if (!restrictive) {
             nameRegexp = ".*" + nameRegexp + ".*";
         }
         
-        Map<Integer, LocalVirtualMachine> map = LocalVirtualMachine.getAllVirtualMachines();
-        List<LocalVirtualMachine> lvmList = new ArrayList<LocalVirtualMachine>();
-        Iterator<Map.Entry<Integer, LocalVirtualMachine>> it = map.entrySet().iterator();
+        Map<Integer, LocalVirtualMachineDescriptor> map = new LocalVirtualMachineManager().getVirtualMachines();
+        List<LocalVirtualMachineDescriptor> lvmList = new ArrayList<LocalVirtualMachineDescriptor>();
+        Iterator<Map.Entry<Integer, LocalVirtualMachineDescriptor>> it = map.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry<Integer, LocalVirtualMachine> pairs = (Map.Entry<Integer, LocalVirtualMachine>)it.next();
+            Map.Entry<Integer, LocalVirtualMachineDescriptor> pairs = (Map.Entry<Integer, LocalVirtualMachineDescriptor>)it.next();
             String vmString = 
                 "id:" + pairs.getKey() + 
-                ", main:" + pairs.getValue() + 
-                ", displayName:" + pairs.getValue().displayName() +
+                ", name:" + pairs.getValue() +
                 ", connectorAddress:" + pairs.getValue().connectorAddress();
             logger.debug(vmString);
             // check if name matches
@@ -59,25 +56,23 @@ public final class JmxAttributesReader {
     }
     
     //private MBeanServerConnection connect(LocalVirtualMachine lvm) throws IOException {
-    private JMXConnector connect(LocalVirtualMachine lvm) throws IOException {
-        String lvmString = "(id:" + lvm.vmid() + ") " + lvm.displayName();
+    private JMXConnector connect(LocalVirtualMachineDescriptor lvm) throws IOException {
+        String lvmString = lvm.getCannonicalName();
         
-        logger.debug("connecting to local jvm: (id:" + lvm.vmid() + ") " + lvm.displayName());
+        logger.debug("connecting to local jvm: " + lvmString);
         
         JMXServiceURL jmxUrl = null;
-        //if (lvm != null) {
-            if (!lvm.isManageable()) {
-                if (lvm.isAttachable()) {
-                    lvm.startManagementAgent();
-                    if (!lvm.isManageable()) {
-                        throw new IOException(lvmString + " is not manageable");
-                    }
-                } else {
-                    throw new IOException(lvmString + " is not attachable");
+        if (!lvm.isManageable()) {
+            if (lvm.isAttachable()) {
+                lvm.startManagementAgent(); // 
+                if (!lvm.isManageable()) {
+                    throw new IOException(lvmString + " is not manageable");
                 }
+            } else {
+                throw new IOException(lvmString + " is not attachable");
             }
-            jmxUrl = new JMXServiceURL(lvm.connectorAddress());
-        //}
+        }
+        jmxUrl = new JMXServiceURL(lvm.connectorAddress());
         // get server
         JMXConnector jmxc = JMXConnectorFactory.connect(jmxUrl, null); // XXX 
         return jmxc;
@@ -92,36 +87,40 @@ public final class JmxAttributesReader {
      * You can also modify the following code to take 
      * username and password for client authentication.
      * 
+     * TODO change return type to JMXConnector
+     * 
      * @param hostname
      * @param port
      * @return
      */
-    private MBeanServerConnection connect(String hostname, int port) {
+    //private MBeanServerConnection connect(String hostname, int port) {
+    private JMXConnector connect(String hostname, int port) {
         String hostPort = hostname + ":" + port;
         
         logger.debug("connecting to remote jvm: " + hostPort);
 
         // Create an RMI connector client and connect it to the RMI connector server
         String urlPath = "/jndi/rmi://" + hostPort + "/jmxrmi";
-        MBeanServerConnection server = null;        
+        //MBeanServerConnection server = null;
+        JMXConnector jmxc = null;
         try {
             JMXServiceURL url = new JMXServiceURL("rmi", "", 0, urlPath);
-            JMXConnector jmxc = JMXConnectorFactory.connect(url);
-            server = jmxc.getMBeanServerConnection();
+            jmxc = JMXConnectorFactory.connect(url);
+            //server = jmxc.getMBeanServerConnection();
         } catch (MalformedURLException e) {
             logger.error("Wrong url: " + e.getMessage()); 
         } catch (IOException e) {
             logger.error("Communication error: " + e.getMessage());
         }
-        return server;
+        return jmxc;
     }
     
-    public List<MBeanAttributeData> getMBeansAttributesData(LocalVirtualMachine lvm, String nameRegexp, boolean restrictive) 
+    public List<MBeanAttributeData> getMBeansAttributesData(LocalVirtualMachineDescriptor lvm, String nameRegexp, boolean restrictive) 
     throws IOException, InstanceNotFoundException, IntrospectionException, ReflectionException {
         logger.debug("-- get list of mbeans names - attributes --------------------------");
 
-        long jvmId = lvm.vmid();
-        String jvmName = lvm.displayName();
+        long jvmId = lvm.getVMid();
+        String jvmName = lvm.toString();
 //        logger.debug("connecting to local jvm: " + jvmId + ":" + jvmName);
         
         if (!restrictive) {
@@ -131,7 +130,7 @@ public final class JmxAttributesReader {
         // result collection
         ArrayList<MBeanAttributeData> attributeDataList = new ArrayList<MBeanAttributeData>();
         
-        //MBeanServerConnection mbs = connect(lvm); // XXX creating a thread!!!
+        //MBeanServerConnection mbs = connect(lvm); // creating a connection thread, which has to be closed
         JMXConnector jmxc = connect(lvm);
         
         try {
@@ -195,7 +194,7 @@ public final class JmxAttributesReader {
             //logger.debug("Found MBeans: " + objectNames.size() + " and MBean attributes: " + attributeDataList.size());
             
         } finally {
-            // dissconnect
+            // disconnect
             if (jmxc != null) {
                 jmxc.close();
             }
