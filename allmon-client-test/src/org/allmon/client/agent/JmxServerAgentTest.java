@@ -9,7 +9,7 @@ public class JmxServerAgentTest extends TestCase {
         try {
             JmxServerAgent agent = new JmxServerAgent(agentContext);
             agent.setParameters(new String[]{
-                    ".*activemq.*", //".*AgentAggregatorMain.*", //".*activemq.*", //"activemq", //"AgentAggregatorMain",
+                    ".*activemq.*", //".*AgentAggregatorMain.*"
                     ".*java.lang:type=Memory.*", // all memory metrics
                     //"(.*java.lang:type=Memory.*used.*)|(.*java.lang:type=GarbageCollector.*)"
                     //"java.lang:"
