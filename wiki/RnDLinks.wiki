@@ -95,6 +95,7 @@
       * http://twitter.com/webloadtester
     * Cloud real-time Web tracking and analysis application - http://www.woopra.com/
     * IBM Monitoring & Diagnostic Tools for Java - http://www.theserverside.com/news/thread.tss?thread_id=58400
+    * IBM Proactive Application Monitoring - http://www.ibm.com/developerworks/websphere/library/techarticles/0304_polozoff/polozoff.html
 
   * Databases and Application Servers
     * Oracle® Application Server Performance Guide - Performance Metrics - http://download.oracle.com/docs/cd/B14099_19/core.1012/b14001/metrics.htm
