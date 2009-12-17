@@ -27,7 +27,7 @@ _`*` TBA_
 <br>
 `*` http://www.dba-oracle.com/d__dba_view_menu.htm
 <br>
-`*` select * from dictionary;  ß most important
+=select * from dictionary;  ß most important=
 <br>
 `*` http://www.developer.com/article.php/10915_3337411_2/Oracle-and-Java-Stored-Procedures.htm
 <br>
