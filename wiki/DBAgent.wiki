@@ -10,11 +10,17 @@
 <br>
 _`*` TBA_
 
+*Strategies:*
+<br>
+_`*` TBA_
+
+
 
 *Interesting pages, info and documentation:*
 <br>
 
 =ORACLE=
+<br>
 `*` http://www.harmanresearch.com/oracle/
 <br>
 `*` http://www.tc.umn.edu/~hause011/
@@ -23,8 +29,11 @@ _`*` TBA_
 <br>
 `*` select * from dictionary;  ß most important
 <br>
-
-
+`*` http://www.developer.com/article.php/10915_3337411_2/Oracle-and-Java-Stored-Procedures.htm
+<br>
+`*` http://forums.oracle.com/forums/thread.jspa?messageID=2432493
+<br>
+`*` http://forums.oracle.com/forums/thread.jspa?threadID=988898
 =PostgreSQL=
 `*` http://momjian.us/main/writings/pgsql/administration.pdf - some interesting stuff starts on 72 page.
 
