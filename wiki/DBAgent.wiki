@@ -27,13 +27,15 @@ _`*` TBA_
 <br>
 `*` http://www.dba-oracle.com/d__dba_view_menu.htm
 <br>
-=select * from dictionary;  ß most important=
 <br>
 `*` http://www.developer.com/article.php/10915_3337411_2/Oracle-and-Java-Stored-Procedures.htm
 <br>
 `*` http://forums.oracle.com/forums/thread.jspa?messageID=2432493
 <br>
 `*` http://forums.oracle.com/forums/thread.jspa?threadID=988898
+
+===select `*` from dictionary  <-- the most important===
+
 =PostgreSQL=
 `*` http://momjian.us/main/writings/pgsql/administration.pdf - some interesting stuff starts on 72 page.
 
