@@ -15,6 +15,10 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class AbstractLoadTest<InitParam, PreCallParam> extends TestCase {
 
+    static {
+        AllmonPropertiesReader.readLog4jProperties();
+    }
+    
     private static final Log logger = LogFactory.getLog(AbstractLoadTest.class);
     
     /**
@@ -55,17 +59,19 @@ public abstract class AbstractLoadTest<InitParam, PreCallParam> extends TestCase
     public void runLoadTest(long threadCount, long startingTimeMills, 
             final long maxSleepBetweenPreAndPostCall, final long subsequentCallsInThread, 
             long sleepAfterTest) throws InterruptedException {
-        logger.debug("runLoadTest - start");
+        logger.info("runLoadTest - start");
         
         logger.info("load test will execute " + threadCount * subsequentCallsInThread + " calls in " + threadCount + " independent threads");
         logger.info("calls per thread: " + subsequentCallsInThread);
         logger.info("rump up period is (all thread should run in): " + startingTimeMills + "ms");
-        logger.info("active part of load test should take: " + (maxSleepBetweenPreAndPostCall / 2 * subsequentCallsInThread / 1000) + "sec");
-        logger.info("whole load test should take: " + ((sleepAfterTest + maxSleepBetweenPreAndPostCall / 2 * subsequentCallsInThread) / 1000) + "sec");
+        logger.info("active part of load test should take: " + ((double)maxSleepBetweenPreAndPostCall / 2 * subsequentCallsInThread / 1000) + "sec");
+        logger.info("whole load test should take: " + (((double)sleepAfterTest + maxSleepBetweenPreAndPostCall / 2 * subsequentCallsInThread) / 1000) + "sec");
         
         HashMap<Integer, Thread> loadThreadsMap = new HashMap<Integer, Thread>();
         
-        logger.debug("runLoadTest - creating definitions of threads");
+        long t0 = System.currentTimeMillis();
+        
+        logger.info("runLoadTest - creating definitions of threads");
         for (int i = 0; i < threadCount; i++) {
             // creating a thread
             Thread t = new Thread(new LoadTestedClass(i, startingTimeMills) {
@@ -104,26 +110,29 @@ public abstract class AbstractLoadTest<InitParam, PreCallParam> extends TestCase
             loadThreadsMap.put(new Integer(i), t);
         }
         
-        logger.debug("runLoadTest - running threads");
+        logger.info("runLoadTest - running created threads");
         for (int i = 0; i < threadCount; i++) {
             // taking a thread definition to run it
             Thread t = (Thread)loadThreadsMap.get(new Integer(i));
             t.start();
         }
         
-        logger.debug("runLoadTest - waiting for running threads");
+        logger.info("runLoadTest - waiting for running threads to finish");
         for (int i = 0; i < threadCount; i++) {
             Thread t = (Thread)loadThreadsMap.get(new Integer(i));
             t.join();
         }
+
+        logger.info("runLoadTest - load test took: " + ((double)System.currentTimeMillis() - t0)/1000 + "sec");
+
         
-        logger.debug("runLoadTest - waiting after load test");
+        logger.info("runLoadTest - waiting after load test");
         try {
             Thread.sleep(sleepAfterTest);
         } catch (InterruptedException e) {
         }
                 
-        logger.debug("runLoadTest - end");
+        logger.info("runLoadTest - end");
     }
     
 }
