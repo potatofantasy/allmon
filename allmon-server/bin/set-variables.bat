@@ -22,7 +22,7 @@ set JVM_PROPERTIES=%JVM_PROPERTIES% -Dallmon.properties.path=%CONF%/allmon.prope
 set JVM_PROPERTIES=%JVM_PROPERTIES% -Dlog4jallmon.properties.path=%CONF%/log4jallmon.properties
 set JVM_PROPERTIES=%JVM_PROPERTIES% -Dcom.sun.management.jmxremote
 rem for debug
-set JVM_PROPERTIES=%JVM_PROPERTIES% -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=12346
+rem set JVM_PROPERTIES=%JVM_PROPERTIES% -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=12346
 
 set CLASS_PATH=
 set CLASS_PATH=%CLASS_PATH%%CONF%;
@@ -31,7 +31,8 @@ set CLASS_PATH=%CLASS_PATH%../lib/allmon-client.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/cron4j-2.1.1.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/cglib-nodep-2.2.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/commons-collections-3.2.jar;
-set CLASS_PATH=%CLASS_PATH%../lib/commons-dbcp-1.2.2.jar;
+set CLASS_PATH=%CLASS_PATH%../lib/c3p0-0.9.1.2.jar;
+set CLASS_PATH=%CLASS_PATH%../lib/c3p0-oracle-thin-extras-0.9.1.2.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/commons-logging-1.1.1.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/commons-pool-1.3.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/dom4j-1.5.jar;

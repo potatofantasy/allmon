@@ -11,23 +11,15 @@
 	  <property name="ignoreUnresolvablePlaceholders"><value>true</value></property>
 	</bean>
 	
-	<bean id="allmonDataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="${allmon.server.db.driverClassName}" />
-		<property name="url" value="${allmon.server.db.url}" />
-		<property name="username" value="${allmon.server.db.username}" />
-		<property name="password" value="${allmon.server.db.password}" />
-		<!--
-		<property name="initialSize" value="10"/>
-    <property name="maxActive" value="20"/>
-    <property name="defaultAutoCommit" value="true"/>
-    <property name="poolPreparedStatements" value="false"/>
-		<property name="defaultTransactionIsolation" value="2"/>
-		-->
-		<!--
-			<property name="url"><value>jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=LONTD03.CORP.TTC)(PORT=1521))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=realtime)))</value></property>
-			<property name="driverClassName"><value>org.apache.derby.jdbc.EmbeddedDriver</value></property>
-			<property name="url"><value>jdbc:derby:springallmon;create=true</value></property>
-		-->
+	<bean id="allmonDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${allmon.server.db.driverClassName}" />
+		<property name="jdbcUrl" value="${allmon.server.db.url}" />
+    <property name="user" value="${allmon.server.db.username}" />
+    <property name="password" value="${allmon.server.db.password}" />
+    <property name="minPoolSize" value="${allmon.server.db.hibernate.c3p0.minPoolSize}" />
+    <property name="maxPoolSize" value="${allmon.server.db.hibernate.c3p0.maxPoolSize}" />
+    <property name="maxIdleTime" value="${allmon.server.db.hibernate.c3p0.maxIdleTime}" />
+    <property name="maxStatements" value="100" />
 	</bean>
   
 	<bean id="allmonHibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
@@ -37,11 +29,6 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
 				<prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
 				<prop key="hibernate.show_sql">${allmon.server.db.hibernate.show_sql}</prop>
-				<prop key="hibernate.c3p0.minPoolSize">10</prop>
-				<prop key="hibernate.c3p0.maxPoolSize">30</prop>
-				<prop key="hibernate.c3p0.timeout">600</prop>
-				<prop key="hibernate.c3p0.max_statement">50</prop>
-				<prop key="hibernate.c3p0.testConnectionOnCheckout">false</prop>
 			</props>
 		</property>
 	</bean>
