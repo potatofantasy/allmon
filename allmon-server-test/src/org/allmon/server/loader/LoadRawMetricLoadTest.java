@@ -6,11 +6,11 @@ import org.allmon.common.MetricMessageWrapper;
 
 public class LoadRawMetricLoadTest extends AbstractLoadTest<LoadRawMetric, Object> {
 
-    private final static long THREADS_COUNT = 15;
+    private final static long THREADS_COUNT = 30;
     private final static long STARTING_TIME_MILLIS = 10;
 
     public void testMain() throws InterruptedException {
-        runLoadTest(THREADS_COUNT, STARTING_TIME_MILLIS, 1, 2000, 10000);
+        runLoadTest(THREADS_COUNT, STARTING_TIME_MILLIS, 1, 5000, 1000);
     }
 
     public LoadRawMetric initialize() {
