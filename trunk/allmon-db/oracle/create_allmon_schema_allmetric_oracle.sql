@@ -477,6 +477,12 @@ AND    us.segment_name = tab.table_name(+)
 GROUP BY us.segment_type
 ORDER BY mb DESC, 1;
 
+-- check metrics row count per day
+SELECT vc.YEAR, vc.MONTH, vc.DAY, COUNT(*)
+FROM   vam_metricsdata_cal vc
+GROUP  BY vc.YEAR, vc.MONTH, vc.DAY
+ORDER  BY 1, 2, 3;
+
 -- data consistency checks 
 SELECT 'am_metricsdata', COUNT(*) FROM am_metricsdata
 UNION ALL
