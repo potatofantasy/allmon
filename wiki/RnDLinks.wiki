@@ -122,7 +122,7 @@
     * Monitoring and Managing Tomcat Clusters Using JMX - http://www.devx.com/Java/Article/21726/1954
     * Using JConsole (and JMX MBeans) to Monitor Applications - http://java.sun.com/developer/technicalArticles/J2SE/jconsole.html
     * Using JMX to monitor Apache ActiveMQ - http://activemq.apache.org/jmx.html
-
+    * Using perfmon to analyse MS-SQL performance - http://sqlserverpedia.com/blog/analysis-services/sql-server-data-mining-in-the-cloud/
 
 = Theory =
 
