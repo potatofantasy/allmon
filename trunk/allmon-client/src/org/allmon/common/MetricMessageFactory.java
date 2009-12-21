@@ -38,6 +38,7 @@ public class MetricMessageFactory {
         // TODO move to more OO design 
         metricMessage.setArtifact(artifact);
         metricMessage.setMetricType(metricType);
+        metricMessage.setPoint(AllmonCommonConstants.METRIC_POINT_ENTRY); // TODO review necessity of this setter
         return metricMessage;
     }
     

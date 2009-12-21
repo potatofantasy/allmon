@@ -8,6 +8,8 @@ public class AllmonCommonConstants {
     public final static String METRIC_POINT_EXIT = "EXIT";
     public final static String METRIC_POINT_TAKEN = "TAKEN";
     public final static String METRIC_POINT_CONSUMED = "CONSUMED";
+    public final static String METRIC_POINT_NONE = "NONE";
+    
     
     // settings for agents
     public static final long ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL = AllmonPropertiesReader.getInstance().getValueInt(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL, 2000);
