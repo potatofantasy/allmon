@@ -114,5 +114,8 @@
 	<classpathentry kind="lib" path="lib/aspectjweaver.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.5.8.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-nop-1.5.8.jar"/>
+	<classpathentry kind="lib" path="lib/jdk1.5.0_12/tools.jar"/>
+	<classpathentry kind="lib" path="lib/c3p0-0.9.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/c3p0-oracle-thin-extras-0.9.1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
