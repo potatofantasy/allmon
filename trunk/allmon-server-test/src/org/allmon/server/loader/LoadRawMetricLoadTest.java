@@ -6,11 +6,13 @@ import org.allmon.common.MetricMessageWrapper;
 
 public class LoadRawMetricLoadTest extends AbstractLoadTest<LoadRawMetric, Object> {
 
-    private final static long THREADS_COUNT = 30;
+    private final static long THREADS_COUNT = 1;
     private final static long STARTING_TIME_MILLIS = 10;
+    
+    private final static int METRICS_COUNT = 10000;
 
     public void testMain() throws InterruptedException {
-        runLoadTest(THREADS_COUNT, STARTING_TIME_MILLIS, 1, 5000, 1000);
+        runLoadTest(THREADS_COUNT, STARTING_TIME_MILLIS, 1, 1, 1000);
     }
 
     public LoadRawMetric initialize() {
@@ -18,9 +20,12 @@ public class LoadRawMetricLoadTest extends AbstractLoadTest<LoadRawMetric, Objec
     }
 
     public Object preCall(int thread, int iteration, LoadRawMetric loadRawMetric) {
-        MetricMessageWrapper metricMessageWrapper = new MetricMessageWrapper(
-                MetricMessageFactory.createClassMessage(
-                        "classNameCalled", "methodNameCalled", "classNameCalling", "methodNameCalling", 0));
+        MetricMessageWrapper metricMessageWrapper = new MetricMessageWrapper();
+        for (int i = 0; i < METRICS_COUNT; i++) {
+            metricMessageWrapper.add(MetricMessageFactory.createClassMessage(
+                            "classNameCalled", "methodNameCalled", "classNameCalling", "methodNameCalling", 0));
+        }
+        
         loadRawMetric.storeMetric(metricMessageWrapper);
         return metricMessageWrapper;
     }
