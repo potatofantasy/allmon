@@ -13,6 +13,8 @@ public class LoaderReceiverRouteBuilder extends RouteBuilder {
 
     private static final Log logger = LogFactory.getLog(LoaderReceiverRouteBuilder.class);
     
+    private static final LoadRawMetric loadRawMetric = new LoadRawMetric();
+    
     public void configure() {
         // receiving data from server-side queue
         from(AllmonCommonConstants.ALLMON_SERVER_CAMEL_QUEUE_READYFORLOADING).process(new Processor() {
@@ -24,7 +26,7 @@ public class LoaderReceiverRouteBuilder extends RouteBuilder {
                 if (metricMessageWrapper != null) {
                     try {
                         // Store metric
-                        LoadRawMetric loadRawMetric = new LoadRawMetric();
+                        //LoadRawMetric loadRawMetric = new LoadRawMetric(); TODO check performance ??!
                         loadRawMetric.storeMetric(metricMessageWrapper); // TODO change String(metricMessageWrapper.toString) to MetricMessage
                     } catch (Throwable t) {
                         logger.error(t.getMessage(), t);
