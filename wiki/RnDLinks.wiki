@@ -1,43 +1,6 @@
 #summary RnD Hub - Central point of Allmon research.
 #labels Phase-Requirements,Phase-Design
 
-= Buzzwords =
-
-  * monitoring
-    * active vs passive
-  * metrics
-    * scalar vs vector
-  * correlation
-  * distributed
-  * isolated 
-  * collection
-  * messaging 
-    * connectivity 
-    * loosely coupling
-    * reliable
-    * not interfering
-  * analysis
-  * auditability 
-    * code manipulation
-    * aop
-    * injections by annotations
-  * preventing performance issues
-  * anomaly detection
-    * system responses, utilizations
-    * users behaviour 
-  * resources utilization 
-  * measuring application behaviour 
-  * flexible and easy in use
-  * high-performance
-  * low performance footprint
-  * platform independent (pure java implementations)
-  * allmon vs standard monitoring
-  * why allmon
-    * unblocking inserts to database
-    * unblocking remote calls
-  * compatible with monitoring standards 
-
-
 = Technologies =
 
   * General
@@ -173,7 +136,7 @@
     * Active vs. Passive Web Performance Monitoring - http://knol.google.com/k/bill-fuesz/active-vs-passive-web-performance
     * Active vs passive monitoring in soa management - http://jaxview.blogspot.com/2007/12/active-vs-passive-monitoring-in-soa.html
     * Measure CPU and memory consumption of a Java application - http://articles.techrepublic.com.com/5100-10878_11-6067049.html?tag=rbxccnbtr1
-
+    * Integrating web analysis in the user experience design process - http://www.slideshare.net/internetarchitects/integrating-web-analysis-in-the-user-experience-design-process-presentation
 
   * Monitoring
     * http://www.slideshare.net/gigamonster/gigamon-u-web-performance-monitoring
