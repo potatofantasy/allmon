@@ -28,6 +28,14 @@ Below you can find a list of features which are supported by allmon.
   * Compatible with monitoring standards (SNMP, JMX, ...)
   * Platform independent (java implementation)
 
+= Manifesto (Vision) =
+
+  * Deliver stable and easy to maintain code by using test driven development approaches
+  * Optimize for performance and usability.
+  * Make allmon easy-to-use by providing examples, easy-to-understand APIs and architecture.
+  * Allow for easy extensibility by carefully building up the architecture
+  * Make allmon worth using by showing how to solve real-world examples.
+
 ----
 
 == Buzzwords ==
