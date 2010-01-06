@@ -11,7 +11,7 @@ import java.util.Iterator;
  * 
  * Allmon server decodes this object to RawMetric to persist this data in "raw" form in database.
  */
-public class MetricMessageWrapper implements Serializable {
+public class MetricMessageWrapper implements Serializable, Iterable<MetricMessage> {
 
     private ArrayList<MetricMessage> list = new ArrayList<MetricMessage>();
 

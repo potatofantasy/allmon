@@ -145,50 +145,56 @@ public final class JmxAttributesReader {
                 String objectNameString = objectName.toString(); // String objectCanonicalName = objectName.getCanonicalName();
                 String objectDomain = objectName.getDomain();
                 
-                MBeanInfo mbeanInfo = mbs.getMBeanInfo(objectName);
-                MBeanAttributeInfo[] mbeanAttributeInfos = mbeanInfo.getAttributes();
-                for (MBeanAttributeInfo mbeanAttributeInfo : mbeanAttributeInfos) {
-    			    //Descriptor descriptor = mbeanAttributeInfo.getDescriptor();
-    //                logger.debug(" > " + mbeanAttributeInfo.getName() + " : " + mbeanAttributeInfo);
+                try {
                     
-                    try {
-                        Object attribute = mbs.getAttribute(objectName, mbeanAttributeInfo.getName());
+                    MBeanInfo mbeanInfo = mbs.getMBeanInfo(objectName);
+                    MBeanAttributeInfo[] mbeanAttributeInfos = mbeanInfo.getAttributes();
+                    for (MBeanAttributeInfo mbeanAttributeInfo : mbeanAttributeInfos) {
+        			    //Descriptor descriptor = mbeanAttributeInfo.getDescriptor();
+        //                logger.debug(" > " + mbeanAttributeInfo.getName() + " : " + mbeanAttributeInfo);
                         
-                        // sun recommends using this types of complex attributes types
-                        // ArrayType, CompositeType, or TabularType
-                        // TODO extends types decomposition
-                        if (attribute instanceof Number 
-                                || attribute instanceof Boolean) {
-                            MBeanAttributeData attributeData = new MBeanAttributeData(
-                                    jvmId, jvmName, 
-                                    objectDomain, objectClassName, objectNameString, mbeanAttributeInfo.getName());
-                            attributeData.setNumberValue(attribute);
-                            if (attributeData.toString().matches(nameRegexp)) {
-                                attributeDataList.add(attributeData);
-                            }
-                        } else if (attribute instanceof CompositeDataSupport) {
-                            // decompose
-                            CompositeDataSupport compositeDataSupportAttribute = (CompositeDataSupport)attribute;
-                            CompositeType compositeType = compositeDataSupportAttribute.getCompositeType();
+                        try {
+                            Object attribute = mbs.getAttribute(objectName, mbeanAttributeInfo.getName());
                             
-                            //ex: "LastGcInfo" - sun.management.GarbageCollectorImpl / com.sun.management.GarbageCollectorMXBean - GcThreadCount, duration, endTime, id, startTime
-                            //ex: "HeapMemoryUsage" - sun.management.MemoryImpl / java.lang.management.MemoryMXBean - {committed, init, max, used}
-                            
-                            for (Object k : compositeType.keySet()) {
-                                Object o = compositeDataSupportAttribute.get(k.toString());
+                            // sun recommends using this types of complex attributes types
+                            // ArrayType, CompositeType, or TabularType
+                            // TODO extends types decomposition
+                            if (attribute instanceof Number 
+                                    || attribute instanceof Boolean) {
                                 MBeanAttributeData attributeData = new MBeanAttributeData(
                                         jvmId, jvmName, 
-                                        objectDomain, objectClassName, objectNameString, mbeanAttributeInfo.getName() + "/" + k.toString());
-                                attributeData.setNumberValue(o);
+                                        objectDomain, objectClassName, objectNameString, mbeanAttributeInfo.getName());
+                                attributeData.setNumberValue(attribute);
                                 if (attributeData.toString().matches(nameRegexp)) {
                                     attributeDataList.add(attributeData);
                                 }
+                            } else if (attribute instanceof CompositeDataSupport) {
+                                // decompose
+                                CompositeDataSupport compositeDataSupportAttribute = (CompositeDataSupport)attribute;
+                                CompositeType compositeType = compositeDataSupportAttribute.getCompositeType();
+                                
+                                //ex: "LastGcInfo" - sun.management.GarbageCollectorImpl / com.sun.management.GarbageCollectorMXBean - GcThreadCount, duration, endTime, id, startTime
+                                //ex: "HeapMemoryUsage" - sun.management.MemoryImpl / java.lang.management.MemoryMXBean - {committed, init, max, used}
+                                
+                                for (Object k : compositeType.keySet()) {
+                                    Object o = compositeDataSupportAttribute.get(k.toString());
+                                    MBeanAttributeData attributeData = new MBeanAttributeData(
+                                            jvmId, jvmName, 
+                                            objectDomain, objectClassName, objectNameString, mbeanAttributeInfo.getName() + "/" + k.toString());
+                                    attributeData.setNumberValue(o);
+                                    if (attributeData.toString().matches(nameRegexp)) {
+                                        attributeDataList.add(attributeData);
+                                    }
+                                }
                             }
+                            
+                        } catch (Exception e) {
+                            //logger.error(e, e);
                         }
-                        
-                    } catch (Exception e) {
-                        //logger.error(e, e);
                     }
+                
+                } catch (Exception e) {
+                    //logger.error(e, e);
                 }
             }
             //logger.debug("Found MBeans: " + objectNames.size() + " and MBean attributes: " + attributeDataList.size());
