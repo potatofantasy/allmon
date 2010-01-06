@@ -2,6 +2,7 @@ package org.allmon.client.agent;
 
 import java.util.List;
 
+import org.allmon.client.agent.buffer.AbstractMetricBuffer;
 import org.allmon.common.AbstractLoadTest;
 import org.allmon.common.AllmonPropertiesReader;
 import org.apache.commons.logging.Log;

@@ -1,0 +1,1 @@
+c:\jdk1.6.0_04\bin\java.exe -Xmx512m -Dcom.sun.management.jmxremote org.allmon.client.agent.JavaCallAgentLoadTest

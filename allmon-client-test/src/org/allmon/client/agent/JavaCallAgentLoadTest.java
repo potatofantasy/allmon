@@ -1,30 +1,30 @@
 package org.allmon.client.agent;
 
 import org.allmon.common.AbstractLoadTest;
-import org.allmon.common.AllmonPropertiesReader;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory4Test;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class JavaCallAgentLoadTest extends AbstractLoadTest<Object, JavaCallAgent> {
-
-    static {
-        AllmonPropertiesReader.readLog4jProperties();
+    
+    // c:\jdk1.6.0_04\\bin\java.exe -Xmx512m -Dcom.sun.management.jmxremote 
+    public static void main(String[] args) throws InterruptedException {
+        JavaCallAgentLoadTest agentLoadTest = new JavaCallAgentLoadTest();
+        agentLoadTest.testMain();
     }
     
     private static final Log logger = LogFactory.getLog(JavaCallAgentLoadTest.class);
     
     // stress test
-    private final static long THREADS_COUNT = 20;
+    private final static long THREADS_COUNT = 10;
     private final static long STARTING_TIME_MILLIS = 1 * 1000; // rump-up 1 sec
-    private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 50; // 25ms * 5000x = ~125sec
-    private final static long SUBSEQUENT_CALLS_IN_THREAD = 5000;
-    // soak test - around 20min
-//    private final static long THREADS_COUNT = 50;
+    private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 20; // 25ms * 5000x = ~125sec
+    private final static long SUBSEQUENT_CALLS_IN_THREAD = 10000; //300000; //20000; //10000; //5000;
+    // soak test - around 60min
 //    private final static long STARTING_TIME_MILLIS = 1 * 60 * 1000; // rump-up 1 min
-//    private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 1000; // (!) 2 calls per1 sec
-//    private final static long SUBSEQUENT_CALLS_IN_THREAD = 1200 * (1000 / SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX);
+//    private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 20;
+//    private final static long SUBSEQUENT_CALLS_IN_THREAD = 360000;
     
     private final AgentContext agentContext = new AgentContext();
     
@@ -53,9 +53,6 @@ public class JavaCallAgentLoadTest extends AbstractLoadTest<Object, JavaCallAgen
     
     public void postCall(JavaCallAgent agent) {
         agent.exitPoint();
-
     }
-    
-    
 
 }

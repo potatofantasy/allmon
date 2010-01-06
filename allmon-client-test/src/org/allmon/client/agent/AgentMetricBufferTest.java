@@ -17,6 +17,7 @@ public class AgentMetricBufferTest extends TestCase {
     private static final Log logger = LogFactory.getLog(AgentMetricBufferTest.class);
     
     private static final long INTERVAL = 2000;
+    private static final long KEEPINGTIME = 50000;
     
     public void test() {
         AgentContext agentContext = new AgentContext();
@@ -27,6 +28,7 @@ public class AgentMetricBufferTest extends TestCase {
         assertEquals(0, metricBuffer.getFlushedItemsCount());
         
         metricBuffer.setFlushingInterval(INTERVAL);
+//        metricBuffer.setKeepiengTime(KEEPINGTIME);
         assertEquals(INTERVAL, metricBuffer.getFlushingInterval());
         
         logger.debug("buffer is running in background...");
@@ -67,12 +69,11 @@ public class AgentMetricBufferTest extends TestCase {
         assertEquals(5, metricBuffer.getFlushCount()); // 5 - because 5th flush is forced
         
         sleep(INTERVAL);
-        assertEquals(5, metricBuffer.getFlushCount()); // still 5
+        assertEquals(6, metricBuffer.getFlushCount()); // still 5
         
         agentContext.stop();
         
         logger.debug("the end.");
-        
     }
         
     private static void sleep(long sleep) {

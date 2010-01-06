@@ -8,14 +8,13 @@ import org.allmon.common.MetricMessageFactory;
 public class JavaCallAgentTest extends TestCase {
 
     private final AgentContext agentContext = new AgentContext();
-
+    
     public static void main(String[] args) throws Exception {
         JavaCallAgentTest test = new JavaCallAgentTest();
         test.testSimple();
     }
     
     public void testSimple() throws Exception {
-
         MetricMessage message = MetricMessageFactory.createActionClassMessage(
                 this.getClass().getName(), "user", "webSessionId", null);
 
@@ -26,7 +25,6 @@ public class JavaCallAgentTest extends TestCase {
 
         Thread.sleep(2000);
         agentContext.stop();
-
     }
 
 }
