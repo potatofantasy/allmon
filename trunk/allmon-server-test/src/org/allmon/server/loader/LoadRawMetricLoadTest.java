@@ -9,7 +9,7 @@ public class LoadRawMetricLoadTest extends AbstractLoadTest<LoadRawMetric, Objec
     private final static long THREADS_COUNT = 1;
     private final static long STARTING_TIME_MILLIS = 10;
     
-    private final static int METRICS_COUNT = 10000;
+    private final static int METRICS_COUNT = 1000;
 
     public void testMain() throws InterruptedException {
         runLoadTest(THREADS_COUNT, STARTING_TIME_MILLIS, 1, 1, 1000);
@@ -30,7 +30,7 @@ public class LoadRawMetricLoadTest extends AbstractLoadTest<LoadRawMetric, Objec
         return metricMessageWrapper;
     }
 
-    public void postCall(Object agent) {
+    public void postCall(Object metrics) {
     }
 
 }
