@@ -193,6 +193,14 @@ CREATE TABLE am_raw_metric (
   --CONSTRAINT am_rme_pk PRIMARY KEY (am_rme_id) --USING INDEX
 );
 CREATE SEQUENCE am_rme_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
+-- used by loading process, needed when data are loaded in big chunks
+CREATE INDEX am_rme_am_arf_idx1 ON am_raw_metric(artifactcode);
+CREATE INDEX am_rme_am_hst_idx1 ON am_raw_metric(hostname);
+CREATE INDEX am_rme_am_ins_idx1 ON am_raw_metric(instancename); 
+CREATE INDEX am_rme_am_mty_idx1 ON am_raw_metric(metrictypecode); 
+CREATE INDEX am_rme_am_rsc_idx1 ON am_raw_metric(resourcename);
+CREATE INDEX am_rme_am_src_idx1 ON am_raw_metric(sourcename);
+CREATE INDEX am_rme_am_ts_idx1 ON am_raw_metric(ts);
 
 -- create fact table 
 CREATE TABLE am_metricsdata (
@@ -428,7 +436,6 @@ ORDER BY 1, 2, 3, 4;
 */
 -------------------------------------------------------------------------------------------------------------------------
 -- rebuild indexes - advisable after heavy loading
-
 --SELECT 'ALTER INDEX '||ai.Index_Name||' REBUILD UNRECOVERABLE;' FROM All_Indexes ai WHERE ai.Index_Name LIKE 'AM_%'
 
 ALTER INDEX AM_ARF_PK REBUILD UNRECOVERABLE;
@@ -455,6 +462,22 @@ ALTER INDEX AM_MET_AM_SRC_IDX1 REBUILD UNRECOVERABLE;
 ALTER INDEX AM_MET_AM_CAL_IDX1 REBUILD UNRECOVERABLE;
 ALTER INDEX AM_MET_AM_TIM_IDX1 REBUILD UNRECOVERABLE;
 ALTER INDEX AM_CAL_PK REBUILD UNRECOVERABLE;
+
+-- reanalyze statistics
+--SELECT 'ANALYZE TABLE '||ut.table_name||' COMPUTE STATISTICS;' FROM User_Tables ut WHERE ut.table_name LIKE 'AM_%';
+
+ANALYZE TABLE AM_ARTIFACT COMPUTE STATISTICS;
+ANALYZE TABLE AM_CALENDAR COMPUTE STATISTICS;
+ANALYZE TABLE AM_HOST COMPUTE STATISTICS;
+ANALYZE TABLE AM_INSTANCE COMPUTE STATISTICS;
+ANALYZE TABLE AM_METRICSDATA COMPUTE STATISTICS;
+ANALYZE TABLE AM_METRICTYPE COMPUTE STATISTICS;
+ANALYZE TABLE AM_PIVOT COMPUTE STATISTICS;
+ANALYZE TABLE AM_RAW_METRIC COMPUTE STATISTICS;
+ANALYZE TABLE AM_RESOURCE COMPUTE STATISTICS;
+ANALYZE TABLE AM_SOURCE COMPUTE STATISTICS;
+ANALYZE TABLE AM_TIME COMPUTE STATISTICS;
+
 
 -------------------------------------------------------------------------------------------------------------------------
 -- administration queries - in the future can be a part of allmon aministration console
