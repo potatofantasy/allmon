@@ -31,6 +31,7 @@
 			<fileset file="${local.dist.dir}/bin/allmon-client.bat" />
 			<fileset file="${local.dist.dir}/bin/allmon-client-agent-scheduler.bat" />
 			<fileset file="${local.dist.dir}/bin/allmon-client-aggregator.bat" />
+			<fileset file="${local.dist.dir}/bin/allmon-client-jmxagent-check.bat" />
 		</copy>
 
 		<echo message="Coping allmon configuration files..." />

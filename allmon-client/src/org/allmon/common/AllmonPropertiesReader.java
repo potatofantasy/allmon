@@ -16,12 +16,17 @@ public class AllmonPropertiesReader {
 
     private static final Properties properties = new Properties();
 
+    private static boolean log4jConfigured = false;
+    
     public static void readLog4jProperties() {
-        String file = System.getProperty("log4jallmon.properties.path");
-        if (file == null || "".equals(file)) {
-            file = "conf/log4jallmon.properties";
+        if (!log4jConfigured) {
+            String file = System.getProperty("log4jallmon.properties.path");
+            if (file == null || "".equals(file)) {
+                file = "conf/log4jallmon.properties";
+            }
+            PropertyConfigurator.configure(file);
         }
-        PropertyConfigurator.configure(file);
+        log4jConfigured = true;
         //System.out.println("log4j.configured");
     }
     

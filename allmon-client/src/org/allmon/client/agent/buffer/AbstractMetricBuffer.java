@@ -1,4 +1,4 @@
-package org.allmon.client.agent;
+package org.allmon.client.agent.buffer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +27,9 @@ public abstract class AbstractMetricBuffer<M> {
      * Constructor starts the buffer process.
      */
     public AbstractMetricBuffer() {
-        //bufferingThread.setDaemon(true);
+        bufferingThread.setDaemon(true); // the thread ends when the main thread finishes
         bufferingThread.start();
-    }   
+    }
     
 //    /**
 //     * SingletonHolder is loaded on the first execution of Singleton.getInstance() 
@@ -42,7 +42,7 @@ public abstract class AbstractMetricBuffer<M> {
 //    public static MetricBuffer getInstance() {
 //        return SingletonHolder.instance;
 //    }
-        
+    
     private class BufferingThread<T extends M> extends Thread {
         
         //private List<T> buffer = Collections.synchronizedList(new ArrayList<T>()); // Slow!
@@ -58,6 +58,10 @@ public abstract class AbstractMetricBuffer<M> {
         
         private boolean poisonPill = false;
         
+        // maximum time between last call and when thread is deleted
+//        private long keepiengTime = 5000; // does it have to be a static field
+//        private long lastAddTime = System.currentTimeMillis();
+        
         private BufferingThread() {
             setName("BufferingThread-" + getId());
         }
@@ -65,6 +69,7 @@ public abstract class AbstractMetricBuffer<M> {
         public final void run() {
             logger.info("run and keep buffering ...");
             try {
+                //while (!poisonPill && !checkEnd()) { // TODO add a new condition for monitor
                 while (!poisonPill) {
                     try {
                         Thread.sleep(flushingInterval);
@@ -75,12 +80,18 @@ public abstract class AbstractMetricBuffer<M> {
                         flushAndSend();
                     }
                 }
+                // terminating buffering thread
+                flushAndSend();
             } catch (Throwable t) {
                 logger.error(t.getMessage(), t);  
             } finally {
                 logger.warn("run method has been finished - flush method won't be performed anymore");  
             }
         }
+        
+//        private boolean checkEnd() {
+//            return System.currentTimeMillis() - lastAddTime > keepiengTime;
+//        }
         
         private void flushAndSend() {
             List<T> list = flush();
@@ -166,6 +177,7 @@ public abstract class AbstractMetricBuffer<M> {
         		//logger.debug("adding item to buffer> " + t); // TODO this logging must be deleted
             	buffer.add(t);
         	}
+//        	lastAddTime = System.currentTimeMillis();
         }
         
     }
@@ -174,6 +186,10 @@ public abstract class AbstractMetricBuffer<M> {
      * 
      */
     public abstract void send(List<M> flushingList);
+    
+//    public void setKeepiengTime(long keepiengTime) {
+//        bufferingThread.keepiengTime = keepiengTime;
+//    }
     
     /**
      * Add metric message object to buffer ready to send.

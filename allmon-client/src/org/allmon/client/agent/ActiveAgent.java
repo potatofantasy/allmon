@@ -22,6 +22,8 @@ import org.apache.commons.logging.LogFactory;
  * level in our system (if something happen we might know about it even before 
  * end-users notice a problem).<br>
  * 
+ * TODO add timeout mechanism preventing creating/leaking too many threads
+ * 
  */
 abstract class ActiveAgent extends Agent implements AgentTaskable {
 
@@ -66,8 +68,7 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
             logger.debug("Sending acquired metrics: " + metricMessageWrapper.toString());
         }
         // TODO review creating different explicitly specified MetricMessageSender
-        for (int i = 0; i < metricMessageWrapper.size(); i++) {
-            MetricMessage metricMessage = metricMessageWrapper.get(i);
+        for (MetricMessage metricMessage : metricMessageWrapper) {
             messageSender.insertPoint(metricMessage);
         }
     }
