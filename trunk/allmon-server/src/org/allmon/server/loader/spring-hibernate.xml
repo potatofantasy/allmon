@@ -8,7 +8,7 @@
         <value>classpath:allmon.properties</value>
 	    </list>
 	  </property>
-	  <property name="ignoreUnresolvablePlaceholders"><value>true</value></property>
+	  <property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
 	
 	<bean id="allmonDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
@@ -29,6 +29,8 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
 				<prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
 				<prop key="hibernate.show_sql">${allmon.server.db.hibernate.show_sql}</prop>
+				<prop key="hibernate.jdbc.batch_size">${allmon.server.db.hibernate.jdbc.batch_size}</prop>
+				<prop key="hibernate.order_inserts">true</prop>
 			</props>
 		</property>
 	</bean>
@@ -52,6 +54,8 @@
 		<property name="sessionFactory">
 			<ref local="allmonSessionFactory" />
 		</property>
+		<property name="maxConcurrentThreadsCount" value="${allmon.server.loader.maxConcurrentThreadsCount}" />
+    <property name="preferedMetricsCountPerThread" value="${allmon.server.loader.preferedMetricsCountPerThread}" />
 	</bean>
 
   <bean id="rawMetricLoadToAllmetricDAOTarget" class="org.allmon.server.loader.RawMetricLoadToAllmetricDAOImpl" >

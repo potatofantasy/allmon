@@ -23,7 +23,7 @@ import org.allmon.common.AllmonPropertiesReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public abstract class AbstractConcurrentLoader <LoadingObject> {
+public abstract class AbstractConcurrentLoader<LoadingObject> {
 
     static {
         AllmonPropertiesReader.readLog4jProperties();
