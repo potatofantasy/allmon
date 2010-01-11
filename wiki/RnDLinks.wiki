@@ -190,3 +190,7 @@
     * http://www.javaranch.com/
     * http://knol.google.com
     * ...
+
+  * Good pages for example
+    * http://neuroph.sourceforge.net/index.html
+    * voldemort
