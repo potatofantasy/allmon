@@ -137,6 +137,7 @@
     * Active vs passive monitoring in soa management - http://jaxview.blogspot.com/2007/12/active-vs-passive-monitoring-in-soa.html
     * Measure CPU and memory consumption of a Java application - http://articles.techrepublic.com.com/5100-10878_11-6067049.html?tag=rbxccnbtr1
     * Integrating web analysis in the user experience design process - http://www.slideshare.net/internetarchitects/integrating-web-analysis-in-the-user-experience-design-process-presentation
+    * Using Oracle batch shell scripting for monitoring - http://www.dba-oracle.com/t_batch_shell_scripting.htm
 
   * Monitoring
     * http://www.slideshare.net/gigamonster/gigamon-u-web-performance-monitoring
