@@ -125,6 +125,7 @@
     * Code ranch performance forum - http://www.coderanch.com/forums/f-15/Performance
     * Sun - Java performance tuning workshop - http://www.sun.com/training/catalog/courses/EXL-2025.xml
     * The Box - Kirk Pepperdine - http://www.infoq.com/articles/the-box
+    * javapassion.com/javaperformance - http://www.javapassion.com/javaperformance/
 
   * Statistics 
     * Statistical Data and Metadata Exchange - http://sdmx.org/
