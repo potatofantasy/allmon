@@ -23,6 +23,8 @@
     * Java theory and practice: Instrumenting applications with JMX (ibm.com) - http://www.ibm.com/developerworks/java/library/j-jtp09196/index.html
     * JVMTI -  JVMTM Tool Interface Version 1.0 - http://java.sun.com/j2se/1.5.0/docs/guide/jvmti/jvmti.html
 
+    * jvmstat - http://java.sun.com/performance/jvmstat/
+
   * JDMK - The Java Dynamic Management Kit (Java DMK) provides a set of Java classes and tools that allow easy development of secure monitoring and management solutions based on the Java Management Extensions (JMX) specifications and on the SNMP standards
     * http://en.wikipedia.org/wiki/Java_Dynamic_Management_Kit
     * http://java.sun.com/products/jdmk/
