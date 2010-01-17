@@ -33,6 +33,8 @@
 #* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.JmxServerAgent" "4" ".*activemq.*" "(.*java.lang:type=Memory.*used.*)|(.*java.lang:type=GarbageCollector.*)"
 #checking local Active MQ JVM instance: JDK pools an OS memory allocations, GC stats, thread count, class loading stats
 #* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.JmxServerAgent" "6" ".*activemq.*" "(.*java.lang:type=Memory.*used.*)|(.*java.lang:type=OperatingSystem.*)|(.*java.lang:type=GarbageCollector.*)|(.*java.lang:type=Threading.*ThreadCount.*)|(.*java.lang:type=ClassLoading.*)"
+#checking all allmon processes: every two minutes -  JDK pools an OS memory allocations, GC stats, thread count, class loading stats
+#*/2 * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.JmxServerAgent" "0" ".*allmon.*" "(.*java.lang:type=Memory.*used.*)|(.*java.lang:type=OperatingSystem.*)|(.*java.lang:type=GarbageCollector.*)|(.*java.lang:type=Threading.*ThreadCount.*)|(.*java.lang:type=ClassLoading.*)"
 
 #SNMP for CPU
 #* * * * * java:org.allmon.client.scheduler.AgentCallerMain#main "org.allmon.client.agent.SnmpHostAgent" "6" "10.1.132.99" "-cpu"
