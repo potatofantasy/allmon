@@ -3,6 +3,35 @@
 
 = Loader =
 
-  * Loads data to the database. 
-  * Aggregate data.
   * Provides all mechanisms for metrics storage and metadata persistence.
+  * Loads data to the database. 
+  * Aggregates data.
+
+= Loading metrics data to database = 
+
+Process is spit to two isolated phases (two specialized processes):
+  * loading raw metrics data to database (am_raw_metricsdata)
+  * loading stored data in raw metrics storage to allmetrics schema
+
+= Aggregation =
+
+Data stored in allmetrics schema can be aggregated and stored in a separate space. This gives two main advantages:
+  * aggregated data are easier to query (amount of metrics rows is limited),
+  * aggregated data use much less space, thus high detail metrics data can be deleted, if certain level of granularity is not needed any more.
+
+== Aggregation process parameters ==
+
+  * Aggregation function
+    * Aggregate metrics name (result of the aggregation process)
+
+  * Filters 
+    * Instance
+    * Host
+    * StartTime/EndTime metrics which are taken by the process
+  
+  * Grouping  
+    * Instance
+    * Host
+    * Resource (can contain part of resources names - reg exp)
+    * Source  (can contain part of resources names - reg exp)
+    * Time group (i.e. day, hour, quarter, minute)
