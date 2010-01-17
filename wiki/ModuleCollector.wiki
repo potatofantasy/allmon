@@ -17,7 +17,7 @@ Modules:
       * Servlet/Actions classes monitoring
 
   * Sender (sending data by asynchronous messaging; Active MQ) 
-  * Collector core (aggreagating metrics before sending to server) - sending data every 60sec (conf) or every 64kB (conf), Apache Camel
+  * Collector core (aggregating metrics before sending to server) - sending data every 60sec (conf) or every 64kB (conf), Apache Camel
 
 == Diagram of supervised tiers (areas) of monitored system ==
 
@@ -46,3 +46,11 @@ http://allmon.googlecode.com/svn/wiki/allmon-deployment-diagram-logical-overview
 == Taxonomy of allmon agents ==
 
 http://allmon.googlecode.com/svn/wiki/allmon-deployment-diagram-logical-overview-v1.03d.png
+
+== Examples ==
+
+=== ShellCallAgent ===
+
+  * vmstat - Gives statistics about virtual memory, disks, traps, and processor activity. Use it to determine system loading. 
+  * iostat - Gives processor statistics and I/O statistics for tty, disks, and CD-ROM drives. 
+  * netstat - Shows network status. 
