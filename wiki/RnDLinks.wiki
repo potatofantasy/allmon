@@ -53,8 +53,10 @@
       * lots of OS and services level checks were implemented - http://opensmart.sourceforge.net/docs/documentation/userguide/overview_checks.html
       * Design - http://opensmart.sourceforge.net/docs/documentation/design/
 
-  * Similar Not-Open Source Projects
-    * Dynatrace - http://www.dynatrace.com/ - http://www.dynatrace.com/twominutedemo/
+  * Similar Not-Open Source Projects (Proprietary)
+    * Dynatrace - Continuous Application Performance Management - http://www.dynatrace.com/ - http://www.dynatrace.com/twominutedemo/
+    * Hyperic (Spring) - Application Management Suite (AMS) - http://www.hyperic.com/
+      * http://blog.springsource.com/2008/03/31/springsource-application-management-suite-ams-released/
     * Monitoring Application Performance in Sun Java System Application Server 7.x with PerformaSure - http://developers.sun.com/appserver/reference/techart/performasure.html
     * Free service - External Monitoring - Internal Monitoring, Visitors Tracking - http://mon.itor.us/
     * Cloud based all-in-one external and internal monitoring provides - http://portal.monitis.com/
