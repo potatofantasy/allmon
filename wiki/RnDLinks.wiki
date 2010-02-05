@@ -52,6 +52,9 @@
     * OpenSMART - http://opensmart.sourceforge.net/ 
       * lots of OS and services level checks were implemented - http://opensmart.sourceforge.net/docs/documentation/userguide/overview_checks.html
       * Design - http://opensmart.sourceforge.net/docs/documentation/design/
+    * Embedded Jopr is a web-based application for managing & monitoring an instance of JBoss Application Server - http://jboss.org/embjopr
+    * The RHQ project is a systems management suite that provides extensible and integrated systems management for multiple products and platforms - http://rhq-project.org/display/RHQ/Home
+
 
   * Similar Not-Open Source Projects (Proprietary)
     * Dynatrace - Continuous Application Performance Management - http://www.dynatrace.com/ - http://www.dynatrace.com/twominutedemo/
