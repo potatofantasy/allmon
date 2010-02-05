@@ -43,10 +43,10 @@
     * Performance Inspector - jprof - http://perfinsp.sourceforge.net/jprof.html
     * Infrared - http://infrared.sourceforge.net/versions/latest/
     * GroundWork Monitor - http://www.groundworkopensource.com/community/ (http://knol.google.com/k/tara-spalding/commercial-open-source-system-and/)
-    * Beet - http://beet.sourceforge.net/
+    * Beet records user behaviour and performance data for your Spring-based Java application.  It can thus help you to analyse usage patterns and research production performance issues. - http://beet.sourceforge.net/
       * http://www.theserverside.com/news/thread.tss?thread_id=54367#307897
       * http://www.gridshore.nl/2009/09/01/using-beet-to-monitor-your-spring-framework-application/#more-875
-    * IxoraRMS - http://www.ixorarms.com/
+    * IxoraRMS is a tool for gathering and visualizing monitoring data. It was developed in Java and has a Swing GUI- http://www.ixorarms.com/
     * perf4j - http://perf4j.codehaus.org/ 
       * http://www.slideshare.net/craigsdickson/performance-analysis-and-monitoring-with-perf4j
     * OpenSMART - http://opensmart.sourceforge.net/ 
