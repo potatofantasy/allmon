@@ -3,9 +3,17 @@
 
 = Technologies =
 
+  * Application service management (ASM) and Application Performance Management (APM) 
+    * http://www.absolute-performance.com/blog/tags/APM-monitoring-platform/
+    * APM wiki - http://en.wikipedia.org/wiki/Application_performance_management
+    * ASM wiki - http://en.wikipedia.org/wiki/Application_service_management
+      * ARM wiki - http://en.wikipedia.org/wiki/Application_Response_Measurement
+
+
   * General
     * "Build your own profiling tool - Create an ideal profiler using the Java 5 agent interface and AOP" - http://www.ibm.com/developerworks/java/library/j-jip/
     * Java Application Instrumentation with Log4J (can be helpful with creating a new metrics message sender based on log4j appender mechanism) - http://www.devx.com/Java/Article/22110/1954
+
     
   * JMX
     * http://blogs.sun.com/jmxetc/entry/what_is_jmx
@@ -24,6 +32,7 @@
     * JVMTI -  JVMTM Tool Interface Version 1.0 - http://java.sun.com/j2se/1.5.0/docs/guide/jvmti/jvmti.html
 
     * jvmstat - http://java.sun.com/performance/jvmstat/
+
 
   * JDMK - The Java Dynamic Management Kit (Java DMK) provides a set of Java classes and tools that allow easy development of secure monitoring and management solutions based on the Java Management Extensions (JMX) specifications and on the SNMP standards
     * http://en.wikipedia.org/wiki/Java_Dynamic_Management_Kit
@@ -69,19 +78,23 @@
     * IBM Monitoring & Diagnostic Tools for Java - http://www.theserverside.com/news/thread.tss?thread_id=58400
     * IBM Proactive Application Monitoring - http://www.ibm.com/developerworks/websphere/library/techarticles/0304_polozoff/polozoff.html
 
+
   * Databases and Application Servers
     * Oracle® Application Server Performance Guide - Performance Metrics - http://download.oracle.com/docs/cd/B14099_19/core.1012/b14001/metrics.htm
       * Optimizing J2EE Applications In OC4J - http://download.oracle.com/docs/cd/B14099_19/core.1012/b14001/optj2ee.htm#sthref455
       * Oracle Application Server High Availability Guide - Middle-tier High Availability - http://database.in2p3.fr/doc/oracle/Oracle_Application_Server_10g_Release_2/core.1012/b14003/midtierdesc.htm#CIHCBFIJ
       * Measuring Performance With the Oracle Dynamic Monitoring System (DMS) - http://www.oracle.com/technology/products/ias/toplink/doc/1013/MAIN/_html/optimiz004.htm
 
+
   * Presentation, Analysis & Data Mining
     * Pentaho - http://wiki.pentaho.com/display/COM/Latest+Stable+Builds
+
 
   * Statistics
     * Colt - http://acs.lbl.gov/~hoschek/colt/
     * Commons-Math: The Apache Commons Mathematics Library - http://commons.apache.org/math/index.html
     * Oracle statistical functions overview - http://www.oracle.com/technology/products/bi/stats_fns/pdf/or_statistical_functions_overview.pdf
+
 
   * Instrumentation
     * Java Instrumentation - http://java.sun.com/j2se/1.5.0/docs/api/java/lang/instrument/Instrumentation.html
@@ -91,15 +104,19 @@
         * http://www.javaworld.com/javaworld/jw-01-2007/jw-0105-aop.html
       * Werkz
 
+
   * Monitoring service layer
     * Monitoring and Managing Tomcat Clusters Using JMX - http://www.devx.com/Java/Article/21726/1954
     * Using JConsole (and JMX MBeans) to Monitor Applications - http://java.sun.com/developer/technicalArticles/J2SE/jconsole.html
     * Using JMX to monitor Apache ActiveMQ - http://activemq.apache.org/jmx.html
     * Using perfmon to analyse MS-SQL performance - http://sqlserverpedia.com/blog/analysis-services/sql-server-data-mining-in-the-cloud/
 
+
 = Theory =
 
+
   * [RnDTheoryPerformanceMonitoring Theory of Performance Monitoring]
+
 
   * Time Series Analysis - http://www.statsoft.com/textbook/sttimser.html
     * Forecasting
@@ -109,26 +126,34 @@
       * Signal-to-noise ratio
     * Change detection in time series forecasting - http://herkules.oulu.fi/isbn9514276639/isbn9514276639.pdf
   
+
   * Cross Correlation - http://local.wasp.uwa.edu.au/~pbourke/miscellaneous/correlate/
     * Cross-correlation function in time-domain
     * Coherence function in frequency-domain (http://www.bme.bio.keio.ac.jp/01news/report.pdf - the functions distortions as the amplitudes of the noise increases)
+
  
   * Anomaly detection - http://www.slideshare.net/iparedes/anomaly-detection-in-traffic-monitoring
+
 
   * Correlation 
     * in high-multidimensional spaces
     * in time domain
 
+
   * Covariance
     * Covariance matrix or Dispersion matrix - http://en.wikipedia.org/wiki/Covariance_matrix
+
 
   * Scalability
     * Amdahl's law - http://en.wikipedia.org/wiki/Amdahl%27s_Law
 
+
   * Java Performance
     * http://www.javaperformancetuning.com/
 
+
 = Other (articles, discussions, etc.) =
+
 
   * Performance tuning
     * Java performance tuning - http://www.javaperformancetuning.com/
@@ -137,8 +162,10 @@
     * The Box - Kirk Pepperdine - http://www.infoq.com/articles/the-box
     * javapassion.com/javaperformance - http://www.javapassion.com/javaperformance/
 
+
   * Statistics 
     * Statistical Data and Metadata Exchange - http://sdmx.org/
+
 
   * General monitoring concepts, discussions
     * Java Profiling vs. Monitoring - http://ananthchellathurai.blogspot.com/2009/07/javasimon-monitoring-api-in-java.html
@@ -150,6 +177,7 @@
     * Integrating web analysis in the user experience design process - http://www.slideshare.net/internetarchitects/integrating-web-analysis-in-the-user-experience-design-process-presentation
     * Using Oracle batch shell scripting for monitoring - http://www.dba-oracle.com/t_batch_shell_scripting.htm
 
+
   * Monitoring
     * http://www.slideshare.net/gigamonster/gigamon-u-web-performance-monitoring
     * http://www.slideshare.net/siddharth4mba/composition-performance-analysis-and-simulation-of-web-services-973897
@@ -159,6 +187,7 @@
     * Network Monitoring Tools - http://www.slac.stanford.edu/xorg/nmtf/nmtf-tools.html
     * Identify Monitoring Objectives & Develop a Strategy - http://www.hud.gov/offices/cpd/affordablehousing/training/web/checkup/monitoring/monitoringobjectives.cfm
 
+
   * Metrics 
     * Software Metrics
       * http://homepages.wmich.edu/~m5elwakil/CSITeA04_ElWakil.pdf
@@ -167,6 +196,7 @@
       * http://books.google.co.uk/books?id=9dNw2_RYNLYC&printsec=frontcover#v=onepage&q=&f=false
       * web analytics maturity model - http://www.slideshare.net/shamel67/web-analytics-maturity-model?src=related_normal&rel=294971
 
+
   * Open Source Projects Management
     * Producing  Open Source Software - How to Run a Successful Free Software Project by Karl Fogel - http://producingoss.com/
     * How to start an open source project - http://www.slideshare.net/gnunify/how-to-start-an-open-source-project
@@ -174,7 +204,9 @@
     * http://www.slideshare.net/Gomez_Inc/best-practices-to-fix-5-common-web-application-problems-gomez
     * System monitoring from the cloud - http://www.slideshare.net/Hovhannes/monitis-allinone-systems-monitoring-from-the-cloud
 
+
 = Interchange =
+
 
   * http://www.monitoringexchange.org/
   * http://freshmeat.net/projects/allmon
