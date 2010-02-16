@@ -1,0 +1,205 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Mondrian OLAP Server</title>
+<link rel="stylesheet" href="stylesheet.css" type="text/css" />
+</head>
+<body style="font-family: sans-serif; font-size: 14px;">
+
+<b>Mondrian for Tropics (Monitoring) </b>
+<br><br>
+<ul>
+
+<b>Cube for action classes metrics (view VMD_AG_ACTION_HRS_CLS_ALL):</b>
+<table border="1" cellspacing="0" style="font-family: arial; font-size: 12px;">
+		<tr style="font-weight: bold;">
+				<td>Group</td>
+        <td>View name (link)</td>
+				<td>Description</td>
+				<td>Measure</td>
+				<td>Rows</td>
+				<td>Columns</td>
+		</tr>
+
+    <!-- general and rankings -->
+    <tr>
+        <td>Rankings</td>
+        <td><a href="testpage.jsp?query=monitor-vmd-ranking01">monitor-vmd-ranking01</td>
+        <td>Ranking of Tropics submodules</td>
+        <td>Execution count/Summary execution times</td>
+        <td>Year/Month</td>
+        <td>Modules/Submodules</td>
+    </tr>
+    <tr>
+        <td>Rankings</td>
+        <td><a href="testpage.jsp?query=monitor-vmd-ranking02">monitor-vmd-ranking02</td>
+        <td>Ranking of Tropics classes</td>
+        <td>Execution count/Summary execution times</td>
+        <td>Year/Month</td>
+        <td>Modules/Submodules</td>
+    </tr>
+    
+    <!-- time series -->
+    <tr>
+        <td>Time series</td>
+        <td><a href="testpage.jsp?query=monitor-vmd-row-many_col-many">monitor-vmd-row-many_col-many</td>
+        <td>...</td>
+        <td>Execution count</td>
+        <td>Execution times ranges</td>
+        <td>Year/Month</td>
+    </tr>    
+    <tr>
+        <td>Time series</td>
+        <td><a href="testpage.jsp?query=monitor-vmd-timeseries01">monitor-vmd-timeseries01</td>
+        <td>...</td>
+        <td>Execution count</td>
+        <td>Execution times ranges</td>
+        <td>Year/Week of year</td>
+    </tr>
+    <tr>
+        <td>Time series</td>
+        <td><a href="testpage.jsp?query=monitor-vmd-timeseries01b">monitor-vmd-timeseries01b</td>
+        <td><b>Useful for overall performance investigations</b></td>
+        <td>Execution count</td>
+        <td>Execution times ranges</td>
+        <td>Year/Month/Day</td>
+    </tr>
+    <tr>
+        <td>Time series</td>
+        <td><a href="testpage.jsp?query=monitor-vmd-timeseries01c">monitor-vmd-timeseries01c</td>
+        <td><b>Useful for overall performance investigations</b></td>
+        <td>Summary execution times (min)</td>
+        <td>Execution times ranges</td>
+        <td>Year/Month/Day</td>
+    </tr>
+    <tr>
+        <td>Time series</td>
+        <td><a href="testpage.jsp?query=monitor-vmd-timeseries02">monitor-vmd-timeseries02</td>
+        <td>...</td>
+        <td>Execution count</td>
+        <td>Modules/Submodules</td>
+        <td>Year/Week of year</td>
+    </tr>
+    <tr>
+        <td>Time series</td>
+        <td><a href="testpage.jsp?query=monitor-vmd-timeseries02b">monitor-vmd-timeseries02b</td>
+        <td><b>Cross-modules investigations</b></td>
+        <td>Execution count</td>
+        <td>Modules/Submodules</td>
+        <td>Year/Month/Day</td>
+    </tr>
+    <tr>
+        <td>Time series</td>
+        <td><a href="testpage.jsp?query=monitor-vmd-timeseries02c">monitor-vmd-timeseries02c</td>
+        <td><b>Cross-modules investigations</b></td>
+        <td>Summary execution times (min)</td>
+        <td>Modules/Submodules</td>
+        <td>Year/Month/Day</td>
+    </tr>
+        		
+		<!-- distributions -->
+		<tr>
+        <td>Distribution</td>
+        <td><a href="testpage.jsp?query=monitor-vmd-calldistribution01">monitor-vmd-calldistribution01</td>
+        <td>...</td>
+        <td>Execution count</td>
+        <td>Modules/Submodules</td>
+        <td>Execution times ranges</td>
+    </tr>
+    <tr>
+        <td>Distribution</td>
+        <td><a href="testpage.jsp?query=monitor-vmd-calldistribution01b">monitor-vmd-calldistribution01b</td>
+        <td>...</td>
+        <td>Summary execution times (min)</td>
+        <td>Modules/Submodules</td>
+        <td>Execution times ranges</td>
+    </tr>
+    <tr>
+        <td>Distribution</td>
+        <td><a href="testpage.jsp?query=monitor-vmd-calldistribution02">monitor-vmd-calldistribution02</td>
+        <td>Reservations in Jul, Aug, Sep (comp)</td>
+        <td>Summary execution times (min)</td>
+        <td>Modules(Reservations)</td>
+        <td>Year/Month/Execution times ranges </td>
+    </tr>
+    
+</table>
+
+<br><br>
+<b>Cube for action classes for tropics users metrics (view VMD_AG_ACTION_HRS_TRU_ALL):</b>
+<br>
+<i>...in progress...</i>
+
+<br><br>
+<b>Cube for batches metrics (view VMD_AG_ACTION_HRS_TRU_ALL):</b>
+<br>
+<i>...in progress...</i>
+
+<br><br>
+<b>Cube for batches metrics (view VMD_CS_TTC_BATCH_JOBS_ALL):</b>
+
+<table border="1" cellspacing="0" style="font-family: arial; font-size: 12px;">
+    <tr style="font-weight: bold;">
+        <td>Group</td>
+        <td>View name (link)</td>
+        <td>Description</td>
+        <td>Measure</td>
+        <td>Rows</td>
+        <td>Columns</td>
+    </tr>
+
+    <!-- general and rankings -->
+    <tr>
+        <td>Rankings</td>
+        <td><a href="testpage.jsp?query=monitor-vcs-batch-ranking01">monitor-vcs-batch-ranking01</td>
+        <td>Ranking of Tropics batch jobs in modules</td>
+        <td>Execution count/Summary execution times</td>
+        <td>Modules/Batches</td>
+        <td>Year/Month</td>
+    </tr>
+    
+    <!-- time series -->
+    <tr>
+        <td>Time series</td>
+        <td><a href="testpage.jsp?query=monitor-vcs-batch-calldistribution01">monitor-vcs-batch-calldistribution01</td>
+        <td>...</td>
+        <td>Execution count</td>
+        <td>Year/Month</td>
+        <td>Modules/Batches</td>
+    </tr>
+    <tr>
+        <td>Time series</td>
+        <td><a href="testpage.jsp?query=monitor-vcs-batch-calldistribution01b">monitor-vcs-batch-calldistribution01b</td>
+        <td>...</td>
+        <td>Summary execution times (min)</td>
+        <td>Year/Month</td>
+        <td>Modules/Batches</td>
+    </tr>
+    
+</table>
+<br><br>
+
+<!-- 
+<b style="color: graytext;">Cube (no view):</b>
+<ul>
+<li><a href="testpage.jsp?query=monitor-row-many_col-many" style="color: graytext;">Monitor monitor-row-many_col-many</a></li>
+<li><a href="testpage.jsp?query=monitor-row-months_col-module" style="color: graytext;">Monitor monitor-row-months_col-module</a></li>
+<li><a href="testpage.jsp?query=monitor-row-weeks_col-module" style="color: graytext;">Monitor monitor-row-weeks_col-module</a></li>
+<li><a href="testpage.jsp?query=monitor-row-weeks_col-submodule" style="color: graytext;">Monitor monitor-row-weeks_col-submodule</a></li>
+<li><a href="testpage.jsp?query=monitor-row-submodule_col-weeks" style="color: graytext;">Monitor monitor-row-submodule_col-weeks</a></li>
+</ul>
+<br><br>
+-->
+
+</ul>
+
+<b>Other links:</b>
+<ul>
+<li><a href="http://mondrian.pentaho.org">Mondrian home page</a></li>
+<li><a href="http://sourceforge.net/projects/mondrian">Mondrian project page</a></li>
+<li><a href="http://jpivot.sourceforge.net/">JPivot home page</a></li>
+<li><a href="http://sourceforge.net/projects/jpivot">JPivot project page</a></li>
+</ul>
+
+</body>
+</html>
