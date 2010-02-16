@@ -1,0 +1,511 @@
+<?xml version="1.0"?>
+<Schema name="Monitor Schema">
+
+  <Cube name="MONITOR_ACTION_CLASSES_VMD" caption="Action classes Monitor Cube based on view" cache="true" enabled="true">
+    <Table name="VMD_AG_ACTION_HRS_CLS_ALL"/>
+    
+    <Dimension name="YEAR">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="YEAR" column="YEAR" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="MONTH">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="MONTH" column="MONTH" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="DAY">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="DAY" column="DAY" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>    
+    <Dimension name="HOUR">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="HOUR" column="HOUR" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>    
+    <Dimension name="YEAR_DAY">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="YEAR_DAY" column="YEAR_DAY" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>    
+    <Dimension name="WEEK_DAY">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="WEEK_DAY" column="WEEK_DAY" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>    
+    <Dimension name="QUARTER">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="QUARTER" column="QUARTER" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>    
+    <Dimension name="WEEK_OF_YEAR">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="WEEK_OF_YEAR" column="WEEK_OF_YEAR" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="YEAR_MONTH_DAY_HOUR">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="YEAR" column="YEAR" uniqueMembers="false"/>
+        <Level name="MONTH" column="MONTH" uniqueMembers="false"/>
+        <Level name="DAY" column="DAY" uniqueMembers="false"/>
+        <Level name="HOUR" column="HOUR" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    
+    <Dimension name="MODULE_NAME">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="MODULE_NAME" column="MODULE_NAME" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="SUBMODULE">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="SUBMODULE" column="SUBMODULE" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="CLASS_NAME">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="CLASS_NAME" column="CLASS_NAME" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="MODULE_SUBMODULE_CLASS">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="MODULE_NAME" column="MODULE_NAME" uniqueMembers="true"/>
+        <Level name="SUBMODULE" column="SUBMODULE" uniqueMembers="true"/>
+        <Level name="CLASS_NAME" column="CLASS_NAME" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    
+    <Dimension name="EXECCOUNT_RNDT">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="EXECCOUNT_RNDT" column="EXECCOUNT_RNDT" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="SUM_EXECTIME_MIN_RNDT">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="SUM_EXECTIME_MIN_RNDT" column="SUM_EXECTIME_MIN_RNDT" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    
+    <Dimension name="EXECCOUNT">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="EXECCOUNT" column="EXECCOUNT" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="AVG_EXECTIME_SEC_RND">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="AVG_EXECTIME_SEC_RND" column="AVG_EXECTIME_SEC_RND" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="SUM_EXECTIME_MIN_RND">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="SUM_EXECTIME_MIN_RND" column="SUM_EXECTIME_MIN_RND" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    
+    <Measure name="EXECCOUNT" column="EXECCOUNT" aggregator="sum" visible="true" formatString="#,###"/>
+    <Measure name="AVG_EXECTIME_SEC" column="AVG_EXECTIME_SEC" aggregator="avg" visible="true" formatString="#,###.00"/>
+    <Measure name="MIN_EXECTIME_SEC" column="MIN_EXECTIME_SEC" aggregator="min" visible="true" formatString="#,###.00"/>
+    <Measure name="MAX_EXECTIME_SEC" column="MAX_EXECTIME_SEC" aggregator="max" visible="true" formatString="#,###.00"/>
+    <Measure name="SUM_EXECTIME_MIN" column="SUM_EXECTIME_MIN" aggregator="sum" visible="true" formatString="#,###.00"/>
+    <Measure name="STDDEV_EXECTIME_SEC" column="STDDEV_EXECTIME_SEC" aggregator="sum" visible="true" formatString="#,###.00"/>
+    
+    <!--
+    AVG_EXECTIME_SEC_RND, MIN_EXECTIME_SEC_RND, MAX_EXECTIME_SEC_RND, SUM_EXECTIME_MIN_RND, STDDEV_EXECTIME_SEC_RND,
+    AVG_EXECTIME_MIN_RND, MIN_EXECTIME_MIN_RND, MAX_EXECTIME_MIN_RND, 
+    -->
+    
+    <Measure name="PERF_SIG_COEF" column="PERF_SIG_COEF" aggregator="sum" visible="true" formatString="#,###.00"/>
+    
+    <!--
+    <Measure name="EXECCOUNT_RNDT" column="EXECCOUNT_RNDT" aggregator="sum" visible="true" formatString="#,###.00"/>
+    <Measure name="SUM_EXECTIME_MIN_RNDT" column="SUM_EXECTIME_MIN_RNDT" aggregator="sum" visible="true" formatString="#,###.00"/>
+    -->
+    
+    <!--
+    <CalculatedMember name="PERF_COEFICIENT" dimension="Measures">
+      <Formula>[Measures].[SUM_EXECTIME_MIN] * [Measures].[EXECCOUNT]</Formula>
+      <CalculatedMemberProperty name="FORMAT_STRING" value="$#,##0.00"/>
+    </CalculatedMember>
+    -->
+    
+  </Cube>
+  
+  <Cube name="MONITOR_BATCH_JOBS_VMD" caption="Batches jobs Monitor Cube based on view" cache="true" enabled="true">
+    <Table name="VMD_CS_TTC_BATCH_JOBS_ALL"/>
+
+    <Dimension name="MODULE">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="MODULE" column="MODULE" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="PROCESSNAME">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="PROCESSNAME" column="PROCESSNAME" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="COMPANY">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="COMPANY" column="COMPANY" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>    
+    <Dimension name="COMPANYTIMEZONE">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="COMPANYTIMEZONE" column="COMPANYTIMEZONE" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>    
+    <Dimension name="EFFECTIVEPERIODSTARTDATE">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="EFFECTIVEPERIODSTARTDATE" column="EFFECTIVEPERIODSTARTDATE" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>    
+    <Dimension name="EFFECTIVEPERIODENDDATE">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="EFFECTIVEPERIODENDDATE" column="EFFECTIVEPERIODENDDATE" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>    
+    <Dimension name="ISMANUALFLAG">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="ISMANUALFLAG" column="ISMANUALFLAG" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>    
+    <Dimension name="CLASS_NAME">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="CLASS_NAME" column="CLASS_NAME" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension name="STARTDATETIME_YEAR">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="STARTDATETIME_YEAR" column="STARTDATETIME_YEAR" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="STARTDATETIME_MONTH">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="STARTDATETIME_MONTH" column="STARTDATETIME_MONTH" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="STARTDATETIME_DAY">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="STARTDATETIME_DAY" column="STARTDATETIME_DAY" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="STARTDATETIME_DAY">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="STARTDATETIME_YEAR" column="STARTDATETIME_YEAR" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="STARTDATETIME_HOUR">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="STARTDATETIME_HOUR" column="STARTDATETIME_HOUR" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="STARTDATETIME_MIN">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="STARTDATETIME_MIN" column="STARTDATETIME_MIN" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="STARTDATETIME_WEEKDAY">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="STARTDATETIME_WEEKDAY" column="STARTDATETIME_WEEKDAY" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension name="ENDDATETIME_YEAR">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="ENDDATETIME_YEAR" column="ENDDATETIME_YEAR" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="ENDDATETIME_MONTH">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="ENDDATETIME_MONTH" column="ENDDATETIME_MONTH" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="ENDDATETIME_DAY">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="ENDDATETIME_DAY" column="ENDDATETIME_DAY" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="ENDDATETIME_DAY">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="ENDDATETIME_YEAR" column="ENDDATETIME_YEAR" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="ENDDATETIME_HOUR">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="ENDDATETIME_HOUR" column="ENDDATETIME_HOUR" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="ENDDATETIME_MIN">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="ENDDATETIME_MIN" column="ENDDATETIME_MIN" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="ENDDATETIME_WEEKDAY">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="ENDDATETIME_WEEKDAY" column="ENDDATETIME_WEEKDAY" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    
+    <!--
+    <Dimension name="YEAR_MONTH_DAY_HOUR">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="YEAR" column="YEAR" uniqueMembers="false"/>
+        <Level name="MONTH" column="MONTH" uniqueMembers="false"/>
+        <Level name="DAY" column="DAY" uniqueMembers="false"/>
+        <Level name="HOUR" column="HOUR" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    -->
+    
+    <Dimension name="PARAMS">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="PARAMS" column="PARAMS" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="PARAM_VALUES">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="PARAM_VALUES" column="PARAM_VALUES" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>    
+    <Dimension name="STATUSCODE">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="STATUSCODE" column="STATUSCODE" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="PRINTERNAME">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="PRINTERNAME" column="PRINTERNAME" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>        
+
+    <Dimension name="WAITINGTIME_MINS">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="WAITINGTIME_MINS" column="WAITINGTIME_MINS" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="RUNTIME_MINS">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="RUNTIME_MINS" column="RUNTIME_MINS" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="TOTALRUNTIME_MINS">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="TOTALRUNTIME_MINS" column="TOTALRUNTIME_MINS" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="PARAMS_RATIO">
+      <Hierarchy hasAll="true" allMemberName="ALL">
+        <Level name="PARAMS_RATIO" column="PARAMS_RATIO" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
+    <Measure name="EXECCOUNT" column="ONE" aggregator="sum" visible="true" formatString="#,###"/>
+    <Measure name="WAITINGTIME_MINS" column="WAITINGTIME_MINS" aggregator="sum" visible="true" formatString="#,###.00"/>
+    <Measure name="RUNTIME_MINS" column="RUNTIME_MINS" aggregator="sum" visible="true" formatString="#,###.00"/>
+    <Measure name="TOTALRUNTIME_MINS" column="TOTALRUNTIME_MINS" aggregator="sum" visible="true" formatString="#,###.00"/>
+    <Measure name="PARAMS_RATIO" column="PARAMS_RATIO" aggregator="avg" visible="true" formatString="#,###.00"/>
+    
+    <CalculatedMember name="PERF_COEFICIENT" dimension="Measures">
+      <Formula>[Measures].[EXECCOUNT] * [Measures].[TOTALRUNTIME_MINS]</Formula>
+      <CalculatedMemberProperty name="FORMAT_STRING" value="#,##0.00"/>
+    </CalculatedMember>
+    
+  </Cube>
+  
+    <Cube name="MONITOR_ACTION_CLASSES_AG" caption="Action classes Monitor Cube" cache="true" enabled="true">
+    <Table name="AG_ACTION_HRS_CLS"/>
+    
+    <Dimension foreignKey="DM_DTM_ID" name="Date">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="YEAR" column="YEAR" uniqueMembers="false"/>
+        <Level name="MONTH" column="MONTH" uniqueMembers="false"/>
+        <Level name="DAY" column="DAY" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_DTM_ID" name="DateSimple">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="YEAR_MONTH" column="YEAR_MONTH" uniqueMembers="false">
+          <KeyExpression>
+            <SQL dialect="oracle">"YEAR" || '-' || "MONTH"</SQL>
+          </KeyExpression>
+        </Level>
+        <Level name="DAY" column="DAY" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_DTM_ID" name="DatetimeWeeksOfYear">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="YEAR" column="YEAR" uniqueMembers="false"/>
+        <Level name="WEEK_OF_YEAR" column="WEEK_OF_YEAR" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_DTM_ID" name="Time">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="HOUR" column="HOUR" uniqueMembers="false"/>
+        <Level name="MINUTE" column="MINUTE" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_DTM_ID" name="Year">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="YEAR" column="YEAR" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_DTM_ID" name="Month">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="MONTH" column="MONTH" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_DTM_ID" name="Day">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="DAY" column="DAY" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_DTM_ID" name="Hour">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="HOUR" column="HOUR" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension foreignKey="DM_CLS_ID" name="ActionClasses">
+      <Hierarchy hasAll="true" primaryKey="DM_CLS_ID" primaryKeyTable="DM_CLASS" allMemberName="ALL">
+        <Join leftKey="DM_MOD_ID" rightKey="DM_MOD_ID">
+          <Table name="DM_CLASS"/>
+          <Table name="DM_MODULE"/>
+        </Join>
+        <Level name="MODULE_NAME" table="DM_MODULE" column="MODULE_NAME" uniqueMembers="true"/>
+        <Level name="SUBMODULE" table="DM_CLASS" column="SUBMODULE" uniqueMembers="false"/>
+        <Level name="CLASS_NAME" table="DM_CLASS" column="CLASS_NAME" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_CLS_ID" name="ActionClassesSimple">
+      <Hierarchy hasAll="true" primaryKey="DM_CLS_ID" allMemberName="ALL">
+        <Table name="DM_CLASS"/>
+        <Level name="CLASS_NAME" table="DM_CLASS" column="CLASS_NAME" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    
+    <Measure name="EXECCOUNT" column="EXECCOUNT" aggregator="sum" visible="true" formatString="#,###"/>
+    <Measure name="AVG_EXECTIME_SEC" column="AVG_EXECTIME_SEC" aggregator="avg" visible="true" formatString="#,###.00"/>
+    <Measure name="MIN_EXECTIME_SEC" column="MIN_EXECTIME_SEC" aggregator="min" visible="true" formatString="#,###.00"/>
+    <Measure name="MAX_EXECTIME_SEC" column="MAX_EXECTIME_SEC" aggregator="max" visible="true" formatString="#,###.00"/>
+    <Measure name="SUM_EXECTIME_MIN" column="SUM_EXECTIME_MIN" aggregator="sum" visible="true" formatString="#,###.00"/>
+    
+    <CalculatedMember name="PERF_COEFICIENT" dimension="Measures">
+      <Formula>[Measures].[SUM_EXECTIME_MIN] * [Measures].[EXECCOUNT]</Formula>
+      <CalculatedMemberProperty name="FORMAT_STRING" value="$#,##0.00"/>
+    </CalculatedMember>
+    
+  </Cube>
+  
+  <Cube name="MONITOR_ACTION_CLASSES" caption="Action classes Monitor Cube" cache="true" enabled="true">
+    <Table name="FC_ACTION"/>
+    
+    <Dimension foreignKey="DM_DTM_ID" name="Date">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="YEAR" column="YEAR" uniqueMembers="false"/>
+        <Level name="MONTH" column="MONTH" uniqueMembers="false"/>
+        <Level name="DAY" column="DAY" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_DTM_ID" name="DateSimple">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="YEAR_MONTH" column="YEAR_MONTH" uniqueMembers="false">
+          <KeyExpression>
+            <SQL dialect="oracle">"YEAR" || '-' || "MONTH"</SQL>
+          </KeyExpression>
+        </Level>
+        <Level name="DAY" column="DAY" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_DTM_ID" name="DatetimeWeeksOfYear">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="YEAR" column="YEAR" uniqueMembers="false"/>
+        <Level name="WEEK_OF_YEAR" column="WEEK_OF_YEAR" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_DTM_ID" name="Time">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="HOUR" column="HOUR" uniqueMembers="false"/>
+        <Level name="MINUTE" column="MINUTE" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_DTM_ID" name="Year">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="YEAR" column="YEAR" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_DTM_ID" name="Month">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="MONTH" column="MONTH" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_DTM_ID" name="Day">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="DAY" column="DAY" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_DTM_ID" name="Hour">
+      <Hierarchy hasAll="true" primaryKey="DM_DTM_ID" allMemberName="ALL">
+        <Table name="DM_DATETIME"/>
+        <Level name="HOUR" column="HOUR" uniqueMembers="false"/>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension foreignKey="DM_CLS_ID" name="ActionClasses">
+      <Hierarchy hasAll="true" primaryKey="DM_CLS_ID" primaryKeyTable="DM_CLASS" allMemberName="ALL">
+        <Join leftKey="DM_MOD_ID" rightKey="DM_MOD_ID">
+          <Table name="DM_CLASS"/>
+          <Table name="DM_MODULE"/>
+        </Join>
+        <Level name="MODULE_NAME" table="DM_MODULE" column="MODULE_NAME" uniqueMembers="true"/>
+        <Level name="SUBMODULE" table="DM_CLASS" column="SUBMODULE" uniqueMembers="false"/>
+        <Level name="CLASS_NAME" table="DM_CLASS" column="CLASS_NAME" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_CLS_ID" name="ActionClassesSimple">
+      <Hierarchy hasAll="true" primaryKey="DM_CLS_ID" allMemberName="ALL">
+        <Table name="DM_CLASS"/>
+        <Level name="CLASS_NAME" table="DM_CLASS" column="CLASS_NAME" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+
+    <Dimension foreignKey="DM_TRU_ID" name="TropicsUsers">
+      <Hierarchy hasAll="true" primaryKey="DM_TRU_ID" allMemberName="ALL">
+        <Level name="TROPICS_USER" column="TROPICS_USER" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    <Dimension foreignKey="DM_TRU_ID" name="TropicsUsersSimple">
+      <Hierarchy hasAll="true" primaryKey="DM_TRU_ID" allMemberName="ALL">
+        <Level name="TROPICS_USER" column="TROPICS_USER" uniqueMembers="true"/>
+      </Hierarchy>
+    </Dimension>
+    
+    <Measure name="EXECCOUNT" column="EXECCOUNT" aggregator="sum" visible="true" formatString="#,###"/>
+    <Measure name="AVG_EXECTIME_MS" column="EXECTIME_MS" aggregator="avg" visible="true" formatString="#,###"/>
+    <Measure name="MIN_EXECTIME_SEC" column="EXECTIME_MS" aggregator="min" visible="true" formatString="#,###"/>
+    <Measure name="MAX_EXECTIME_SEC" column="EXECTIME_MS" aggregator="max" visible="true" formatString="#,###"/>
+    <Measure name="SUM_EXECTIME_MIN" column="EXECTIME_MS" aggregator="sum" visible="true" formatString="#,###"/>
+    
+    <CalculatedMember name="PERF_COEFICIENT" dimension="Measures">
+      <Formula>[Measures].[SUM_EXECTIME_MIN] * [Measures].[EXECCOUNT]</Formula>
+      <CalculatedMemberProperty name="FORMAT_STRING" value="$#,##0.00"/>
+    </CalculatedMember>
+    
+  </Cube>
+  
+</Schema>
