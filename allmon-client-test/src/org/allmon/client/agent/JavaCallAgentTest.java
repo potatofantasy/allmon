@@ -17,12 +17,16 @@ public class JavaCallAgentTest extends TestCase {
     public void testSimple() throws Exception {
         MetricMessage message = MetricMessageFactory.createActionClassMessage(
                 this.getClass().getName(), "user", "webSessionId", null);
-
+        
         JavaCallAgent agent = new JavaCallAgent(agentContext, message);
         agent.entryPoint();
         Thread.sleep(1500);
+        
+        message.setParameters(new Object[]{"str1", new String[]{"str2a", "str2b"}});
+        message.setException(new Exception("Something happend so an exception is thrown"));
+        
         agent.exitPoint();
-
+        
         Thread.sleep(2000);
         agentContext.stop();
     }
