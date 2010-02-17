@@ -84,6 +84,13 @@ public abstract class AbstractConcurrentLoader<LoadingObject> {
                 }
             }
             long t2 = System.nanoTime();
+
+            if (loadResult.getFailuresCount() > 0) {
+                logger.error("Loading thread had some problems");
+                for (int i = 0; i < loadResult.getFailuresCount(); i++) {
+                    logger.error("Exception no: " + i + " > " + loadResult.getException(i));
+                }
+            }
             
             logger.debug("Thread " + threadNum + " run initialized in " + (t1 - t0)/1000000);
             logger.debug("Thread " + threadNum + " run pre processed in " + (t2 - t1)/1000000);
