@@ -57,10 +57,11 @@ set CLASS_PATH=%CLASS_PATH%../lib/junit-4.4.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/log4j-1.2.15.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/cron4j-2.1.1.jar;
 set CLASS_PATH=%CLASS_PATH%../lib/snmp4j.jar;
-rem set CLASS_PATH=%CLASS_PATH%../lib/jconsole.jar;
-rem set CLASS_PATH=%CLASS_PATH%../lib/tools.jar
 set CLASS_PATH=%CLASS_PATH%%JAVA_HOME%/lib/jconsole.jar;
-set CLASS_PATH=%CLASS_PATH%%JAVA_HOME%/lib/tools.jar
+set CLASS_PATH=%CLASS_PATH%%JAVA_HOME%/lib/tools.jar;
+set CLASS_PATH=%CLASS_PATH%../lib/xstream-1.3.1.jar;
+set CLASS_PATH=%CLASS_PATH%../lib/json-lib-2.3-jdk15.jar
+
 
 echo _JAVACMD variable is set to: %_JAVACMD%
 echo CLASS_PATH variable is set to: %CLASS_PATH%
