@@ -11,6 +11,9 @@ import javax.persistence.Id;
 @Entity(name = "AM_RAW_METRIC")
 public class RawMetric2 implements Serializable {
 
+    private static final int PARAMETERS_FIELD_LENGTH = 1000;
+    private static final int EXCEPTION_FIELD_LENGTH = 1000;
+    
 	private Long id = new Long(-1);
     
 	private String artifact;
@@ -158,22 +161,33 @@ public class RawMetric2 implements Serializable {
         this.entryPoint = point;
     }
 
-    @Column(name="PARAMETERS", nullable=true, length=1000)
+    @Column(name="PARAMETERSBODY", nullable=true, length=PARAMETERS_FIELD_LENGTH)
 	public String getParameters() {
 		return parameters;
 	}
 
 	public void setParameters(String parameters) {
-		this.parameters = parameters;
+        this.parameters = trimToMaxLenght(parameters, PARAMETERS_FIELD_LENGTH);
 	}
 
-	@Column(name="EXCEPTION", nullable=true, length=1000)
+	@Column(name="EXCEPTIONBODY", nullable=true, length=EXCEPTION_FIELD_LENGTH)
 	public String getException() {
 		return exception;
 	}
 
 	public void setException(String exception) {
-		this.exception = exception;
+	    this.exception = trimToMaxLenght(exception, EXCEPTION_FIELD_LENGTH);
 	}
 
+	private String trimToMaxLenght(String value, int maxLength) {
+	    if (value != null) {
+            String str = value.trim();
+            if (str.length() > maxLength) {
+                str = value.substring(0, maxLength);
+            }
+            return str;
+        }
+	    return null;
+	}
+	
 }

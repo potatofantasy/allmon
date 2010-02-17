@@ -25,9 +25,8 @@ public class LoaderReceiverRouteBuilder extends RouteBuilder {
                 MetricMessageWrapper metricMessageWrapper = (MetricMessageWrapper)e.getIn().getBody();
                 if (metricMessageWrapper != null) {
                     try {
-                        // Store metric
-                        //LoadRawMetric loadRawMetric = new LoadRawMetric(); TODO check performance ??!
-                        loadRawMetric.storeMetric(metricMessageWrapper); // TODO change String(metricMessageWrapper.toString) to MetricMessage
+                        // Store metrics
+                        loadRawMetric.storeMetric(metricMessageWrapper);
                     } catch (Throwable t) {
                         logger.error(t.getMessage(), t);
                     }
