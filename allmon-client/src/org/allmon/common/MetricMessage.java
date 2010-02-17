@@ -5,10 +5,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 
 /**
  * This class defines a data transformation object holding metrics data acquired in monitored application
@@ -18,6 +24,10 @@ import java.util.Date;
 public class MetricMessage implements Serializable {
 
     private static final int MAX_STRING_LENGHT = 1000;
+    
+    private static final XStream xstream = new XStream(new JsonHierarchicalStreamDriver()); //new JettisonDriver());
+    
+    private static final boolean PRINT_EXCEPTIONS_STACKTRACE = true;
     
     private long eventTime;
     private long durationTime;
@@ -186,7 +196,10 @@ public class MetricMessage implements Serializable {
     }
     
     public String getParametersString() {
-        return (parameters != null) ? parameters.toString() : "";
+        if (parameters != null ) {
+            return xstream.toXML(parameters);
+        }
+        return "";
     }
 
     public void setParameters(Object parameters) {
@@ -198,7 +211,16 @@ public class MetricMessage implements Serializable {
     }
     
     public String getExceptionString() {
-        return (exception != null) ? exception.toString() : "";
+        if (exception == null) {
+            return "";
+        }
+        if (PRINT_EXCEPTIONS_STACKTRACE) {
+            Writer result = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(result);
+            exception.printStackTrace(printWriter);
+            return result.toString();
+        } 
+        return exception.toString();
     }
 
     // TODO change to throwable
