@@ -60,8 +60,9 @@ DROP SEQUENCE am_ins_seq;
 DROP SEQUENCE am_met_seq;
 DROP SEQUENCE am_rsc_seq;
 DROP SEQUENCE am_src_seq;
-drop sequence am_rme_seq;
+DROP SEQUENCE am_rme_seq;
 -- drop fact table
+DROP TABLE am_metricsparamsexc
 DROP TABLE am_metricsdata;
 
 -- drop raw metrics data table
@@ -88,6 +89,7 @@ CREATE TABLE am_artifact (
   artifactcode VARCHAR(6) NOT NULL,
   CONSTRAINT am_arf_pk PRIMARY KEY (am_arf_id) USING INDEX
 );
+COMMENT ON TABLE am_artifact IS 'contains artefact description';
 CREATE SEQUENCE am_arf_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 CREATE UNIQUE INDEX am_arf_uk1 ON am_artifact(artifactcode);
 
@@ -101,6 +103,7 @@ CREATE TABLE am_metrictype (
   CONSTRAINT am_mty_pk PRIMARY KEY (am_mty_id) USING INDEX,
   CONSTRAINT am_mty_am_arf_fk1 FOREIGN KEY (am_arf_id) REFERENCES am_artifact(am_arf_id)
 );
+COMMENT ON TABLE am_metrictype IS 'contains metrics types description';
 CREATE SEQUENCE am_mty_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 
 CREATE TABLE am_instance (
@@ -112,6 +115,7 @@ CREATE TABLE am_instance (
   CONSTRAINT am_ins_pk PRIMARY KEY (am_ins_id) USING INDEX,
   CONSTRAINT am_ins_am_arf_fk1 FOREIGN KEY (am_arf_id) REFERENCES am_artifact(am_arf_id)
 );
+COMMENT ON TABLE am_instance IS 'contains artefact instance description';
 CREATE SEQUENCE am_ins_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 
 CREATE TABLE am_host (
@@ -121,6 +125,7 @@ CREATE TABLE am_host (
   hostip VARCHAR(15) NOT NULL,
   CONSTRAINT am_hst_pk PRIMARY KEY (am_hst_id) USING INDEX
 );
+COMMENT ON TABLE am_host IS 'contains monitored host description';
 CREATE SEQUENCE am_hst_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 
 CREATE TABLE am_resource (
@@ -132,9 +137,11 @@ CREATE TABLE am_resource (
   CONSTRAINT am_rsc_pk PRIMARY KEY (am_rsc_id) USING INDEX,
   CONSTRAINT am_rsc_am_mty_fk1 FOREIGN KEY (am_mty_id) REFERENCES am_metrictype(am_mty_id)
 );
+COMMENT ON TABLE am_resource IS 'contains resource from where metrics are baing acquisited';
 CREATE SEQUENCE am_rsc_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
-CREATE UNIQUE INDEX am_rsc_uk1 ON am_resource(am_mty_id, resourcename);
+CREATE INDEX am_rsc_uk1 ON am_resource(am_mty_id);
 CREATE UNIQUE INDEX am_rsc_uk2 ON am_resource(resourcecode);
+CREATE UNIQUE INDEX am_rsc_uk3 ON am_resource(resourcename);
 
 CREATE TABLE am_source (
   am_src_id NUMBER(10) NOT NULL,
@@ -144,9 +151,11 @@ CREATE TABLE am_source (
   CONSTRAINT am_src_pk PRIMARY KEY (am_src_id) USING INDEX,
   CONSTRAINT am_src_am_mty_fk1 FOREIGN KEY (am_mty_id) REFERENCES am_metrictype(am_mty_id)
 );
+COMMENT ON TABLE am_source IS 'contains source of calls which trigger metrics values';
 CREATE SEQUENCE am_src_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
-CREATE UNIQUE INDEX am_src_uk1 ON am_source(am_mty_id, sourcename);
-CREATE UNIQUE INDEX am_src_uk2 ON am_source(sourcecode);
+CREATE INDEX am_src_uk1 ON am_source(am_mty_id);
+CREATE UNIQUE INDEX am_src_uk2 ON am_source(sourcecode); 
+CREATE UNIQUE INDEX am_src_uk3 ON am_source(sourcename);
 
 CREATE TABLE am_calendar (
   am_cal_id NUMBER(10) NOT NULL,
@@ -160,6 +169,7 @@ CREATE TABLE am_calendar (
   week_of_year NUMBER(2) NOT NULL,
   CONSTRAINT am_cal_pk PRIMARY KEY (am_cal_id) USING INDEX
 );
+COMMENT ON TABLE am_calendar IS 'contains calendar data down to day level';
 CREATE SEQUENCE am_cal_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 CREATE UNIQUE INDEX am_cal_uk1 ON am_calendar(year, month, day);
 CREATE UNIQUE INDEX am_cal_uk2 ON am_calendar(caldate);
@@ -172,6 +182,7 @@ CREATE TABLE am_time(
   minute NUMBER(2) NOT NULL,
   CONSTRAINT am_tim_pk PRIMARY KEY (am_tim_id) USING INDEX
 );
+COMMENT ON TABLE am_time IS 'contains time data down to minute level';
 CREATE SEQUENCE am_tim_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 CREATE UNIQUE INDEX am_tim_uk1 ON am_time(hour, minute);
 
@@ -187,11 +198,12 @@ CREATE TABLE am_raw_metric (
   resourcename   VARCHAR2(1000),
   sourcename     VARCHAR2(1000),
   ts             DATE NOT NULL,
-  entrypoint    VARCHAR2(10) NOT NULL,
+  entrypoint     VARCHAR2(10) NOT NULL,
   parametersbody VARCHAR2(1000),
   exceptionbody  VARCHAR2(1000)
   --CONSTRAINT am_rme_pk PRIMARY KEY (am_rme_id) --USING INDEX
 );
+COMMENT ON TABLE am_raw_metric IS 'contains raw metrics data, freshly loaded to the database, before decomposition and loading allmetrics schema';
 CREATE SEQUENCE am_rme_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1;
 -- used by loading process, needed when data are loaded in big chunks
 CREATE INDEX am_rme_am_arf_idx1 ON am_raw_metric(artifactcode);
@@ -201,6 +213,7 @@ CREATE INDEX am_rme_am_mty_idx1 ON am_raw_metric(metrictypecode);
 CREATE INDEX am_rme_am_rsc_idx1 ON am_raw_metric(resourcename);
 CREATE INDEX am_rme_am_src_idx1 ON am_raw_metric(sourcename);
 CREATE INDEX am_rme_am_ts_idx1 ON am_raw_metric(ts);
+ALTER TABLE am_raw_metric ADD CONSTRAINT am_rme_pk PRIMARY KEY (AM_RME_ID) USING INDEX;
 
 -- create fact table 
 CREATE TABLE am_metricsdata (
@@ -217,7 +230,7 @@ CREATE TABLE am_metricsdata (
   ts DATE NOT NULL, -- Time Stamp -- TODO review to delete
   loadts DATE DEFAULT SYSDATE NOT NULL, -- Loading to the fact table Time Stamp
   observation_id NUMBER(10), -- TODO review necesity
-  am_rme_id NUMBER(10) NOT NULL, -- reference to original raw metrics data
+  am_rme_id NUMBER(10), -- reference to original raw metrics data - usually is null, not null only for time being of loading transaction
   CONSTRAINT am_met_pk PRIMARY KEY (am_met_id) USING INDEX,
   --CONSTRAINT am_met_am_mty_fk1 FOREIGN KEY (am_mty_id) REFERENCES am_metrictype(am_mty_id),
   CONSTRAINT am_met_am_ins_fk1 FOREIGN KEY (am_ins_id) REFERENCES am_instance(am_ins_id),
@@ -228,7 +241,7 @@ CREATE TABLE am_metricsdata (
   CONSTRAINT am_met_am_tim_fk1 FOREIGN KEY (am_tim_id) REFERENCES am_time(am_tim_id)
   --CONSTRAINT am_met_am_rme_fk1 FOREIGN KEY (am_rme_id) REFERENCES am_raw_metric(am_rme_id)
 );
-
+COMMENT ON TABLE am_metricsdata IS 'contains detailed, low level metrics data';
 CREATE SEQUENCE am_met_seq MINVALUE 1 MAXVALUE 999999999999999 INCREMENT BY 1 CACHE 100;
 --CREATE INDEX am_met_am_mty_idx1 ON am_metricsdata(am_mty_id);
 CREATE INDEX am_met_am_ins_idx1 ON am_metricsdata(am_ins_id);
@@ -237,6 +250,18 @@ CREATE INDEX am_met_am_rsc_idx1 ON am_metricsdata(am_rsc_id);
 CREATE INDEX am_met_am_src_idx1 ON am_metricsdata(am_src_id);
 CREATE INDEX am_met_am_cal_idx1 ON am_metricsdata(am_cal_id);
 CREATE INDEX am_met_am_tim_idx1 ON am_metricsdata(am_tim_id);
+CREATE UNIQUE INDEX am_met_am_rme_idx1 ON am_metricsdata(am_rme_id);
+
+-- create parameters and exceptions table
+CREATE TABLE am_metricsparamsexc (
+  am_met_id      NUMBER(10) NOT NULL,
+  parametersbody VARCHAR2(1000),
+  exceptionbody  VARCHAR2(1000),
+  CONSTRAINT am_metpe_pk PRIMARY KEY (am_met_id) USING INDEX,
+  CONSTRAINT am_metpe_am_met_fk1 FOREIGN KEY (am_met_id) REFERENCES am_metricsdata(am_met_id)
+);
+COMMENT ON TABLE am_metricsparamsexc IS 'contains parameters and exceptions of stored metrics data';
+--CREATE INDEX am_met_am_ins_idx1 ON am_metricsdata(am_ins_id);
 
 
 -------------------------------------------------------------------------------------------------------------------------
