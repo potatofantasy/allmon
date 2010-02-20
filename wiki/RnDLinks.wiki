@@ -40,6 +40,7 @@
     * http://www.sun.com/software/jdmk/
     * https://opendmk.dev.java.net/
 
+
   * Similar Open Source Projects (is it "reinventing the wheel" antipattern? :) - http://notes-on-haskell.blogspot.com/2007/08/rewriting-software.html and http://www.newyorker.com/reporting/2008/05/12/080512fa_fact_gladwell?currentPage=all)
     * Jamon - http://jamonapi.sourceforge.net/
     * Usemon - http://code.google.com/p/usemon/ http://www.slideshare.net/paulrene/an-introduction-to-usemon 
@@ -69,6 +70,7 @@
     * Dynatrace - Continuous Application Performance Management - http://www.dynatrace.com/ - http://www.dynatrace.com/twominutedemo/
     * Hyperic (Spring) - Application Management Suite (AMS) - http://www.hyperic.com/
       * http://blog.springsource.com/2008/03/31/springsource-application-management-suite-ams-released/
+    * jinspired - http://www.jinspired.com/products/jxinsight/
     * Quest Application Management - http://www.quest.com/application-management/
     * Monitoring Application Performance in Sun Java System Application Server 7.x with PerformaSure - http://developers.sun.com/appserver/reference/techart/performasure.html
     * Free service - External Monitoring - Internal Monitoring, Visitors Tracking - http://mon.itor.us/
@@ -103,6 +105,7 @@
       * Spring-AOP - http://static.springsource.org/spring/docs/2.5.x/reference/aop.html
         * http://www.javaworld.com/javaworld/jw-01-2007/jw-0105-aop.html
       * Werkz
+    * AOP performance benchmark - http://docs.codehaus.org/display/AW/AOP+Benchmark
 
 
   * Monitoring service layer
