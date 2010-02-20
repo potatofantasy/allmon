@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity(name = "AM_RAW_METRIC")
 public class RawMetric2 implements Serializable {
@@ -61,7 +62,8 @@ public class RawMetric2 implements Serializable {
 //    private String metric;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO, generator="rme_seq_gen")
+    @SequenceGenerator(name="rme_seq_gen", sequenceName="am_rme_seq")
     @Column(name="AM_RME_ID")
     public Long getId() {
         return id;
