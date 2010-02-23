@@ -119,6 +119,7 @@ CREATE OR REPLACE PACKAGE BODY am_allmetric_mngr IS
       raw_load_to_allmetric(c_rec.h, c_rec.h + 1/24);
       COMMIT;
     END LOOP;
+    COMMIT;
   END;
 
   -- loads raw metrics data collected in last day
@@ -221,7 +222,10 @@ CREATE OR REPLACE PACKAGE BODY am_allmetric_mngr IS
     WHERE  darm.am_rme_id IN (
       SELECT arm.am_rme_id
       FROM   am_metricsdata amd, am_raw_metric arm
-      WHERE  amd.am_rme_id = arm.am_rme_id);
+      WHERE  amd.am_rme_id = arm.am_rme_id
+      AND    amd.ts BETWEEN p_i_datetime_start AND p_i_datetime_end
+      AND    arm.ts BETWEEN p_i_datetime_start AND p_i_datetime_end
+      );
     -- update all am_rme_id for those rows which have been loaded 
     -- in current transaction all not null values are new values
     UPDATE am_metricsdata amd SET amd.am_rme_id = NULL WHERE amd.am_rme_id IS NOT NULL;
