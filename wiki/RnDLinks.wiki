@@ -12,6 +12,7 @@
 
   * General
     * "Build your own profiling tool - Create an ideal profiler using the Java 5 agent interface and AOP" - http://www.ibm.com/developerworks/java/library/j-jip/
+    * AOP@Work: Performance monitoring with AspectJ, Part 1 - A look inside the Glassbox Inspector with AspectJ and JMX - http://www.ibm.com/developerworks/java/library/j-aopwork10/
     * Java Application Instrumentation with Log4J (can be helpful with creating a new metrics message sender based on log4j appender mechanism) - http://www.devx.com/Java/Article/22110/1954
 
     
