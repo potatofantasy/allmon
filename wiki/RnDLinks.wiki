@@ -69,6 +69,7 @@
 
   * Similar Not-Open Source Projects (Proprietary)
     * Dynatrace - Continuous Application Performance Management - http://www.dynatrace.com/ - http://www.dynatrace.com/twominutedemo/
+    * PerformaSure (Java Transaction Profiling and Performance Diagnostics) - http://www.quest.com/performasure/ - presentation http://www.demosondemand.com/DemoStage3/index.asp?sessID=QUES005&promotion_id=2072&startTime=0
     * Hyperic (Spring) - Application Management Suite (AMS) - http://www.hyperic.com/
       * http://blog.springsource.com/2008/03/31/springsource-application-management-suite-ams-released/
     * jinspired - http://www.jinspired.com/products/jxinsight/
