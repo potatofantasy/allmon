@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	  <property name="locations">
+	    <list>
+        <value>classpath:allmon.properties</value>
+	    </list>
+	  </property>
+	  <property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
+	
+	<bean id="allmonDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${allmon.server.db.driverClassName}" />
+		<property name="jdbcUrl" value="${allmon.server.db.url}" />
+    <property name="user" value="${allmon.server.db.username}" />
+    <property name="password" value="${allmon.server.db.password}" />
+    <property name="minPoolSize" value="${allmon.server.db.hibernate.c3p0.minPoolSize}" />
+    <property name="maxPoolSize" value="${allmon.server.db.hibernate.c3p0.maxPoolSize}" />
+    <property name="maxIdleTime" value="${allmon.server.db.hibernate.c3p0.maxIdleTime}" />
+    <property name="maxStatements" value="100" />
+	</bean>
+  
+	<bean id="allmonHibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
+				<prop key="hibernate.show_sql">${allmon.server.db.hibernate.show_sql}</prop>
+				<prop key="hibernate.jdbc.batch_size">${allmon.server.db.hibernate.jdbc.batch_size}</prop>
+				<prop key="hibernate.order_inserts">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="allmonSessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="allmonDataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<ref bean="allmonHibernateProperties" />
+		</property>
+		<property name="annotatedClasses">
+      <list>
+        <value>org.allmon.server.loader.RawMetric2</value>
+      </list>
+    </property>
+	</bean>
+
+	<bean id="rawMetric2DAOTarget" class="org.allmon.server.loader.RawMetric2DAOImpl">
+		<property name="sessionFactory">
+			<ref local="allmonSessionFactory" />
+		</property>
+		<property name="maxConcurrentThreadsCount" value="${allmon.server.loader.maxConcurrentThreadsCount}" />
+    <property name="preferedMetricsCountPerThread" value="${allmon.server.loader.preferedMetricsCountPerThread}" />
+	</bean>
+
+  <bean id="rawMetricLoadToAllmetricDAOTarget" class="org.allmon.server.loader.RawMetricLoadToAllmetricDAOImpl" >
+    <property name="sessionFactory">
+      <ref local="allmonSessionFactory" />
+    </property>
+    <property name="dataSource">
+      <ref local="allmonDataSource" />
+    </property>
+  </bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="allmonSessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="userDAO" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref local="transactionManager" />
+		</property>
+		<property name="target">
+			<ref local="rawMetric2DAOTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="addMeric">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>

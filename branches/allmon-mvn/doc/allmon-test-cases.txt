@@ -1,0 +1,7 @@
+allmon functional test cases:
+
+- 
+
+allmon load tests cases:
+
+- comparison between meta and normal multidimensional schema
