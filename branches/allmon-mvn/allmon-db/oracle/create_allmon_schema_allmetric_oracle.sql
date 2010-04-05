@@ -333,6 +333,14 @@ AND   amr.am_mty_id = amt.am_mty_id
 AND   amm.am_cal_id = amc.am_cal_id
 AND   amm.am_tim_id = amti.am_tim_id;
 
+CREATE OR REPLACE VIEW vam_raw_metric_cal AS
+SELECT arm.am_rme_id, arm.artifactcode, arm.hostname, arm.hostip, 
+       arm.instancename, arm.metrictypecode, arm.resourcename, arm.sourcename, arm.metricvalue, 
+       arm.ts,
+       to_char(arm.ts, 'YYYY') AS YEAR, to_char(arm.ts, 'MM') AS month, to_char(arm.ts, 'DD') AS day, to_char(arm.ts, 'D') AS week_day, to_char(arm.ts, 'DDD') AS year_day, to_char(arm.ts, 'Q') AS quarter, to_char(arm.ts, 'WW') AS week_of_year, to_char(arm.ts, 'HH24') AS hour, to_char(arm.ts, 'MI') AS minute,
+       arm.entrypoint, arm.parametersbody, arm.exceptionbody, arm.exception, arm.PARAMETERS
+FROM   am_raw_metric arm;
+
 -------------------------------------------------------------------------------------------------------------------------
 -- fill the static dimension - up to 2020
 INSERT INTO am_calendar(am_cal_id, caldate, YEAR, MONTH, DAY, week_day, year_day, quarter, week_of_year)
