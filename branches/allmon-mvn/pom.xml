@@ -18,7 +18,7 @@
 
 	<modules>
 		<module>allmon-client</module>
-		<!-- <module>allmon-server</module> -->
+		<module>allmon-server</module>
 	</modules>
 
 	<properties>
@@ -52,8 +52,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.5</version>
 				<configuration>
+					<skipTests>true</skipTests>
 					<includes>
-						<include>skiptests**/*Test.java</include>
+						<include>**/*Test.java</include>
 					</includes>
 					<excludes>
 						<exclude>**/*agent*/*Test.java</exclude>
@@ -68,6 +69,15 @@
 				<configuration>
 					<show>private</show>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>javadoc</goal>
+							<goal>test-javadoc</goal>
+						</goals>
+						<phase>site</phase>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -122,8 +132,16 @@
 		</repository>
 		<repository>
 			<id>maven.mirror</id>
-			<name>Maven2 mirror</name>
+			<name>Maven2 mirror cica.es</name>
 			<url>http://ftp.cica.es/mirrors/maven2/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>maven.mirror2</id>
+			<name>Maven2 mirror ibiblio.org</name>
+			<url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
