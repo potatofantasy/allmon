@@ -95,6 +95,7 @@
 
 
   * Statistics
+    * Mondrian - http://rosuda.org/mondrian/ - Mondrian (GNU) is a general purpose statistical data-visualization system. It features outstanding visualization techniques for data of almost any kind, and has its particular strength compared to other tools when working with Categorical Data, Geographical Data and LARGE Data. Mondrian works with data in standard tab-delimited or comma-separated ASCII files and can load data from R workspaces. There is basic support for working directly on data in Databases.
     * Colt - http://acs.lbl.gov/~hoschek/colt/
     * Commons-Math: The Apache Commons Mathematics Library - http://commons.apache.org/math/index.html
     * Oracle statistical functions overview - http://www.oracle.com/technology/products/bi/stats_fns/pdf/or_statistical_functions_overview.pdf
