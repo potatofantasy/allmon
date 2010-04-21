@@ -100,7 +100,7 @@
     * Colt - http://acs.lbl.gov/~hoschek/colt/
     * Commons-Math: The Apache Commons Mathematics Library - http://commons.apache.org/math/index.html
     * Oracle statistical functions overview - http://www.oracle.com/technology/products/bi/stats_fns/pdf/or_statistical_functions_overview.pdf
-
+    * Free statistics software - http://www.freestatistics.info/
 
   * Instrumentation
     * Java Instrumentation - http://java.sun.com/j2se/1.5.0/docs/api/java/lang/instrument/Instrumentation.html
