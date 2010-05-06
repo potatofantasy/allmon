@@ -16,7 +16,7 @@
     * Java Application Instrumentation with Log4J (can be helpful with creating a new metrics message sender based on log4j appender mechanism) - http://www.devx.com/Java/Article/22110/1954
 
     
-  * JMX
+  * JMX monitoring and java code instrumentation
     * http://blogs.sun.com/jmxetc/entry/what_is_jmx
     * http://en.wikipedia.org/wiki/Java_Management_Extensions
     * http://java.sun.com/developer/technicalArticles/J2SE/jmx.html
@@ -33,6 +33,10 @@
     * JVMTI -  JVMTM Tool Interface Version 1.0 - http://java.sun.com/j2se/1.5.0/docs/guide/jvmti/jvmti.html
 
     * jvmstat - http://java.sun.com/performance/jvmstat/
+
+    * Java code instrumentation since 1.5 - http://java.sun.com/j2se/1.5.0/docs/api/java/lang/instrument/package-summary.html
+    * Code Generation Library - http://cglib.sourceforge.net/
+    * ASM - all purpose Java bytecode manipulation and analysis framework - http://asm.ow2.org/
 
 
   * JDMK - The Java Dynamic Management Kit (Java DMK) provides a set of Java classes and tools that allow easy development of secure monitoring and management solutions based on the Java Management Extensions (JMX) specifications and on the SNMP standards
