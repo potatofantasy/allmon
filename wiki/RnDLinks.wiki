@@ -37,6 +37,8 @@
     * Java code instrumentation since 1.5 - http://java.sun.com/j2se/1.5.0/docs/api/java/lang/instrument/package-summary.html
     * Code Generation Library - http://cglib.sourceforge.net/
     * ASM - all purpose Java bytecode manipulation and analysis framework - http://asm.ow2.org/
+      * Using ASM to implement common byte code manipulation patterns - http://asm.ow2.org/current/asm-transformations.pdf
+      * ASM: Code manipulation for adaptable systems - http://asm.ow2.org/current/asm-eng.pdf
 
 
   * JDMK - The Java Dynamic Management Kit (Java DMK) provides a set of Java classes and tools that allow easy development of secure monitoring and management solutions based on the Java Management Extensions (JMX) specifications and on the SNMP standards
