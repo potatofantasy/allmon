@@ -113,8 +113,9 @@
     * AOP
       * AspectJ - 
       * Spring-AOP - http://static.springsource.org/spring/docs/2.5.x/reference/aop.html
-        * http://www.javaworld.com/javaworld/jw-01-2007/jw-0105-aop.html
-      * Werkz
+        * Spring 2.0 offers excellent user-friendly AOP - http://www.javaworld.com/javaworld/jw-01-2007/jw-0105-aop.html
+        * Custom namespaces in spring - http://www.theserverside.com/news/1364131/Authoring-Custom-Namespaces-in-Spring-20
+      * Werkz - 
     * AOP performance benchmark - http://docs.codehaus.org/display/AW/AOP+Benchmark
 
 
