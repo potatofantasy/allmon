@@ -2,6 +2,7 @@ package org.allmon.common;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.commons.logging.Log;
@@ -22,8 +23,13 @@ public class AllmonPropertiesReader {
         if (!log4jConfigured) {
             String file = System.getProperty("log4jallmon.properties.path");
             if (file == null || "".equals(file)) {
-                file = "conf/log4jallmon.properties";
+                file = "src/main/conf/log4jallmon.properties"; //"conf/log4jallmon.properties";
             }
+            try {
+				System.out.println("Reading config file in path " + new File(".").getCanonicalPath());
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
             PropertyConfigurator.configure(file);
         }
         log4jConfigured = true;
