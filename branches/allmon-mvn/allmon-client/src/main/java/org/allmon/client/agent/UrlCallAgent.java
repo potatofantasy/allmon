@@ -34,7 +34,8 @@ public class UrlCallAgent extends ActiveAgent {
     
     
     public UrlCallAgent(AgentContext agentContext) {
-		super(agentContext);
+    	super(agentContext);
+    	logger.debug("Instance created");
 	}
 
     MetricMessageWrapper collectMetrics() {
@@ -98,5 +99,29 @@ public class UrlCallAgent extends ActiveAgent {
         urlAddress = getParamsString(0);
         searchPhrase = getParamsString(1);
     }
+
+	public void setUrlAddress(String urlAddress) {
+		this.urlAddress = urlAddress;
+	}
+
+	public void setSearchPhrase(String searchPhrase) {
+		this.searchPhrase = searchPhrase;
+	}
+
+	public void setUseProxy(boolean useProxy) {
+		this.useProxy = useProxy;
+	}
+
+	public void setCheckingHost(String checkingHost) {
+		this.checkingHost = checkingHost;
+	}
+
+	public void setCheckName(String checkName) {
+		this.checkName = checkName;
+	}
+
+	public void setInstanceName(String instanceName) {
+		this.instanceName = instanceName;
+	}
 
 }

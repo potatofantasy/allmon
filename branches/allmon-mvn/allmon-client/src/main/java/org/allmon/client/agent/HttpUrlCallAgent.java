@@ -27,7 +27,7 @@ public class HttpUrlCallAgent extends UrlCallAgent {
     public HttpUrlCallAgent(AgentContext agentContext) {
 		super(agentContext);
 	}
-    
+        
     public void setStrategy(String strategyClassName) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class c = Class.forName(strategyClassName);
         Object o = c.newInstance();
@@ -38,6 +38,10 @@ public class HttpUrlCallAgent extends UrlCallAgent {
     
     public void setStrategy(HttpUrlCallAgentAbstractStrategy strategy) {
         this.strategy = strategy;
+    }
+    
+    public String getStrategyName() {
+        return strategy.toString();
     }
     
     MetricMessageWrapper collectMetrics() {
@@ -114,5 +118,17 @@ public class HttpUrlCallAgent extends UrlCallAgent {
         useProxy = Boolean.parseBoolean(getParamsString(8)); //true;
         requestMethod = getParamsString(9);
     }
+
+	public void setRequestMethod(String requestMethod) {
+		this.requestMethod = requestMethod;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	public void setUrlParameters(String urlParameters) {
+		this.urlParameters = urlParameters;
+	}
     
 }

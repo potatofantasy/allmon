@@ -7,6 +7,9 @@ import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.springframework.scheduling.quartz.QuartzJobBean;
 
 /**
  * Active agents are used in active monitoring, where metric 
@@ -25,13 +28,34 @@ import org.apache.commons.logging.LogFactory;
  * TODO add timeout mechanism preventing creating/leaking too many threads
  * 
  */
-abstract class ActiveAgent extends Agent implements AgentTaskable {
+abstract class ActiveAgent //extends Agent
+							extends QuartzJobBean
+							implements AgentTaskable {
 
     private static final Log logger = LogFactory.getLog(ActiveAgent.class);
     
+    final AgentContext agentContext;
+    
     ActiveAgent(AgentContext agentContext) {
-		super(agentContext);
+		this.agentContext = agentContext;
 	}
+	
+    public final AgentMetricBuffer getMetricBuffer() {
+        return agentContext.getMetricBuffer();
+    }
+	
+    String getAgentContextName() {
+        return agentContext.getName();
+    }
+    
+    @Override
+    protected void executeInternal(JobExecutionContext ctx)
+		throws JobExecutionException {
+    	logger.debug("execute");
+    	System.out.println("execute");
+    	//execute();
+    	
+    }
     
 	private ActiveAgentMetricMessageSender messageSender = new ActiveAgentMetricMessageSender(this);
     
@@ -50,11 +74,11 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
      * This method is final, so no other concrete Agent implementation can override it.
      */
     public final void execute() {
-        try {
-            decodeAgentTaskableParams();
-        } catch (Exception e) {
-            throw new RuntimeException("Parameters couldn't been initialized properly: " + e.toString());
-        }
+//        try {
+//            decodeAgentTaskableParams(); // FIXME delete this code
+//        } catch (Exception e) {
+//            throw new RuntimeException("Parameters couldn't been initialized properly: " + e.toString());
+//        }
         MetricMessageWrapper metricMessageWrapper = collectMetrics();
         if (metricMessageWrapper == null || metricMessageWrapper.size() == 0) {
         	//TODO create named exception! Necessary to handle metrics collection process exceptions
@@ -102,7 +126,7 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
      * Enforce implementation of decoding parameters set by AgentCallerMain
      * for all AgentTaskable classes
      */
-    abstract void decodeAgentTaskableParams() throws Exception;
+    abstract void decodeAgentTaskableParams() throws Exception; // FIXME delete this method!!!
     
     
     private String agentSchedulerName;

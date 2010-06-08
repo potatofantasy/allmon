@@ -3,14 +3,17 @@ package org.allmon.client.agent;
 import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.MetricMessage;
 
-class ActiveAgentMetricMessageSender extends AgentMetricMessageSender {
-
+class ActiveAgentMetricMessageSender //extends AgentMetricMessageSender 
+{
+	private final ActiveAgent agent;
+	
     ActiveAgentMetricMessageSender(ActiveAgent activeAgent) {
-        super(activeAgent);
+        //super(activeAgent);
+    	this.agent = activeAgent;
     }
 
     ActiveAgent getAgent() {
-        return (ActiveAgent) super.getAgent();
+        return agent;
     }
 
     final void insertPoint(MetricMessage metricMessage) {

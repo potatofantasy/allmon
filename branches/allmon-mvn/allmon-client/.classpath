@@ -2,6 +2,7 @@
   <classpathentry kind="src" path="src/test/java" output="target/test-classes" including="**/*.java"/>
   <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
   <classpathentry kind="src" path="src/main/conf" excluding="**/*.java"/>
+  <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/javax/xml/bind/jaxb-api/2.1/jaxb-api-2.1.jar"/>
@@ -72,7 +73,6 @@
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-pool/commons-pool/1.4/commons-pool-1.4.jar"/>
-  <classpathentry kind="var" path="M2_REPO/cron4j/cron4j/2.2.2/cron4j-2.2.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/easymock/easymock/2.2/easymock-2.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/easymock/easymockclassextension/2.2.1/easymockclassextension-2.2.1.jar">
     <attributes>
@@ -93,6 +93,7 @@
     </attributes>
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/com/sun/xml/bind/jaxb-impl/2.1.10/jaxb-impl-2.1.10.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/de/odysseus/juel/juel/2.1.0/juel-2.1.0.jar">
     <attributes>
       <attribute value="jar:file:/C:/Documents%20and%20Settings/sikor/.m2/repository/de/odysseus/juel/juel/2.1.0/juel-2.1.0-javadoc.jar!/" name="javadoc_location"/>
@@ -100,6 +101,7 @@
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/junit/junit/4.8.1/junit-4.8.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.15/log4j-1.2.15.jar"/>
+  <classpathentry kind="var" path="M2_REPO/quartz/quartz/1.5.2/quartz-1.5.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/snmp4j/snmp4j/1.8.2/snmp4j-1.8.2.jar">
     <attributes>
       <attribute value="jar:file:/C:/Documents%20and%20Settings/sikor/.m2/repository/org/snmp4j/snmp4j/1.8.2/snmp4j-1.8.2-javadoc.jar!/" name="javadoc_location"/>
@@ -107,6 +109,8 @@
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring/2.5.6/spring-2.5.6.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-aop/2.5.6/spring-aop-2.5.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/batch/spring-batch-core/2.1.1.RELEASE/spring-batch-core-2.1.1.RELEASE.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/batch/spring-batch-infrastructure/2.1.1.RELEASE/spring-batch-infrastructure-2.1.1.RELEASE.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-beans/2.5.5/spring-beans-2.5.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/2.5.6/spring-context-2.5.6.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-context-support/2.5.6/spring-context-support-2.5.6.jar"/>
