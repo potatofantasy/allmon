@@ -221,6 +221,9 @@
     * System monitoring from the cloud - http://www.slideshare.net/Hovhannes/monitis-allinone-systems-monitoring-from-the-cloud
 
 
+  * Presentation
+    * http://www.visualcomplexity.com/vc/
+
 = Interchange =
 
 
