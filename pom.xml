@@ -276,11 +276,5 @@
 			<scope>system</scope>
 			<systemPath>${java.home}/../lib/tools.jar</systemPath>
 		</dependency>
-		<dependency>
-			<groupId>cron4j</groupId>
-			<artifactId>cron4j</artifactId>
-			<version>2.2.2</version>
-			<!-- <systemPath>../lib/cron4j-2.2.2.jar</systemPath> -->
-		</dependency>
 	</dependencies>
 </project>
