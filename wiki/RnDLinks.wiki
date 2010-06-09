@@ -223,6 +223,7 @@
 
   * Presentation
     * http://www.visualcomplexity.com/vc/
+    * http://code.google.com/apis/visualization/documentation/gallery.html
 
 = Interchange =
 
