@@ -6,13 +6,10 @@
     elementFormDefault="qualified"
     attributeFormDefault="unqualified">
 
-   <xsd:import namespace="http://www.springframework.org/schema/beans"/>
-
    <xsd:element name="httpUrlCallAgent">
       <xsd:complexType>
          <xsd:complexContent>
             <xsd:extension base="beans:identifiedType">
-               <!--<xsd:attribute name="agentContext" type="xsd:boolean" use="required"/>-->
                <xsd:attribute name="cronExpression" type="xsd:string" use="required"/>
                <xsd:attribute name="urlAddress" type="xsd:string" use="required"/>
             </xsd:extension>
