@@ -36,7 +36,7 @@ public class SnmpHostAgentLoadTest extends AbstractLoadTest<Object, SnmpHostAgen
 
     public SnmpHostAgent preCall(int thread, int iteration, Object initParameters) {
         SnmpHostAgent agent = new SnmpHostAgent(agentContext);
-        agent.setParameters(new String[]{"10.1.132.99"});
+//        agent.setParameters(new String[]{"10.1.132.99"}); // FIXME clean code
         agent.execute();
         return agent;
     }

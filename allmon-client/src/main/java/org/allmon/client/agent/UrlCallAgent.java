@@ -95,10 +95,10 @@ public class UrlCallAgent extends ActiveAgent {
         connection.setRequestProperty("Proxy-Authorization", "Basic " + encodedUserPassword);
     }
     
-    void decodeAgentTaskableParams() throws Exception {
-        urlAddress = getParamsString(0);
-        searchPhrase = getParamsString(1);
-    }
+//    void decodeAgentTaskableParams() throws Exception {
+//        urlAddress = getParamsString(0);
+//        searchPhrase = getParamsString(1);
+//    }
 
 	public void setUrlAddress(String urlAddress) {
 		this.urlAddress = urlAddress;

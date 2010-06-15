@@ -27,6 +27,7 @@ public class AgentContext {
         // is using pooled connections
         cf = AllmonActiveMQConnectionFactory.client(); // TODO potentially IoC this object
         metricBuffer = new AgentMetricBuffer(this);
+        logger.debug("AgentContext is up...");
     }
 
     /**

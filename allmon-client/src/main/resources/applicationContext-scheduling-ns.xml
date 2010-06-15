@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:ws="http://jax-ws.dev.java.net/spring/core"
+	xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:allmon="http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/java/org/allmon/client/agent/namespace/allmon"
+	xsi:schemaLocation=" 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://jax-ws.dev.java.net/spring/core http://jax-ws.dev.java.net/spring/core.xsd
+http://jax-ws.dev.java.net/spring/servlet http://jax-ws.dev.java.net/spring/servlet.xsd
+http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/java/org/allmon/client/agent/namespace/allmon http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/java/org/allmon/client/agent/namespace/allmon/allmon.xsd">
+
+	<bean id="agentContext" class="org.allmon.client.agent.AgentContext"/>
+	
+	<allmon:active>
+		<allmon:httpUrlCallAgent id="wikipediaCheck" 
+			agentContextRef="agentContext"
+			urlAddress="http://www.wikipedia.org"
+			cronExpression="*/2 * * * * ?" />
+	</allmon:active>
+	
+	<!-- 
+    <allmon:httpUrlCallAgent id="" name="" 
+		    agentContext="agentContext"
+		    cronExpression="* * * * * ?"
+		    
+		    strategy="org.allmon.client.agent.HttpUrlCallAgentBooleanStrategy"
+		    urlAddress="http://www.wikipedia.org" />
+    
+	<bean id="httpUrlCallAgent" class="org.allmon.client.agent.HttpUrlCallAgent">
+		<constructor-arg ref="agentContext"/>
+		<property name="strategy" value="org.allmon.client.agent.HttpUrlCallAgentBooleanStrategy" />
+		<property name="urlAddress" value="http://www.wikipedia.org" />
+		<property name="searchPhrase" value="wikipedia"/>
+		<property name="contentType" value="text/html"/>
+		<property name="urlParameters" value=""/>
+		<property name="checkingHost" value="www.wikipedia.com"/>
+		<property name="checkName" value="www.wikipedia.com-Checker"/>
+		<property name="instanceName" value="original-wikipedia-instance"/>
+		<property name="useProxy" value="true"/>
+		<property name="requestMethod" value="GET"/>
+	</bean>
+ -->
+ 
+	
+</beans>

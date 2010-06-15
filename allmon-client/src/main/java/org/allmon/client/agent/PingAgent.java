@@ -126,10 +126,10 @@ public class PingAgent extends ActiveAgent  {
         return isReachable ? time : 0;
     }
     
-    void decodeAgentTaskableParams() {
-        pingedHost = getParamsString(0);
-        pingCount = Integer.parseInt(getParamsString(1));
-        pingDelay = Integer.parseInt(getParamsString(2));
-    }
+//    void decodeAgentTaskableParams() {
+//        pingedHost = getParamsString(0);
+//        pingCount = Integer.parseInt(getParamsString(1));
+//        pingDelay = Integer.parseInt(getParamsString(2));
+//    }
     
 }

@@ -7,8 +7,8 @@ public class JmxOsServerAgent extends JmxServerAgent {
 		mbeansAttributesNamesRegexp = "sun.management.OperatingSystem";
 	}
 	
-    void decodeAgentTaskableParams() {
-        lvmNamesRegexp = getParamsString(0);
-    }
+//    void decodeAgentTaskableParams() {
+//        lvmNamesRegexp = getParamsString(0);
+//    }
     
 }

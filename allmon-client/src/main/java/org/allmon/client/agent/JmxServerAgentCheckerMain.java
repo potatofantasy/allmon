@@ -2,6 +2,7 @@ package org.allmon.client.agent;
 
 import org.allmon.common.MetricMessageWrapper;
 
+
 public class JmxServerAgentCheckerMain {
 
     public static void main(String[] args) {
@@ -15,9 +16,9 @@ public class JmxServerAgentCheckerMain {
         AgentContext agentContext = new AgentContext();
         try {
             JmxServerAgent agent = new JmxServerAgent(agentContext);
-            agent.setParameters(new String[]{lvmNamesRegexp, mbeansAttributesNamesRegexp});
+//            agent.setParameters(new String[]{lvmNamesRegexp, mbeansAttributesNamesRegexp});// TODO clean code 
             //agent.execute(); // would collect metrics and sent the metrics messages to the broker
-            agent.decodeAgentTaskableParams();
+//            agent.decodeAgentTaskableParams();
             MetricMessageWrapper messageWrapper = agent.collectMetrics();
             System.out.println(messageWrapper);
         } finally {

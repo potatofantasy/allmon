@@ -26,10 +26,7 @@ public class SelfHealthCheckAgent extends ActiveAgent {
         metricWrapper.add(getThreadsMetrics());
         return metricWrapper;
     }
-    
-    protected void decodeAgentTaskableParams() {
-    }
-    
+        
     private final static List<MemoryPoolMXBean> memoryPools = ManagementFactory.getMemoryPoolMXBeans();
     private final static ThreadMXBean threads = ManagementFactory.getThreadMXBean();
     private final static List<GarbageCollectorMXBean> gcs = ManagementFactory.getGarbageCollectorMXBeans();

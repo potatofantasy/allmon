@@ -15,7 +15,4 @@ public class LogParserAgent extends ActiveAgent {
 		return null;
 	}
 
-    void decodeAgentTaskableParams() {
-    }
-
 }

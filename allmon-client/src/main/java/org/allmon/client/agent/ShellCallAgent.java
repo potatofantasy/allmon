@@ -66,10 +66,10 @@ public class ShellCallAgent extends ActiveAgent {
 		return new MetricMessageWrapper(message);
 	}
 	
-	void decodeAgentTaskableParams() {
-        shellCommand = getParamsString(0);
-        searchPhrase = getParamsString(1);
-    }
+//	void decodeAgentTaskableParams() {
+//        shellCommand = getParamsString(0);
+//        searchPhrase = getParamsString(1);
+//    }
     
 	public void setShellCommand(String shellCommand) {
 		this.shellCommand = shellCommand;
