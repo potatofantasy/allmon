@@ -57,9 +57,9 @@ public class JmxServerAgent extends ActiveAgent {
 	    return metricMessageWrapper;
 	}
 
-    void decodeAgentTaskableParams() {
-        lvmNamesRegexp = getParamsString(0);
-        mbeansAttributesNamesRegexp = getParamsString(1);
-    }
+//    void decodeAgentTaskableParams() {
+//        lvmNamesRegexp = getParamsString(0);
+//        mbeansAttributesNamesRegexp = getParamsString(1);
+//    }
 
 }

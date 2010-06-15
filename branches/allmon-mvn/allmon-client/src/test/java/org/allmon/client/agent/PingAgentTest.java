@@ -13,11 +13,11 @@ public class PingAgentTest extends TestCase {
     
     private PingAgent getPingAgent(String host) {
         PingAgent pingAgent = new PingAgent(null);
-        pingAgent.setParameters(new String[] {
-                host,
-                "1", "1000"
-        });
-        pingAgent.decodeAgentTaskableParams();
+//        pingAgent.setParameters(new String[] {
+//                host,
+//                "1", "1000"
+//        });
+//        pingAgent.decodeAgentTaskableParams(); // FIXME clean code
         return pingAgent;
     }
     

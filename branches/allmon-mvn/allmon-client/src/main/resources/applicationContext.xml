@@ -9,6 +9,6 @@ http://jax-ws.dev.java.net/spring/core http://jax-ws.dev.java.net/spring/core.xs
 http://jax-ws.dev.java.net/spring/servlet http://jax-ws.dev.java.net/spring/servlet.xsd">
 
 	<!-- <import resource="applicationContext-systemConfig.xml" /> -->
-	<import resource="applicationContext-scheduling.xml" />
+	<import resource="applicationContext-scheduling-ns.xml" />
 
 </beans>

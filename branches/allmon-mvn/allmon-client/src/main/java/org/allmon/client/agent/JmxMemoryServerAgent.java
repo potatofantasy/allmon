@@ -7,8 +7,8 @@ public class JmxMemoryServerAgent extends JmxServerAgent {
 		mbeansAttributesNamesRegexp = "sun.management.Memory";
 	}
 	
-    void decodeAgentTaskableParams() {
-        lvmNamesRegexp = getParamsString(0);
-    }
+//    void decodeAgentTaskableParams() {
+//        lvmNamesRegexp = getParamsString(0);
+//    }
     
 }

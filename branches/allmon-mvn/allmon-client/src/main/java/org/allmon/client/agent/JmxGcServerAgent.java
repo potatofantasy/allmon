@@ -7,8 +7,8 @@ public class JmxGcServerAgent extends JmxServerAgent {
 		mbeansAttributesNamesRegexp = "sun.management.GarbageCollector";
 	}
 	
-    void decodeAgentTaskableParams() {
-        lvmNamesRegexp = getParamsString(0);
-    }
+//    void decodeAgentTaskableParams() {
+//        lvmNamesRegexp = getParamsString(0);
+//    }
     
 }

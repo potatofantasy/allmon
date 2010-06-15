@@ -97,35 +97,35 @@ public class SnmpHostAgent extends ActiveAgent {
 		}
 	}
 
-	/**
-	 * Decodes input parameters for the Agent.
-	 * 
-	 * At least 2 params are required. 1st is always Host name/address 2nd can
-	 * be -cpu or the process name. The rest of the params are the names of
-	 * processes
-	 */
-	void decodeAgentTaskableParams() {
-		// 1st param
-		managedHost = getParamsString(0);
-		if (managedHost == null || managedHost.length() == 0) {
-			throw new RuntimeException("Host name/address is required");
-		}
-
-		// 2nd param
-		String param2 = getParamsString(1);
-		if (param2.equalsIgnoreCase("-cpu")) {
-			isCollectCpuLoad = true;
-		} else {
-			processSet.add(param2);
-		}
-
-		// rest of the params
-		int i = 2;
-		String p = getParamsString(i++);
-		while (p != null) {
-			processSet.add(p);
-			p = getParamsString(i++);
-		}
-	}
+//	/**
+//	 * Decodes input parameters for the Agent.
+//	 * 
+//	 * At least 2 params are required. 1st is always Host name/address 2nd can
+//	 * be -cpu or the process name. The rest of the params are the names of
+//	 * processes
+//	 */
+//	void decodeAgentTaskableParams() {
+//		// 1st param
+//		managedHost = getParamsString(0);
+//		if (managedHost == null || managedHost.length() == 0) {
+//			throw new RuntimeException("Host name/address is required");
+//		}
+//
+//		// 2nd param
+//		String param2 = getParamsString(1);
+//		if (param2.equalsIgnoreCase("-cpu")) {
+//			isCollectCpuLoad = true;
+//		} else {
+//			processSet.add(param2);
+//		}
+//
+//		// rest of the params
+//		int i = 2;
+//		String p = getParamsString(i++);
+//		while (p != null) {
+//			processSet.add(p);
+//			p = getParamsString(i++);
+//		}
+//	}
 
 }

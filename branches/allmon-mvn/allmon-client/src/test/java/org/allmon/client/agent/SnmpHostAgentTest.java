@@ -8,8 +8,8 @@ public class SnmpHostAgentTest extends TestCase {
         AgentContext agentContext = new AgentContext();
         try {
             SnmpHostAgent agent = new SnmpHostAgent(agentContext);
-            agent.setParameters(new String[]{
-                    "192.168.200.129", "-cpu"});
+//            agent.setParameters(new String[]{
+//                    "192.168.200.129", "-cpu"}); // FIXME clean code
             agent.execute();
             Thread.sleep(1000);
         } finally {
@@ -21,8 +21,8 @@ public class SnmpHostAgentTest extends TestCase {
         AgentContext agentContext = new AgentContext();
         try {
             SnmpHostAgent agent = new SnmpHostAgent(agentContext);
-            agent.setParameters(new String[]{
-                    "192.168.200.129", "explorer.exe", "snmp.exe"});
+//            agent.setParameters(new String[]{
+//                    "192.168.200.129", "explorer.exe", "snmp.exe"}); // FIXME clean code
             agent.execute();
             Thread.sleep(1000);
         } finally {

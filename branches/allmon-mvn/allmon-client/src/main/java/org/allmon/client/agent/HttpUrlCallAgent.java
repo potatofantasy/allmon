@@ -26,8 +26,9 @@ public class HttpUrlCallAgent extends UrlCallAgent {
     
     public HttpUrlCallAgent(AgentContext agentContext) {
 		super(agentContext);
+		System.out.println("HttpUrlCallAgent !!!");
 	}
-        
+    
     public void setStrategy(String strategyClassName) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class c = Class.forName(strategyClassName);
         Object o = c.newInstance();
@@ -106,18 +107,18 @@ public class HttpUrlCallAgent extends UrlCallAgent {
         return messageWrapper;
     }
     
-    void decodeAgentTaskableParams() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        setStrategy(getParamsString(0));
-        urlAddress = getParamsString(1);
-        searchPhrase = getParamsString(2);
-        contentType = getParamsString(3);
-        urlParameters = getParamsString(4);
-        checkingHost = getParamsString(5);
-        checkName = getParamsString(6);
-        instanceName = getParamsString(7);
-        useProxy = Boolean.parseBoolean(getParamsString(8)); //true;
-        requestMethod = getParamsString(9);
-    }
+//    void decodeAgentTaskableParams() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+//        setStrategy(getParamsString(0));
+//        urlAddress = getParamsString(1);
+//        searchPhrase = getParamsString(2);
+//        contentType = getParamsString(3);
+//        urlParameters = getParamsString(4);
+//        checkingHost = getParamsString(5);
+//        checkName = getParamsString(6);
+//        instanceName = getParamsString(7);
+//        useProxy = Boolean.parseBoolean(getParamsString(8)); //true;
+//        requestMethod = getParamsString(9);
+//    }
 
 	public void setRequestMethod(String requestMethod) {
 		this.requestMethod = requestMethod;

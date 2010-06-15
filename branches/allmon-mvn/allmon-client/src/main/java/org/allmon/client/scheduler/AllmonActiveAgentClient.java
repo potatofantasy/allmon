@@ -7,6 +7,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class AllmonActiveAgentClient {
 
+	public static final ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
+			new String[] { "classpath:resources/applicationContext.xml" }); 
+	
 	public static void main(String[] args) {
 
 		try {
@@ -14,9 +17,6 @@ public class AllmonActiveAgentClient {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
-		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
-				new String[] { "classpath:resources/applicationContext.xml" }); 
 		
 		System.out.println("starting job");
 		try {

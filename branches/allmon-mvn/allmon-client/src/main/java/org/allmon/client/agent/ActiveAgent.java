@@ -28,9 +28,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
  * TODO add timeout mechanism preventing creating/leaking too many threads
  * 
  */
-abstract class ActiveAgent //extends Agent
-							extends QuartzJobBean
-							implements AgentTaskable {
+abstract class ActiveAgent implements AgentTaskable {
 
     private static final Log logger = LogFactory.getLog(ActiveAgent.class);
     
@@ -46,15 +44,6 @@ abstract class ActiveAgent //extends Agent
 	
     String getAgentContextName() {
         return agentContext.getName();
-    }
-    
-    @Override
-    protected void executeInternal(JobExecutionContext ctx)
-		throws JobExecutionException {
-    	logger.debug("execute");
-    	System.out.println("execute");
-    	//execute();
-    	
     }
     
 	private ActiveAgentMetricMessageSender messageSender = new ActiveAgentMetricMessageSender(this);
@@ -75,10 +64,11 @@ abstract class ActiveAgent //extends Agent
      */
     public final void execute() {
 //        try {
-//            decodeAgentTaskableParams(); // FIXME delete this code
+//            validateAgentTaskableParameters(); // FIXME Add implementation
 //        } catch (Exception e) {
-//            throw new RuntimeException("Parameters couldn't been initialized properly: " + e.toString());
+//            throw new RuntimeException("Parameters weren't initialized properly: " + e.toString());
 //        }
+    	System.out.println("ActiveAgent is executing collecting metrics..."); // TODO clean logger
         MetricMessageWrapper metricMessageWrapper = collectMetrics();
         if (metricMessageWrapper == null || metricMessageWrapper.size() == 0) {
         	//TODO create named exception! Necessary to handle metrics collection process exceptions
@@ -102,32 +92,27 @@ abstract class ActiveAgent //extends Agent
         getMetricBuffer().add(metricMessage); // TODO review for multiton
     }
     
-    // TODO review this property - it is forcing to use decodeAgentTaskableParams implementation for all active agents 
-    // XXX create a new interface only for those Active agents which should have parameters
-    // XXX in future allmon releases parameters for active agents can be specified in XML, so String[] can be not enough
-    private String[] paramsString;
-
-    final String getParamsString(int i) {
-        if (paramsString != null && paramsString.length > i) {
-            return paramsString[i];
-        }
-        return null; // TODO review is null result is better than throwing an exception
-    }
+//    // TODO review this property - it is forcing to use decodeAgentTaskableParams implementation for all active agents 
+//    // XXX create a new interface only for those Active agents which should have parameters
+//    // XXX in future allmon releases parameters for active agents can be specified in XML, so String[] can be not enough
+//    private String[] paramsString;
+//
+//    final String getParamsString(int i) {
+//        if (paramsString != null && paramsString.length > i) {
+//            return paramsString[i];
+//        }
+//        return null; // TODO review is null result is better than throwing an exception
+//    }
+//    
+//    /**
+//     * Forced by AgentTaskable - in the future can by forced only for specific active agents.
+//     */
+//    public final void setParameters(String[] paramsString) {
+//        //if (paramsString == null) // TODO decide what to do with null paramsString
+//        this.paramsString = paramsString;
+//    }
     
-    /**
-     * Forced by AgentTaskable - in the future can by forced only for specific active agents.
-     */
-    public final void setParameters(String[] paramsString) {
-        //if (paramsString == null) // TODO decide what to do with null paramsString
-        this.paramsString = paramsString;
-    }
-    
-    /**
-     * Enforce implementation of decoding parameters set by AgentCallerMain
-     * for all AgentTaskable classes
-     */
-    abstract void decodeAgentTaskableParams() throws Exception; // FIXME delete this method!!!
-    
+    //abstract void validateAgentTaskableParameters() throws Exception; // FIXME Add implementations
     
     private String agentSchedulerName;
     

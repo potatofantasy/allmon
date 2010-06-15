@@ -53,13 +53,13 @@ public class DBCallAgent extends ActiveAgent {
 		return new MetricMessageWrapper();
 	}
 	
-    void decodeAgentTaskableParams() {
-    	connectionString = getParamsString(0);
-    	// TODO add parameter setting mechanism for Strings collection
-    	sqls = new String[10];
-    	sqls[0] = getParamsString(1);
-    	sqls[1] = getParamsString(2);
-    	/// ...
-    }
+//    void decodeAgentTaskableParams() {
+//    	connectionString = getParamsString(0);
+//    	// TODO add parameter setting mechanism for Strings collection
+//    	sqls = new String[10];
+//    	sqls[0] = getParamsString(1);
+//    	sqls[1] = getParamsString(2);
+//    	/// ...
+//    }
 
 }

@@ -24,8 +24,5 @@ public class HeartbeatAgent extends ActiveAgent  {
         MetricMessage metricMessage = MetricMessageFactory.createPingMessage(getAgentSchedulerName());
         return new MetricMessageWrapper(metricMessage);
     }
-
-    protected void decodeAgentTaskableParams() {
-    }
     
 }
