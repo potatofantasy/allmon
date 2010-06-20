@@ -1,4 +1,4 @@
-package org.allmon.client.agent.jmxserver;
+package org.allmon.client.agent.jmx.pojo.jmxserver;
 
 import javax.management.Notification;
 import javax.management.NotificationListener;

@@ -11,13 +11,13 @@ public class HttpHealthCheck {
     	try {
 		    HttpUrlCallAgent agent = new HttpUrlCallAgent(agentContext);
 	        agent.setStrategy(new HttpUrlCallAgentBooleanStrategy());
-	        agent.setParameters(new String[]{
-	                //"http://www.google.com/#hl=en&q=qwerty",
-	                "http://lontd01/AdminConsole/statuscheck/default.aspx/CheckStatus", 
-	                "\"Success\":true",
-	                "application/json; charset=utf-8", //"text/html", //"application/x-www-form-urlencoded",
-	                "{ 'componentChecker': 'TTC.iTropics.ComponentCheckers.ITropicsServiceComponentChecker, TTC.iTropics.ComponentCheckers' }"
-	            });
+//	        agent.setParameters(new String[]{
+//	                //"http://www.google.com/#hl=en&q=qwerty",
+//	                "http://lontd01/AdminConsole/statuscheck/default.aspx/CheckStatus", 
+//	                "\"Success\":true",
+//	                "application/json; charset=utf-8", //"text/html", //"application/x-www-form-urlencoded",
+//	                "{ 'componentChecker': 'TTC.iTropics.ComponentCheckers.ITropicsServiceComponentChecker, TTC.iTropics.ComponentCheckers' }"
+//	            }); // FIXME change way of setting params
 	        agent.execute();
 	        
 	        Thread.sleep(2000);

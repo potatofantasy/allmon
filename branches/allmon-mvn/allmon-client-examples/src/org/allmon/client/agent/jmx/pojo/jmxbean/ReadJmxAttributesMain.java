@@ -1,4 +1,4 @@
-package org.allmon.client.agent.jmxmbean;
+package org.allmon.client.agent.jmx.pojo.jmxbean;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.management.AttributeNotFoundException;
-import javax.management.Descriptor;
 import javax.management.InstanceNotFoundException;
 import javax.management.IntrospectionException;
 import javax.management.MBeanAttributeInfo;

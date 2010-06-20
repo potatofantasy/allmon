@@ -1,4 +1,4 @@
-package org.allmon.client.agent.aop.advice;
+package org.allmon.client.agent.aop.annotations.advice;
 
 import org.allmon.common.MetricMessageFactory;
 import org.aspectj.lang.ProceedingJoinPoint;

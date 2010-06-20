@@ -1,9 +1,10 @@
-package org.allmon.client.agent.aop.services;
+package org.allmon.client.agent.aop.basic.controller;
 
 import java.util.ArrayList;
 
-public class SpringHelloWorld implements HelloWorldInterface {
-    private String message;
+public class HelloWorldImpl implements HelloWorldInterface {
+    
+	private String message;
 
     public String getMessage() {
         return message;

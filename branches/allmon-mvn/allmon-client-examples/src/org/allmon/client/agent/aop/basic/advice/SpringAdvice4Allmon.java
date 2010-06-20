@@ -1,4 +1,4 @@
-package org.allmon.client.agent.aop.advice;
+package org.allmon.client.agent.aop.basic.advice;
 
 import org.allmon.client.agent.AgentContext;
 import org.allmon.common.MetricMessage;
@@ -6,7 +6,7 @@ import org.allmon.common.MetricMessageFactory;
 
 public class SpringAdvice4Allmon {
 	
-	private static AgentContext agentContext;
+	private AgentContext agentContext;
     
     public void setAgentContext(AgentContext agentContext) {
 		this.agentContext = agentContext;
@@ -22,14 +22,17 @@ public class SpringAdvice4Allmon {
 //        param: AgentContext agentContext
 //        param: String classNameCalled, String methodNameCalled, String classNameCalling, String methodNameCalling
 		
+    	System.out.println("before method call");
 		
 		startTime = System.nanoTime();
-		/*System.out.println("Start AOP");
+		/*
+		System.out.println("Start AOP");
         MetricMessage metricMessage = MetricMessageFactory.createClassMessage(
                 this.getClass().getName(), "method", "", "", -1); // TODO review duration time param
         
         JavaCallAgent agent = new JavaCallAgent(agentContext, metricMessage);
-        agent.entryPoint();*/
+        agent.entryPoint();
+        */
     }
 
     public void logAfterMethodCall() {
@@ -37,11 +40,17 @@ public class SpringAdvice4Allmon {
 //        param: Exception exception
 //        agent.exitPoint();
     	
-    	long duration = System.nanoTime() - startTime;
+    	System.out.println("after method call");
     	
-    	MetricMessage metricMessage = MetricMessageFactory.createClassMessage(this.getClass().getName(), "method", "", "", duration); 
-    	/*System.out.println("Stop AOP");
-    	agentContext.stop();*/
+    	long duration = System.nanoTime() - startTime;
+    	    	   	
+    	MetricMessage metricMessage = 
+    		MetricMessageFactory.createClassMessage(this.getClass().getName(), "method", "", "", duration); 
+    	
+//    	JavaCallAgent agent = new JavaCallAgent(agentContext, metricMessage);
+//        agent.entryPoint();
+        
+    	//agentContext.stop();
     }
     
 }

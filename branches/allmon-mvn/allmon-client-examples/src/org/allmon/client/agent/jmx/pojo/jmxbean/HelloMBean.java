@@ -1,4 +1,4 @@
-package org.allmon.client.agent.jmxmbean;
+package org.allmon.client.agent.jmx.pojo.jmxbean;
 
 /**
  * HelloMBean.java - MBean interface describing the management operations and
