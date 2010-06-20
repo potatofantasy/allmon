@@ -219,7 +219,7 @@ public class MetricMessage implements Serializable {
             PrintWriter printWriter = new PrintWriter(result);
             exception.printStackTrace(printWriter);
             return result.toString();
-        } 
+        }
         return exception.toString();
     }
 

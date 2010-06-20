@@ -8,6 +8,60 @@
 
    <xsd:import namespace="http://www.springframework.org/schema/beans"/>
 
+   <!-- allmon:agentContext-->
+   <xsd:element name="agentContext">
+      <xsd:complexType>
+         <xsd:choice minOccurs="0" maxOccurs="1">
+            <xsd:element ref="metricBuffer"/>
+            <xsd:element ref="metricSender"/>
+         </xsd:choice>
+      </xsd:complexType>
+   </xsd:element>
+
+   <xsd:element name="metricBuffer">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="beans:identifiedType">
+               <xsd:attribute name="flushInterval" type="xsd:int" use="required"/>
+               <xsd:attribute name="poolSize" type="xsd:int"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+   <xsd:element name="metricSender">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="beans:identifiedType">
+               <xsd:attribute name="brokerAddress" type="xsd:string" use="required"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+
+   <!-- allmon:passive -->
+   <xsd:element name="passive">
+      <xsd:complexType>
+         <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="javaCallAgent"/>
+         </xsd:choice>
+      </xsd:complexType>
+   </xsd:element>
+
+   <xsd:element name="javaCallAgent">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="beans:identifiedType">
+               <xsd:attribute name="agentContextRef" type="xsd:string" use="required"/>
+               <xsd:attribute name="pointcutExpression" type="xsd:string" use="required"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+
+   <!-- allmon:active -->
    <xsd:element name="active">
       <xsd:complexType>
          <xsd:choice minOccurs="0" maxOccurs="unbounded">
