@@ -1,4 +1,4 @@
-package org.allmon.client.agent.aop.services;
+package org.allmon.client.agent.aop.basic.controller;
 
 public interface HelloWorldInterface {
 	

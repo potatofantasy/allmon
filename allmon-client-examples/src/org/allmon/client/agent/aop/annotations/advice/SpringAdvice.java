@@ -1,4 +1,4 @@
-package org.allmon.client.agent.aop.advice;
+package org.allmon.client.agent.aop.annotations.advice;
 
 public class SpringAdvice {
 

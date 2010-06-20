@@ -2,24 +2,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
-	<bean id="MessageBean" class="org.allmon.client.agent.aop.services.SpringHelloWorld">
-		<property name="message" value="allmon AOP"></property>
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	
+	<bean id="MessageBean" class="org.allmon.client.agent.aop.basic.controller.HelloWorldImpl">
+		<property name="message" value="Hello World - from Spring App monitored by allmon" />
 	</bean>
 
-	<bean id="performanceLogger" class="org.allmon.client.agent.aop.advice.SpringAdvice4Allmon" >
+	<bean id="performanceLogger" class="org.allmon.client.agent.aop.basic.advice.SpringAdvice4Allmon" >
 		<property name="agentContext" ref="AgentContext" />
 	</bean>
 	
-	<!-- at the begining of monitored app -->
+	<!-- has to be instantiated at the beginning of monitored application -->
 	<bean id="AgentContext" class="org.allmon.client.agent.AgentContext" />
 	<!-- call stop agentContext.stop(); -->
-	
 	
 	<aop:config>
 		<aop:aspect id="someAspect" ref="performanceLogger">
 			<aop:pointcut
-				expression="execution(* org.allmon.client.agent.aop.services.*.*(..))"
+				expression="execution(* org.allmon.client.agent.aop.basic.controller.*.*(..))"
 				id="MethodJoinPoint" />
 
 			<aop:before method="logBeforeMethodCall" pointcut-ref="MethodJoinPoint" />

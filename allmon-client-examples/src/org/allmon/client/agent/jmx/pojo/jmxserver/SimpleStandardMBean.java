@@ -1,4 +1,4 @@
-package org.allmon.client.agent.jmxserver;
+package org.allmon.client.agent.jmx.pojo.jmxserver;
 
 /**
  * This is the management interface explicitly defined for the "SimpleStandard"

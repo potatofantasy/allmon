@@ -1,4 +1,4 @@
-package org.allmon.client.agent.jmxserver;
+package org.allmon.client.agent.jmx.pojo.jmxserver;
 
 /**
  * Simple definition of a standard MBean, named "SimpleStandard".

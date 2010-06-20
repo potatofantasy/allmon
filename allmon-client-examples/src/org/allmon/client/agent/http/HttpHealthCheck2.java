@@ -11,12 +11,12 @@ public class HttpHealthCheck2 {
     	try {
 		    HttpUrlCallAgent agent = new HttpUrlCallAgent(agentContext);
 		    agent.setStrategy(new HttpUrlCallAgentBooleanStrategy());
-	        agent.setParameters(new String[]{
-	                "http://localhost:8161/", //"http://www.google.com/#hl=en&q=qwerty",
-	                "\\d\\d",
-	                "text/html", //"application/x-www-form-urlencoded",
-	                ""
-	            });
+//	        agent.setParameters(new String[]{
+//	                "http://localhost:8161/", //"http://www.google.com/#hl=en&q=qwerty",
+//	                "\\d\\d",
+//	                "text/html", //"application/x-www-form-urlencoded",
+//	                ""
+//	            }); // FIXME change way of setting params
 	        try {
 	            agent.execute();
 	        } catch (Exception e) {
