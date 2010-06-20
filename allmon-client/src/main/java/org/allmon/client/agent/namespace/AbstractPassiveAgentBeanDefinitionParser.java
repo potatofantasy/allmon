@@ -4,15 +4,15 @@ import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
-abstract class AbstractActiveAgentBeanDefinitionParser {
+abstract class AbstractPassiveAgentBeanDefinitionParser {
 
 	protected static final String ID = "id";
 	
 	private static final String AGENT_CONTEXT_REF = "agentContextRef";
 	
-	protected final ActiveAgentBeanDefinitionParser parser;
+	protected final PassiveAgentBeanDefinitionParser parser;
 	
-	public AbstractActiveAgentBeanDefinitionParser(ActiveAgentBeanDefinitionParser parser) {
+	public AbstractPassiveAgentBeanDefinitionParser(PassiveAgentBeanDefinitionParser parser) {
 		this.parser = parser;
 	}
 	
@@ -21,7 +21,7 @@ abstract class AbstractActiveAgentBeanDefinitionParser {
 	public final void parse(Element agentElement, ParserContext parserContext) {
 		String id = agentElement.getAttribute(ID);
 		try {
-			parser.getParseState().push(new ActiveAgentEntry(id));
+			parser.getParseState().push(new PassiveAgentEntry(id));
 			parseSpecifics(agentElement, parserContext);
 		} finally {
 			parser.getParseState().pop();
@@ -61,7 +61,7 @@ abstract class AbstractActiveAgentBeanDefinitionParser {
 		}
 		else {
 			parserContext.getReaderContext().error(
-					"Must define one of 'agentContext' <httpUrlCallAgent> tag.",
+					"Must define one of 'agentContext' <httpUrlCallAgent> tag.", // TODO change the tag 
 					element, parser.getParseState().snapshot());
 			return null;
 		}
@@ -79,7 +79,7 @@ abstract class AbstractActiveAgentBeanDefinitionParser {
 		}
 		else {
 			parserContext.getReaderContext().error(
-					"Must define one of '"+attribute+"' <httpUrlCallAgent> tag.",
+					"Must define one of '"+attribute+"' <httpUrlCallAgent> tag.", // TODO change the tag 
 					element, parser.getParseState().snapshot());
 			return null;
 		}

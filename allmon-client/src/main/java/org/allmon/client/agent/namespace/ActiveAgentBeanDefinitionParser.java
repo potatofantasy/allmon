@@ -69,11 +69,11 @@ public class ActiveAgentBeanDefinitionParser implements BeanDefinitionParser {
 	
 }
 
-class AgentEntry implements ParseState.Entry {
+class ActiveAgentEntry implements ParseState.Entry {
 
 	private final String name;
 
-	public AgentEntry(String name) {
+	public ActiveAgentEntry(String name) {
 		this.name = name;
 	}
 
