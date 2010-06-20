@@ -11,14 +11,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-/**
- * 
- * <allmon:active>
- *   <allmon:httpUrlCallAgent id="wikipediaCheck" agentContextRef="agentContext"
- *                            urlAddress="http://www.wikipedia.org" cronExpression="* * * * * ?" ... />
- * </allmon:active>
- * 
- */
 public class ActiveAgentBeanDefinitionParser implements BeanDefinitionParser {
 
 	private static final String AGENT_SCHEDULER = "agentScheduler";

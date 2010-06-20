@@ -3,10 +3,15 @@ package org.allmon.client.scheduler;
 import java.io.File;
 import java.io.IOException;
 
+import org.allmon.common.AllmonPropertiesReader;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class AllmonActiveAgentClient {
+public class AllmonActiveAgentClientMain {
 
+    static {
+        AllmonPropertiesReader.readLog4jProperties();
+    }
+    
 	public static final ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
 			new String[] { "classpath:resources/applicationContext.xml" }); 
 	

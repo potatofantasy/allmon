@@ -23,7 +23,7 @@ public class AllmonPropertiesReader {
         if (!log4jConfigured) {
             String file = System.getProperty("log4jallmon.properties.path");
             if (file == null || "".equals(file)) {
-                file = "src/main/conf/log4jallmon.properties"; //"conf/log4jallmon.properties";
+                file = "target/classes/etc/conf/log4jallmon.properties"; //"conf/log4jallmon.properties";
             }
             try {
 				System.out.println("Reading config file in path " + new File(".").getCanonicalPath());

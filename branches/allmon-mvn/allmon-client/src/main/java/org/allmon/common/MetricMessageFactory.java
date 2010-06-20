@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * This class is responsible for creating MetriMessage objects.
@@ -51,8 +52,29 @@ public class MetricMessageFactory {
         // source - user who triggered an action class to execute
         metricMessage.setSource(user);
         // session - is web session identifier
-        metricMessage.setSession(webSessionId);
-        //metricMessage.setDurationTime(durationTime);
+        metricMessage.setSession(webSessionId); // TODO take websessionid from request
+        // parameters // TODO review 
+        if (request != null && request.getParameterMap() != null) {
+            metricMessage.setParameters(request.getParameterMap().toString());
+        }
+        return metricMessage;
+    }
+    
+    public static final MetricMessage createServletMessage(String className, String user, String webSessionId, HttpServletRequest request) {
+        MetricMessage metricMessage = createMessage(
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_ACTIONSERVLET);
+        // resource - action class
+        metricMessage.setResource(new StringBuffer(
+        		request.getLocalAddr()).append(":").append( 
+				request.getLocalName()).append(":").append(
+				request.getLocalPort()).append(":").append(
+				request.getRequestURI()).toString()); // request.getServerName()
+        // source - user who triggered an action class to execute
+        metricMessage.setSource(request.getRemoteHost()); // request.getRemotePort()
+        // session - is web session identifier
+        metricMessage.setSession(request.getRequestedSessionId());
+        // parameters // TODO review 
         if (request != null && request.getParameterMap() != null) {
             metricMessage.setParameters(request.getParameterMap().toString());
         }
