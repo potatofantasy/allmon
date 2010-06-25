@@ -10,11 +10,13 @@
 
    <!-- allmon:agentContext-->
    <xsd:element name="agentContext">
-      <xsd:complexType>
-         <xsd:choice minOccurs="0" maxOccurs="1">
-            <xsd:element ref="metricBuffer"/>
-            <xsd:element ref="metricSender"/>
-         </xsd:choice>
+         <xsd:complexContent>
+            <xsd:extension base="beans:identifiedType">
+	            <xsd:attribute name="id" type="xsd:string" use="required"/>
+	            <xsd:attribute ref="metricBuffer"/>
+	            <xsd:attribute ref="metricSender"/>
+            </xsd:extension>
+         </xsd:complexContent>
       </xsd:complexType>
    </xsd:element>
 
