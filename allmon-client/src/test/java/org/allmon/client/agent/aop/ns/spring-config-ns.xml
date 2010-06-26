@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:allmon="http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/java/org/allmon/client/agent/namespace/allmon"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/java/org/allmon/client/agent/namespace/allmon http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/java/org/allmon/client/agent/namespace/allmon/allmon.xsd">
+	
+	
+	<bean id="messageBean" class="org.allmon.client.agent.aop.ns.HelloWorldImpl">
+		<property name="message" value="Helo World message ...."></property>
+	</bean>
+
+
+	<!-- at the begining of monitored app -->
+	<bean id="AgentContext" class="org.allmon.client.agent.AgentContext" />
+	<!-- call stop agentContext.stop(); -->
+
+	<allmon:agentContext id="AgentContext2" />
+
+	<allmon:passive>
+		<allmon:javaCallAgent id="AgentContext" id="id1" pointcutExpression="execution(* org.allmon.client.agent.aop.ns.*.*(..)) and args(..)"/>
+		<!--
+		<allmon:actionClassAgent id="id2" classExpression="org.allmon.client.agent.aop.ns.*.*(..))" userIdKey="userId"/>
+		<allmon:servletCallAgent id="id2" classExpression="org.allmon.client.agent.aop.ns.*.*(..))"/>
+		-->
+	</allmon:passive>
+
+	<bean id="monitoringAdvice" class="org.allmon.client.agent.aop.ns.SpringAdvice4Allmon" >
+		<property name="agentContext" ref="AgentContext" />
+	</bean>
+		
+	<aop:config>
+		<aop:aspect id="someAspect" ref="monitoringAdvice">
+			<aop:pointcut id="methodJoinPoint" 
+						expression="execution(* org.allmon.client.agent.aop.ns.*.*(..)) and args(..)" />
+			<!-- 
+			<aop:before method="logBeforeMethodCall" pointcut-ref="methodJoinPoint" />
+			<aop:after-returning method="logAfterMethodCall" arg-names="args" pointcut-ref="methodJoinPoint" />
+			<aop:after-throwing method="logAfterMethodCall" throwing="t" pointcut-ref="methodJoinPoint" />
+			 -->
+			<aop:around method="profile" pointcut-ref="methodJoinPoint" />
+			 
+		</aop:aspect>
+	</aop:config>
+</beans>
