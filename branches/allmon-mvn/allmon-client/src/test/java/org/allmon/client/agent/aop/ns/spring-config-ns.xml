@@ -17,20 +17,21 @@
 	<bean id="AgentContext" class="org.allmon.client.agent.AgentContext" />
 	<!-- call stop agentContext.stop(); -->
 
-	<allmon:agentContext id="AgentContext2" />
+	<!-- <allmon:agentContext id="AgentContext2" /> -->
 
 	<allmon:passive>
-		<allmon:javaCallAgent id="AgentContext" id="id1" pointcutExpression="execution(* org.allmon.client.agent.aop.ns.*.*(..)) and args(..)"/>
+		<allmon:javaCallAgent id="id1" agentContextRef="AgentContext" 
+			pointcutExpression="execution(* org.allmon.client.agent.aop.ns.*.*(..)) and args(..)"/>
 		<!--
 		<allmon:actionClassAgent id="id2" classExpression="org.allmon.client.agent.aop.ns.*.*(..))" userIdKey="userId"/>
 		<allmon:servletCallAgent id="id2" classExpression="org.allmon.client.agent.aop.ns.*.*(..))"/>
 		-->
 	</allmon:passive>
 
-	<bean id="monitoringAdvice" class="org.allmon.client.agent.aop.ns.SpringAdvice4Allmon" >
+	<bean id="monitoringAdvice" class="org.allmon.client.agent.advices.JavaCallAdvice" >
 		<property name="agentContext" ref="AgentContext" />
 	</bean>
-		
+	
 	<aop:config>
 		<aop:aspect id="someAspect" ref="monitoringAdvice">
 			<aop:pointcut id="methodJoinPoint" 
@@ -41,7 +42,6 @@
 			<aop:after-throwing method="logAfterMethodCall" throwing="t" pointcut-ref="methodJoinPoint" />
 			 -->
 			<aop:around method="profile" pointcut-ref="methodJoinPoint" />
-			 
 		</aop:aspect>
 	</aop:config>
 </beans>
