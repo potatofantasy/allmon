@@ -7,7 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SpringHelloWorldAppTest extends TestCase {
 
-	private final static String SPRING_CONFIG_LOCATION = "org/allmon/client/agent/aop/ns/spring-config.xml";
+	private final static String SPRING_CONFIG_LOCATION = "org/allmon/client/agent/aop/ns/spring-config-ns.xml";
 
 	public void testMain() throws InterruptedException {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(SPRING_CONFIG_LOCATION);

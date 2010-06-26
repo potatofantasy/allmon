@@ -29,7 +29,6 @@
 			<aop:after-throwing method="logAfterMethodCall" throwing="t" pointcut-ref="methodJoinPoint" />
 			 -->
 			<aop:around method="profile" pointcut-ref="methodJoinPoint" />
-			 
 		</aop:aspect>
 	</aop:config>
 </beans>
