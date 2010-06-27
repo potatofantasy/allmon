@@ -267,3 +267,8 @@
     * http://neuroph.sourceforge.net/index.html
     * voldemort
 </wiki:comment>
+
+= Visitors =
+  
+  * <img src="http://www3.clustrmaps.com/stats/maps-no_clusters/code.google.com-p-allmon--world.jpg" alt="Locations of visitors to this page (no clusters)" />
+  * <img src="http://www3.clustrmaps.com/stats/maps-clusters/code.google.com-p-allmon--world.jpg" alt="Locations of visitors to this page (bigger clusters)" />
