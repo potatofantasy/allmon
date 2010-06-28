@@ -17,7 +17,6 @@
       * Part2: Postcompilation instrumentation and performance monitoring (Interception, class wrapping, and bytecode instrumentation) - http://www.ibm.com/developerworks/library/j-rtm2/index.html
       * Part3: Monitoring performance and availability of an application's ecosystem (Monitoring hosts, databases, and messaging; management and visualization of performance data) - http://www.ibm.com/developerworks/library/j-rtm3/index.html
     * AOP@Work: Performance monitoring with AspectJ, Part 1 - A look inside the Glassbox Inspector with AspectJ and JMX - http://www.ibm.com/developerworks/java/library/j-aopwork10/
-    * Java Application Instrumentation with Log4J (can be helpful with creating a new metrics message sender based on log4j appender mechanism) - http://www.devx.com/Java/Article/22110/1954
 
     
   * JMX monitoring and java code instrumentation
@@ -131,6 +130,12 @@
     * Using JConsole (and JMX MBeans) to Monitor Applications - http://java.sun.com/developer/technicalArticles/J2SE/jconsole.html
     * Using JMX to monitor Apache ActiveMQ - http://activemq.apache.org/jmx.html
     * Using perfmon to analyse MS-SQL performance - http://sqlserverpedia.com/blog/analysis-services/sql-server-data-mining-in-the-cloud/
+
+
+  * Log mining 
+    * Java Application Instrumentation with Log4J (can be helpful with creating a new metrics message sender based on log4j appender mechanism) - http://www.devx.com/Java/Article/22110/1954
+    * http://www.splunk.com/
+    * http://github.com/jbrisbin/vcloud/blob/master/amqp-appender/src/main/java/com/jbrisbin/vcloud/logging/RabbitMQAppender.java
 
 
 = Theory =
