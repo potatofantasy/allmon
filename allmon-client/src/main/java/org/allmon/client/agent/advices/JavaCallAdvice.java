@@ -7,6 +7,10 @@ import org.aspectj.lang.ProceedingJoinPoint;
 
 public class JavaCallAdvice extends AllmonAdvice {
 	
+	public JavaCallAdvice() {
+		System.out.println("JavaCallAdvice");
+	}
+	
 	private JavaCallAgent agent;
 	
 	public Object profile(ProceedingJoinPoint call) throws Throwable {
@@ -37,7 +41,7 @@ public class JavaCallAdvice extends AllmonAdvice {
 				agent.exitPoint(ex);
 			}
 			finishedWithException = true;
-			return null; // TODO review this line
+			throw ex;
 		} finally {
 			System.out.println(">>> after method call");
 			if (agent != null && !finishedWithException) {

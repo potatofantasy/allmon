@@ -15,16 +15,25 @@ public class SpringHelloWorldAppTest extends TestCase {
 
 		SpringHelloWorldAppTest app = new SpringHelloWorldAppTest();
 		app.method(bean);
-
-		Thread.sleep(3000);
+		assertTrue(true);
+		
+		RuntimeException re = null;
+		try {
+			app.methodWithException(bean);
+		} catch (RuntimeException re2) {
+			re = re2;
+		}
+		assertNotNull(re);
+		
+		Thread.sleep(2000);
 	}
 
 	private void method(HelloWorldImpl bean) throws InterruptedException {
+		System.out.println("method");
 //		for (int i = 0; i < 100; i++) {
 			bean.printMessage();
 			bean.printMessage("param");
 			bean.printMessage(new String[]{"param1", "param2"});
-			bean.printMessageE();
 			//Thread.sleep(100);
 //		}
 		Thread.sleep(3000);
@@ -33,4 +42,9 @@ public class SpringHelloWorldAppTest extends TestCase {
 		}
 	}
 
+	private void methodWithException(HelloWorldImpl bean) throws InterruptedException {
+		System.out.println("methodWithException");
+		bean.printMessageE();
+	}
+	
 }

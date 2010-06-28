@@ -28,6 +28,7 @@
 		-->
 	</allmon:passive>
 
+<!-- 
 	<bean id="monitoringAdvice" class="org.allmon.client.agent.advices.JavaCallAdvice" >
 		<property name="agentContext" ref="AgentContext" />
 	</bean>
@@ -36,12 +37,13 @@
 		<aop:aspect id="someAspect" ref="monitoringAdvice">
 			<aop:pointcut id="methodJoinPoint" 
 						expression="execution(* org.allmon.client.agent.aop.ns.*.*(..)) and args(..)" />
-			<!-- 
+			<!- - 
 			<aop:before method="logBeforeMethodCall" pointcut-ref="methodJoinPoint" />
 			<aop:after-returning method="logAfterMethodCall" arg-names="args" pointcut-ref="methodJoinPoint" />
 			<aop:after-throwing method="logAfterMethodCall" throwing="t" pointcut-ref="methodJoinPoint" />
-			 -->
+			 - ->
 			<aop:around method="profile" pointcut-ref="methodJoinPoint" />
 		</aop:aspect>
 	</aop:config>
+-->	
 </beans>
