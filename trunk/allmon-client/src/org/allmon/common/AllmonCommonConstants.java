@@ -66,6 +66,7 @@ public class AllmonCommonConstants {
     public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_CPULOAD = "CPULOAD";
     public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_PROCESS_CPU_TIME = "PROCESS_CPU_TIME";
     public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_PROCESS_MEMORY = "PROCESS_MEM";
+	public static final String ALLMON_SERVER_RAWMETRIC_METRICTYPE_EXCEPTION_HANDLED = "EXP_HNDLD_CLASS";
     
     
 }

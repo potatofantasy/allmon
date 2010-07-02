@@ -94,6 +94,17 @@ public class MetricMessageFactory {
         metricMessage.setMetricValue(durationTime);
         return metricMessage;
     }
+    
+    public static final MetricMessage createExceptionHandledMessage(String exceptionHandlingClassName, String exceptionHandlingMethodName, Exception exceptionClassName) {
+        MetricMessage metricMessage = createMessage(
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
+                AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_EXCEPTION_HANDLED);
+        // resource - class and method which has been called
+        metricMessage.setResource(exceptionHandlingClassName + "." + exceptionHandlingMethodName);
+        metricMessage.setException(exceptionClassName);
+        // source - user which class triggered an action class to execute
+        return metricMessage;
+    }
 
     public static final MetricMessage createPingMessage(String activeAgentName) {
         MetricMessage metricMessage = createMessage(
