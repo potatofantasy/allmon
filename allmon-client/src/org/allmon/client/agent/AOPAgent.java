@@ -2,9 +2,11 @@ package org.allmon.client.agent;
 
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
 @Aspect
@@ -45,5 +47,22 @@ public class AOPAgent extends PassiveAgent {
 	public void monitor() {
 
 	}
+	
+	@Pointcut("handler(Exception+) && args(e) && this(obj)")
+	public void handleAllExceptionsPointcut(Exception e, Object objectInstance, JoinPoint jp, JoinPoint.EnclosingStaticPart esjp)
+	{
+		
+	}
+	
+	@Before("handleAllExceptionsPointcut(e, objectInstance, jp, esjp)")
+	public void beforeHandlingExceptions(Exception e, Object obj, JoinPoint jp, JoinPoint.EnclosingStaticPart esjp) throws Throwable
+	{
+		//Send Metric Message about the exception and the object in which it is handled
+		MetricMessage metricMessage = MetricMessageFactory.createExceptionHandledMessage(obj.getClass().getName(), esjp.getSignature().getName(), e);
+
+		addMetricMessage(metricMessage);
+	}
+	
+	
 
 }
