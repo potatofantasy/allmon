@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SpringHelloWorldAppTest extends TestCase {
-
+	
 	private final static String SPRING_CONFIG_LOCATION = "org/allmon/client/agent/aop/ns/spring-config-ns.xml";
 
 	public void testMain() throws InterruptedException {
@@ -29,7 +29,7 @@ public class SpringHelloWorldAppTest extends TestCase {
 	}
 
 	private void method(HelloWorldImpl bean) throws InterruptedException {
-		System.out.println("method");
+		System.out.println("SpringHelloWorldAppTest - method");
 //		for (int i = 0; i < 100; i++) {
 			bean.printMessage();
 			bean.printMessage("param");
@@ -43,7 +43,7 @@ public class SpringHelloWorldAppTest extends TestCase {
 	}
 
 	private void methodWithException(HelloWorldImpl bean) throws InterruptedException {
-		System.out.println("methodWithException");
+		System.out.println("SpringHelloWorldAppTest - methodWithException");
 		bean.printMessageE();
 	}
 	

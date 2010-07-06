@@ -15,10 +15,10 @@ public class PassiveAgentBeanDefinitionParser implements BeanDefinitionParser {
 	private static final String ACTION_CLASS_AGENT = "actionClassAgent";
 	private static final String SERVLET_CALL_AGENT = "servletCallAgent";
 	
+	private static final String NOT_SUPPORTED_FUNCTIONALITY = "This functionality is not supported";
+	
 	private ParseState parseState = new ParseState();
-	
-//	private BeanDefinition activeAgentScheduletDef;
-	
+		
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
 		CompositeComponentDefinition compositeDef =
 				new CompositeComponentDefinition(element.getTagName(), parserContext.extractSource(element));
@@ -34,8 +34,12 @@ public class PassiveAgentBeanDefinitionParser implements BeanDefinitionParser {
 				AbstractPassiveAgentBeanDefinitionParser parser = null;
 				if (JAVA_CALL_AGENT.equals(localName)) {
 					parser = new JavaCallAgentBeanDefinitionParser(this);
+				} else if (ACTION_CLASS_AGENT.equals(localName)) {
+					throw new AllmonNamespaceParserException(NOT_SUPPORTED_FUNCTIONALITY + " yet");
+				} else if (SERVLET_CALL_AGENT.equals(localName)) {
+					throw new AllmonNamespaceParserException(NOT_SUPPORTED_FUNCTIONALITY + " yet");
 				} else {
-					// TODO add others
+					throw new AllmonNamespaceParserException(NOT_SUPPORTED_FUNCTIONALITY);
 				}
 				parser.parse((Element) node, parserContext);
 			}
@@ -48,10 +52,6 @@ public class PassiveAgentBeanDefinitionParser implements BeanDefinitionParser {
 	public ParseState getParseState() {
 		return parseState;
 	}
-
-//	public BeanDefinition getActiveAgentScheduletDef() {
-//		return activeAgentScheduletDef;
-//	}
 	
 }
 
