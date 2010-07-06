@@ -9,7 +9,9 @@ import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import sun.net.www.protocol.http.HttpURLConnection;
+//import sun.net.www.protocol.http.HttpURLConnection;
+import java.net.HttpURLConnection;
+//import org.apache.commons.httpclient.util.HttpURLConnection; // FIXME refactor to commons
 
 public class HttpUrlCallAgent extends UrlCallAgent {
 

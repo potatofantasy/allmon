@@ -44,7 +44,7 @@ class LocalVirtualMachineManager {
         }
         // goes through all active monitored VMs on the host and fills up VM map
         for (Integer vmid: vms) {
-            vmMap.put(vmid, LocalVirtualMachineDescriptor.creaateDescriptor(host, vmid));
+            vmMap.put(vmid, LocalVirtualMachineDescriptor.createDescriptor(host, vmid));
         }
     }
     

@@ -7,9 +7,6 @@ import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.springframework.scheduling.quartz.QuartzJobBean;
 
 /**
  * Active agents are used in active monitoring, where metric 

@@ -87,9 +87,9 @@ public class UrlCallAgent extends ActiveAgent {
         systemSettings.put("http.proxyPort", AllmonCommonConstants.ALLMON_CLIENT_AGENT_PROXY_PORT);
         
         // prepare the proxy authorization String  
-        sun.misc.BASE64Encoder encoder = new sun.misc.BASE64Encoder();
         String userPassword = AllmonCommonConstants.ALLMON_CLIENT_AGENT_PROXY_USERNAME + ":" + AllmonCommonConstants.ALLMON_CLIENT_AGENT_PROXY_PASSWORD;
-        String encodedUserPassword = encoder.encode(userPassword.getBytes());  
+        //String encodedUserPassword = new sun.misc.BASE64Encoder().encode(userPassword.getBytes()); // Sun proprietary API
+        String encodedUserPassword = new String(new org.apache.commons.codec.binary.Base64().encode(userPassword.getBytes()));
         
         // get authorization from the proxy
         connection.setRequestProperty("Proxy-Authorization", "Basic " + encodedUserPassword);
