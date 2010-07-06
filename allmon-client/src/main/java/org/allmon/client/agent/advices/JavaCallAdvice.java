@@ -3,18 +3,22 @@ package org.allmon.client.agent.advices;
 import org.allmon.client.agent.JavaCallAgent;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 public class JavaCallAdvice extends AllmonAdvice {
 	
+	private static final Log logger = LogFactory.getLog(JavaCallAdvice.class);
+	
 	public JavaCallAdvice() {
-		System.out.println("JavaCallAdvice");
+		logger.debug("JavaCallAdvice created - name " + getName());
 	}
 	
 	private JavaCallAgent agent;
 	
 	public Object profile(ProceedingJoinPoint call) throws Throwable {
-		System.out.println(">>> before method call");
+		logger.debug(getName() + " >>> before method call");
 		try {
 			Object [] args = call.getArgs();
 			call.getKind();
@@ -22,6 +26,7 @@ public class JavaCallAdvice extends AllmonAdvice {
 			String methodName = call.getSignature().getName();
 			call.getSourceLocation().getWithinType();
 			
+			// FIXME add a parameter which switch this method on/off
 			Caller caller = getOriginalCaller(className, methodName);
 			
     		MetricMessage metricMessage = MetricMessageFactory.createClassMessage(
@@ -43,7 +48,7 @@ public class JavaCallAdvice extends AllmonAdvice {
 			finishedWithException = true;
 			throw ex;
 		} finally {
-			System.out.println(">>> after method call");
+			logger.debug(getName() + " >>> after method call");
 			if (agent != null && !finishedWithException) {
 				agent.exitPoint();
 			}

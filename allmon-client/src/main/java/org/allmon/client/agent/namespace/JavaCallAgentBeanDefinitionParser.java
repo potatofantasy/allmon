@@ -1,22 +1,19 @@
 package org.allmon.client.agent.namespace;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.allmon.client.agent.advices.JavaCallAdvice;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.aop.aspectj.AspectJAroundAdvice;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.aspectj.AspectJPointcutAdvisor;
-import org.springframework.aop.config.AopConfigUtils;
 import org.springframework.aop.config.AopNamespaceUtils;
-import org.springframework.aop.config.AspectComponentDefinition;
 import org.springframework.aop.config.MethodLocatingFactoryBean;
 import org.springframework.aop.config.PointcutComponentDefinition;
 import org.springframework.aop.config.SimpleBeanFactoryAwareAspectInstanceFactory;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.config.BeanReference;
 import org.springframework.beans.factory.config.ConstructorArgumentValues;
 import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.support.RootBeanDefinition;
@@ -25,9 +22,15 @@ import org.w3c.dom.Element;
 
 public class JavaCallAgentBeanDefinitionParser extends AbstractPassiveAgentBeanDefinitionParser {
 	
+	private static final Log logger = LogFactory.getLog(JavaCallAgentBeanDefinitionParser.class);
+	
+	private static final String AGENT_CONTEXT = "agentContext";
+	
 	private static final String POINTCUT_EXPRESSION = "pointcutExpression";
 	
 	private static final String EXPRESSION = "expression";
+	
+	private static int instanceCounter = 0;
 	
 	public JavaCallAgentBeanDefinitionParser(PassiveAgentBeanDefinitionParser parser) {
 		super(parser);
@@ -54,18 +57,20 @@ public class JavaCallAgentBeanDefinitionParser extends AbstractPassiveAgentBeanD
 		try {
 			aopRegistration.invoke(null, parserContext, agentElement);
 		} catch (Exception e) {
-			throw new BeanDefinitionStoreException(
-					"Can not activate AOP proxies", e);
+			throw new BeanDefinitionStoreException("Can not activate AOP proxies", e);
 		}
 		
-		// TODO generate names
-		String aspectId = "someAspect"; 
-		String aspectName = "monitoringAdvice";
-		String pointcutBeanName = "methodJoinPoint";
+		// generate names
+		String aspectName = "monitoringAdvice-" + instanceCounter;
+		String pointcutBeanName = "methodJoinPoint-" + instanceCounter;
+		instanceCounter++;
+		
+		logger.debug("Parsing config for aspect " + aspectName);
 		
 		// create advice
 		RootBeanDefinition agentAdviceDef = new RootBeanDefinition(JavaCallAdvice.class);
-		agentAdviceDef.getPropertyValues().addPropertyValue("agentContext", agentContext);
+		agentAdviceDef.getPropertyValues().addPropertyValue(AGENT_CONTEXT, agentContext);
+		agentAdviceDef.getPropertyValues().addPropertyValue("name", aspectName);
 		parserContext.getRegistry().registerBeanDefinition(aspectName, agentAdviceDef);
 		
 		// create aspect 
@@ -103,9 +108,9 @@ public class JavaCallAgentBeanDefinitionParser extends AbstractPassiveAgentBeanD
 		//beanDefinitions.add(advisorDefinition);
 		
 		// create an aspect definition
-//		BeanDefinition[] beanDefArray = (BeanDefinition[]) beanDefinitions.toArray(new BeanDefinition[beanDefinitions.size()]); 
-//		BeanReference[] beanRefArray = (BeanReference[]) beanReferences.toArray(new BeanReference[beanReferences.size()]); 
-//		//parserContext.pushContainingComponent(new AspectComponentDefinition(aspectId, beanDefArray, beanRefArray, null));
+		//BeanDefinition[] beanDefArray = (BeanDefinition[]) beanDefinitions.toArray(new BeanDefinition[beanDefinitions.size()]); 
+		//BeanReference[] beanRefArray = (BeanReference[]) beanReferences.toArray(new BeanReference[beanReferences.size()]); 
+		////parserContext.pushContainingComponent(new AspectComponentDefinition(aspectId, beanDefArray, beanRefArray, null));
 
 		// create pointcut
 		RootBeanDefinition pointcutDefinition = new RootBeanDefinition(AspectJExpressionPointcut.class);
