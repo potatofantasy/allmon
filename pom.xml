@@ -23,7 +23,7 @@
 
 	<properties>
 		<!--  Libraries versions -->
-		<allmon.version>0.1.5-PA</allmon.version>
+		<allmon.version>0.2.0-PA</allmon.version>
 		<junit.version>4.8.1</junit.version>
 		<activemq.version>5.2.0</activemq.version>
 		<camel.version>2.0-M2</camel.version>
@@ -269,6 +269,7 @@
 			<version>1.1</version>
 			<type>jar</type>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>com.sun</groupId>
 			<artifactId>tools</artifactId>
@@ -276,5 +277,6 @@
 			<scope>system</scope>
 			<systemPath>${java.home}/../lib/tools.jar</systemPath>
 		</dependency>
+		-->
 	</dependencies>
 </project>
