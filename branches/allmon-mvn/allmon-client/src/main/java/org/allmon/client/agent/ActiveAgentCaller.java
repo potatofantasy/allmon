@@ -23,24 +23,19 @@ public class ActiveAgentCaller extends QuartzJobBean {
 	
 	public void setActiveAgent(ActiveAgent activeAgent) {
 		this.activeAgent = activeAgent;
-		System.out.println("Active agent set!!!" + activeAgent.getAgentContextName());
+		logger.debug("Active agent set - " + activeAgent.getAgentContextName());
 	}
 	
 	public void execute() {
-		System.out.println("execute!!!");
-		//System.out.println("Call active agent: " + activeAgentClass + " - " + parameters.getName()); // TODO move to log4j
-		
-		//System.out.println("activeAgent.execute() " + activeAgent.getClass() + "...");
-		
-		//logger.debug("Execution : " + activeAgent.getClass() + ".execute() ...");
+		//logger.debug("Call active agent: " + activeAgentClass + " - " + parameters.getName());
+		//logger.debug("activeAgent.execute() " + activeAgent.getClass() + "...");
+		logger.debug("execute : " + activeAgent.getClass() + ".execute() ...");
 		activeAgent.execute();
-		
 	}
 	
-	@Override
 	public void executeInternal(JobExecutionContext arg0) {
 		execute();
-		//logger.debug("Execution : " + activeAgent.getClass() + ".execute() finished");
+		logger.debug("execute : " + activeAgent.getClass() + ".execute() finished");
 	}
 
 }

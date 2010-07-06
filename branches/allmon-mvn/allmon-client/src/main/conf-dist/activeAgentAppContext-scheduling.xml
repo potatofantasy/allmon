@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:ws="http://jax-ws.dev.java.net/spring/core"
+	xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://jax-ws.dev.java.net/spring/core http://jax-ws.dev.java.net/spring/core.xsd
+http://jax-ws.dev.java.net/spring/servlet http://jax-ws.dev.java.net/spring/servlet.xsd">
+
+	<bean id="jobProperties" class="org.allmon.client.agent.ActiveAgentParameters">
+		<property name="name" value="prop name"/>
+	</bean>
+
+	<bean id="agentContext" class="org.allmon.client.agent.AgentContext"/>
+
+	<bean id="httpUrlCallAgentBooleanStrategy" class="org.allmon.client.agent.HttpUrlCallAgentBooleanStrategy" />
+
+	<bean id="httpUrlCallAgent" class="org.allmon.client.agent.HttpUrlCallAgent">
+		<constructor-arg ref="agentContext"/>
+		<property name="strategy" ref="httpUrlCallAgentBooleanStrategy" />
+		<property name="urlAddress" value="http://www.wikipedia.org" />
+		<property name="searchPhrase" value="wikipedia"/>
+		<property name="contentType" value="text/html"/>
+		<property name="urlParameters" value=""/>
+		<property name="checkingHost" value="www.wikipedia.com"/>
+		<property name="checkName" value="www.wikipedia.com-Checker"/>
+		<property name="instanceName" value="original-wikipedia-instance"/>
+		<property name="useProxy" value="true"/>
+		<property name="requestMethod" value="GET"/>
+	</bean>
+
+	<!--Scheduling-->
+	<!--Job-->
+	<bean id="httpUrlCallAgentJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="org.allmon.client.agent.ActiveAgentCaller" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="parameters" value-ref="jobProperties"/>
+				<entry key="activeAgent" value-ref="httpUrlCallAgent"/>
+			</map>
+		</property>
+	</bean>
+	<!---End of Jobs-->
+	<!--Triggers-->
+	<bean id="httpUrlCallAgentTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="httpUrlCallAgentJob" />
+		<property name="cronExpression" value="* * * * * ?" />
+	</bean>
+	<!--End of Triggers-->
+	<!--Scheduler Factory-->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="httpUrlCallAgentTrigger" />
+			</list>
+		</property>
+	</bean>
+	<!--End of Scheduler Factory-->
+	<!--End of Scheduling-->
+
+</beans>

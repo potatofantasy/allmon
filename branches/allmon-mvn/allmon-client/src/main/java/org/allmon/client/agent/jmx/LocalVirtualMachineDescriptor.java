@@ -8,7 +8,6 @@ import sun.jvmstat.monitor.MonitoredHost;
 import sun.jvmstat.monitor.MonitoredVm;
 import sun.jvmstat.monitor.MonitoredVmUtil;
 import sun.jvmstat.monitor.VmIdentifier;
-import sun.management.ConnectorAddressLink;
 
 import com.sun.tools.attach.AgentInitializationException;
 import com.sun.tools.attach.AgentLoadException;
@@ -37,7 +36,7 @@ public class LocalVirtualMachineDescriptor {
         this.isAttachSupported = canAttach;
     }
 
-    static LocalVirtualMachineDescriptor creaateDescriptor(MonitoredHost host, Integer vmid) {
+    static LocalVirtualMachineDescriptor createDescriptor(MonitoredHost host, Integer vmid) {
         int pid = vmid.intValue();
         String name = vmid.toString(); // default to pid if name not available
         boolean attachable = false;
@@ -45,10 +44,9 @@ public class LocalVirtualMachineDescriptor {
         MonitoredVm mvm = null;
         try {
             mvm = host.getMonitoredVm(new VmIdentifier(vmid.toString()));
-            name = MonitoredVmUtil.commandLine(mvm); // use the command line
-                                                        // as the display name
+            name = MonitoredVmUtil.commandLine(mvm); // use the command line as the display name
             attachable = MonitoredVmUtil.isAttachable(mvm);
-            address = ConnectorAddressLink.importFrom(pid);
+            //address = sun.management.ConnectorAddressLink.importFrom(pid); // FIXME remove sun.management dependencies
         } catch (Exception x) {
         } finally {
             if (mvm != null) {

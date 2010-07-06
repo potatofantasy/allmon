@@ -1,5 +1,7 @@
 package org.allmon.client.agent;
 
+import org.allmon.client.agent.ActiveAgent;
+import org.allmon.client.agent.AgentContext;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
 import org.allmon.common.MetricMessageWrapper;
