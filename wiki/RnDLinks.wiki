@@ -234,6 +234,10 @@
   * Presentation (Visualization)
     * http://www.visualcomplexity.com/vc/
     * http://code.google.com/apis/visualization/documentation/gallery.html
+    * http://code.google.com/apis/chart/docs/gallery/chart_gall.html
+    * http://www.jfree.org/jfreechart/
+    * http://teethgrinder.co.uk/open-flash-chart/
+
 
 <wiki:comment>
 = Interchange =
