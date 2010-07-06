@@ -23,7 +23,7 @@ public class AllmonPropertiesReader {
         if (!log4jConfigured) {
             String file = System.getProperty("log4jallmon.properties.path");
             if (file == null || "".equals(file)) {
-                file = "target/classes/etc/conf/log4jallmon.properties"; //"conf/log4jallmon.properties";
+                file = "target/etc/log4jallmon.properties"; //"etc/log4jallmon.properties";
             }
             try {
 				System.out.println("Reading config file in path " + new File(".").getCanonicalPath());
@@ -56,7 +56,7 @@ public class AllmonPropertiesReader {
                 // TODO check if this not should be split to client and server side
                 String strFilePath = System.getProperty("allmon.properties.path");
                 if (strFilePath == null || "".equals(strFilePath)) {
-                    strFilePath = "conf/allmon.properties";
+                    strFilePath = "target/etc/allmon.properties"; //"etc/allmon.properties";
                 }
                 File file = new File(strFilePath);
                 FileInputStream fis = new FileInputStream(file);
