@@ -231,7 +231,7 @@
     * System monitoring from the cloud - http://www.slideshare.net/Hovhannes/monitis-allinone-systems-monitoring-from-the-cloud
 
 
-  * Presentation
+  * Presentation (Visualization)
     * http://www.visualcomplexity.com/vc/
     * http://code.google.com/apis/visualization/documentation/gallery.html
 
