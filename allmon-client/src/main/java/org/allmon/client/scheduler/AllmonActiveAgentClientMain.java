@@ -13,7 +13,7 @@ public class AllmonActiveAgentClientMain {
     }
     
 	public static final ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
-			new String[] { "classpath:resources/applicationContext.xml" }); 
+			new String[] { "classpath:activeAgentAppContext.xml" }); 
 	
 	public static void main(String[] args) {
 
