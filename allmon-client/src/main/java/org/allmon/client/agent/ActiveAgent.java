@@ -3,6 +3,7 @@
  */
 package org.allmon.client.agent;
 
+import org.allmon.common.AllmonPropertiesReader;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageWrapper;
 import org.apache.commons.logging.Log;
@@ -27,7 +28,11 @@ import org.apache.commons.logging.LogFactory;
  */
 abstract class ActiveAgent implements AgentTaskable {
 
-    private static final Log logger = LogFactory.getLog(ActiveAgent.class);
+	static {
+        AllmonPropertiesReader.readLog4jProperties();
+    }
+    
+	private static final Log logger = LogFactory.getLog(ActiveAgent.class);
     
     final AgentContext agentContext;
     
@@ -65,7 +70,7 @@ abstract class ActiveAgent implements AgentTaskable {
 //        } catch (Exception e) {
 //            throw new RuntimeException("Parameters weren't initialized properly: " + e.toString());
 //        }
-    	System.out.println("ActiveAgent is executing collecting metrics..."); // TODO clean logger
+    	logger.debug("ActiveAgent is executing collecting metrics...");
         MetricMessageWrapper metricMessageWrapper = collectMetrics();
         if (metricMessageWrapper == null || metricMessageWrapper.size() == 0) {
         	//TODO create named exception! Necessary to handle metrics collection process exceptions
