@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
 
 //import sun.net.www.protocol.http.HttpURLConnection;
 import java.net.HttpURLConnection;
-//import org.apache.commons.httpclient.util.HttpURLConnection; // FIXME refactor to commons
+//import org.apache.commons.httpclient.util.HttpURLConnection; // TODO should we refactor to commons?
 
 public class HttpUrlCallAgent extends UrlCallAgent {
 
@@ -28,10 +28,10 @@ public class HttpUrlCallAgent extends UrlCallAgent {
     
     public HttpUrlCallAgent(AgentContext agentContext) {
 		super(agentContext);
-		System.out.println("HttpUrlCallAgent !!!");
+		logger.debug("HttpUrlCallAgent instantiated");
 	}
     
-    public void setStrategy(String strategyClassName) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public void setStrategyClassName(String strategyClassName) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class c = Class.forName(strategyClassName);
         Object o = c.newInstance();
         if (o instanceof HttpUrlCallAgentAbstractStrategy) {

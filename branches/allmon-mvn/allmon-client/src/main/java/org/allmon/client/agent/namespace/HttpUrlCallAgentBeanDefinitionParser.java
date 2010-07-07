@@ -16,17 +16,31 @@ import org.w3c.dom.Element;
 
 public class HttpUrlCallAgentBeanDefinitionParser extends AbstractActiveAgentBeanDefinitionParser {
 
+	// required
 	private static final String URL_ADDRESS = "urlAddress";
 	private static final String CRON_EXPRESSION = "cronExpression";
 	
-	public HttpUrlCallAgentBeanDefinitionParser(ActiveAgentBeanDefinitionParser parser) {
-		super(parser);
+	private static final String SEARCH_PHRASE = "searchPhrase";
+	private static final String CHECK_NAME = "checkName";
+	private static final String INSTANCE_NAME = "instanceName";
+	
+	// optional
+	private static final String STRATEGY = "strategy";
+	private static final String CONTENT_TYPE = "contentType";
+	private static final String URL_PARAMETERS = "urlParameters";
+	private static final String CHECKING_HOST = "checkingHost";
+	private static final String USE_PROXY = "useProxy";
+	private static final String REQUEST_METHOD = "requestMethod";
+	
+	private static int instanceCounter = 0;
+	
+	public HttpUrlCallAgentBeanDefinitionParser(ActiveAgentBeanDefinitionParser parser, String tagName) {
+		super(parser, tagName);
 	}
 
 	protected void parseSpecifics(Element agentElement, ParserContext parserContext) {
-		//AbstractBeanDefinition advisorDef = createHttpUrlCallAgentBeanDefinition(agentElement, parserContext);
 		RootBeanDefinition agentDef = new RootBeanDefinition(HttpUrlCallAgent.class);
-		agentDef.setSource(parserContext.extractSource(agentElement));
+		//agentDef.setSource(parserContext.extractSource(agentElement));
 		
 		String agentBeanName = agentElement.getAttribute(ID);
 		if (StringUtils.hasText(agentBeanName)) {
@@ -37,11 +51,9 @@ public class HttpUrlCallAgentBeanDefinitionParser extends AbstractActiveAgentBea
 
 		Object agentContext = parseAgentContextProperty(agentElement, parserContext);
 		if (agentContext instanceof BeanDefinition) {
-			//agentDef.getPropertyValues().addPropertyValue(AGENT_CONTEXT_REF, agentContext);
 			agentDef.getConstructorArgumentValues().addGenericArgumentValue(agentContext);
 		}
 		else if (agentContext instanceof String) {
-			//agentDef.getPropertyValues().addPropertyValue(AGENT_CONTEXT_REF, new RuntimeBeanReference((String) agentContext));
 			agentDef.getConstructorArgumentValues().addGenericArgumentValue(new RuntimeBeanReference((String)agentContext));
 		}
 		
@@ -49,12 +61,19 @@ public class HttpUrlCallAgentBeanDefinitionParser extends AbstractActiveAgentBea
 //				RootBeanDefinition activeAgentCallerDef = new RootBeanDefinition(ActiveAgentCaller.class);
 //				activeAgentCallerDef.getPropertyValues().addPropertyValue("activeAgent", agentDef);
 		
+		// generate names
+		String jobDetailBean = "jobDetailBean-" + instanceCounter;
+		String cronTriggerBean = "cronTriggerBean-" + instanceCounter;
+		
+		instanceCounter++;
+		
 		// job
 		ManagedMap managedMap = new ManagedMap();
 		managedMap.put("activeAgent", agentDef);
 		RootBeanDefinition callerJobDef = new RootBeanDefinition(JobDetailBean.class);
 		callerJobDef.getPropertyValues().addPropertyValue("jobClass", ActiveAgentCaller.class.getName());
 		callerJobDef.getPropertyValues().addPropertyValue("jobDataAsMap", managedMap);
+		parserContext.getRegistry().registerBeanDefinition(jobDetailBean, callerJobDef);
 		
 //				RootBeanDefinition callerJobDef = new RootBeanDefinition(MethodInvokingJobDetailFactoryBean.class);
 //				callerJobDef.getPropertyValues().addPropertyValue("targetObject", activeAgentCallerDef);
@@ -65,22 +84,65 @@ public class HttpUrlCallAgentBeanDefinitionParser extends AbstractActiveAgentBea
 		cronTriggerDef.getPropertyValues().addPropertyValue("jobDetail", callerJobDef);
 		String cronExpression = parsePropertyString(agentElement, parserContext, CRON_EXPRESSION);
 		cronTriggerDef.getPropertyValues().addPropertyValue(CRON_EXPRESSION, cronExpression);
+		parserContext.getRegistry().registerBeanDefinition(cronTriggerBean, cronTriggerDef);
 		
-		// triggers (list)
-		ManagedList managedList = new ManagedList();
+		// add a trigger definition to the main scheduler triggers list
+		PropertyValue triggersDef = parser.getActiveAgentSchedulerDef().getPropertyValues().getPropertyValue("triggers");
+		ManagedList managedList;
+		if (triggersDef == null) {
+			managedList = new ManagedList();
+			triggersDef = new PropertyValue("triggers", managedList); 
+		} else {
+			managedList = (ManagedList)triggersDef.getValue();
+		}
 		managedList.add(cronTriggerDef);
-		PropertyValue triggersDef = new PropertyValue("triggers", managedList); 
 		
-		// adding triggers to scheduler
-		//parserContext.getRegistry().getBeanDefinition((String)"agentScheduler").
-		//	getPropertyValues().addPropertyValue(triggersDef);
-		parser.getActiveAgentScheduletDef().getPropertyValues().addPropertyValue(triggersDef);
-		
+		// add triggers to scheduler
+		parser.getActiveAgentSchedulerDef().getPropertyValues().addPropertyValue(triggersDef);
 		
 		// properties of agent
 		String url = parsePropertyString(agentElement, parserContext, URL_ADDRESS);
 		agentDef.getPropertyValues().addPropertyValue(URL_ADDRESS, url);
 
+		String searchPhrase = parsePropertyString(agentElement, parserContext, SEARCH_PHRASE);
+		agentDef.getPropertyValues().addPropertyValue(SEARCH_PHRASE, searchPhrase);
+
+		String checkName = parsePropertyString(agentElement, parserContext, CHECK_NAME);
+		agentDef.getPropertyValues().addPropertyValue(CHECK_NAME, checkName);
+		
+		String instanceName = parsePropertyString(agentElement, parserContext, INSTANCE_NAME);
+		agentDef.getPropertyValues().addPropertyValue(INSTANCE_NAME, instanceName);
+		
+		String strategy = parsePropertyString(agentElement, parserContext, STRATEGY, true);
+		if (strategy != null) {
+			agentDef.getPropertyValues().addPropertyValue("strategyClassName", strategy);
+		}
+		
+		String contentType = parsePropertyString(agentElement, parserContext, CONTENT_TYPE, true);
+		if (contentType != null) {
+			agentDef.getPropertyValues().addPropertyValue(CONTENT_TYPE, contentType);
+		}
+		
+		String urlParameters = parsePropertyString(agentElement, parserContext, URL_PARAMETERS, true);
+		if (urlParameters != null) {
+			agentDef.getPropertyValues().addPropertyValue(URL_PARAMETERS, urlParameters);
+		}
+		
+		String checkingHost = parsePropertyString(agentElement, parserContext, CHECKING_HOST, true);
+		if (checkingHost != null) {
+			agentDef.getPropertyValues().addPropertyValue(CHECKING_HOST, checkingHost);
+		}
+		
+		String useProxy = parsePropertyString(agentElement, parserContext, USE_PROXY, true);
+		if (useProxy != null) {
+			agentDef.getPropertyValues().addPropertyValue(USE_PROXY, useProxy);
+		}
+
+		String requestMethod = parsePropertyString(agentElement, parserContext, REQUEST_METHOD, true);
+		if (requestMethod != null) {
+			agentDef.getPropertyValues().addPropertyValue(REQUEST_METHOD, requestMethod);
+		}
+		
 	}
 	
 }

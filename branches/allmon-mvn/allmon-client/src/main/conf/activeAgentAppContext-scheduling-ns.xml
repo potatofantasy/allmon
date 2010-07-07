@@ -3,21 +3,49 @@
 	xmlns:ws="http://jax-ws.dev.java.net/spring/core"
 	xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:allmon="http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/java/org/allmon/client/agent/namespace/allmon"
+	xmlns:allmon="http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/resources/org/allmon/client/agent/namespace/allmon"
 	xsi:schemaLocation=" 
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
 http://jax-ws.dev.java.net/spring/core http://jax-ws.dev.java.net/spring/core.xsd
 http://jax-ws.dev.java.net/spring/servlet http://jax-ws.dev.java.net/spring/servlet.xsd
-http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/java/org/allmon/client/agent/namespace/allmon http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/java/org/allmon/client/agent/namespace/allmon/allmon.xsd">
+http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/resources/org/allmon/client/agent/namespace/allmon http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/resources/org/allmon/client/agent/namespace/allmon/allmon.xsd">
 
 	<bean id="agentContext" class="org.allmon.client.agent.AgentContext"/>
 	
 	<allmon:active>
+		<!-- simple example -->
 		<allmon:httpUrlCallAgent id="wikipediaCheck" 
 			agentContextRef="agentContext"
+			cronExpression="* * * * * ?" 
 			urlAddress="http://www.wikipedia.org"
-			cronExpression="*/2 * * * * ?" />
+			searchPhrase="wikipedia"
+			checkName="www.wikipedia.com-Checker"
+			instanceName="wikipadia-checker"
+			/>
+		<!-- example with more parameters -->
+		<allmon:httpUrlCallAgent id="googleCheck" 
+			agentContextRef="agentContext"
+			cronExpression="*/5 * * * * ?" 
+			
+			urlAddress="http://www.google.com"
+			searchPhrase="google"
+			checkName="www.google.com-Checker"
+			instanceName="google-checker"
+			
+			contentType="text/html"
+			checkingHost="www.google.com"
+			useProxy="false"
+			
+			strategy="org.allmon.client.agent.HttpUrlCallAgentFullResponseTimeStrategy"
+			/>
+		<!-- 
+			urlParameters="-"
+			requestMethod="GET"
+		-->
+	
 	</allmon:active>
+	
+	
 	
 	<!-- 
     <allmon:httpUrlCallAgent id="" name="" 

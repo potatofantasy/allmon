@@ -3,21 +3,19 @@ package org.allmon.client.agent.namespace;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.parsing.CompositeComponentDefinition;
 import org.springframework.beans.factory.parsing.ParseState;
-import org.springframework.beans.factory.xml.BeanDefinitionParser;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class PassiveAgentBeanDefinitionParser implements BeanDefinitionParser {
+public class PassiveAgentBeanDefinitionParser extends AllmonAgentBeanDefinitionParser {
 
+	// TODO move those tags names to specific AllmonAgentBeanDefinitionParser
 	private static final String JAVA_CALL_AGENT = "javaCallAgent";
 	private static final String ACTION_CLASS_AGENT = "actionClassAgent";
 	private static final String SERVLET_CALL_AGENT = "servletCallAgent";
 	
 	private static final String NOT_SUPPORTED_FUNCTIONALITY = "This functionality is not supported";
-	
-	private ParseState parseState = new ParseState();
 		
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
 		CompositeComponentDefinition compositeDef =
@@ -33,7 +31,7 @@ public class PassiveAgentBeanDefinitionParser implements BeanDefinitionParser {
 				String localName = node.getLocalName();
 				AbstractPassiveAgentBeanDefinitionParser parser = null;
 				if (JAVA_CALL_AGENT.equals(localName)) {
-					parser = new JavaCallAgentBeanDefinitionParser(this);
+					parser = new JavaCallAgentBeanDefinitionParser(this, JAVA_CALL_AGENT);
 				} else if (ACTION_CLASS_AGENT.equals(localName)) {
 					throw new AllmonNamespaceParserException(NOT_SUPPORTED_FUNCTIONALITY + " yet");
 				} else if (SERVLET_CALL_AGENT.equals(localName)) {
@@ -49,9 +47,7 @@ public class PassiveAgentBeanDefinitionParser implements BeanDefinitionParser {
 		return null;
 	}
 
-	public ParseState getParseState() {
-		return parseState;
-	}
+	
 	
 }
 

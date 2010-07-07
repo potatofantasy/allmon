@@ -23,7 +23,7 @@ public class AllmonActiveAgentClientMain {
 			e1.printStackTrace();
 		}
 		
-		System.out.println("starting job");
+		System.out.println("starting job"); // TODO clean up the logging
 		try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {

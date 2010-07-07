@@ -4,30 +4,27 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.parsing.CompositeComponentDefinition;
 import org.springframework.beans.factory.parsing.ParseState;
 import org.springframework.beans.factory.support.RootBeanDefinition;
-import org.springframework.beans.factory.xml.BeanDefinitionParser;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class ActiveAgentBeanDefinitionParser implements BeanDefinitionParser {
+public class ActiveAgentBeanDefinitionParser extends AllmonAgentBeanDefinitionParser {
 
 	private static final String AGENT_SCHEDULER = "agentScheduler";
 	
+	// TODO move those tags names to specific AllmonAgentBeanDefinitionParser
 	private static final String HTTP_URL_CALL_AGENT = "httpUrlCallAgent";
 	
-
-	private ParseState parseState = new ParseState();
-	
-	private BeanDefinition activeAgentScheduletDef;
+	private BeanDefinition activeAgentSchedulerDef;
 	
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
 		CompositeComponentDefinition compositeDef =
 				new CompositeComponentDefinition(element.getTagName(), parserContext.extractSource(element));
 		parserContext.pushContainingComponent(compositeDef);
 
-		activeAgentScheduletDef = getActiveAgentScheduler(parserContext);
+		activeAgentSchedulerDef = getActiveAgentScheduler(parserContext);
 		
 		NodeList childNodes = element.getChildNodes();
 		for (int i = 0; i < childNodes.getLength(); i++) {
@@ -36,7 +33,7 @@ public class ActiveAgentBeanDefinitionParser implements BeanDefinitionParser {
 				String localName = node.getLocalName();
 				AbstractActiveAgentBeanDefinitionParser parser = null;
 				if (HTTP_URL_CALL_AGENT.equals(localName)) {
-					parser = new HttpUrlCallAgentBeanDefinitionParser(this);
+					parser = new HttpUrlCallAgentBeanDefinitionParser(this, HTTP_URL_CALL_AGENT);
 				} else {
 					// TODO add others
 				}
@@ -59,12 +56,8 @@ public class ActiveAgentBeanDefinitionParser implements BeanDefinitionParser {
 		return activeAgentScheduletDef;
 	}
 
-	public ParseState getParseState() {
-		return parseState;
-	}
-
-	public BeanDefinition getActiveAgentScheduletDef() {
-		return activeAgentScheduletDef;
+	public BeanDefinition getActiveAgentSchedulerDef() {
+		return activeAgentSchedulerDef;
 	}
 	
 }

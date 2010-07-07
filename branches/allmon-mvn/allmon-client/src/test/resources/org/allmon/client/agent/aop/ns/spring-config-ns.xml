@@ -2,10 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:allmon="http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/java/org/allmon/client/agent/namespace/allmon"
+	xmlns:allmon="http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/resources/org/allmon/client/agent/namespace/allmon"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
-	http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/java/org/allmon/client/agent/namespace/allmon http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/java/org/allmon/client/agent/namespace/allmon/allmon.xsd">
+	http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/resources/org/allmon/client/agent/namespace/allmon http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/resources/org/allmon/client/agent/namespace/allmon/allmon.xsd">
 	
 	<!-- a bean (pojo class) which is going to be monitored -->
 	<bean id="messageBean" class="org.allmon.client.agent.aop.ns.HelloWorldImpl">
