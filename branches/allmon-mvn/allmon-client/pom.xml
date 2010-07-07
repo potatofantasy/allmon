@@ -67,6 +67,16 @@
 								<platform>windows</platform>
 							</platforms>
 						</program>
+						<program>
+							<mainClass>
+								org.allmon.client.aggregator.AgentAggregatorMain
+							</mainClass>
+							<name>allmon-client-aggregator</name>
+							<platforms>
+								<platform>unix</platform>
+								<platform>windows</platform>
+							</platforms>
+						</program>
 					</programs>
 					<repoPath>lib</repoPath>
 					<repositoryName>lib</repositoryName>
