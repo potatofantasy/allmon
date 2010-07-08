@@ -19,38 +19,6 @@
     * AOP@Work: Performance monitoring with AspectJ, Part 1 - A look inside the Glassbox Inspector with AspectJ and JMX - http://www.ibm.com/developerworks/java/library/j-aopwork10/
 
     
-  * JMX monitoring and java code instrumentation
-    * http://blogs.sun.com/jmxetc/entry/what_is_jmx
-    * http://en.wikipedia.org/wiki/Java_Management_Extensions
-    * http://java.sun.com/developer/technicalArticles/J2SE/jmx.html
-    * http://java.sun.com/javase/technologies/core/mntr-mgmt/javamanagement/
-    * JMX best practices (sun.com) - http://java.sun.com/javase/technologies/core/mntr-mgmt/javamanagement/best-practices.jsp
-    * Java Management Extensions (JMX) Technology Tutorial (Java 2 Platform, Standard Edition 5.0) - http://java.sun.com/j2se/1.5.0/docs/guide/jmx/tutorial/tutorialTOC.html
-    * examples: http://java.sun.com/j2se/1.5.0/docs/guide/jmx/examples.html
-    * Monitoring and Management Using JMX - http://java.sun.com/j2se/1.5.0/docs/guide/management/agent.html
-    * Monitoring and Management for the Java Platform - http://java.sun.com/javase/6/docs/technotes/guides/management/
-    * Daniel Fuchs blogs on JMX, SNMP, Java, etc... - http://blogs.sun.com/jmxetc/
-    * Open Source implementation of the Java(TM) Management Extensions (JMX) and of the JMX Remote API (JSR 160) specifications - http://mx4j.sourceforge.net/
-    * hyperic HQ - http://support.hyperic.com/display/DOC/JMX+Plugin
-    * Java theory and practice: Instrumenting applications with JMX (ibm.com) - http://www.ibm.com/developerworks/java/library/j-jtp09196/index.html
-    * JVMTI -  JVMTM Tool Interface Version 1.0 - http://java.sun.com/j2se/1.5.0/docs/guide/jvmti/jvmti.html
-
-    * jvmstat - http://java.sun.com/performance/jvmstat/
-
-    * Java code instrumentation since 1.5 - http://java.sun.com/j2se/1.5.0/docs/api/java/lang/instrument/package-summary.html
-    * Code Generation Library - http://cglib.sourceforge.net/
-    * ASM - all purpose Java bytecode manipulation and analysis framework - http://asm.ow2.org/
-      * Using ASM to implement common byte code manipulation patterns - http://asm.ow2.org/current/asm-transformations.pdf
-      * ASM: Code manipulation for adaptable systems - http://asm.ow2.org/current/asm-eng.pdf
-
-
-  * JDMK - The Java Dynamic Management Kit (Java DMK) provides a set of Java classes and tools that allow easy development of secure monitoring and management solutions based on the Java Management Extensions (JMX) specifications and on the SNMP standards
-    * http://en.wikipedia.org/wiki/Java_Dynamic_Management_Kit
-    * http://java.sun.com/products/jdmk/
-    * http://www.sun.com/software/jdmk/
-    * https://opendmk.dev.java.net/
-
-
   * Similar Open Source Projects (is it "reinventing the wheel" antipattern? :) - http://notes-on-haskell.blogspot.com/2007/08/rewriting-software.html and http://www.newyorker.com/reporting/2008/05/12/080512fa_fact_gladwell?currentPage=all)
     * Jamon - http://jamonapi.sourceforge.net/
     * Usemon - http://code.google.com/p/usemon/ http://www.slideshare.net/paulrene/an-introduction-to-usemon 
@@ -123,6 +91,46 @@
           * Extensible XML authoring - http://static.springsource.org/spring/docs/2.0.x/reference/extensible-xml.html
       * Werkz - 
     * AOP performance benchmark - http://docs.codehaus.org/display/AW/AOP+Benchmark
+
+
+  * JMX monitoring and java code instrumentation
+    * http://blogs.sun.com/jmxetc/entry/what_is_jmx
+    * http://en.wikipedia.org/wiki/Java_Management_Extensions
+    * http://java.sun.com/developer/technicalArticles/J2SE/jmx.html
+    * http://java.sun.com/javase/technologies/core/mntr-mgmt/javamanagement/
+    * JMX best practices (sun.com) - http://java.sun.com/javase/technologies/core/mntr-mgmt/javamanagement/best-practices.jsp
+    * Java Management Extensions (JMX) Technology Tutorial (Java 2 Platform, Standard Edition 5.0) - http://java.sun.com/j2se/1.5.0/docs/guide/jmx/tutorial/tutorialTOC.html
+    * examples: http://java.sun.com/j2se/1.5.0/docs/guide/jmx/examples.html
+    * Monitoring and Management Using JMX - http://java.sun.com/j2se/1.5.0/docs/guide/management/agent.html
+    * Monitoring and Management for the Java Platform - http://java.sun.com/javase/6/docs/technotes/guides/management/
+    * Daniel Fuchs blogs on JMX, SNMP, Java, etc... - http://blogs.sun.com/jmxetc/
+    * Open Source implementation of the Java(TM) Management Extensions (JMX) and of the JMX Remote API (JSR 160) specifications - http://mx4j.sourceforge.net/
+    * hyperic HQ - http://support.hyperic.com/display/DOC/JMX+Plugin
+    * Java theory and practice: Instrumenting applications with JMX (ibm.com) - http://www.ibm.com/developerworks/java/library/j-jtp09196/index.html
+    * JVMTI -  JVMTM Tool Interface Version 1.0 - http://java.sun.com/j2se/1.5.0/docs/guide/jvmti/jvmti.html
+
+    * jvmstat - http://java.sun.com/performance/jvmstat/
+
+    * Java code instrumentation since 1.5 - http://java.sun.com/j2se/1.5.0/docs/api/java/lang/instrument/package-summary.html
+    * Code Generation Library - http://cglib.sourceforge.net/
+    * ASM - all purpose Java bytecode manipulation and analysis framework - http://asm.ow2.org/
+      * Using ASM to implement common byte code manipulation patterns - http://asm.ow2.org/current/asm-transformations.pdf
+      * ASM: Code manipulation for adaptable systems - http://asm.ow2.org/current/asm-eng.pdf
+
+
+  * JDMK - The Java Dynamic Management Kit (Java DMK) provides a set of Java classes and tools that allow easy development of secure monitoring and management solutions based on the Java Management Extensions (JMX) specifications and on the SNMP standards
+    * http://en.wikipedia.org/wiki/Java_Dynamic_Management_Kit
+    * http://java.sun.com/products/jdmk/
+    * http://www.sun.com/software/jdmk/
+    * https://opendmk.dev.java.net/
+
+
+  * JMS
+    * JMS + Spring
+      * http://static.springsource.org/spring/docs/2.5.6/reference/jms.html
+      * http://onjava.com/pub/a/onjava/2006/02/22/asynchronous-messaging-with-spring-jms.html
+      * http://www.springbyexample.org/examples/simple-spring-jms.html
+      * http://activemq.apache.org/spring-support.html
 
 
   * Monitoring service layer
