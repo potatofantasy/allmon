@@ -30,12 +30,12 @@ public class SpringHelloWorldAppTest extends TestCase {
 
 	private void method(HelloWorldImpl bean) throws InterruptedException {
 		System.out.println("SpringHelloWorldAppTest - method");
-//		for (int i = 0; i < 100; i++) {
+		//for (int i = 0; i < 100; i++) {
 			bean.printMessage();
 			bean.printMessage("param");
 			bean.printMessage(new String[]{"param1", "param2"});
-			//Thread.sleep(100);
-//		}
+			Thread.sleep(500);
+		//}
 		Thread.sleep(3000);
 		for (int i = 0; i < 2; i++) {
 			bean.printMessage();

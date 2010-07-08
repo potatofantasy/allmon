@@ -5,6 +5,8 @@ package org.allmon.client.agent;
 
 import org.allmon.common.AllmonPropertiesReader;
 import org.allmon.common.MetricMessage;
+import org.allmon.common.jmxconfig.AllmonAgentJmxParamsBean;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Top abstract level of agents definition.<br><br>
@@ -19,6 +21,9 @@ abstract class Agent {
         AllmonPropertiesReader.readLog4jProperties();
     }
     
+    protected static ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+    		new String[] { "classpath:allmonAgentAppContext-jmx.xml" });
+    
     final AgentContext agentContext;
     
 	Agent(AgentContext agentContext) {
@@ -26,7 +31,9 @@ abstract class Agent {
 	}
 	
     void addMetricMessage(MetricMessage metricMessage) {
-        agentContext.getMetricBuffer().add(metricMessage);
+    	if (getJmxParamsBean().isSendingOn()) {
+    		agentContext.getMetricBuffer().add(metricMessage);
+    	}
     }
     
     public final AgentMetricBuffer getMetricBuffer() {
@@ -36,5 +43,7 @@ abstract class Agent {
     String getAgentContextName() {
         return agentContext.getName();
     }
+    
+    abstract AllmonAgentJmxParamsBean getJmxParamsBean();
     
 }

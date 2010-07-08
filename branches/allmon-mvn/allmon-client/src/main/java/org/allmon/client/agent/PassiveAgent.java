@@ -1,6 +1,7 @@
 package org.allmon.client.agent;
 
 import org.allmon.common.MetricMessage;
+import org.allmon.common.jmxconfig.PassiveAgentJmxParamsBean;
 
 
 /**
@@ -21,6 +22,9 @@ abstract class PassiveAgent extends Agent {
     
     private MetricMessage baseMetricMessage;
     
+    private final static PassiveAgentJmxParamsBean jmxParamsBean = 
+    	(PassiveAgentJmxParamsBean) context.getBean("allmon.passiveAgentParams");
+    
     PassiveAgent(AgentContext agentContext, MetricMessage metricMessage) {
     	super(agentContext);
         messageSender = new PassiveAgentMetricMessageSender(this);
@@ -38,5 +42,9 @@ abstract class PassiveAgent extends Agent {
     MetricMessage getBaseMetricMessageCopy() {
         return (MetricMessage)baseMetricMessage.clone();
     }
+    
+    PassiveAgentJmxParamsBean getJmxParamsBean() {
+		return jmxParamsBean;
+	}
     
 }

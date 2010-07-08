@@ -6,6 +6,7 @@ package org.allmon.client.agent;
 import org.allmon.common.AllmonPropertiesReader;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageWrapper;
+import org.allmon.common.jmxconfig.ActiveAgentJmxParamsBean;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -26,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
  * TODO add timeout mechanism preventing creating/leaking too many threads
  * 
  */
-abstract class ActiveAgent implements AgentTaskable {
+abstract class ActiveAgent extends Agent implements AgentTaskable {
 
 	static {
         AllmonPropertiesReader.readLog4jProperties();
@@ -34,15 +35,19 @@ abstract class ActiveAgent implements AgentTaskable {
     
 	private static final Log logger = LogFactory.getLog(ActiveAgent.class);
     
-    final AgentContext agentContext;
+	private final static ActiveAgentJmxParamsBean jmxParamsBean = 
+    	(ActiveAgentJmxParamsBean) context.getBean("allmon.activeAgentParams");
+    
+    //final AgentContext agentContext; // XXX changed recently
     
     ActiveAgent(AgentContext agentContext) {
-		this.agentContext = agentContext;
+    	super(agentContext); // XXX changed recently
+		//this.agentContext = agentContext; // XXX changed recently
 	}
 	
-    public final AgentMetricBuffer getMetricBuffer() {
-        return agentContext.getMetricBuffer();
-    }
+//    public final AgentMetricBuffer getMetricBuffer() { // XXX changed recently
+//        return agentContext.getMetricBuffer();
+//    }
 	
     String getAgentContextName() {
         return agentContext.getName();
@@ -90,9 +95,9 @@ abstract class ActiveAgent implements AgentTaskable {
     }
     
     // TODO move this implementation to Agent
-    void addMetricMessage(MetricMessage metricMessage) {
-        getMetricBuffer().add(metricMessage); // TODO review for multiton
-    }
+//    void addMetricMessage(MetricMessage metricMessage) {
+//        getMetricBuffer().add(metricMessage); // TODO review for multiton
+//    }
     
 //    // TODO review this property - it is forcing to use decodeAgentTaskableParams implementation for all active agents 
 //    // XXX create a new interface only for those Active agents which should have parameters
@@ -125,5 +130,9 @@ abstract class ActiveAgent implements AgentTaskable {
     public final String getAgentSchedulerName() {
         return agentSchedulerName;
     }
-        
+    
+    ActiveAgentJmxParamsBean getJmxParamsBean() {
+		return jmxParamsBean;
+	}
+    
 }
