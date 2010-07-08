@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd   
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd   
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+	default-lazy-init="false">
+
+	<bean id="allmon.MBeanExporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="allmon.client.common.jmxconfig:name=ActiveAgentParams" value-ref="allmon.activeAgentParams" />
+				<entry key="allmon.client.common.jmxconfig:name=PassiveAgentParams" value-ref="allmon.passiveAgentParams" />
+			</map>
+		</property>
+	</bean>
+	<bean id="allmon.activeAgentParams" class="org.allmon.common.jmxconfig.ActiveAgentJmxParamsBean">
+		<property name="name" value="dummy" />
+	</bean>
+	<bean id="allmon.passiveAgentParams" class="org.allmon.common.jmxconfig.PassiveAgentJmxParamsBean">
+		<property name="name" value="dummy" />
+	</bean>
+
+</beans>

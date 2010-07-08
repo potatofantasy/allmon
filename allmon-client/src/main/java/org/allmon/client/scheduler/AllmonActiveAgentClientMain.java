@@ -12,7 +12,7 @@ public class AllmonActiveAgentClientMain {
         AllmonPropertiesReader.readLog4jProperties();
     }
     
-	public static final ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
+	public static final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 			new String[] { "classpath:activeAgentAppContext.xml" }); 
 	
 	public static void main(String[] args) {
