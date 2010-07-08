@@ -43,6 +43,7 @@
     * Embedded Jopr is a web-based application for managing & monitoring an instance of JBoss Application Server - http://jboss.org/embjopr
     * The RHQ project is a systems management suite that provides extensible and integrated systems management for multiple products and platforms - http://rhq-project.org/display/RHQ/Home
     * messadmin - http://messadmin.sourceforge.net/
+    * JavaTreeProfiler - interesting java memory profiler, presenting objects allocation in a tree map - http://jcoverage.sourceforge.net/
 
 
   * Similar Not-Open Source Projects (Proprietary)
