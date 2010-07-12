@@ -44,7 +44,8 @@
     * The RHQ project is a systems management suite that provides extensible and integrated systems management for multiple products and platforms - http://rhq-project.org/display/RHQ/Home
     * messadmin - http://messadmin.sourceforge.net/
     * JavaTreeProfiler - interesting java memory profiler, presenting objects allocation in a tree map - http://jcoverage.sourceforge.net/
-
+    * Java Melody - http://code.google.com/p/javamelody/ 
+    * Premon - http://thoughts.inphina.com/2010/07/10/intelligent-monitoring-with-premon/
 
   * Similar Not-Open Source Projects (Proprietary)
     * Dynatrace - Continuous Application Performance Management - http://www.dynatrace.com/ - http://www.dynatrace.com/twominutedemo/
