@@ -16,6 +16,8 @@ public class ActiveAgentBeanDefinitionParser extends AllmonAgentBeanDefinitionPa
 	
 	// TODO move those tags names to specific AllmonAgentBeanDefinitionParser
 	private static final String HTTP_URL_CALL_AGENT = "httpUrlCallAgent";
+	private static final String JMX_SERVER_AGENT = "jmxServerAgent";
+	
 	
 	private BeanDefinition activeAgentSchedulerDef;
 	
@@ -34,6 +36,8 @@ public class ActiveAgentBeanDefinitionParser extends AllmonAgentBeanDefinitionPa
 				AbstractActiveAgentBeanDefinitionParser parser = null;
 				if (HTTP_URL_CALL_AGENT.equals(localName)) {
 					parser = new HttpUrlCallAgentBeanDefinitionParser(this, HTTP_URL_CALL_AGENT);
+				} else if (JMX_SERVER_AGENT.equals(localName)) {
+					parser = new JmxServerAgentBeanDefinitionParser(this, JMX_SERVER_AGENT);
 				} else {
 					// TODO add others
 				}

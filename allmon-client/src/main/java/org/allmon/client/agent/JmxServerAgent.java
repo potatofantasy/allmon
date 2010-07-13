@@ -26,7 +26,7 @@ public class JmxServerAgent extends ActiveAgent {
     
     private JmxAttributesReader jmxReader = new JmxAttributesReader();
     
-    protected String lvmNamesRegexp = ""; // all local JVMs
+	protected String lvmNamesRegexp = ""; // all local JVMs
     protected String mbeansAttributesNamesRegexp = ""; // all attributes
     
 	public JmxServerAgent(AgentContext agentContext) {
@@ -62,4 +62,12 @@ public class JmxServerAgent extends ActiveAgent {
 //        mbeansAttributesNamesRegexp = getParamsString(1);
 //    }
 
+    public void setLvmNamesRegexp(String lvmNamesRegexp) {
+		this.lvmNamesRegexp = lvmNamesRegexp;
+	}
+
+	public void setMbeansAttributesNamesRegexp(String mbeansAttributesNamesRegexp) {
+		this.mbeansAttributesNamesRegexp = mbeansAttributesNamesRegexp;
+	}
+	
 }
