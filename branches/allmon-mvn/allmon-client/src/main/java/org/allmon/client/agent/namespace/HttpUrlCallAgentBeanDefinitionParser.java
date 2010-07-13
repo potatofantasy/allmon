@@ -18,7 +18,6 @@ public class HttpUrlCallAgentBeanDefinitionParser extends AbstractActiveAgentBea
 
 	// required
 	private static final String URL_ADDRESS = "urlAddress";
-	private static final String CRON_EXPRESSION = "cronExpression";
 	
 	private static final String SEARCH_PHRASE = "searchPhrase";
 	private static final String CHECK_NAME = "checkName";
@@ -39,67 +38,8 @@ public class HttpUrlCallAgentBeanDefinitionParser extends AbstractActiveAgentBea
 	}
 
 	protected void parseSpecifics(Element agentElement, ParserContext parserContext) {
-		RootBeanDefinition agentDef = new RootBeanDefinition(HttpUrlCallAgent.class);
-		//agentDef.setSource(parserContext.extractSource(agentElement));
-		
-		String agentBeanName = agentElement.getAttribute(ID);
-		if (StringUtils.hasText(agentBeanName)) {
-			parserContext.getRegistry().registerBeanDefinition(agentBeanName, agentDef);
-		} else {
-			agentBeanName = parserContext.getReaderContext().registerWithGeneratedName(agentDef);
-		}
-
-		Object agentContext = parseAgentContextProperty(agentElement, parserContext);
-		if (agentContext instanceof BeanDefinition) {
-			agentDef.getConstructorArgumentValues().addGenericArgumentValue(agentContext);
-		}
-		else if (agentContext instanceof String) {
-			agentDef.getConstructorArgumentValues().addGenericArgumentValue(new RuntimeBeanReference((String)agentContext));
-		}
-		
-		// agent caller
-//				RootBeanDefinition activeAgentCallerDef = new RootBeanDefinition(ActiveAgentCaller.class);
-//				activeAgentCallerDef.getPropertyValues().addPropertyValue("activeAgent", agentDef);
-		
-		// generate names
-		String jobDetailBean = "jobDetailBean-" + instanceCounter;
-		String cronTriggerBean = "cronTriggerBean-" + instanceCounter;
-		
-		instanceCounter++;
-		
-		// job
-		ManagedMap managedMap = new ManagedMap();
-		managedMap.put("activeAgent", agentDef);
-		RootBeanDefinition callerJobDef = new RootBeanDefinition(JobDetailBean.class);
-		callerJobDef.getPropertyValues().addPropertyValue("jobClass", ActiveAgentCaller.class.getName());
-		callerJobDef.getPropertyValues().addPropertyValue("jobDataAsMap", managedMap);
-		parserContext.getRegistry().registerBeanDefinition(jobDetailBean, callerJobDef);
-		
-//				RootBeanDefinition callerJobDef = new RootBeanDefinition(MethodInvokingJobDetailFactoryBean.class);
-//				callerJobDef.getPropertyValues().addPropertyValue("targetObject", activeAgentCallerDef);
-//				callerJobDef.getPropertyValues().addPropertyValue("targetMethod", "execute");
-						
-		// cron trigger per agent
-		RootBeanDefinition cronTriggerDef = new RootBeanDefinition(CronTriggerBean.class);
-		cronTriggerDef.getPropertyValues().addPropertyValue("jobDetail", callerJobDef);
-		String cronExpression = parsePropertyString(agentElement, parserContext, CRON_EXPRESSION);
-		cronTriggerDef.getPropertyValues().addPropertyValue(CRON_EXPRESSION, cronExpression);
-		parserContext.getRegistry().registerBeanDefinition(cronTriggerBean, cronTriggerDef);
-		
-		// add a trigger definition to the main scheduler triggers list
-		PropertyValue triggersDef = parser.getActiveAgentSchedulerDef().getPropertyValues().getPropertyValue("triggers");
-		ManagedList managedList;
-		if (triggersDef == null) {
-			managedList = new ManagedList();
-			triggersDef = new PropertyValue("triggers", managedList); 
-		} else {
-			managedList = (ManagedList)triggersDef.getValue();
-		}
-		managedList.add(cronTriggerDef);
-		
-		// add triggers to scheduler
-		parser.getActiveAgentSchedulerDef().getPropertyValues().addPropertyValue(triggersDef);
-		
+		RootBeanDefinition agentDef = parseActiveAgentContext(agentElement, parserContext, HttpUrlCallAgent.class);
+				
 		// properties of agent
 		String url = parsePropertyString(agentElement, parserContext, URL_ADDRESS);
 		agentDef.getPropertyValues().addPropertyValue(URL_ADDRESS, url);
