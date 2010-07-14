@@ -18,40 +18,42 @@ public class JavaCallAdvice extends AllmonAdvice {
 	private JavaCallAgent agent;
 	
 	public Object profile(ProceedingJoinPoint call) throws Throwable {
-		logger.debug(getName() + " >>> before method call");
+		if (!isSilentMode()) {
+			logger.debug(getName() + " >>> before method call");
+		}
 		try {
-			Object [] args = call.getArgs();
-			call.getKind();
 			String className = call.getSignature().getDeclaringTypeName();
 			String methodName = call.getSignature().getName();
 			call.getSourceLocation().getWithinType();
 			
 			// FIXME add a parameter which switch this method on/off
 			Caller caller = getOriginalCaller(className, methodName);
+			//Caller caller = new Caller();
 			
     		MetricMessage metricMessage = MetricMessageFactory.createClassMessage(
 	                className, methodName, caller.className, caller.methodName, 0); // TODO review duration time param
-    		metricMessage.setParameters(args);
+    		
+    		// FIXME add a parameter which switch storing calls parameters on/off
+    		Object [] args = call.getArgs();
+			metricMessage.setParameters(args);
+			
     		agent = new JavaCallAgent(getAgentContext(), metricMessage);
 	        agent.entryPoint();
     	} catch (Throwable t) {
     	}
-    	    	
+    	
     	// execute an advised method
-    	boolean finishedWithException = false;
+    	Exception e = null;
 		try {
 			return call.proceed();
 		} catch (Exception ex) {
-			if (agent != null) {
-				agent.exitPoint(ex);
-			}
-			finishedWithException = true;
+			e = ex;
 			throw ex;
 		} finally {
-			logger.debug(getName() + " >>> after method call");
-			if (agent != null && !finishedWithException) {
-				agent.exitPoint();
+			if (!isSilentMode()) {
+				logger.debug(getName() + " >>> after method call");
 			}
+			agent.exitPoint(e);
 		}
 	}
 

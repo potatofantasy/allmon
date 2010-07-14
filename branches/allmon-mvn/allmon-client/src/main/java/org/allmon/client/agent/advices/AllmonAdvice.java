@@ -8,6 +8,8 @@ abstract class AllmonAdvice {
     
 	private String name;
 	
+	private boolean silentMode = true;
+	
 	public void setAgentContext(AgentContext agentContext) {
 		this.agentContext = agentContext;
 	}
@@ -22,6 +24,14 @@ abstract class AllmonAdvice {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public boolean isSilentMode() {
+		return silentMode;
+	}
+	
+	public void setSilentMode(boolean silentMode) {
+		this.silentMode = silentMode;
 	}
 	
 }

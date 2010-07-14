@@ -4,8 +4,10 @@ package org.allmon.client.agent.aop.ns;
 public class HelloWorldImpl {
     
 	private String message;
+	
+	private boolean silentMode = false;
 
-    public String getMessage() {
+	public String getMessage() {
         return message;
     }
 
@@ -14,20 +16,32 @@ public class HelloWorldImpl {
     }
 
     public void printMessage() {
-    	System.out.println(message);
+    	if (!silentMode) {
+    		System.out.println(message);
+    	}
     }
 
     public void printMessage(String param) {
-    	System.out.println(message + ":" + param);
+    	if (!silentMode) {
+        	System.out.println(message + ":" + param);
+    	}
     }
     
     public void printMessage(String [] param) {
-    	System.out.println(message + ":" + param);
+    	if (!silentMode) {
+        	System.out.println(message + ":" + param);
+    	}
     }
 
     public void printMessageE() {
-    	System.out.println(message);
+    	if (!silentMode) {
+        	System.out.println(message);
+    	}
     	throw new RuntimeException("An example exception!");
     }
+    
+    public void setSilentMode(boolean silentMode) {
+		this.silentMode = silentMode;
+	}
     
 }
