@@ -1,0 +1,14 @@
+Allmon passive agents can be applied to an application in various ways, 
+making use of the tool very flexible, depending on specifics of system 
+which we are going to monitor.
+
+
+Main styles of passive intrumentation:
+* by http filter - on servlet level
+* Spring AOP - allmon namespace
+* AspectJ load-time weaving - using AspectJ based config with predefined 
+allmon advices
+* LTW with Spring - as above but with Spring config
+* in-code - direct instrumentation; very low level of instrumnetation 
+by using allmon API in app code
+
