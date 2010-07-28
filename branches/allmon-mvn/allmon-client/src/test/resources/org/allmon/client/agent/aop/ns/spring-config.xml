@@ -6,7 +6,7 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 	
 	
-	<bean id="messageBean" class="org.allmon.client.agent.aop.ns.HelloWorldImpl">
+	<bean id="messageBean" class="org.allmon.client.agent.aop.HelloWorldImpl">
 		<property name="message" value="Helo World message ...."></property>
 	</bean>
 
@@ -21,13 +21,7 @@
 		
 	<aop:config>
 		<aop:aspect id="someAspect" ref="monitoringAdvice">
-			<aop:pointcut id="methodJoinPoint" 
-						expression="execution(* org.allmon.client.agent.aop.ns.*.*(..)) and args(..)" />
-			<!-- 
-			<aop:before method="logBeforeMethodCall" pointcut-ref="methodJoinPoint" />
-			<aop:after-returning method="logAfterMethodCall" arg-names="args" pointcut-ref="methodJoinPoint" />
-			<aop:after-throwing method="logAfterMethodCall" throwing="t" pointcut-ref="methodJoinPoint" />
-			 -->
+			<aop:pointcut id="methodJoinPoint" expression="execution(* org.allmon.client.agent.aop.*.*(..)) and args(..)" />
 			<aop:around method="profile" pointcut-ref="methodJoinPoint" />
 		</aop:aspect>
 	</aop:config>

@@ -1,25 +1,23 @@
-package org.allmon.client.agent.aop.ns;
+package org.allmon.client.agent.aop.aspectj;
 
-import org.allmon.client.agent.AgentMetricBufferLoadTest;
 import org.allmon.client.agent.aop.HelloWorldImpl;
 import org.allmon.common.AbstractLoadTest;
 import org.allmon.common.AllmonPropertiesReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Simulates concurrently executed API of simple spring based application.
+ * Simulates concurrently executed API of simple pojo application.
  * 
+ * Go to PojoHelloWorldAppTest.java to read more about necessary AspectJ configuration.
  */
-public class SpringHigherLoadAppTest extends AbstractLoadTest<HelloWorldImpl, Object> {
+public class PojoHigherLoadAppTest extends AbstractLoadTest<HelloWorldImpl, Object> {
 
     static {
         AllmonPropertiesReader.readLog4jProperties();
     }
     
-    private static final Log logger = LogFactory.getLog(SpringHigherLoadAppTest.class);
+    private static final Log logger = LogFactory.getLog(PojoHigherLoadAppTest.class);
     
     // stress test
     private final static long THREADS_COUNT = 3;
@@ -27,9 +25,6 @@ public class SpringHigherLoadAppTest extends AbstractLoadTest<HelloWorldImpl, Ob
     private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 0; //0 - no sleep
     private final static long SUBSEQUENT_CALLS_IN_THREAD = 2000;
     
-    private final static String SPRING_CONFIG_LOCATION = "org/allmon/client/agent/aop/ns/spring-config-ns.xml";
-    private final ApplicationContext applicationContext = new ClassPathXmlApplicationContext(SPRING_CONFIG_LOCATION);
-	
     public void testMain() throws InterruptedException {
         runLoadTest(THREADS_COUNT, 
                 STARTING_TIME_MILLIS, SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX, 
@@ -43,7 +38,7 @@ public class SpringHigherLoadAppTest extends AbstractLoadTest<HelloWorldImpl, Ob
     }
     
     public HelloWorldImpl initialize() {
-    	HelloWorldImpl bean = (HelloWorldImpl) applicationContext.getBean("messageBean");
+    	HelloWorldImpl bean = new HelloWorldImpl();
     	bean.setSilentMode(true); // no system out
         return bean;
     }

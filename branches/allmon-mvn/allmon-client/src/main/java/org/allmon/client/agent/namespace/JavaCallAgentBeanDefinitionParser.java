@@ -2,6 +2,7 @@ package org.allmon.client.agent.namespace;
 
 import java.lang.reflect.Method;
 
+import org.allmon.client.agent.advices.AspectJJavaCallAdvice;
 import org.allmon.client.agent.advices.JavaCallAdvice;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

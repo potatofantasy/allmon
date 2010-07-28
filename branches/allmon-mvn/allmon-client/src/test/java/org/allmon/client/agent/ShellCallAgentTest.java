@@ -7,8 +7,9 @@ public class ShellCallAgentTest extends TestCase {
 	public void testExecute() {
 	    AgentContext agentContext = new AgentContext();
 		ShellCallAgent agent = new ShellCallAgent(agentContext);
-		agent.setShellCommand("cmd") ;
-		agent.setSearchPhrase("\\d");
+		//agent.setShellCommand("tasklist /V /FO csv /NH | find /c \"allmon\""); //cmd.exe
+		agent.setShellCommand("dir | find /c \".\""); //cmd.exe
+		agent.setSearchPhrase("[0-9]+");
 		agent.execute();
 		agentContext.stop();
 	}

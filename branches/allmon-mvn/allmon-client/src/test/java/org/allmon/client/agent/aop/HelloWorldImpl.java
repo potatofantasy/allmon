@@ -1,5 +1,4 @@
-package org.allmon.client.agent.aop.ns;
-
+package org.allmon.client.agent.aop;
 
 public class HelloWorldImpl {
     

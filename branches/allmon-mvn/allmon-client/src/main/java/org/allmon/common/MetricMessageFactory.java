@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class MetricMessageFactory {
     
-    private final static String HOSTNAME = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_HOST_NAME);
-    private final static String INSTANCE = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_INSTANCE_NAME);
-    
     /**
      * This object can be created only from this package.
      */
@@ -32,14 +29,10 @@ public class MetricMessageFactory {
     // TODO add resource as a mandatory field
     private static final MetricMessage createMessage(String artifact, String metricType) {
         MetricMessage metricMessage = new MetricMessage();
-        if (!"".equals(HOSTNAME)) {
-            metricMessage.setHost(HOSTNAME);
-        }
-        metricMessage.setInstance(INSTANCE);
         // TODO move to more OO design 
         metricMessage.setArtifact(artifact);
         metricMessage.setMetricType(metricType);
-        metricMessage.setPoint(AllmonCommonConstants.METRIC_POINT_ENTRY); // TODO review necessity of this setter
+        //metricMessage.setPoint(AllmonCommonConstants.METRIC_POINT_ENTRY); // TODO review necessity of this setter
         return metricMessage;
     }
     
@@ -60,23 +53,33 @@ public class MetricMessageFactory {
         return metricMessage;
     }
     
-    public static final MetricMessage createServletMessage(String className, String user, String webSessionId, HttpServletRequest request) {
+    public static final MetricMessage createServletMessage(String filterName, HttpServletRequest request, String user) {
         MetricMessage metricMessage = createMessage(
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_ACTIONSERVLET);
-        // resource - action class
+        if (request == null) {
+        	throw new NullPointerException("HttpServletRequest object is nul");
+        }
+        // resource - url
         metricMessage.setResource(new StringBuffer(
-        		request.getLocalAddr()).append(":").append( 
-				request.getLocalName()).append(":").append(
-				request.getLocalPort()).append(":").append(
-				request.getRequestURI()).toString()); // request.getServerName()
-        // source - user who triggered an action class to execute
-        metricMessage.setSource(request.getRemoteHost()); // request.getRemotePort()
+        		filterName).append("//").append(
+        		request.getProtocol()).append("://").append(
+        		request.getLocalAddr()).append("(").append(
+				request.getLocalName()).append("):").append(
+				request.getLocalPort()).append("/").append(
+				request.getRequestURI()).append(" [").append(
+				request.getContentType()).append("]").toString());
+        // source - machine which triggered a servlet to execute
+        metricMessage.setSource(new StringBuffer(
+        		request.getRemoteHost()).append(":").append(
+        		request.getRemotePort()).toString());
         // session - is web session identifier
-        metricMessage.setSession(request.getRequestedSessionId());
-        // parameters // TODO review 
-        if (request != null && request.getParameterMap() != null) {
-            metricMessage.setParameters(request.getParameterMap().toString());
+        metricMessage.setSession(new StringBuffer(
+        		user).append(":").append(
+        		request.getRequestedSessionId()).toString());
+        // parameters
+        if (request.getParameterMap() != null) {
+            metricMessage.setParameters(request.getParameterMap()); // TODO review conversion to Array
         }
         return metricMessage;
     }
@@ -145,7 +148,6 @@ public class MetricMessageFactory {
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION,
                 AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_APP_SERVICELEVELCHECK);
         // resource - localhost name
-        metricMessage.setResource(HOSTNAME);
         metricMessage.setSource(command);
         metricMessage.setMetricValue(metricValue);
         return metricMessage;
