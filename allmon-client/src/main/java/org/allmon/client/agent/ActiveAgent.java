@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.allmon.client.agent;
 
 import org.allmon.common.AllmonPropertiesReader;
@@ -38,21 +35,10 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
 	private final static ActiveAgentJmxParamsBean jmxParamsBean = 
     	(ActiveAgentJmxParamsBean) context.getBean("allmon.activeAgentParams");
     
-    //final AgentContext agentContext; // XXX changed recently
-    
     ActiveAgent(AgentContext agentContext) {
-    	super(agentContext); // XXX changed recently
-		//this.agentContext = agentContext; // XXX changed recently
+    	super(agentContext);
 	}
-	
-//    public final AgentMetricBuffer getMetricBuffer() { // XXX changed recently
-//        return agentContext.getMetricBuffer();
-//    }
-	
-    String getAgentContextName() {
-        return agentContext.getName();
-    }
-    
+	    
 	private ActiveAgentMetricMessageSender messageSender = new ActiveAgentMetricMessageSender(this);
     
     /**
@@ -70,18 +56,20 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
      * This method is final, so no other concrete Agent implementation can override it.
      */
     public final void execute() {
-//        try {
-//            validateAgentTaskableParameters(); // FIXME Add implementation
-//        } catch (Exception e) {
-//            throw new RuntimeException("Parameters weren't initialized properly: " + e.toString());
-//        }
-    	logger.debug("ActiveAgent is executing collecting metrics...");
-        MetricMessageWrapper metricMessageWrapper = collectMetrics();
-        if (metricMessageWrapper == null || metricMessageWrapper.size() == 0) {
-        	//TODO create named exception! Necessary to handle metrics collection process exceptions
-            throw new RuntimeException("MetricMessages haven't been initialized properly");
-        }
-        sendMessage(metricMessageWrapper);
+    	if (getJmxParamsBean().isMonitoringOn()) {
+//          try {
+//          	validateAgentTaskableParameters(); // FIXME Add implementation
+//      	} catch (Exception e) {
+//          	throw new RuntimeException("Parameters weren't initialized properly: " + e.toString());
+//      	}
+        	logger.debug("ActiveAgent is executing collecting metrics...");
+	        MetricMessageWrapper metricMessageWrapper = collectMetrics();
+	        if (metricMessageWrapper == null || metricMessageWrapper.size() == 0) {
+	        	//TODO create named exception! Necessary to handle metrics collection process exceptions
+	            throw new RuntimeException("MetricMessages haven't been initialized properly");
+	        }
+	        sendMessage(metricMessageWrapper);
+    	}
     }
     
     private void sendMessage(MetricMessageWrapper metricMessageWrapper) {
@@ -93,31 +81,6 @@ abstract class ActiveAgent extends Agent implements AgentTaskable {
             messageSender.insertPoint(metricMessage);
         }
     }
-    
-    // TODO move this implementation to Agent
-//    void addMetricMessage(MetricMessage metricMessage) {
-//        getMetricBuffer().add(metricMessage); // TODO review for multiton
-//    }
-    
-//    // TODO review this property - it is forcing to use decodeAgentTaskableParams implementation for all active agents 
-//    // XXX create a new interface only for those Active agents which should have parameters
-//    // XXX in future allmon releases parameters for active agents can be specified in XML, so String[] can be not enough
-//    private String[] paramsString;
-//
-//    final String getParamsString(int i) {
-//        if (paramsString != null && paramsString.length > i) {
-//            return paramsString[i];
-//        }
-//        return null; // TODO review is null result is better than throwing an exception
-//    }
-//    
-//    /**
-//     * Forced by AgentTaskable - in the future can by forced only for specific active agents.
-//     */
-//    public final void setParameters(String[] paramsString) {
-//        //if (paramsString == null) // TODO decide what to do with null paramsString
-//        this.paramsString = paramsString;
-//    }
     
     //abstract void validateAgentTaskableParameters() throws Exception; // FIXME Add implementations
     

@@ -7,6 +7,11 @@ import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 
+/**
+ * TODO review and decide if not redundant with other advises/interceptors
+ * 
+ * @prototype 
+ */
 public class HttpClientCallAdvice extends AllmonAdvice {
 
 	private HttpClientCallAgent agent;
@@ -30,7 +35,7 @@ public class HttpClientCallAdvice extends AllmonAdvice {
     				className, user, webSessionId, request);
 	        
 			metricMessage.setParameters(args);
-    		agent = new HttpClientCallAgent(getAgentContext(), metricMessage);
+    		agent = new HttpClientCallAgent(agentContext, metricMessage);
 	        agent.dataReceivedByClient();
     	} catch (Throwable t) {
     	}

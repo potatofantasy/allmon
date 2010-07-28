@@ -27,7 +27,7 @@ public class ActionClassCallAdvice extends AllmonAdvice {
     		MetricMessage metricMessage = MetricMessageFactory.createActionClassMessage(
     				className, user, webSessionId, request);
     		//metricMessage.setParameters(args); // TODO review other parameters setting
-    		agent = new HttpClientCallAgent(getAgentContext(), metricMessage);
+    		agent = new HttpClientCallAgent(agentContext, metricMessage);
 	        agent.requestReceived();
     	} catch (Throwable t) {
     	}

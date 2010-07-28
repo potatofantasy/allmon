@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.allmon.client.agent;
 
 import org.allmon.common.AllmonPropertiesReader;
@@ -24,7 +21,7 @@ abstract class Agent {
     protected static ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
     		new String[] { "classpath:allmonAgentAppContext-jmx.xml" });
     
-    final AgentContext agentContext;
+    private final AgentContext agentContext;
     
 	Agent(AgentContext agentContext) {
 		this.agentContext = agentContext;

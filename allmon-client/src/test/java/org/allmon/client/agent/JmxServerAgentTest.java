@@ -1,36 +1,39 @@
 package org.allmon.client.agent;
 
 import org.allmon.common.MetricMessageWrapper;
+import org.easymock.classextension.EasyMock;
 
 import junit.framework.TestCase;
 
 public class JmxServerAgentTest extends TestCase {
 
-    // # Enable the jconsole agent locally
-    // -Dcom.sun.management.jmxremote
-    // # Tell JBossAS to use the platform MBean server
-    // -Djboss.platform.mbeanserver
+    // # Enable the jconsole agent locally -Dcom.sun.management.jmxremote
+    // # Tell JBossAS to use the platform MBean server -Djboss.platform.mbeanserver
     
-    public void _testSending() {
-        AgentContext agentContext = new AgentContext();
-        try {
-            JmxServerAgent agent = new JmxServerAgent(agentContext);
-//            agent.setParameters(new String[]{
-//                    ".*activemq.*", //".*jboss.*", //".*AgentAggregatorMain.*"
-//                    ".*java.lang:type=Threading.*ThreadCount.*", //".*EJB3.*", //".*java.lang:type=Memory.*", // all memory metrics
-//                    //"(.*java.lang:type=Memory.*used.*)|(.*java.lang:type=GarbageCollector.*)"
-//                    //"java.lang:"
-//                    //".*java.lang:type=Threading:CurrentThreadCpuTime" //"java.lang:type=Threading"
-//                    //".*java.lang:type=Runtime.*"
-//                    //".*java.lang:type=Compilation.*"
-//            }); // FIXME clean code
-            agent.execute(); // collects metrics and sent the metrics messages to the broker
-        } finally {
-            agentContext.stop();
-        }
+	private AgentContext agentContextMock; 
+	
+	protected void setUp() throws Exception {
+		//AgentContext agentContext = new AgentContext();
+    	agentContextMock = EasyMock.createMock(AgentContext.class);
+    	AgentMetricBuffer agentMetricBufferMock = EasyMock.createMock(AgentMetricBuffer.class);
+    	EasyMock.expect(agentContextMock.getMetricBuffer()).andReturn(agentMetricBufferMock);
+    	EasyMock.replay(agentContextMock);
+	}
+	
+    public void testSending() {
+	    JmxServerAgent agent = new JmxServerAgent(agentContextMock);
+        agent.setLvmNamesRegexp(".*eclipse.*"); //".*activemq.*"); //".*jboss.*", //".*AgentAggregatorMain.*"
+        //agent.setMbeansAttributesNamesRegexp(".*java.lang:type=Threading.*ThreadCount.*");
+        agent.setMbeansAttributesNamesRegexp(".*java.lang:type=Runtime.*");
+        //".*EJB3.*", //".*java.lang:type=Memory.*", // all memory metrics
+        //"(.*java.lang:type=Memory.*used.*)|(.*java.lang:type=GarbageCollector.*)"
+        //"java.lang:"
+        //".*java.lang:type=Threading:CurrentThreadCpuTime" //"java.lang:type=Threading"
+        //".*java.lang:type=Compilation.*"
+        agent.execute(); // collects metrics and sent the metrics messages to the broker
     }
     
-    public void testCollecting() {
+    public void _testCollecting() {
         AgentContext agentContext = new AgentContext();
         try {
             JmxServerAgent agent = new JmxServerAgent(agentContext);

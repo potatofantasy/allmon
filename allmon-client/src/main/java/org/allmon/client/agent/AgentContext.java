@@ -28,7 +28,6 @@ public class AgentContext {
         cf = AllmonActiveMQConnectionFactory.client(); // TODO potentially IoC this object
         metricBuffer = new AgentMetricBuffer(this);
         logger.debug("AgentContext is up...");
-        //System.out.println("AgentContext is up...");
     }
 
     /**

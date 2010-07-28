@@ -8,7 +8,7 @@
 	http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/resources/org/allmon/client/agent/namespace/allmon http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/resources/org/allmon/client/agent/namespace/allmon/allmon.xsd">
 	
 	<!-- a bean (pojo class) which is going to be monitored -->
-	<bean id="messageBean" class="org.allmon.client.agent.aop.ns.HelloWorldImpl">
+	<bean id="messageBean" class="org.allmon.client.agent.aop.HelloWorldImpl">
 		<property name="message" value="Hello World message ...." />
 	</bean>
 
@@ -23,13 +23,13 @@
 	<allmon:passive>
 	    <!-- first advice -->
 		<allmon:javaCallAgent id="id1" agentContextRef="agentContext" 
-			pointcutExpression="execution(* org.allmon.client.agent.aop.ns.*.*(..)) and args(..)"/>
+			pointcutExpression="execution(* org.allmon.client.agent.aop.*.*(..)) and args(..)"/>
 	    <!-- second advice -->
 		<allmon:javaCallAgent id="id2" agentContextRef="agentContext" 
-			pointcutExpression="execution(* org.allmon.client.agent.aop.ns.*.printMessageE(..))"/>
+			pointcutExpression="execution(* org.allmon.client.agent.aop.*.printMessageE(..))"/>
 		<!-- TODO
-		<allmon:actionClassAgent id="id2" classExpression="org.allmon.client.agent.aop.ns.*.*(..))" userIdKey="userId"/>
-		<allmon:servletCallAgent id="id2" classExpression="org.allmon.client.agent.aop.ns.*.*(..))"/>
+		<allmon:actionClassAgent id="id2" classExpression="org.allmon.client.agent.aop.*.*(..))" userIdKey="userId"/>
+		<allmon:servletCallAgent id="id2" classExpression="org.allmon.client.agent.aop.*.*(..))"/>
 		-->
 	</allmon:passive>
 

@@ -61,7 +61,7 @@ public class JmxServerAgent extends ActiveAgent {
 //        lvmNamesRegexp = getParamsString(0);
 //        mbeansAttributesNamesRegexp = getParamsString(1);
 //    }
-
+	
     public void setLvmNamesRegexp(String lvmNamesRegexp) {
 		this.lvmNamesRegexp = lvmNamesRegexp;
 	}

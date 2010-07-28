@@ -23,13 +23,16 @@ import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
  */
 public class MetricMessage implements Serializable {
 
+	private final static String HOSTNAME = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_HOST_NAME);
+    private final static String INSTANCE = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_INSTANCE_NAME);
+    	
     private static final int MAX_STRING_LENGHT = 1000;
     
-    private static final XStream xstream = new XStream(new JsonHierarchicalStreamDriver()); //new JettisonDriver());
+    private static final XStream XSTREAM = new XStream(new JsonHierarchicalStreamDriver()); //new JettisonDriver());
     
     private static final boolean PRINT_EXCEPTIONS_STACKTRACE = true;
     
-    private long eventTime;
+    private long eventTime = System.currentTimeMillis();
     private long durationTime;
     private double metricValue;
     private static final InetAddress addr = getInetAddress();
@@ -38,13 +41,13 @@ public class MetricMessage implements Serializable {
     private String artifact; // TODO move to more OO design and abstract creation factory 
     private String metricType; // TODO move to more OO design and abstract creation factory 
 
-    private String host;
-    private String instance;
-    private String thread;
+    private static final String host = (addr != null)?addr.getHostName():""; // HOSTNAME
+    private String instance = INSTANCE;
+    private String thread = Thread.currentThread().getName();
     private String resource;
     private String source;
     private String session; // TODO add the session identifier to the allmetric schema
-    private String point; 
+    private String point = AllmonCommonConstants.METRIC_POINT_ENTRY; // by default all metrics are entry points 
     private Object parameters; // TODO check if possible use List or Array!!!
     private Exception exception;
 
@@ -52,13 +55,6 @@ public class MetricMessage implements Serializable {
      * MetricMessage objects can be created only by MetricMessageFactory.
      */
     MetricMessage() {
-    	if (addr != null) {
-    		host = addr.getHostName();
-    	} else {
-    		host = "";
-    	}
-        eventTime = System.currentTimeMillis();
-        thread = Thread.currentThread().getName();
     }
     
     private static InetAddress getInetAddress() {
@@ -144,10 +140,10 @@ public class MetricMessage implements Serializable {
         return host;
     }
     
-    void setHost(String host) {
-        this.host = host;
-    }
-
+//    public void setHost(String host) {
+//        this.host = trimAndCut(host);
+//    }
+    
     public String getThread() {
         return thread;
     }
@@ -197,7 +193,7 @@ public class MetricMessage implements Serializable {
     
     public String getParametersString() {
         if (parameters != null ) {
-            return xstream.toXML(parameters);
+            return XSTREAM.toXML(parameters);
         }
         return "";
     }
