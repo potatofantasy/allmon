@@ -7,13 +7,13 @@ public class AllmonPropertiesConstants {
     static final String TESTVALUE_INT = "testvalue_int";
 
     
-    public static final String ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL = "allmon.client.agent.metricbuffer.flushinginterval";
     public static final String ALLMON_CLIENT_AGENT_PROXY_ACTIVE = "allmon.client.agent.proxy.active";
     public static final String ALLMON_CLIENT_AGENT_PROXY_HOST = "allmon.client.agent.proxy.host";
     public static final String ALLMON_CLIENT_AGENT_PROXY_PORT = "allmon.client.agent.proxy.port";
     public static final String ALLMON_CLIENT_AGENT_PROXY_USERNAME = "allmon.client.agent.proxy.username";
     public static final String ALLMON_CLIENT_AGENT_PROXY_PASSWORD = "allmon.client.agent.proxy.password";
-
+    
+    // client broker
     public static final String ALLMON_CLIENT_BROKER_USER = "allmon.client.broker.user";
     public static final String ALLMON_CLIENT_BROKER_PASSWORD = "allmon.client.broker.password";
     public static final String ALLMON_CLIENT_BROKER_URL = "allmon.client.broker.url";

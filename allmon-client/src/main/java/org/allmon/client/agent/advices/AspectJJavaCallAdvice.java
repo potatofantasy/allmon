@@ -52,8 +52,8 @@ public abstract class AspectJJavaCallAdvice extends AbstractJavaCallAdvice {
 	private static final Log logger = LogFactory.getLog(AspectJJavaCallAdvice.class);
 	
 	public AspectJJavaCallAdvice() {
-		logger.debug("AspectJJavaCallAdvice created - name " + getName());
-		System.out.println("AspectJJavaCallAdvice created - name " + getName());
+		setName("AspectJJavaCallAdvice");
+		logger.debug("AspectJJavaCallAdvice created");
 		agentContext = new AgentContext(); // hard-coded creation of agent context instance
 	}
 	

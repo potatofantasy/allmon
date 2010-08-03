@@ -3,6 +3,7 @@ package org.allmon.client.agent.buffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.allmon.common.AllmonCommonConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -20,6 +21,8 @@ import org.apache.commons.logging.LogFactory;
 public abstract class AbstractMetricBuffer<M> {
 
     private static final Log logger = LogFactory.getLog(AbstractMetricBuffer.class);
+    
+    private boolean verboseLogging = false;
     
     private final BufferingThread<M> bufferingThread = new BufferingThread<M>();
     
@@ -67,8 +70,8 @@ public abstract class AbstractMetricBuffer<M> {
         }
         
         public final void run() {
-            logger.info("run and keep buffering ...");
-            try {
+        	logger.info("Thread is running and keep buffering ...");
+        	try {
                 //while (!poisonPill && !checkEnd()) { // TODO add a new condition for monitor
                 while (!poisonPill) {
                     try {
@@ -82,10 +85,11 @@ public abstract class AbstractMetricBuffer<M> {
                 }
                 // terminating buffering thread
                 flushAndSend();
+                logger.info("Last sending has finished succesfully - buffer is ending work");
             } catch (Throwable t) {
-                logger.error(t.getMessage(), t);  
+                logger.error("Error occured in main buffering loop: " + t.getMessage(), t);  
             } finally {
-                logger.warn("run method has been finished - flush method won't be performed anymore");  
+                logger.warn("Run method has been finished - flush method won't be performed anymore");  
             }
         }
         
@@ -104,7 +108,9 @@ public abstract class AbstractMetricBuffer<M> {
         private List<T> flush() {
         	flushCount++;
             
-        	logger.debug("flushing " + flushCount + " starts...");
+        	if (verboseLogging) {
+        		logger.debug("Flushing " + flushCount + " starts...");
+        	}
         	
             List<T> flushingList = new ArrayList<T>();
             
@@ -128,16 +134,17 @@ public abstract class AbstractMetricBuffer<M> {
             	//buffer.clear();
             	//copiedCount = flushingList.size();
             }
-            lastFlushTime = System.currentTimeMillis() - t0; //System.nanoTime();
-            
-        	logger.debug("copied items: " + copiedCount + " in: " + lastFlushTime + "ms, flushingBuffer is ready to send data and clear");
-        	
+            lastFlushTime = System.currentTimeMillis() - t0;
+                        
             flushedItemsCount += copiedCount;
             summaryFlushTime += lastFlushTime;
             
-            logger.debug("summary of metric messages flushed: " + flushedItemsCount + " items, flushing list is ready to be sent");
-        	logger.debug("flushing end");
-        	
+            if (verboseLogging) {
+            	logger.debug("Copied items: " + copiedCount + " in: " + lastFlushTime + "ms, flushingBuffer is ready to send data and clear");
+                logger.debug("Summary of metric messages flushed: " + flushedItemsCount + " items, flushing list is ready to be sent");
+	        	logger.debug("Flushing done");
+            }
+            
         	return flushingList;
         }
         
@@ -150,9 +157,10 @@ public abstract class AbstractMetricBuffer<M> {
          * @param flushingList
          */
         private void sendFlushingBuffer(List<T> flushingList) {
-        	logger.debug("sending " + flushCount + " starts...");
-        	logger.debug("sending items: " + flushingList.size());
-            
+        	if (verboseLogging) {
+	        	logger.debug("Sending no: " + flushCount + " starts... - items to send: " + flushingList.size());
+        	}
+        	
         	long t0 = System.currentTimeMillis();
 
         	// call to abstract method which in concrete implements specific sending functionality
@@ -167,7 +175,9 @@ public abstract class AbstractMetricBuffer<M> {
         	lastSendTime = System.currentTimeMillis() - t0;
         	summarySendTime += lastSendTime;
             
-        	logger.debug("sending end");
+        	if (verboseLogging) {
+        		logger.debug("Sending done");
+        	}
         }
         
         private void add(T t) {
@@ -177,7 +187,6 @@ public abstract class AbstractMetricBuffer<M> {
         		//logger.debug("adding item to buffer> " + t); // TODO this logging must be deleted
             	buffer.add(t);
         	}
-//        	lastAddTime = System.currentTimeMillis();
         }
         
     }
@@ -203,7 +212,7 @@ public abstract class AbstractMetricBuffer<M> {
      * finishing work with the class object.
      */
     public void flush() {
-        logger.debug("forced flush...");
+        logger.debug("Executing forced flush...");
         bufferingThread.flush();
     }
 
@@ -214,9 +223,10 @@ public abstract class AbstractMetricBuffer<M> {
      * It stops as soon as finishes one of three main procedures (waiting, flushing, sending). 
      */
     public void flushSendTerminate() {
-        logger.debug("forced flush and terminating buffering thread...");
+        logger.debug("Forced flush and terminating buffering thread...");
         bufferingThread.flushAndSend();
         bufferingThread.poisonPill = true; // soft way of bufferingThread.interrupt();
+        logger.debug("Poison pill has been sent to kill the buffering thread...");
     }
     
     public long getFlushCount() {
@@ -238,16 +248,30 @@ public abstract class AbstractMetricBuffer<M> {
      */
     public void setFlushingInterval(long flushingInterval) {
     	if (flushingInterval <= 0) {
-    		throw new RuntimeException("Flushing interfal can not be lower or equel to zero");
+    		throw new RuntimeException("Flushing interval can not be lower or equel to zero");
+    	}
+    	if (flushingInterval < 20) {
+    		logger.warn("Flushing interval can not be lower than 20ms, set value: " + flushingInterval + "ms - overridden to 20ms");
+    		flushingInterval = 20;
     	}
     	bufferingThread.flushingInterval = flushingInterval;
-    	if (flushingInterval <= 10) {
-    		logger.warn("Flushing interfal is very low, it is set to " + flushingInterval + "ms");
+    	logger.warn("Flushing interval has been set to " + flushingInterval + "ms");
+    	if (flushingInterval <= 100) {
+    		logger.warn("Flushing interval is very low, every " + flushingInterval + "ms buffer will execute <<send>> method.");
     	}
     }
     
     public long getFlushingInterval() {
     	return bufferingThread.flushingInterval;
     }
-    
+
+	public void setVerboseLogging(boolean verboseLogging) {
+		this.verboseLogging = verboseLogging;
+		logger.info("Verbose logging has been set to " + verboseLogging);
+	}
+
+	public boolean isVerboseLogging() {
+		return verboseLogging;
+	}
+
 }
