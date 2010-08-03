@@ -40,7 +40,7 @@ abstract class PassiveAgent extends Agent {
     }
     
     MetricMessage getBaseMetricMessageCopy() {
-        return (MetricMessage)baseMetricMessage.clone();
+        return (MetricMessage)baseMetricMessage.clone(); // XXX review this functionality
     }
     
     PassiveAgentJmxParamsBean getJmxParamsBean() {

@@ -1,10 +1,5 @@
 package org.allmon.common;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
@@ -12,6 +7,7 @@ import java.io.Writer;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
+
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
@@ -21,7 +17,7 @@ import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
  * by allmon client API, transformed (aggregated) and sent by allmon client to allmon server.
  * Allmon server decodes this object to RawMetric to persist this data in "raw" form in database.
  */
-public class MetricMessage implements Serializable {
+public class MetricMessage implements Serializable, Cloneable {
 
 	private final static String HOSTNAME = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_HOST_NAME);
     private final static String INSTANCE = AllmonPropertiesReader.getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_INSTANCE_NAME);
@@ -51,6 +47,8 @@ public class MetricMessage implements Serializable {
     private Object parameters; // TODO check if possible use List or Array!!!
     private Exception exception;
 
+    private Class<MetricMessageCumulatorMethod> cumulatorMethod;
+    
     /**
      * MetricMessage objects can be created only by MetricMessageFactory.
      */
@@ -256,33 +254,49 @@ public class MetricMessage implements Serializable {
         this.session = session;
     }
     
-    // TODO evaluate implementing deep cloning
     public MetricMessage clone() {
-        try {
-            return cloneX(this);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
+    	try {
+    		return (MetricMessage)super.clone();
+    	} catch (CloneNotSupportedException ce) {
+    		throw new RuntimeException(ce);
+    	}
     }
+
+	public Class<MetricMessageCumulatorMethod> getCumulatorMethod() {
+		return cumulatorMethod;
+	}
+
+	public void setCumulatorMethod(Class<MetricMessageCumulatorMethod> cumulatorMethod) {
+		this.cumulatorMethod = cumulatorMethod;
+	}
     
-    private static <T> T cloneX(T x) throws IOException, ClassNotFoundException {
-        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        ObjectOutputStream cout = new ObjectOutputStream(bout);
-        cout.writeObject(x);
-        byte[] bytes = bout.toByteArray();
-
-        ByteArrayInputStream bin = new ByteArrayInputStream(bytes);
-        ObjectInputStream cin = new ObjectInputStream(bin);
-
-        @SuppressWarnings("unchecked")
-        T clone = (T) cin.readObject();
-        return clone;
-    }
+//    // TODO evaluate implementing deep cloning
+//    public MetricMessage clone() {
+//        try {
+//            return cloneX(this); 
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+//    
+//    private static <T> T cloneX(T x) throws IOException, ClassNotFoundException {
+//        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+//        ObjectOutputStream cout = new ObjectOutputStream(bout);
+//        cout.writeObject(x);
+//        byte[] bytes = bout.toByteArray();
+//
+//        ByteArrayInputStream bin = new ByteArrayInputStream(bytes);
+//        ObjectInputStream cin = new ObjectInputStream(bin);
+//
+//        @SuppressWarnings("unchecked")
+//        T clone = (T) cin.readObject();
+//        return clone;
+//    }
 
     
 }

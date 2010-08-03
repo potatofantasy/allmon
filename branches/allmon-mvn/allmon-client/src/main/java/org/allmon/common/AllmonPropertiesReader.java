@@ -116,5 +116,13 @@ public class AllmonPropertiesReader {
         }
         return defaultValue;
     }
+    
+    public boolean getValueBoolean(String type, boolean defaultValue)  {
+    	String value = getValue(type);
+    	if (value != null && !"".equals(value)) {
+            return Boolean.parseBoolean(value);
+        }
+        return defaultValue;
+    }
         
 }
