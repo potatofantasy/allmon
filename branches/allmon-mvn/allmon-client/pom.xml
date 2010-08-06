@@ -43,6 +43,9 @@
 					<extraJvmArguments>
 						-Dlog4jallmon.properties.path=../etc/log4jallmon.properties
 						-Dallmon.properties.path=../etc/allmon.properties
+						-Dcom.sun.management.jmxremote.port=9999 
+						-Dcom.sun.management.jmxremote.authenticate=false 
+						-Dcom.sun.management.jmxremote.ssl=false
 					</extraJvmArguments>
 					
 					<!-- JVM settings 

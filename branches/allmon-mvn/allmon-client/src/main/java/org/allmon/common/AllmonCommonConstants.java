@@ -19,6 +19,8 @@ public class AllmonCommonConstants {
     public final static long ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL = getInstance().getValueInt("allmon.client.agent.metricbuffer.flushinginterval", 2000);
     public final static boolean ALLMON_CLIENT_AGENT_METRICBUFFER_VERBOSELOGGING = getInstance().getValueBoolean("allmon.client.agent.metricbuffer.verboselogging", false);
     
+    public final static boolean ALLMON_CLIENT_AGENT_JMXSERVERAGENT_VERBOSELOGGING = getInstance().getValueBoolean("allmon.client.agent.jmxserveragent.verboselogging", false);
+    
     // client agent proxy setting
     public final static boolean ALLMON_CLIENT_AGENT_PROXY_ACTIVE = Boolean.parseBoolean(getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_ACTIVE));
     public final static String ALLMON_CLIENT_AGENT_PROXY_HOST = getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_HOST);

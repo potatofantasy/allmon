@@ -106,11 +106,63 @@
             <xsd:extension base="beans:identifiedType">
                <xsd:attribute name="agentContextRef" type="xsd:string" use="required"/>
                <xsd:attribute name="cronExpression" type="xsd:string" use="required"/>
+               
                <xsd:attribute name="lvmNamesRegexp" type="xsd:string" use="required"/>
+               <xsd:attribute name="hostName" type="xsd:string" use="required"/>
+               <xsd:attribute name="port" type="xsd:integer" use="required"/>
+               
                <xsd:attribute name="mbeansAttributesNamesRegexp" type="xsd:string" use="required"/>
+               <xsd:attribute name="mbeansObjectName" type="xsd:string" use="required"/>
+               <xsd:attribute name="mbeansAttributeName" type="xsd:string" use="required"/>
+               <xsd:attribute name="mbeansAttributeKeyName" type="xsd:string" use="required"/>
             </xsd:extension>
          </xsd:complexContent>
       </xsd:complexType>
    </xsd:element>
-
+   
+   <!-- prototype -->
+   <!-- 
+   <xsd:attributeGroup name="scheduledActiveAgent">
+      <xsd:attribute name="agentContextRef" type="xsd:string" use="required"/>
+      <xsd:attribute name="cronExpression" type="xsd:string" use="required"/>         
+   </xsd:attributeGroup>
+   
+   <xsd:attributeGroup name="jmxSpecificMBeanServerConn">
+      <xsd:attribute name="host" type="xsd:string" use="required"/>
+      <xsd:attribute name="port" type="xsd:integer" use="required"/>         
+   </xsd:attributeGroup>
+   
+   <xsd:complexType name="mbeanServerConn">
+      <xsd:choice>
+         <xsd:attribute name="lvmNamesRegexp" type="xsd:string"/>
+         <xsd:attributeGroup ref="jmxSpecificMBeanServerConn"/>
+      </xsd:choice>
+   </xsd:complexType>            
+   
+   <xsd:attributeGroup name="jmxSpecificMBeanSearch">
+      <xsd:attribute name="mbeansObjectName" type="xsd:string" use="required"/>
+      <xsd:attribute name="mbeansAttributeName" type="xsd:string" use="required"/>
+      <xsd:attribute name="mbeansAttributeKeyName" type="xsd:string"/>
+   </xsd:attributeGroup>
+   
+   <xsd:complexType name="mbeanSearch">
+      <xsd:choice>
+         <xsd:attribute name="mbeansAttributesNamesRegexp" type="xsd:string"/>
+         <xsd:attributeGroup ref="jmxSpecificMBeanSearch"/>
+      </xsd:choice>
+   </xsd:complexType>
+   
+   <xsd:element name="jmxServerAgent2">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="beans:identifiedType">
+               <xsd:attributeGroup ref="scheduledActiveAgent" use="required"/>
+               <xsd:attributeGroup ref="mbeanServerConn" use="required"/>
+               <xsd:attributeGroup ref="mbeanSearch" use="required"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+   -->
+   
 </xsd:schema>
