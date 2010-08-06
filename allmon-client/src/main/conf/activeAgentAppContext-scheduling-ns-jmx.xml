@@ -13,13 +13,45 @@ http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/reso
 	<bean id="agentContext" class="org.allmon.client.agent.AgentContext"/>
 	
 	<allmon:active>
-		<!-- simple example -->
-		<allmon:jmxServerAgent id="wikipediaCheck" 
+		<!-- simple local example - - >
+		<allmon:jmxServerAgent id="jmxCheckLocal" 
 			agentContextRef="agentContext"
-			cronExpression="* * * * * ?" 
-			lvmNamesRegexp=".*" 
-			mbeansAttributesNamesRegexp=".*"
+			cronExpression="*/5 * * * * ?"
+			lvmNamesRegexp=".*AllmonActive.*"
+			hostName="" port="0"
+			
+			mbeansAttributesNamesRegexp=".*java.lang:type=Memory.*HeapMemoryUsage/used"
+			mbeansObjectName = ""
+            mbeansAttributeName = ""
+            mbeansAttributeKeyName = ""
 			/>
+		-->
+		<!-- simple local example - get specific object attribute -->
+		<allmon:jmxServerAgent id="jmxCheck" 
+			agentContextRef="agentContext"
+			cronExpression="*/5 * * * * ?"
+			lvmNamesRegexp=".*AllmonActive.*"
+			hostName="" port="0"
+			
+			mbeansAttributesNamesRegexp=""
+			mbeansObjectName = "java.lang:type=Memory"
+            mbeansAttributeName = "HeapMemoryUsage"
+            mbeansAttributeKeyName = "used"
+			/>
+		
+		<!-- simple remote example - - >
+		<allmon:jmxServerAgent id="jmxCheck" 
+			agentContextRef="agentContext"
+			cronExpression="*/5 * * * * ?"
+			lvmNamesRegexp=""
+			hostName="localhost" port="9999"
+			
+			mbeansAttributesNamesRegexp=".*java.lang:type=Memory.*HeapMemoryUsage/used"
+			mbeansObjectName = ""
+            mbeansAttributeName = ""
+            mbeansAttributeKeyName = ""
+			/>
+		-->	
 	</allmon:active>
 	
 </beans>

@@ -63,10 +63,10 @@ class AbstractAllmonAgentBeanDefinitionParser {
 		}
 	}
 
-	protected final String parsePropertyString(Element element, ParserContext parserContext, String attribute, boolean optional) {
+	protected final String parsePropertyString(Element element, ParserContext parserContext, String attribute, boolean optional, boolean nullable) {
 		if (element.hasAttribute(attribute)) {
 			String property = element.getAttribute(attribute);
-			if (!StringUtils.hasText(property)) {
+			if (!nullable && !StringUtils.hasText(property)) {
 				parserContext.getReaderContext().error(
 						"'"+attribute+"' attribute contains empty value.", element, parser.getParseState().snapshot());
 				return null;
@@ -83,8 +83,12 @@ class AbstractAllmonAgentBeanDefinitionParser {
 		}
 	}
 	
+	protected final String parsePropertyString(Element element, ParserContext parserContext, String attribute, boolean optional) {
+		return parsePropertyString(element, parserContext, attribute, optional, false);
+	}
+	
 	protected final String parsePropertyString(Element element, ParserContext parserContext, String attribute) {
-		return parsePropertyString(element, parserContext, attribute, false);
+		return parsePropertyString(element, parserContext, attribute, false, false);
 	}
 	
 }

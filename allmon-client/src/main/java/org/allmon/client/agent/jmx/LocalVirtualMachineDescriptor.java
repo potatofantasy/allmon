@@ -15,7 +15,7 @@ import com.sun.tools.attach.AttachNotSupportedException;
 import com.sun.tools.attach.VirtualMachine;
 import com.sun.tools.attach.VirtualMachineDescriptor;
 
-public class LocalVirtualMachineDescriptor {
+class LocalVirtualMachineDescriptor {
 
     private String address;
     private String commandLine;
@@ -29,7 +29,7 @@ public class LocalVirtualMachineDescriptor {
 
     private static final String PATH_MANAGEMENT_AGENT_JAR = "/lib/management-agent.jar";
 
-    private LocalVirtualMachineDescriptor(int vmid, String commandLine, boolean canAttach, String connectorAddress) {
+    LocalVirtualMachineDescriptor(int vmid, String commandLine, boolean canAttach, String connectorAddress) {
         this.vmid = vmid;
         this.commandLine = commandLine;
         this.address = connectorAddress;

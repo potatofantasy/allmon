@@ -179,8 +179,8 @@ public class MetricMessageFactory {
             String mbeanFullName, String mbeanAttributeName,
             double metricValue, Exception exception) {
         MetricMessage metricMessage = createJmxMessage(
-                jvmName.split(" ")[0] + ":id=" + jvmId, 
-                mbeanFullName, mbeanAttributeName, 
+                jvmName.split(" ")[0], // + ":id=" + jvmId,
+                mbeanFullName, mbeanAttributeName,
                 metricValue, exception);
         return metricMessage;
     }

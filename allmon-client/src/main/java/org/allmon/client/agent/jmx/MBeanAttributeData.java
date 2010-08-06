@@ -9,10 +9,12 @@ public class MBeanAttributeData {
     private String domainName;
     private String mbeanClass;
     private String mbeanName;
-    private String mbeanAttributeName;
+    private String mbeanAttributeName; // can contain also a key
     private double value = 0;
     
-    MBeanAttributeData(long jvmId, String jvmName, String domainName, String mbeanClass, String mbeanName, String mbeanAttributeName) {
+    MBeanAttributeData(long jvmId, String jvmName, 
+    		String domainName, String mbeanClass, String mbeanName, 
+    		String mbeanAttributeName) {
         this.jvmId = jvmId;
         this.jvmName = jvmName;
         this.domainName = domainName;
@@ -21,8 +23,22 @@ public class MBeanAttributeData {
         this.mbeanAttributeName = mbeanAttributeName;
     }
     
+    MBeanAttributeData(long jvmId, String jvmName, 
+    		String domainName, String mbeanClass, String mbeanName, 
+    		String mbeanAttributeName, String mbeanAttributeKeyName) {
+        this.jvmId = jvmId;
+        this.jvmName = jvmName;
+        this.domainName = domainName;
+        this.mbeanClass = mbeanClass;
+        this.mbeanName = mbeanName;
+        this.mbeanAttributeName = mbeanAttributeName + "/" + mbeanAttributeKeyName;
+    }
+    
     public String toString() {
-        return mbeanClass + ":" + mbeanName + ":" + mbeanAttributeName;
+        //return mbeanClass + ":" + mbeanName + ":" + mbeanAttributeName;
+    	return new StringBuffer().
+    		append(mbeanName).append("[").append(mbeanClass).append("]:").
+    		append(mbeanAttributeName).toString();
     }
     
     void setNumberValue(Object attribute) {

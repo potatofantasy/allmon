@@ -13,7 +13,7 @@ public class AllmonActiveAgentClientMain {
     }
     
 	public static final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-			new String[] { "classpath:activeAgentAppContext.xml" }); 
+			new String[] { "classpath:activeAgentAppContext.xml" }); // TODO set up the config file for -Dparam
 	
 	public static void main(String[] args) {
 
@@ -25,7 +25,7 @@ public class AllmonActiveAgentClientMain {
 		
 		System.out.println("starting job"); // TODO clean up the logging
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(30000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

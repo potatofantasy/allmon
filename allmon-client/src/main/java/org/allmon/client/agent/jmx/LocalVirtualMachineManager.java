@@ -18,12 +18,12 @@ import com.sun.tools.attach.VirtualMachineDescriptor;
  * which are running on the machine in a moment of execution the class constructor.
  * 
  */
-class LocalVirtualMachineManager {
+public class LocalVirtualMachineManager {
 
     private Map<Integer, LocalVirtualMachineDescriptor> vmMap = new HashMap<Integer, LocalVirtualMachineDescriptor>();
     private MonitoredHost host;
     
-    LocalVirtualMachineManager() {
+    public LocalVirtualMachineManager() {
         getMonitoredVirtualMachines();
         getAttachableVirtualMachines();
     }
