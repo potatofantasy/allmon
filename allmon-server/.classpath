@@ -1,6 +1,9 @@
 <classpath>
+  <classpathentry kind="src" path="src/test/java" output="target/test-classes" including="**/*.java"/>
   <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
-  <classpathentry kind="src" path="src/main/conf" excluding="**/*.java"/>
+  <classpathentry kind="src" path="src/main/resources" including="**/*.*" excluding="**/*.java"/>
+  <classpathentry kind="src" path="src/main/conf" output="target/etc" excluding="**/*.java"/>
+  <classpathentry kind="src" path="src/main/conf-dist" output="target/allmon-server-0.2.0-PA/etc" excluding="**/*.java"/>
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/javax/xml/bind/jaxb-api/2.1/jaxb-api-2.1.jar"/>
@@ -22,7 +25,7 @@
       <attribute value="jar:file:/C:/Documents%20and%20Settings/sikor/.m2/repository/org/apache/activemq/activemq-pool/5.2.0/activemq-pool-5.2.0-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
-  <classpathentry kind="src" path="/allmon-client"/>
+  <classpathentry kind="var" path="M2_REPO/org/allmon/allmon-client/0.2.0-PA/allmon-client-0.2.0-PA.jar"/>
   <classpathentry kind="var" path="M2_REPO/antlr/antlr/2.7.6/antlr-2.7.6.jar"/>
   <classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/asm/asm/1.5.3/asm-1.5.3.jar"/>
@@ -38,6 +41,7 @@
     </attributes>
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/backport-util-concurrent/backport-util-concurrent/2.1/backport-util-concurrent-2.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/c3p0/c3p0/0.9.0/c3p0-0.9.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/camel/camel-core/2.0-M2/camel-core-2.0-M2.jar">
     <attributes>
       <attribute value="jar:file:/C:/Documents%20and%20Settings/sikor/.m2/repository/org/apache/camel/camel-core/2.0-M2/camel-core-2.0-M2-javadoc.jar!/" name="javadoc_location"/>
@@ -84,7 +88,7 @@
   <classpathentry kind="var" path="M2_REPO/commons-pool/commons-pool/1.4/commons-pool-1.4.jar"/>
   <classpathentry kind="var" path="M2_REPO/cron4j/cron4j/2.2.2/cron4j-2.2.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/easymock/easymock/2.2/easymock-2.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/easymock/easymock/2.5.2/easymock-2.5.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/easymock/easymockclassextension/2.2.1/easymockclassextension-2.2.1.jar">
     <attributes>
       <attribute value="jar:file:/C:/Documents%20and%20Settings/sikor/.m2/repository/org/easymock/easymockclassextension/2.2.1/easymockclassextension-2.2.1-javadoc.jar!/" name="javadoc_location"/>
@@ -129,13 +133,15 @@
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/junit/junit/4.8.1/junit-4.8.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.15/log4j-1.2.15.jar"/>
+  <classpathentry kind="var" path="M2_REPO/ojdbc/ojdbc/14/ojdbc-14.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.4.2/slf4j-api-1.4.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-jdk14/1.4.2/slf4j-jdk14-1.4.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/snmp4j/snmp4j/1.8.2/snmp4j-1.8.2.jar">
     <attributes>
       <attribute value="jar:file:/C:/Documents%20and%20Settings/sikor/.m2/repository/org/snmp4j/snmp4j/1.8.2/snmp4j-1.8.2-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/org/springframework/spring/2.5.6/spring-2.5.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring/2.5.6/spring-2.5.6.jar" sourcepath="M2_REPO/org/springframework/spring/2.5.6/spring-2.5.6-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-aop/2.5.6/spring-aop-2.5.6.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-beans/2.5.5/spring-beans-2.5.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/2.5.6/spring-context-2.5.6.jar"/>
