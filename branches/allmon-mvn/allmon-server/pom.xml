@@ -40,7 +40,13 @@
 					<!-- prefix all bin files with allmon -->
 					<binPrefix>allmon</binPrefix>
 					<!-- Extra JVM arguments that will be included in the bin scripts -->
-					<!-- <extraJvmArguments>-Xms256m</extraJvmArguments> -->
+					<extraJvmArguments>
+						-Dlog4jallmon.properties.path=../etc/log4jallmon.properties
+						-Dallmon.properties.path=../etc/allmon.properties
+						-Dcom.sun.management.jmxremote.port=9997
+						-Dcom.sun.management.jmxremote.authenticate=false 
+						-Dcom.sun.management.jmxremote.ssl=false
+					</extraJvmArguments>
 					<!-- Generate bin scripts for windows and unix pr default -->
 					<programs>
 						<program>
@@ -48,6 +54,20 @@
 								org.allmon.server.loader.LoadAllmetricMain
 							</mainClass>
 							<name>allmon-server-allmetrics-loader</name>
+							<platforms>
+								<platform>unix</platform>
+								<platform>windows</platform>
+							</platforms>
+						</program>
+						<program>
+							<mainClass>
+								org.allmon.server.receiver.AggregatesReceiverMain
+							</mainClass>
+							<name>allmon-server-receiver</name>
+							<platforms>
+								<platform>unix</platform>
+								<platform>windows</platform>
+							</platforms>
 						</program>
 					</programs>
 					<platforms>
@@ -95,9 +115,26 @@
 			</plugin>
 		</plugins>
 		<resources>
+			<!-- internal application configuration -->
+			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath>.</targetPath>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+			<!-- external (changable) application configuration -->
+			<!-- for local/eclipse env -->
 			<resource>
 				<directory>src/main/conf</directory>
-				<targetPath>/etc/conf</targetPath>
+				<targetPath>../etc</targetPath>
+				<filtering>true</filtering>
+			</resource>
+			<!-- for distribution -->
+			<resource>
+				<directory>src/main/conf-dist</directory>
+				<targetPath>../${artifactId}-${allmon.version}/etc</targetPath>
 				<filtering>true</filtering>
 			</resource>
 		</resources>
@@ -216,5 +253,21 @@
 			<version>2.2.2</version>
 			<!-- <systemPath>../lib/cron4j-2.2.2.jar</systemPath> -->
 		</dependency>
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.0</version>
+		</dependency>
+		<dependency>
+			<groupId>ojdbc</groupId>
+			<artifactId>ojdbc</artifactId>
+			<version>14</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>1.4.2</version>
+		</dependency>
+
 	</dependencies>
 </project>

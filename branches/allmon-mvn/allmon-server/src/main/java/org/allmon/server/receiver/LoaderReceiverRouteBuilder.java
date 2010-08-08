@@ -17,6 +17,8 @@ public class LoaderReceiverRouteBuilder extends RouteBuilder {
     
     public void configure() {
         // receiving data from server-side queue
+    	// TODO XXX evaluate running loading (storeMetric) process in a separate thread(s)
+    	// TODO XXX many concurrent threads with this route should fasten loading process (especially for many independent metrics messages)
         from(AllmonCommonConstants.ALLMON_SERVER_CAMEL_QUEUE_READYFORLOADING).process(new Processor() {
             public void process(Exchange e) {
                 logger.debug(">>>>> Received exchange: " + e.getIn());

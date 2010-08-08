@@ -13,7 +13,8 @@ public class LoadRawMetric {
 
     private static final Log logger = LogFactory.getLog(LoadRawMetric.class);
     
-    private static final ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(new String[] { "org/allmon/server/loader/spring-hibernate.xml" });
+    private static final ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(
+    		new String[] { "classpath:META-INF/allmonReceiverAppContext-hibernate.xml" });
     
     public void storeMetric(MetricMessageWrapper metricMessageWrapper) {
         RawMetric2DAOImpl rawMetric2DAOImpl = (RawMetric2DAOImpl)appContext.getBean("rawMetric2DAOTarget");

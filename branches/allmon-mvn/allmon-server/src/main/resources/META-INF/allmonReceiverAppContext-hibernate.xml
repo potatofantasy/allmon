@@ -3,12 +3,12 @@
 <beans>
 
 	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-	  <property name="locations">
-	    <list>
-        <value>classpath:allmon.properties</value>
-	    </list>
-	  </property>
-	  <property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:allmon.properties</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
 	
 	<bean id="allmonDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
@@ -58,14 +58,14 @@
     <property name="preferedMetricsCountPerThread" value="${allmon.server.loader.preferedMetricsCountPerThread}" />
 	</bean>
 
-  <bean id="rawMetricLoadToAllmetricDAOTarget" class="org.allmon.server.loader.RawMetricLoadToAllmetricDAOImpl" >
-    <property name="sessionFactory">
-      <ref local="allmonSessionFactory" />
-    </property>
-    <property name="dataSource">
-      <ref local="allmonDataSource" />
-    </property>
-  </bean>
+	<bean id="rawMetricLoadToAllmetricDAOTarget" class="org.allmon.server.loader.RawMetricLoadToAllmetricDAOImpl" >
+		<property name="sessionFactory">
+			<ref local="allmonSessionFactory" />
+		</property>
+		<property name="dataSource">
+			<ref local="allmonDataSource" />
+		</property>
+	</bean>
 
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory">
