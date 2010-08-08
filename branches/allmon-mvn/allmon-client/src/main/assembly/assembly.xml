@@ -7,6 +7,13 @@
 	<formats>
 		<format>zip</format>
 	</formats>
+	<!--
+	<id>jar-with-dependencies</id>
+	<formats>
+	    <format>jar</format>
+	</formats>
+    -->
+	
 	<fileSets>
 		<fileSet>
 			<directory>${basedir}/target</directory>

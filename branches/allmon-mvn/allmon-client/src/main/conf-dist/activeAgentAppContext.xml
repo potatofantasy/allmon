@@ -8,7 +8,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://jax-ws.dev.java.net/spring/core http://jax-ws.dev.java.net/spring/core.xsd
 http://jax-ws.dev.java.net/spring/servlet http://jax-ws.dev.java.net/spring/servlet.xsd">
 
-	<!-- <import resource="activeAgentAppContext-systemConfig.xml" /> -->
-	<import resource="activeAgentAppContext-scheduling-ns.xml" />
-
+	<!-- <import resource="activeAgentAppContext-scheduling-ns-http.xml" /> -->
+	<import resource="activeAgentAppContext-scheduling-ns-jmx.xml" />
+	
 </beans>

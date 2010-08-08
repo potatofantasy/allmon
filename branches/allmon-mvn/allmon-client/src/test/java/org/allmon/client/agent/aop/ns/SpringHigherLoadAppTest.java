@@ -22,7 +22,7 @@ public class SpringHigherLoadAppTest extends AbstractLoadTest<HelloWorldImpl, Ob
     private static final Log logger = LogFactory.getLog(SpringHigherLoadAppTest.class);
     
     // stress test
-    private final static long THREADS_COUNT = 3;
+    private final static long THREADS_COUNT = 15;
     private final static long STARTING_TIME_MILLIS = 1 * 10;
     private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 0; //0 - no sleep
     private final static long SUBSEQUENT_CALLS_IN_THREAD = 2000;

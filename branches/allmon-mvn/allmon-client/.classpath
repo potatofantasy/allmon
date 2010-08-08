@@ -77,7 +77,7 @@
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-pool/commons-pool/1.4/commons-pool-1.4.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/easymock/easymock/2.2/easymock-2.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/easymock/easymock/2.5.2/easymock-2.5.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/easymock/easymockclassextension/2.2.1/easymockclassextension-2.2.1.jar">
     <attributes>
       <attribute value="jar:file:/C:/Documents%20and%20Settings/sikor/.m2/repository/org/easymock/easymockclassextension/2.2.1/easymockclassextension-2.2.1-javadoc.jar!/" name="javadoc_location"/>

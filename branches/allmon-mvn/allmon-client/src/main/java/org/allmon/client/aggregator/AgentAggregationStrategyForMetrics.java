@@ -1,5 +1,6 @@
 package org.allmon.client.aggregator;
 
+import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageWrapper;
 import org.apache.camel.Exchange;
@@ -12,6 +13,8 @@ class AgentAggregationStrategyForMetrics implements AggregationStrategy {
     
     private static final Log logger = LogFactory.getLog(AgentAggregationStrategyForMetrics.class);
     
+    private boolean verboseLogging = AllmonCommonConstants.ALLMON_CLIENT_AGGREGATOR_VERBOSELOGGING;
+        
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
         Message newIn = newExchange.getIn();
         
@@ -76,7 +79,9 @@ class AgentAggregationStrategyForMetrics implements AggregationStrategy {
             throw new RuntimeException("The newExchange Message cannot be null");
         }
         
-//        logger.debug("]]]]]]] MyAggregationStrategy - newBody = " + newIn.getBody().toString());
+        if (verboseLogging) {
+        	logger.debug("]]]]]]] MyAggregationStrategy - newBody = " + newIn.getBody().toString());
+        }
         return newExchange;
     }
 
