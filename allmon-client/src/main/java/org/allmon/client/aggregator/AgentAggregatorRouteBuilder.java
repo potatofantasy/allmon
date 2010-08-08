@@ -19,6 +19,8 @@ class AgentAggregatorRouteBuilder extends RouteBuilder {
 
     private static Log logger = LogFactory.getLog(AgentAggregatorRouteBuilder.class);
     
+    private boolean verboseLogging = AllmonCommonConstants.ALLMON_CLIENT_AGGREGATOR_VERBOSELOGGING;
+    
     public void configure() {
         logger.debug(AllmonLoggerConstants.ENTERED);
         
@@ -50,7 +52,9 @@ class AgentAggregatorRouteBuilder extends RouteBuilder {
 //            }
 //        });
         
-        logger.debug(AllmonLoggerConstants.EXITED);
+        if (verboseLogging) {
+        	logger.debug(AllmonLoggerConstants.EXITED);
+        }
     }
     
 }

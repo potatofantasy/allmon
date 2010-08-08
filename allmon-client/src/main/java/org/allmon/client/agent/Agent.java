@@ -19,7 +19,7 @@ abstract class Agent {
     }
     
     protected static ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-    		new String[] { "classpath:allmonAgentAppContext-jmx.xml" });
+    		new String[] { "classpath:META-INF/allmonAgentAppContext-jmx-management.xml" });
     
     private final AgentContext agentContext;
     

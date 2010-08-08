@@ -14,21 +14,23 @@ public class AllmonCommonConstants {
     
     
     // settings for agents
-    
     // metric buffer settings
     public final static long ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL = getInstance().getValueInt("allmon.client.agent.metricbuffer.flushinginterval", 2000);
     public final static boolean ALLMON_CLIENT_AGENT_METRICBUFFER_VERBOSELOGGING = getInstance().getValueBoolean("allmon.client.agent.metricbuffer.verboselogging", false);
-    
-    public final static boolean ALLMON_CLIENT_AGENT_JMXSERVERAGENT_VERBOSELOGGING = getInstance().getValueBoolean("allmon.client.agent.jmxserveragent.verboselogging", false);
-    
+  
     // client agent proxy setting
     public final static boolean ALLMON_CLIENT_AGENT_PROXY_ACTIVE = Boolean.parseBoolean(getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_ACTIVE));
     public final static String ALLMON_CLIENT_AGENT_PROXY_HOST = getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_HOST);
     public final static String ALLMON_CLIENT_AGENT_PROXY_PORT = getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_PORT);
     public final static String ALLMON_CLIENT_AGENT_PROXY_USERNAME = getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_USERNAME);
     public final static String ALLMON_CLIENT_AGENT_PROXY_PASSWORD = getInstance().getValue(AllmonPropertiesConstants.ALLMON_CLIENT_AGENT_PROXY_PASSWORD);
+
+    // client active agent 
+    public final static String ALLMON_CLIENT_AGENT_ACTIVEAGENT_APPCONTEXT_CONF_FILENAME = getInstance().getValue("allmon.client.agent.activeagent.appcontext.conf.filename", "activeAgentAppContext.xml");
+
+    public final static boolean ALLMON_CLIENT_AGENT_JMXSERVERAGENT_VERBOSELOGGING = getInstance().getValueBoolean("allmon.client.agent.jmxserveragent.verboselogging", false);
     
-    // client agent advices
+    // client passive agent advices
     public final static boolean ALLMON_CLIENT_AGENT_ADVICES_VERBOSELOGGING = getInstance().getValueBoolean("org.allmon.client.agent.advices.allmonadvice.verboseLogging", false);
     public final static boolean ALLMON_CLIENT_AGENT_ADVICES_ACQUIREPARAMETERS = getInstance().getValueBoolean("org.allmon.client.agent.advices.allmonadvice.acquireCallParameters", false);
     public final static boolean ALLMON_CLIENT_AGENT_ADVICES_FINDCALLER = getInstance().getValueBoolean("org.allmon.client.agent.advices.allmonadvice.findCaller", false);
@@ -53,6 +55,7 @@ public class AllmonCommonConstants {
     public final static String ALLMON_SERVER_CAMEL_QUEUE_READYFORLOADING = ALLMON_CAMEL_JMSQUEUE + ":queue:" + SERVER_BROKER_QUEUE_SUBJECT_READYFORLOADING;
     
     // for aggregator
+    public final static boolean ALLMON_CLIENT_AGGREGATOR_VERBOSELOGGING = getInstance().getValueBoolean("allmon.client.aggregator.verboselogging", false);
     public final static int ALLMON_CLIENT_AGGREGATOR_BATCHSIZE = getInstance().getValueInt(AllmonPropertiesConstants.ALLMON_CLIENT_AGGREGATOR_BATCHSIZE, 100);
     public final static long ALLMON_CLIENT_AGGREGATOR_BATCHTIMEOUT = getInstance().getValueInt(AllmonPropertiesConstants.ALLMON_CLIENT_AGGREGATOR_BATCHTIMEOUT, 10 * 1000);
     

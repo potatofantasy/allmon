@@ -32,15 +32,17 @@ http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/reso
 			checkName="www.google.com-Checker"
 			instanceName="google-checker"
 			
-			strategy="org.allmon.client.agent.HttpUrlCallAgentFullResponseTimeStrategy"
 			contentType="text/html"
 			checkingHost="www.google.com"
 			useProxy="false"
+			
+			strategy="org.allmon.client.agent.HttpUrlCallAgentFullResponseTimeStrategy"
 			/>
 		<!-- 
 			urlParameters="-"
 			requestMethod="GET"
 		-->
+	
 	</allmon:active>
 	
 </beans>
