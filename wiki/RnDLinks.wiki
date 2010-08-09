@@ -84,15 +84,15 @@
     * Free statistics software - http://www.freestatistics.info/
 
 
-  * Instrumentation
+  * Instrumentation (technology)
     * Java Instrumentation - http://java.sun.com/j2se/1.5.0/docs/api/java/lang/instrument/Instrumentation.html
     * AOP
-      * AspectJ - 
+      * AspectJ - http://www.eclipse.org/aspectj/
       * Spring-AOP - http://static.springsource.org/spring/docs/2.5.x/reference/aop.html
         * Spring 2.0 offers excellent user-friendly AOP - http://www.javaworld.com/javaworld/jw-01-2007/jw-0105-aop.html
           * Custom namespaces in spring - http://www.theserverside.com/news/1364131/Authoring-Custom-Namespaces-in-Spring-20 
           * Extensible XML authoring - http://static.springsource.org/spring/docs/2.0.x/reference/extensible-xml.html
-      * Werkz - 
+      * AspectWerkz - http://aspectwerkz.codehaus.org/
     * AOP performance benchmark - http://docs.codehaus.org/display/AW/AOP+Benchmark
 
 
