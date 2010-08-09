@@ -11,12 +11,11 @@
 
 
   * General
-    * "Build your own profiling tool - Create an ideal profiler using the Java 5 agent interface and AOP" - http://www.ibm.com/developerworks/java/library/j-jip/
+    * "Build your own profiling tool - Create an ideal profiler using the Java 5 agent interface and AOP" (i.e. tracking call stack and thread information) - http://www.ibm.com/developerworks/java/library/j-jip/
     * Java run-time monitoring (by Nicholas Whitehead (whitehead.nicholas@gmail.com), Senior Technology Architect, ADP):
       * Part1: Run-time performance and availability monitoring for Java systems (Techniques and patterns) - http://www.ibm.com/developerworks/library/j-rtm1/index.html
       * Part2: Postcompilation instrumentation and performance monitoring (Interception, class wrapping, and bytecode instrumentation) - http://www.ibm.com/developerworks/library/j-rtm2/index.html
       * Part3: Monitoring performance and availability of an application's ecosystem (Monitoring hosts, databases, and messaging; management and visualization of performance data) - http://www.ibm.com/developerworks/library/j-rtm3/index.html
-    * Build your own profiling tool (i.e. tracking call stack and thread information) - http://www.ibm.com/developerworks/java/library/j-jip/
     * AOP@Work: Performance monitoring with AspectJ, Part 1 - A look inside the Glassbox Inspector with AspectJ and JMX - http://www.ibm.com/developerworks/java/library/j-aopwork10/
 
     
