@@ -2,9 +2,7 @@ package org.allmon.client.agent.advices;
 
 import org.allmon.client.agent.AgentContext;
 import org.allmon.client.agent.JavaCallAgent;
-import org.allmon.client.agent.advices.AbstractJavaCallAdvice.Caller;
 import org.allmon.common.MetricMessage;
-import org.allmon.common.MetricMessageFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
@@ -12,7 +10,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
 /**
@@ -67,7 +64,7 @@ public abstract class AspectJJavaCallAdvice extends AbstractJavaCallAdvice {
 		try {
 			MetricMessage metricMessage = createMetricMessage((JoinPoint)jp);
 			agent = new JavaCallAgent(agentContext, metricMessage);
-	        agent.exitPoint(new Exception(th)); // TODO move to pure Throwable
+	        agent.exitPoint(th);
     	} catch (Throwable t) {
     	}
 	}

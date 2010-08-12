@@ -10,30 +10,72 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.allmon.client.agent.AgentContext;
 import org.allmon.client.agent.JavaCallAgent;
+import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 
 /**
- * This is servlet filter implementation used to gather run-time metrics.
+ * This is servlet filter implementation is used to gather selected servlets run-time metrics.
  * 
- *    <init-param>
- *         <param-name>org.allmon.client.agent.advices.HttpServletCallFilter.filterName</param-name>
- *         <param-value>ExampleFilter1</param-value>
- *    </init-param>
- *	  <init-param>
- *         <param-name>org.allmon.client.agent.advices.HttpServletCallFilter.userAttributeKey</param-name>
- *         <param-value>UserID</param-value>
- *    </init-param>
+ * Filter parameters:
+ * - filterName - filter name identifies the filter definition in metrics data, can be also seen in logging 
+ * - sessionUserAttributeKey - a key string which points at user data object stored in http session (by default name/id is acquired by calling toString() method)
+ * - serializeUserObject - if true taken from session user object will be serialized in JSON format, otherwise to get user details method toString will be called on the object
+ * - captureRequest - this flag defines weather request object will be stored in metric data or not
+ * 
+ * Below snippet from /WEB-INF/web.xml file contains an example of a monitoring filter 
+ * which captures all elements (all urls) of a web application.
+ * 
+ *    <filter>
+ *        <filter-name>PerformanceMonitoringFilter</filter-name>
+ *        <filter-class>org.allmon.client.agent.advices.HttpServletCallFilter</filter-class>
+ *        <init-param>
+ *            <param-name>org.allmon.client.agent.advices.HttpServletCallFilter.filterName</param-name>
+ *            <param-value>ExampleFilter1</param-value>
+ *        </init-param>
+ *        <init-param>
+ *	        <param-name>org.allmon.client.agent.advices.HttpServletCallFilter.sessionUserAttributeKey</param-name>
+ *	        <param-value></param-value>
+ *        </init-param>
+ *        <init-param>
+ *	        <param-name>org.allmon.client.agent.advices.HttpServletCallFilter.serializeUserObject</param-name>
+ *	        <param-value>true</param-value>
+ *        </init-param>
+ *        <init-param>
+ *	        <param-name>org.allmon.client.agent.advices.HttpServletCallFilter.captureRequest</param-name>
+ *	        <param-value>true</param-value>
+ *        </init-param>
+ *    </filter>
+ *    <filter-mapping>
+ *        <filter-name>PerformanceMonitoringFilter</filter-name>
+ *        <url-pattern>*</url-pattern>
+ *    </filter-mapping>
  * 
  */
-public class HttpServletCallFilter implements Filter { // TODO review: extends AllmonAdvice 
+public class HttpServletCallFilter implements Filter {
 
+	private static final Log logger = LogFactory.getLog(HttpServletCallFilter.class);
+		
+//	private boolean verboseMode = AllmonCommonConstants.ALLMON_CLIENT_AGENT_ADVICES_VERBOSELOGGING;
+	private boolean acquireCallParameters = AllmonCommonConstants.ALLMON_CLIENT_AGENT_ADVICES_ACQUIREPARAMETERS;
+//	private boolean findCaller = AllmonCommonConstants.ALLMON_CLIENT_AGENT_ADVICES_FINDCALLER;
+		
     private FilterConfig filterConfig;
     
     private AgentContext agentContext;
 
     private String filterName;
-    private String userAttributeKey;
+    private String sessionUserAttributeKey;
+    private boolean serializeUserObject;
+    private boolean captureRequest;
+    
+    private static final XStream XSTREAM = new XStream(new JsonHierarchicalStreamDriver()); //new JettisonDriver());
+    
 	    
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
@@ -41,7 +83,11 @@ public class HttpServletCallFilter implements Filter { // TODO review: extends A
         agentContext = new AgentContext();
         // set filter parameters
         filterName = filterConfig.getInitParameter(getClass().getName() + ".filterName");
-        userAttributeKey = filterConfig.getInitParameter(getClass().getName() + ".userAttributeKey");
+        sessionUserAttributeKey = filterConfig.getInitParameter(getClass().getName() + ".sessionUserAttributeKey");
+        serializeUserObject = Boolean.getBoolean(filterConfig.getInitParameter(getClass().getName() + ".serializeUserObject"));
+        captureRequest = Boolean.getBoolean(filterConfig.getInitParameter(getClass().getName() + ".captureRequest"));
+        
+        logger.info("HttpServletCallFilter has been initialized; name: " + filterName + ", sessionUserAttributeKey: " + sessionUserAttributeKey + ", captureRequest: " + captureRequest);
     }
 
     public void destroy() {
@@ -53,37 +99,48 @@ public class HttpServletCallFilter implements Filter { // TODO review: extends A
             throws ServletException {
         if (filterConfig == null)
             return;
-
-        // TODO finish acquiring user id from session
-        // - attribute key name is needed passed by filter parameter
+        
+        // get user id from session
         String user = "";
-        if (!"".equals(userAttributeKey)) {
+        if (!"".equals(sessionUserAttributeKey)) {
         	try {
-        		user = ((HttpServletRequest)request).getSession().getAttribute(userAttributeKey).toString(); 
+        		Object userObject = ((HttpServletRequest)request).getSession().getAttribute(sessionUserAttributeKey);
+        		if (serializeUserObject) {
+        			user = XSTREAM.toXML(userObject);
+        		} else {
+            		user = userObject.toString(); 
+        		}
         	} catch (Exception ex) {
         		user = "user-not-found";
         	}
         }
         
-        // start 
+        // create a metric message
         MetricMessage message = MetricMessageFactory.createServletMessage(
-        		filterName, (HttpServletRequest) request, user);
-
+        		filterName, (HttpServletRequest)request, user);
+        
+        // get request object as a set of the call parameters
+        if (acquireCallParameters && captureRequest) {
+        	// ServletReques is not serializable so it will be converted to json strings 
+            // before it can be sent further
+        	message.setParameters(request);
+        }
+        
         JavaCallAgent agent = new JavaCallAgent(agentContext, message);
         agent.entryPoint();
-
-        Exception e = null;
+        
+        Throwable t = null;
 		try {
             chain.doFilter(request, response);
 
-            // TODO log responses codes
+            // TODO evaluate storing responses codes
             
             // TODO log http errors codes
             
-        } catch (Exception ex) {
-            e = ex;
+        } catch (Throwable th) {
+            t = th;
         } finally {
-        	agent.exitPoint(e);
+        	agent.exitPoint(t);
         }
         
     }

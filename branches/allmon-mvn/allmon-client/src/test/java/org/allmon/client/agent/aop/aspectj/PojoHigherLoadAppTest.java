@@ -1,8 +1,8 @@
 package org.allmon.client.agent.aop.aspectj;
 
 import org.allmon.client.agent.aop.HelloWorldImpl;
-import org.allmon.common.AbstractLoadTest;
 import org.allmon.common.AllmonPropertiesReader;
+import org.allmon.common.loadtest.AbstractLoadTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

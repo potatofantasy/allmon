@@ -100,7 +100,7 @@ class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
     			if (isVerboseLogging()) {
     				logger.debug("Sending " + messageWrapper.size() + " metrics in one wrapper object");
                 }
-    			MessageSender messageSender = new MessageSender(agentContext.getCf());
+    			MessageSender messageSender = new MessageSender();
                 messageSender.sendMessage(messageWrapper);
             } else {
                 // TODO is it enough?

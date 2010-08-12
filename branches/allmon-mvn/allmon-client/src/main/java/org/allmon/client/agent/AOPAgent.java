@@ -31,10 +31,10 @@ public class AOPAgent extends PassiveAgent {
 		} finally {
 			long durationTime = System.currentTimeMillis() - timeStarted;
 
-			MetricMessage metricMessage = MetricMessageFactory.createClassMessage(pjp.getTarget().getClass().getSimpleName(), 
-					pjp.getSignature().getName(), null, null, durationTime);
-
-			addMetricMessage(metricMessage);
+//			MetricMessage metricMessage = MetricMessageFactory.createClassMessage(pjp.getTarget().getClass().getSimpleName(), 
+//					pjp.getSignature().getName(), null, null, durationTime);
+//
+//			addMetricMessage(metricMessage);
 		}
 	}
 

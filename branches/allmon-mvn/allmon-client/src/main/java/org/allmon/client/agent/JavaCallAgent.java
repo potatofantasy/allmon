@@ -22,8 +22,8 @@ public class JavaCallAgent extends PassiveAgent {
         getMetricMessageSender().insertNextPoint();
     }
 
-    public void exitPoint(Exception exception) {
-        getMetricMessageSender().insertNextPoint(AllmonCommonConstants.METRIC_POINT_EXIT, exception);
+    public void exitPoint(Throwable throwable) {
+        getMetricMessageSender().insertNextPoint(AllmonCommonConstants.METRIC_POINT_EXIT, throwable);
     }
 
 }

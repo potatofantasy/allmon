@@ -40,7 +40,7 @@ public abstract class AbstractJavaCallAdvice extends AllmonAdvice {
 				logger.debug(getName() + " >>> after method call");
 			}
 			if (agent != null) {
-				agent.exitPoint(new Exception(t)); // TODO move to Throwable 
+				agent.exitPoint(t);
 			}
 		}
 	}
@@ -59,7 +59,7 @@ public abstract class AbstractJavaCallAdvice extends AllmonAdvice {
 		}
 		
 		MetricMessage metricMessage = MetricMessageFactory.createClassMessage(
-                className, methodName, caller.className, caller.methodName, 0); // TODO review duration time param
+                className, methodName, caller.className, caller.methodName);
 		
 		// acquiring call parameters
 		if (isAcquireCallParameters()) {

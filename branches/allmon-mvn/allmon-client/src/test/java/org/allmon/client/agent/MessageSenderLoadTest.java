@@ -1,11 +1,11 @@
 package org.allmon.client.agent;
 
-import org.allmon.common.AbstractLoadTest;
-import org.allmon.common.AllmonActiveMQConnectionFactory;
 import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.AllmonPropertiesReader;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory4Test;
+import org.allmon.common.MetricMessageWrapper;
+import org.allmon.common.loadtest.AbstractLoadTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -21,9 +21,9 @@ public class MessageSenderLoadTest extends AbstractLoadTest<MessageSender, Objec
     private static final Log logger = LogFactory.getLog(MessageSenderLoadTest.class);
     
     // stress test
-    private final static long THREADS_COUNT = 10; // TODO find out WHY above 5 for 500 calls - sending messages process hangs!!!
+    private final static long THREADS_COUNT = 15;
     private final static long STARTING_TIME_MILLIS = 1 * 1000;
-    private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 100;
+    private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 10;
     private final static long SUBSEQUENT_CALLS_IN_THREAD = 1000;
     // soak test - around 20min
 //    private final static long THREADS_COUNT = 50;
@@ -34,19 +34,23 @@ public class MessageSenderLoadTest extends AbstractLoadTest<MessageSender, Objec
     public void testMain() throws InterruptedException {
         runLoadTest(THREADS_COUNT, 
                 STARTING_TIME_MILLIS, SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX, 
-                SUBSEQUENT_CALLS_IN_THREAD, 10000);
+                SUBSEQUENT_CALLS_IN_THREAD, 10);
+        logger.debug("Finished.");
     }
     
     public MessageSender initialize() {
-        MessageSender messageSender = new MessageSender(AllmonActiveMQConnectionFactory.client());
+        MessageSender messageSender = new MessageSender();
         return messageSender;
     }
     
     public Object preCall(int thread, int iteration, MessageSender messageSender) {
         MetricMessage metricMessage = MetricMessageFactory4Test.createClassMessage(
-                "className" + iteration, "methodName", "classNameX", "methodNameX", 1);
+                "className" + iteration, "methodName", "classNameX", "methodNameX");
         metricMessage.setPoint(AllmonCommonConstants.METRIC_POINT_ENTRY);
-        messageSender.sendMessage(metricMessage);
+        MetricMessageWrapper messageWrapper = new MetricMessageWrapper();
+        messageWrapper.add(metricMessage);
+        //messageSender.sendMessage(metricMessage);
+        messageSender.sendMessage(messageWrapper);
         return null;
     }
     
