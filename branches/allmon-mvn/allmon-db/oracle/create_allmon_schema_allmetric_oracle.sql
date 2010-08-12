@@ -62,7 +62,7 @@ DROP SEQUENCE am_rsc_seq;
 DROP SEQUENCE am_src_seq;
 DROP SEQUENCE am_rme_seq;
 -- drop fact table
-DROP TABLE am_metricsparamsexc
+DROP TABLE am_metricsparamsexc;
 DROP TABLE am_metricsdata;
 
 -- drop raw metrics data table
@@ -197,10 +197,11 @@ CREATE TABLE am_raw_metric (
   metrictypecode VARCHAR2(100),
   resourcename   VARCHAR2(1000),
   sourcename     VARCHAR2(1000),
+  sessionname    VARCHAR2(1000),
   ts             DATE NOT NULL,
   entrypoint     VARCHAR2(10) NOT NULL,
-  parametersbody VARCHAR2(1000),
-  exceptionbody  VARCHAR2(1000)
+  parametersbody VARCHAR2(4000),
+  exceptionbody  VARCHAR2(4000)
   --CONSTRAINT am_rme_pk PRIMARY KEY (am_rme_id) --USING INDEX
 );
 COMMENT ON TABLE am_raw_metric IS 'contains raw metrics data, freshly loaded to the database, before decomposition and loading allmetrics schema';
@@ -212,6 +213,7 @@ CREATE INDEX am_rme_am_ins_idx1 ON am_raw_metric(instancename);
 CREATE INDEX am_rme_am_mty_idx1 ON am_raw_metric(metrictypecode); 
 CREATE INDEX am_rme_am_rsc_idx1 ON am_raw_metric(resourcename);
 CREATE INDEX am_rme_am_src_idx1 ON am_raw_metric(sourcename);
+CREATE INDEX am_rme_am_ses_idx1 ON am_raw_metric(sessionname);
 CREATE INDEX am_rme_am_ts_idx1 ON am_raw_metric(ts);
 ALTER TABLE am_raw_metric ADD CONSTRAINT am_rme_pk PRIMARY KEY (AM_RME_ID) USING INDEX;
 
@@ -338,7 +340,7 @@ SELECT arm.am_rme_id, arm.artifactcode, arm.hostname, arm.hostip,
        arm.instancename, arm.metrictypecode, arm.resourcename, arm.sourcename, arm.metricvalue, 
        arm.ts,
        to_char(arm.ts, 'YYYY') AS YEAR, to_char(arm.ts, 'MM') AS month, to_char(arm.ts, 'DD') AS day, to_char(arm.ts, 'D') AS week_day, to_char(arm.ts, 'DDD') AS year_day, to_char(arm.ts, 'Q') AS quarter, to_char(arm.ts, 'WW') AS week_of_year, to_char(arm.ts, 'HH24') AS hour, to_char(arm.ts, 'MI') AS minute,
-       arm.entrypoint, arm.parametersbody, arm.exceptionbody, arm.exception, arm.PARAMETERS
+       arm.entrypoint, arm.parametersbody, arm.exceptionbody
 FROM   am_raw_metric arm;
 
 -------------------------------------------------------------------------------------------------------------------------
@@ -556,3 +558,4 @@ SELECT 'am_metricsdata', COUNT(*) FROM am_metricsdata
 UNION ALL
 SELECT 'vam_metricsdata_cal', COUNT(*) FROM vam_metricsdata_cal;
 */
+
