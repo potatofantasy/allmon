@@ -168,6 +168,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.allmon</groupId>
+			<artifactId>allmon-common</artifactId>
+			<version>${allmon.version}</version>
+		</dependency>
+	
+		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>
 			<version>${camel.version}</version>

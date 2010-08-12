@@ -4,7 +4,7 @@
   <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
   <classpathentry kind="src" path="src/main/resources" including="**/*.*" excluding="**/*.java"/>
   <classpathentry kind="src" path="src/main/conf" output="target/etc" excluding="**/*.java"/>
-  <classpathentry kind="src" path="src/main/conf-dist" output="target/allmon-client-0.2.0-PA/etc" excluding="**/*.java"/>
+  <classpathentry kind="src" path="src/main/conf-dist" output="target/allmon-client-0.2.1-PA/etc" excluding="**/*.java"/>
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/javax/xml/bind/jaxb-api/2.1/jaxb-api-2.1.jar"/>
@@ -25,6 +25,7 @@
       <attribute value="jar:file:/C:/Documents%20and%20Settings/sikor/.m2/repository/org/apache/activemq/activemq-pool/5.2.0/activemq-pool-5.2.0-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
+  <classpathentry kind="src" path="/allmon-common"/>
   <classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/aspectj/aspectjrt/1.6.1/aspectjrt-1.6.1.jar">
     <attributes>
