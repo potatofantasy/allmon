@@ -1,8 +1,8 @@
 package org.allmon.server.loader;
 
-import org.allmon.common.AbstractLoadTest;
 import org.allmon.common.MetricMessageFactory;
 import org.allmon.common.MetricMessageWrapper;
+import org.allmon.common.loadtest.AbstractLoadTest;
 
 public class LoadRawMetricLoadTest extends AbstractLoadTest<LoadRawMetric, Object> {
 
@@ -23,7 +23,7 @@ public class LoadRawMetricLoadTest extends AbstractLoadTest<LoadRawMetric, Objec
         MetricMessageWrapper metricMessageWrapper = new MetricMessageWrapper();
         for (int i = 0; i < METRICS_COUNT; i++) {
             metricMessageWrapper.add(MetricMessageFactory.createClassMessage(
-                            "classNameCalled", "methodNameCalled", "classNameCalling", "methodNameCalling", 0));
+                            "classNameCalled", "methodNameCalled", "classNameCalling", "methodNameCalling"));
         }
         
         loadRawMetric.storeMetric(metricMessageWrapper);

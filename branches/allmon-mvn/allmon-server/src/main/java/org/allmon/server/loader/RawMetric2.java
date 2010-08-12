@@ -11,9 +11,13 @@ import javax.persistence.SequenceGenerator;
 
 @Entity(name = "AM_RAW_METRIC")
 public class RawMetric2 implements Serializable {
-
-    private static final int PARAMETERS_FIELD_LENGTH = 1000;
-    private static final int EXCEPTION_FIELD_LENGTH = 1000;
+	
+	private static final int RESOURCE_FIELD_LENGTH = 1000;
+	private static final int SOURCE_FIELD_LENGTH = 1000;
+	private static final int SESSION_FIELD_LENGTH = 1000;
+    
+    private static final int PARAMETERS_FIELD_LENGTH = 4000;
+    private static final int EXCEPTION_FIELD_LENGTH = 4000;
     
 	private Long id = new Long(-1);
     
@@ -30,6 +34,8 @@ public class RawMetric2 implements Serializable {
 	private String resource;
 	
 	private String source;
+	
+	private String session;
 	
 	private Double metric;
 	
@@ -118,7 +124,7 @@ public class RawMetric2 implements Serializable {
 		this.metricType = metricType;
 	}
 
-	@Column(name="RESOURCENAME", nullable=true, length=1000)
+	@Column(name="RESOURCENAME", nullable=true, length=RESOURCE_FIELD_LENGTH)
     public String getResource() {
 		return resource;
 	}
@@ -127,7 +133,7 @@ public class RawMetric2 implements Serializable {
 		this.resource = resource;
 	}
 
-	@Column(name="SOURCENAME", nullable=true, length=1000)
+	@Column(name="SOURCENAME", nullable=true, length=SOURCE_FIELD_LENGTH)
     public String getSource() {
 		return source;
 	}
@@ -136,6 +142,15 @@ public class RawMetric2 implements Serializable {
 		this.source = source;
 	}
 
+	@Column(name="SESSIONNAME", nullable=true, length=SESSION_FIELD_LENGTH)
+    public String getSession() {
+		return session;
+	}
+
+	public void setSession(String session) {
+		this.session = session;
+	}
+	
 	@Column(name="METRICVALUE", nullable=false, length=16, precision=6)
     public Double getMetric() {
 		return metric;

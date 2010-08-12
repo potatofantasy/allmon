@@ -15,7 +15,7 @@ public class LoadRawMetricTest extends TestCase {
     public void testStoreMetrics() {
         MetricMessageWrapper metricMessageWrapper = new MetricMessageWrapper(
                 MetricMessageFactory.createClassMessage(
-                        "classNameCalled", "methodNameCalled", "classNameCalling", "methodNameCalling", 0));
+                        "classNameCalled", "methodNameCalled", "classNameCalling", "methodNameCalling"));
 
         LoadRawMetric loadRawMetric = new LoadRawMetric();
         loadRawMetric.storeMetric(metricMessageWrapper);

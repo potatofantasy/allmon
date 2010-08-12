@@ -41,6 +41,7 @@ public class AggregatesReceiverMain {
         context.addComponent(AllmonCommonConstants.ALLMON_CAMEL_JMSQUEUE, JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));
         context.addRoutes(new LoaderReceiverRouteBuilder());
         context.start();
+        logger.debug("Camel context has been started");
         
         logger.debug(AllmonLoggerConstants.EXITED);
     }

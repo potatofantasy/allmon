@@ -30,7 +30,7 @@ public class MetricMessageConverter {
 				metricMessage.getEventTime(),
 				metricMessage.getPoint(),
 				metricMessage.getParametersString(),
-				metricMessage.getExceptionString());
+				metricMessage.getThrowableString());
 		return rawMetric;
 	}
 	

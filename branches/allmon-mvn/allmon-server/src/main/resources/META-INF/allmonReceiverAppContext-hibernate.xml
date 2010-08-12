@@ -14,12 +14,12 @@
 	<bean id="allmonDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="${allmon.server.db.driverClassName}" />
 		<property name="jdbcUrl" value="${allmon.server.db.url}" />
-    <property name="user" value="${allmon.server.db.username}" />
-    <property name="password" value="${allmon.server.db.password}" />
-    <property name="minPoolSize" value="${allmon.server.db.hibernate.c3p0.minPoolSize}" />
-    <property name="maxPoolSize" value="${allmon.server.db.hibernate.c3p0.maxPoolSize}" />
-    <property name="maxIdleTime" value="${allmon.server.db.hibernate.c3p0.maxIdleTime}" />
-    <property name="maxStatements" value="100" />
+	    <property name="user" value="${allmon.server.db.username}" />
+	    <property name="password" value="${allmon.server.db.password}" />
+	    <property name="minPoolSize" value="${allmon.server.db.hibernate.c3p0.minPoolSize}" />
+	    <property name="maxPoolSize" value="${allmon.server.db.hibernate.c3p0.maxPoolSize}" />
+	    <property name="maxIdleTime" value="${allmon.server.db.hibernate.c3p0.maxIdleTime}" />
+	    <property name="maxStatements" value="100" />
 	</bean>
   
 	<bean id="allmonHibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
@@ -54,8 +54,8 @@
 		<property name="sessionFactory">
 			<ref local="allmonSessionFactory" />
 		</property>
-		<property name="maxConcurrentThreadsCount" value="${allmon.server.loader.maxConcurrentThreadsCount}" />
-    <property name="preferedMetricsCountPerThread" value="${allmon.server.loader.preferedMetricsCountPerThread}" />
+		<property name="maxConcurrentThreadsCount" value="${allmon.server.receiver.maxConcurrentThreadsCount}" />
+    <property name="preferedMetricsCountPerThread" value="${allmon.server.receiver.preferedMetricsCountPerThread}" />
 	</bean>
 
 	<bean id="rawMetricLoadToAllmetricDAOTarget" class="org.allmon.server.loader.RawMetricLoadToAllmetricDAOImpl" >
@@ -66,7 +66,7 @@
 			<ref local="allmonDataSource" />
 		</property>
 	</bean>
-
+    
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory">
 			<ref bean="allmonSessionFactory" />
