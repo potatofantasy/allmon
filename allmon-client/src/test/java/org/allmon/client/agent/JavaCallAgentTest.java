@@ -23,7 +23,7 @@ public class JavaCallAgentTest extends TestCase {
         Thread.sleep(1500);
         
         message.setParameters(new Object[]{"str1", new String[]{"str2a", "str2b"}});
-        message.setException(new Exception("Something happend so an exception is thrown"));
+        message.setThrowable(new Exception("Something happend so an exception is thrown"));
         
         agent.exitPoint();
         

@@ -47,10 +47,10 @@ class PassiveAgentMetricMessageSender extends AgentMetricMessageSender {
         getAgent().addMetricMessage(metricMessage);
     }
     
-    void insertNextPoint(String point, Exception exception) {
+    void insertNextPoint(String point, Throwable throwable) {
         MetricMessage metricMessage = getAgent().getBaseMetricMessageCopy();
         metricMessage.setPoint(point);
-        metricMessage.setException(exception);
+        metricMessage.setThrowable(throwable);
         metricMessage.setDurationTime(getTimeBetweenChecks());
         getAgent().addMetricMessage(metricMessage);
     }

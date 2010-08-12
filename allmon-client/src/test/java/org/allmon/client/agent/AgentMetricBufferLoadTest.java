@@ -1,9 +1,9 @@
 package org.allmon.client.agent;
 
-import org.allmon.common.AbstractLoadTest;
 import org.allmon.common.AllmonPropertiesReader;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory4Test;
+import org.allmon.common.loadtest.AbstractLoadTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -49,7 +49,7 @@ public class AgentMetricBufferLoadTest extends AbstractLoadTest<AgentMetricBuffe
     
     public Object preCall(int thread, int iteration, AgentMetricBuffer metricBuffer) {
         MetricMessage metricMessage = MetricMessageFactory4Test.createClassMessage(
-                    "className" + iteration, "methodName", "classNameX", "methodNameX", 1);
+                    "className" + iteration, "methodName", "classNameX", "methodNameX");
         metricBuffer.add(metricMessage);                     
         return null;
     }

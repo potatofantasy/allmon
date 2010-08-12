@@ -86,7 +86,7 @@ public class AgentMetricBufferTest extends TestCase {
     }
     
     private static MetricMessage createMessage() {
-    	return MetricMessageFactory.createClassMessage("class1", "m1", "classX", "mX", (long)(Math.random() * 1000));
+    	return MetricMessageFactory.createClassMessage("class1", "m1", "classX", "mX");
     }
         
 }

@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 import junit.framework.TestCase;
 
-import org.allmon.common.LoadTestedClass;
 import org.allmon.common.MetricMessageFactory;
 import org.allmon.common.MetricMessageWrapper;
+import org.allmon.common.loadtest.LoadTestedClass;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
@@ -53,7 +53,7 @@ public class AgentAggregationStrategyForMetricsLoadTest extends TestCase {
                         // for every aggregation brand new message object is needed
                         Exchange newExchange = new JmsExchange(endpoint, ExchangePattern.InOut, jmsBinding);
                         Message message = new JmsMessage();
-                        message.setBody(MetricMessageFactory.createClassMessage("className", "methodName", "classNameX", "methodNameX", i));
+                        message.setBody(MetricMessageFactory.createClassMessage("className", "methodName", "classNameX", "methodNameX"));
                         newExchange.setIn(message);
                         
                         // aggregating messages
@@ -69,7 +69,7 @@ public class AgentAggregationStrategyForMetricsLoadTest extends TestCase {
                         Exchange newExchange = new JmsExchange(endpoint, ExchangePattern.InOut, jmsBinding);
                         Message message = new JmsMessage();
                         MetricMessageWrapper messageWrapper = new MetricMessageWrapper();
-                        messageWrapper.add(MetricMessageFactory.createClassMessage("className", "methodName", "classNameX", "methodNameX", i));
+                        messageWrapper.add(MetricMessageFactory.createClassMessage("className", "methodName", "classNameX", "methodNameX"));
                         message.setBody(messageWrapper);
                         newExchange.setIn(message);
                         

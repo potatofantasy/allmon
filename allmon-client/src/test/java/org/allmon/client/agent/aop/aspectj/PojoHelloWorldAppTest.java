@@ -72,5 +72,5 @@ public class PojoHelloWorldAppTest extends TestCase {
 		System.out.println("PojoHelloWorldAppTest - methodWithException");
 		bean.printMessageE();
 	}
-
+	
 }

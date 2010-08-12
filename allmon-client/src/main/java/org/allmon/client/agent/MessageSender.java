@@ -2,18 +2,17 @@ package org.allmon.client.agent;
 
 import java.io.Serializable;
 
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.DeliveryMode;
-import javax.jms.Destination;
-import javax.jms.MessageProducer;
-import javax.jms.ObjectMessage;
+import javax.jms.JMSException;
+import javax.jms.Message;
 import javax.jms.Session;
 
 import org.allmon.common.AllmonCommonConstants;
 import org.apache.activemq.pool.PooledConnectionFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 
 /**
  * This class is responsible for sending serializable data 
@@ -24,23 +23,24 @@ class MessageSender {
 
     private final static Log logger = LogFactory.getLog(MessageSender.class);
     
-    private Destination destination;
+//    private Destination destination;
     
     private final static long sleepTime = 0;
-    private final static boolean verbose = false;
+//    private final static boolean verbose = false;
     //private final static int messageSize = 255;
     private final static long timeToLive = 0;
-    private final static int logLineLenght = 100;
+//    private final static int logLineLenght = 100;
     
-    private final static boolean topic = false;
-    private final static boolean transacted = false;
+//    private final static boolean topic = false;
+//    private final static boolean transacted = false;
     private final static boolean persistent = false;
     
-    private final ConnectionFactory cf; //PooledConnectionFactory pcf;
+//    private final ConnectionFactory cf; //PooledConnectionFactory pcf;
     
-    MessageSender(ConnectionFactory cf) {
-        this.cf = cf;
-        
+//    MessageSender(ConnectionFactory cf) {
+//        this.cf = cf;
+    MessageSender() {
+    	
         logger.debug("Connecting to URL: " + AllmonCommonConstants.CLIENT_BROKER_URL);
         //logger.debug("Publishing a Message with size " + messageSize + " to " + (topic ? "topic" : "queue") + ": " + subject);
         logger.debug("Using " + (persistent ? "persistent" : "non-persistent") + " messages");
@@ -58,76 +58,34 @@ class MessageSender {
     	
     }
     
+    private static ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+    		new String[] { "classpath:META-INF/allmonAgentAppContext-jms.xml" });
+    
+    private JmsTemplate jmsTemplate = (JmsTemplate)context.getBean("allmonSenderJmsTemplate");
+    
+    private Serializable messageObject;
+    
+	public Serializable getMessageObject() {
+		return messageObject;
+	}
+    
     public void sendMessage(Serializable messageObject) {
-        Connection connection = null;
-        try {
-            // Create the connection.
-            //ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(user, password, url);
-            //connection = connectionFactory.createConnection();
-            connection = cf.createConnection();
-            
-            connection.start(); // XXX application hangs here if a jms broker is down!!!
-            
-            // Create the session
-            Session session = connection.createSession(transacted, Session.AUTO_ACKNOWLEDGE);
-            if (topic) {
-                destination = session.createTopic(AllmonCommonConstants.CLIENT_BROKER_QUEUE_SUBJECT_AGENTSDATA);
-            } else {
-                destination = session.createQueue(AllmonCommonConstants.CLIENT_BROKER_QUEUE_SUBJECT_AGENTSDATA);
-            }
-            
-            // Create the producer.
-            MessageProducer producer = session.createProducer(destination);
-            if (persistent) {
-                producer.setDeliveryMode(DeliveryMode.PERSISTENT);
-            } else {
-                producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-            }
-            //if (timeToLive != 0) {
-            //    producer.setTimeToLive(timeToLive);
-            //}
-
-            // Start sending messages
-            //TextMessage message = session.createTextMessage(text);
-            ObjectMessage message = session.createObjectMessage(messageObject);
-            if (verbose) {
-                //String msg = message.getText();
-                String msg = message.toString();
-                if (msg.length() > logLineLenght) {
-                    msg = msg.substring(0, logLineLenght) + "...";
-                }
-                //System.out.println("Sending message: " + msg);
-            }
-            producer.send(message);
-            if (transacted) {
-                session.commit();
-            }
-            
-            //logger.debug("Data has been sent successfully");
-
-            // Use the ActiveMQConnection interface to dump the connection stats
-            //ActiveMQConnection c = (ActiveMQConnection)cf;
-            //c.getConnectionStats().dump(new IndentPrinter());
-
-        } catch (Exception e) {
-            logger.error(e);
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Throwable t) {
-                logger.error(t);
-            }
-        }
+    	this.messageObject = messageObject;
+    	jmsTemplate.send(
+    			AllmonCommonConstants.CLIENT_BROKER_QUEUE_SUBJECT_AGENTSDATA, 
+    			new MessageCreator() {
+					public Message createMessage(Session session) throws JMSException {
+						return session.createObjectMessage(getMessageObject());
+					}
+				});
+//    	logPoolStats();
     }
     
     void logPoolStats() {
-    	PooledConnectionFactory pcf = (PooledConnectionFactory)cf;
+    	PooledConnectionFactory pcf = (PooledConnectionFactory)context.getBean("jmsFactory"); //(PooledConnectionFactory)cf;
     	logger.debug(">>> IdleTimeout: " + pcf.getIdleTimeout());
     	logger.debug(">>> MaxConnections:" + pcf.getMaxConnections());
     	logger.debug(">>> MaximumActive:" + pcf.getMaximumActive());
     }
-    
     
 }
