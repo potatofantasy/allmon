@@ -25,29 +25,27 @@ class MessageSender {
     
 //    private Destination destination;
     
-    private final static long sleepTime = 0;
+//    private final static long sleepTime = 0;
 //    private final static boolean verbose = false;
     //private final static int messageSize = 255;
-    private final static long timeToLive = 0;
+//    private final static long timeToLive = 0;
 //    private final static int logLineLenght = 100;
     
 //    private final static boolean topic = false;
 //    private final static boolean transacted = false;
-    private final static boolean persistent = false;
+//    private final static boolean persistent = false;
     
 //    private final ConnectionFactory cf; //PooledConnectionFactory pcf;
     
-//    MessageSender(ConnectionFactory cf) {
-//        this.cf = cf;
     MessageSender() {
     	
         logger.debug("Connecting to URL: " + AllmonCommonConstants.CLIENT_BROKER_URL);
         //logger.debug("Publishing a Message with size " + messageSize + " to " + (topic ? "topic" : "queue") + ": " + subject);
-        logger.debug("Using " + (persistent ? "persistent" : "non-persistent") + " messages");
-        logger.debug("Sleeping between publish " + sleepTime + " ms");
-        if (timeToLive != 0) {
-            logger.debug("Messages time to live " + timeToLive + " ms");
-        }
+//        logger.debug("Using " + (persistent ? "persistent" : "non-persistent") + " messages");
+//        logger.debug("Sleeping between publish " + sleepTime + " ms");
+//        if (timeToLive != 0) {
+//            logger.debug("Messages time to live " + timeToLive + " ms");
+//        }
         
         //JmsBrokerHealthSampler.getInstance().checkJmsBrokerIsUp();
         

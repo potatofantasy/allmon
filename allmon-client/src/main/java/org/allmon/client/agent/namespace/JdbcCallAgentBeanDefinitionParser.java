@@ -20,9 +20,9 @@ import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 
-public class JavaCallAgentBeanDefinitionParser extends AbstractPassiveAgentBeanDefinitionParser {
+public class JdbcCallAgentBeanDefinitionParser extends AbstractPassiveAgentBeanDefinitionParser {
 	
-	private static final Log logger = LogFactory.getLog(JavaCallAgentBeanDefinitionParser.class);
+	private static final Log logger = LogFactory.getLog(JdbcCallAgentBeanDefinitionParser.class);
 	
 	private static final String AGENT_CONTEXT = "agentContext";
 	
@@ -32,7 +32,7 @@ public class JavaCallAgentBeanDefinitionParser extends AbstractPassiveAgentBeanD
 	
 	private static int instanceCounter = 0;
 	
-	public JavaCallAgentBeanDefinitionParser(PassiveAgentBeanDefinitionParser parser, String tagName) {
+	public JdbcCallAgentBeanDefinitionParser(PassiveAgentBeanDefinitionParser parser, String tagName) {
 		super(parser, tagName);
 	}
 

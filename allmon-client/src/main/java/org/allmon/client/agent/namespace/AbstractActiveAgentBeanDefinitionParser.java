@@ -1,7 +1,6 @@
 package org.allmon.client.agent.namespace;
 
 import org.allmon.client.agent.ActiveAgentCaller;
-import org.allmon.client.agent.JmxServerAgent;
 import org.springframework.beans.PropertyValue;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.RuntimeBeanReference;

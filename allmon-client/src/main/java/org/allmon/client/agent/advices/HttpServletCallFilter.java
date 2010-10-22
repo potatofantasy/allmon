@@ -16,9 +16,6 @@ import org.allmon.common.MetricMessageFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
-
 /**
  * This is servlet filter implementation is used to gather selected servlets run-time metrics.
  * 
@@ -74,8 +71,6 @@ public class HttpServletCallFilter implements Filter {
     private boolean serializeUserObject;
     private boolean captureRequest;
     
-    private static final XStream XSTREAM = new XStream(new JsonHierarchicalStreamDriver()); //new JettisonDriver());
-    
 	    
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
@@ -104,11 +99,11 @@ public class HttpServletCallFilter implements Filter {
         String user = "";
         if (!"".equals(sessionUserAttributeKey)) {
         	try {
-        		Object userObject = ((HttpServletRequest)request).getSession().getAttribute(sessionUserAttributeKey);
+        		HttpServletRequestUtil util = new HttpServletRequestUtil((HttpServletRequest)request);
         		if (serializeUserObject) {
-        			user = XSTREAM.toXML(userObject);
+        			user = util.getUserObjectSerializedString(sessionUserAttributeKey);
         		} else {
-            		user = userObject.toString(); 
+            		user = util.getUserObjectString(sessionUserAttributeKey);
         		}
         	} catch (Exception ex) {
         		user = "user-not-found";

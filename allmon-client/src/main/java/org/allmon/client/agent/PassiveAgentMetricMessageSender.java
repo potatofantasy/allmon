@@ -37,6 +37,7 @@ class PassiveAgentMetricMessageSender extends AgentMetricMessageSender {
         MetricMessage metricMessage = getAgent().getBaseMetricMessageCopy();
         metricMessage.setPoint(AllmonCommonConstants.METRIC_POINT_EXIT);
         metricMessage.setDurationTime(getTimeBetweenChecks());
+        metricMessage.setMetricValue(metricMessage.getDurationTime());
         getAgent().addMetricMessage(metricMessage);
     }
     
@@ -44,6 +45,7 @@ class PassiveAgentMetricMessageSender extends AgentMetricMessageSender {
         MetricMessage metricMessage = getAgent().getBaseMetricMessageCopy();
         metricMessage.setPoint(point);
         metricMessage.setDurationTime(getTimeBetweenChecks());
+        metricMessage.setMetricValue(metricMessage.getDurationTime());
         getAgent().addMetricMessage(metricMessage);
     }
     
@@ -52,6 +54,7 @@ class PassiveAgentMetricMessageSender extends AgentMetricMessageSender {
         metricMessage.setPoint(point);
         metricMessage.setThrowable(throwable);
         metricMessage.setDurationTime(getTimeBetweenChecks());
+        metricMessage.setMetricValue(metricMessage.getDurationTime());
         getAgent().addMetricMessage(metricMessage);
     }
     

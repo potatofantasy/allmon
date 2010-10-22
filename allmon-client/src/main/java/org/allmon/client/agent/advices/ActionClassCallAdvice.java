@@ -1,53 +1,32 @@
 package org.allmon.client.agent.advices;
 
-import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import org.allmon.client.agent.HttpClientCallAgent;
-import org.allmon.common.MetricMessage;
-import org.allmon.common.MetricMessageFactory;
-import org.aspectj.lang.ProceedingJoinPoint;
 
-public class ActionClassCallAdvice extends AllmonAdvice {
+/**
+ * This advice can be use together with Spring AOP.
+ * 
+ * This class is used internally by allmon passive monitoring Spring namespace engine.
+ * Can be easily applied to spring beans by following code:
+ * 
+ * <pre>{@code
+ *  <allmon:passive>
+		<allmon:actionClassAgent id="id1" agentContextRef="agentContext" 
+			...
+	</allmon:passive>
+ * }</pre>
+ * 
+ */
+public class ActionClassCallAdvice extends AbstractActionClassCallAdvice {
 
-	private HttpClientCallAgent agent;
+	private static final Log logger = LogFactory.getLog(ActionClassCallAdvice.class);
 	
-	public Object profile(ProceedingJoinPoint call) throws Throwable {
-		System.out.println(">>> before method call");
-		try {
-			Object [] args = call.getArgs();
-			String className = call.getSignature().getDeclaringTypeName();
-			String methodName = call.getSignature().getName();
-			
-			// FIXME finish this implementation
-			// TODO get request parameters
-			HttpServletRequest request = (HttpServletRequest)args[3]; // TODO add casting exception management 
-			String user = ""; // TODO get user id object - using name of request param name set from instrumentation configuration
-			String webSessionId = request.getRequestedSessionId();
-			
-    		MetricMessage metricMessage = MetricMessageFactory.createActionClassMessage(
-    				className, user, webSessionId, request);
-    		//metricMessage.setParameters(args); // TODO review other parameters setting
-    		agent = new HttpClientCallAgent(agentContext, metricMessage);
-	        agent.requestReceived();
-    	} catch (Throwable t) {
-    	}
-    	    	
-    	// execute an advised method
-    	boolean finishedWithException = false;
-		try {
-			return call.proceed();
-		} catch (Exception ex) {
-			if (agent != null) {
-				//agent.requestSent(ex); // FIXME add this API
-			}
-			finishedWithException = true;
-			return null; // TODO review this line
-		} finally {
-			System.out.println(">>> after method call");
-			if (agent != null && !finishedWithException) {
-				agent.requestSent();
-			}
-		}
+	public ActionClassCallAdvice() {
+		logger.debug("ActionClassCallAdvice created - name " + getName());
 	}
-
+	
+	public void pointcutMethod() {
+	}
+	
 }

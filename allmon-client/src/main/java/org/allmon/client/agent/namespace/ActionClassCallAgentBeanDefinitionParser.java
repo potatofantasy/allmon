@@ -2,6 +2,7 @@ package org.allmon.client.agent.namespace;
 
 import java.lang.reflect.Method;
 
+import org.allmon.client.agent.advices.ActionClassCallAdvice;
 import org.allmon.client.agent.advices.JavaCallAdvice;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,9 +21,10 @@ import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 
-public class JavaCallAgentBeanDefinitionParser extends AbstractPassiveAgentBeanDefinitionParser {
+// TODO re-think OO structure with JavaCallAgentBeanDefinitionParser
+public class ActionClassCallAgentBeanDefinitionParser extends AbstractPassiveAgentBeanDefinitionParser {
 	
-	private static final Log logger = LogFactory.getLog(JavaCallAgentBeanDefinitionParser.class);
+	private static final Log logger = LogFactory.getLog(ActionClassCallAgentBeanDefinitionParser.class);
 	
 	private static final String AGENT_CONTEXT = "agentContext";
 	
@@ -30,9 +32,11 @@ public class JavaCallAgentBeanDefinitionParser extends AbstractPassiveAgentBeanD
 	
 	private static final String EXPRESSION = "expression";
 	
+	private static final String SESSION_USER_ATTRIBUTE_KEY = "userAttrKey"; // TODO add parametrization
+	
 	private static int instanceCounter = 0;
 	
-	public JavaCallAgentBeanDefinitionParser(PassiveAgentBeanDefinitionParser parser, String tagName) {
+	public ActionClassCallAgentBeanDefinitionParser(PassiveAgentBeanDefinitionParser parser, String tagName) {
 		super(parser, tagName);
 	}
 
@@ -68,7 +72,7 @@ public class JavaCallAgentBeanDefinitionParser extends AbstractPassiveAgentBeanD
 		logger.debug("Parsing config for aspect " + aspectName);
 		
 		// create advice
-		RootBeanDefinition agentAdviceDef = new RootBeanDefinition(JavaCallAdvice.class);
+		RootBeanDefinition agentAdviceDef = new RootBeanDefinition(ActionClassCallAdvice.class);
 		agentAdviceDef.getPropertyValues().addPropertyValue(AGENT_CONTEXT, agentContext);
 		agentAdviceDef.getPropertyValues().addPropertyValue("name", aspectName);
 		parserContext.getRegistry().registerBeanDefinition(aspectName, agentAdviceDef);
