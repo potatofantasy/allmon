@@ -1,5 +1,6 @@
 package org.allmon.client.agent;
 
+import org.allmon.client.agent.advices.AdvisableAgent;
 import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.MetricMessage;
 
@@ -8,7 +9,7 @@ import org.allmon.common.MetricMessage;
  * application.
  * 
  */
-public class JavaCallAgent extends PassiveAgent {
+public class JavaCallAgent extends PassiveAgent implements AdvisableAgent {
 
     public JavaCallAgent(AgentContext agentContext, MetricMessage metricMessage) {
         super(agentContext, metricMessage);

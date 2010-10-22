@@ -12,8 +12,9 @@ import org.apache.commons.logging.LogFactory;
  * <pre>{@code
  *  <allmon:passive>
 		<allmon:javaCallAgent id="id1" agentContextRef="agentContext" 
+		                      pointcutExpression=""
 			...
-	</allmon:passive>		
+	</allmon:passive>
  * }</pre>
  * 
  */
@@ -22,7 +23,6 @@ public class JavaCallAdvice extends AbstractJavaCallAdvice { //AspectJJavaCallAd
 	private static final Log logger = LogFactory.getLog(JavaCallAdvice.class);
 	
 	public JavaCallAdvice() {
-		//System.out.println("JavaCallAdvice created");
 		logger.debug("JavaCallAdvice created - name " + getName());
 	}
 	

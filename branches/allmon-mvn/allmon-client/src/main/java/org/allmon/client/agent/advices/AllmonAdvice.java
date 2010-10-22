@@ -3,6 +3,10 @@ package org.allmon.client.agent.advices;
 import org.allmon.client.agent.AgentContext;
 import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.AllmonPropertiesReader;
+import org.allmon.common.MetricMessage;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 abstract class AllmonAdvice {
@@ -10,6 +14,8 @@ abstract class AllmonAdvice {
     static {
         AllmonPropertiesReader.readLog4jProperties();
     }
+
+    private final Log logger = LogFactory.getLog(AllmonAdvice.class);
     
 	AgentContext agentContext;
     
@@ -19,8 +25,18 @@ abstract class AllmonAdvice {
 	private boolean acquireCallParameters = AllmonCommonConstants.ALLMON_CLIENT_AGENT_ADVICES_ACQUIREPARAMETERS;
 	private boolean findCaller = AllmonCommonConstants.ALLMON_CLIENT_AGENT_ADVICES_FINDCALLER;
 	
+	public AllmonAdvice() {
+		logger.info("Parameter - verboseMode: " + verboseMode);
+		logger.info("Parameter - acquireCallParameters: " + acquireCallParameters);
+		logger.info("Parameter - findCaller: " + findCaller);
+	}	
+	
 	abstract protected Object profile(ProceedingJoinPoint call) throws Throwable;
 	
+	abstract protected MetricMessage createMetricMessage(JoinPoint call);
+	
+	abstract protected AdvisableAgent createAgent(AgentContext agentContext, MetricMessage metricMessage);
+		
 	public void setAgentContext(AgentContext agentContext) {
 		this.agentContext = agentContext;
 	}

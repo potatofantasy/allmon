@@ -44,10 +44,10 @@ class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
         return true; //JmsBrokerHealthSampler.getInstance().isJmsBrokerUp();
     }
     
-    private final AgentContext agentContext;
+    //private final AgentContext agentContext;
     
-    AgentMetricBuffer(AgentContext agentContext) {
-        this.agentContext = agentContext;
+    AgentMetricBuffer() { //AgentContext agentContext) {
+        //this.agentContext = agentContext;
         setFlushingInterval(AllmonCommonConstants.ALLMON_CLIENT_AGENT_METRICBUFFER_FLUSHINGINTERVAL);
         setVerboseLogging(AllmonCommonConstants.ALLMON_CLIENT_AGENT_METRICBUFFER_VERBOSELOGGING);
     }
@@ -102,6 +102,7 @@ class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
                 }
     			MessageSender messageSender = new MessageSender();
                 messageSender.sendMessage(messageWrapper);
+                //logger.debug("MessageWrapper body: " + messageWrapper.toString());
             } else {
                 // TODO is it enough?
                 logger.warn("Sending of " + messageWrapper.size() + " couldn't been performed because JMS Broker instance was not up");

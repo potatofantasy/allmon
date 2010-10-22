@@ -1,5 +1,6 @@
 package org.allmon.client.agent.advices;
 
+import org.allmon.client.agent.AgentContext;
 import org.allmon.client.agent.JavaCallAgent;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
@@ -8,7 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 
-public abstract class AbstractJavaCallAdvice extends AllmonAdvice {
+abstract class AbstractJavaCallAdvice extends AllmonAdvice {
 
 	private final Log logger = LogFactory.getLog(AbstractJavaCallAdvice.class);
 
@@ -23,9 +24,10 @@ public abstract class AbstractJavaCallAdvice extends AllmonAdvice {
 		JavaCallAgent agent = null;
 		try {
 			MetricMessage metricMessage = createMetricMessage((JoinPoint)call);
-			agent = new JavaCallAgent(agentContext, metricMessage);
+			agent = createAgent(agentContext, metricMessage);
 	        agent.entryPoint();
     	} catch (Throwable t) {
+    		logger.error("Error occured while creating JavaCallAgent entry MetricMessage: " + t.getMessage(), t);
     	}
     	
     	// execute an advised method
@@ -40,7 +42,11 @@ public abstract class AbstractJavaCallAdvice extends AllmonAdvice {
 				logger.debug(getName() + " >>> after method call");
 			}
 			if (agent != null) {
-				agent.exitPoint(t);
+				try {
+					agent.exitPoint(t);
+				} catch(Exception e) {
+					logger.error("Error occured while creating JavaCallAgent exit MetricMessage: " + e.getMessage(), t);
+				}
 			}
 		}
 	}
@@ -52,7 +58,7 @@ public abstract class AbstractJavaCallAdvice extends AllmonAdvice {
 			logger.debug("profile >>> " + className + "." + methodName);
 		}
 		
-		// FIXME add a parameter which switch this method on/off
+		// getting caller class.method of the advised method
 		Caller caller = new Caller();
 		if (isFindCaller()) {
 			caller.getOriginalCaller(className, methodName);
@@ -69,12 +75,16 @@ public abstract class AbstractJavaCallAdvice extends AllmonAdvice {
 		return metricMessage;
 	}
 	
+	protected JavaCallAgent createAgent(AgentContext agentContext, MetricMessage metricMessage) {
+		return new JavaCallAgent(agentContext, metricMessage);
+	}
+	
     protected class Caller {
     	
     	String className = "";
     	String methodName = "";
     
-	    private void getOriginalCaller(String className, String methodName) {
+	    void getOriginalCaller(String className, String methodName) {
 			StackTraceElement[] elements = new Throwable().getStackTrace();
 			for (int i = 1; i < elements.length; i++) {
 				String iclassName = elements[i].getClassName();

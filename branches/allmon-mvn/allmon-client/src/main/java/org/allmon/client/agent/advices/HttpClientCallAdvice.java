@@ -2,9 +2,11 @@ package org.allmon.client.agent.advices;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.allmon.client.agent.AgentContext;
 import org.allmon.client.agent.HttpClientCallAgent;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
@@ -50,6 +52,19 @@ public class HttpClientCallAdvice extends AllmonAdvice {
 				//agent.exitPoint();
 			}
 		}
+	}
+
+	@Override
+	protected AdvisableAgent createAgent(AgentContext agentContext,
+			MetricMessage metricMessage) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected MetricMessage createMetricMessage(JoinPoint call) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
