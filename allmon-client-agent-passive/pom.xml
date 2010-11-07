@@ -1,0 +1,171 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>org.allmon</groupId>
+		<artifactId>allmon-parent</artifactId>
+		<version>${allmon.version}</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.allmon</groupId>
+	<artifactId>allmon-client-agent-passive</artifactId>
+	<packaging>jar</packaging>
+	<version>${allmon.version}</version>
+	<name>allmon-client-agent-passive</name>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<version>1.0-beta-2</version>
+				<configuration>
+					<configurationDirectory>etc</configurationDirectory>
+					<!-- Include etc/ in the beginning of the classpath declaration in the bin scripts -->
+					<includeConfigurationDirectoryInClasspath>
+						true
+					</includeConfigurationDirectoryInClasspath>
+					<!-- set alternative assemble directory -->
+					<assembleDirectory>
+						${project.build.directory}/${artifactId}-${allmon.version}
+					</assembleDirectory>
+					<!-- prefix all bin files with allmon -->
+					<binPrefix>allmon</binPrefix>
+					<!-- Extra JVM arguments that will be included in the bin scripts -->
+					<extraJvmArguments>
+						-Dlog4jallmon.properties.path=../etc/log4jallmon.properties
+						-Dallmon.properties.path=../etc/allmon.properties
+						-Dcom.sun.management.jmxremote.port=9999 
+						-Dcom.sun.management.jmxremote.authenticate=false 
+						-Dcom.sun.management.jmxremote.ssl=false
+					</extraJvmArguments>
+					
+					<!-- JVM settings 
+					<defaultJvmSettings>
+			            <initialMemorySize>128M</initialMemorySize>
+			            <maxMemorySize>256M</maxMemorySize>
+			            <extraArguments>
+			                <extraArgument>-Dlog4jallmon.properties.path=../../conf/log4jallmon.properties</extraArgument>
+			            </extraArguments>
+			        </defaultJvmSettings>
+					-->
+					
+					<!-- Generate bin scripts for windows and unix pr default -->
+					<programs>
+						<program>
+							<mainClass>
+								org.allmon.client.scheduler.AllmonActiveAgentClientMain
+							</mainClass>
+							<name>allmon-client-active-agent</name>
+							<platforms>
+								<platform>unix</platform>
+								<platform>windows</platform>
+							</platforms>
+						</program>
+						<program>
+							<mainClass>
+								org.allmon.client.aggregator.AgentAggregatorMain
+							</mainClass>
+							<name>allmon-client-aggregator</name>
+							<platforms>
+								<platform>unix</platform>
+								<platform>windows</platform>
+							</platforms>
+						</program>
+					</programs>
+					<repoPath>lib</repoPath>
+					<repositoryName>lib</repositoryName>
+					<repositoryLayout>flat</repositoryLayout>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2-beta-5</version>
+				<configuration>
+					<!-- 
+						<descriptorRefs>
+						<descriptorRef>
+						jar-with-dependencies
+						</descriptorRef>
+						</descriptorRefs>
+					-->
+					<descriptors>
+						<descriptor>
+							src/main/assembly/assembly.xml
+						</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id><!-- this is used for inheritance merges -->
+						<phase>package</phase><!-- append to the packaging phase. -->
+						<goals>
+							<goal>single</goal><!-- goals == mojos -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<resources>
+			<!-- internal application configuration -->
+			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath>.</targetPath>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+			<!--
+			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath>../resources</targetPath>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>META-INF/**</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources/META-INF</directory>
+				<targetPath>META-INF</targetPath>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+			-->
+		    <!-- external (changable) application configuration -->
+			<!-- for local/eclipse env -->
+			<resource>
+				<directory>src/main/conf</directory>
+				<targetPath>../etc</targetPath>
+				<filtering>true</filtering>
+			</resource>
+			<!-- for distribution -->
+			<resource>
+				<directory>src/main/conf-dist</directory>
+				<targetPath>../${artifactId}-${allmon.version}/etc</targetPath>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.allmon</groupId>
+			<artifactId>allmon-client</artifactId>
+			<version>${allmon.version}</version>
+		</dependency>
+		
+		
+	</dependencies>
+</project>

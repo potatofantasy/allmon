@@ -25,7 +25,7 @@
       <attribute value="jar:file:/C:/Documents%20and%20Settings/sikor/.m2/repository/org/apache/activemq/activemq-pool/5.2.0/activemq-pool-5.2.0-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
-  <classpathentry kind="src" path="/allmon-common"/>
+  <classpathentry kind="var" path="M2_REPO/org/allmon/allmon-common/0.2.1-PA/allmon-common-0.2.1-PA.jar"/>
   <classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/aspectj/aspectjrt/1.6.1/aspectjrt-1.6.1.jar">
     <attributes>
