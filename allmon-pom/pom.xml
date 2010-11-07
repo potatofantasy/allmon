@@ -19,6 +19,9 @@
 	<modules>
 		<module>../allmon-common</module>
 		<module>../allmon-client</module>
+		<module>../allmon-client-agent-active</module>
+		<module>../allmon-client-agent-passive</module>
+		<module>../allmon-client-aggregator</module>
 		<module>../allmon-server</module>
 	</modules>
 
