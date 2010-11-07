@@ -3,17 +3,8 @@ package org.allmon.client.agent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.allmon.client.agent.AgentContext;
-import org.allmon.client.agent.JavaCallAgent;
-import org.allmon.client.agent.buffer.AbstractMetricBuffer;
-import org.allmon.common.MetricMessage;
-import org.allmon.common.MetricMessageFactory;
-
 public class MeasuringBasicObjectCreationTimesMain {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		int j = 0;

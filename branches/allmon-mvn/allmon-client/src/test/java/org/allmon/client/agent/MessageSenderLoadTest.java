@@ -3,7 +3,7 @@ package org.allmon.client.agent;
 import org.allmon.common.AllmonCommonConstants;
 import org.allmon.common.AllmonPropertiesReader;
 import org.allmon.common.MetricMessage;
-import org.allmon.common.MetricMessageFactory4Test;
+import org.allmon.common.MetricMessageFactoryTest;
 import org.allmon.common.MetricMessageWrapper;
 import org.allmon.common.loadtest.AbstractLoadTest;
 import org.apache.commons.logging.Log;
@@ -44,7 +44,7 @@ public class MessageSenderLoadTest extends AbstractLoadTest<MessageSender, Objec
     }
     
     public Object preCall(int thread, int iteration, MessageSender messageSender) {
-        MetricMessage metricMessage = MetricMessageFactory4Test.createClassMessage(
+        MetricMessage metricMessage = MetricMessageFactoryTest.createClassMessage(
                 "className" + iteration, "methodName", "classNameX", "methodNameX");
         metricMessage.setPoint(AllmonCommonConstants.METRIC_POINT_ENTRY);
         MetricMessageWrapper messageWrapper = new MetricMessageWrapper();

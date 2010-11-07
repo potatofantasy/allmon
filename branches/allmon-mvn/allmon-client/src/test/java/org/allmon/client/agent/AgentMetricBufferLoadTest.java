@@ -2,7 +2,7 @@ package org.allmon.client.agent;
 
 import org.allmon.common.AllmonPropertiesReader;
 import org.allmon.common.MetricMessage;
-import org.allmon.common.MetricMessageFactory4Test;
+import org.allmon.common.MetricMessageFactoryTest;
 import org.allmon.common.loadtest.AbstractLoadTest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,8 +21,8 @@ public class AgentMetricBufferLoadTest extends AbstractLoadTest<AgentMetricBuffe
     private final static long SUBSEQUENT_CALLS_IN_THREAD_SLEEP_MAX = 0; // no sleep
     private final static long SUBSEQUENT_CALLS_IN_THREAD = 3000;
     
-    private final AgentContext agentContext = new AgentContext();
-    private final AgentMetricBuffer metricBuffer = new AgentMetricBuffer(agentContext);
+    //private final AgentContext agentContext = new AgentContext();
+    private final AgentMetricBuffer metricBuffer = new AgentMetricBuffer(); //agentContext);
     
     public void testMain() throws InterruptedException {
         runLoadTest(THREADS_COUNT, 
@@ -36,7 +36,7 @@ public class AgentMetricBufferLoadTest extends AbstractLoadTest<AgentMetricBuffe
         long actual = metricBuffer.getFlushedItemsCount();
         assertEquals(expected, actual);
         
-        agentContext.stop();
+        //agentContext.stop();
         
         logger.info("Total flushing time (handy for tuning FlushingInterval): " + metricBuffer.getSummaryFlushTime());
     }
@@ -48,7 +48,7 @@ public class AgentMetricBufferLoadTest extends AbstractLoadTest<AgentMetricBuffe
     }
     
     public Object preCall(int thread, int iteration, AgentMetricBuffer metricBuffer) {
-        MetricMessage metricMessage = MetricMessageFactory4Test.createClassMessage(
+        MetricMessage metricMessage = MetricMessageFactoryTest.createClassMessage(
                     "className" + iteration, "methodName", "classNameX", "methodNameX");
         metricBuffer.add(metricMessage);                     
         return null;

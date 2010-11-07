@@ -26,7 +26,7 @@ http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/reso
             mbeansAttributeKeyName = ""
 			/>
 		-->
-		<!-- simple local example - get specific object attribute -->
+		<!-- simple local example - get specific object attribute - - >
 		<allmon:jmxServerAgent id="jmxCheck" 
 			agentContextRef="agentContext"
 			cronExpression="*/5 * * * * ?"
@@ -38,8 +38,8 @@ http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/reso
             mbeansAttributeName = "HeapMemoryUsage"
             mbeansAttributeKeyName = "used"
 			/>
-		
-		<!-- simple remote example - - >
+		-->
+		<!-- simple remote example -->
 		<allmon:jmxServerAgent id="jmxCheck" 
 			agentContextRef="agentContext"
 			cronExpression="*/5 * * * * ?"
@@ -51,7 +51,7 @@ http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/reso
             mbeansAttributeName = ""
             mbeansAttributeKeyName = ""
 			/>
-		-->	
+			
 	</allmon:active>
 	
 </beans>

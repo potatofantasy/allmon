@@ -20,6 +20,8 @@ import org.apache.commons.logging.LogFactory;
  * <b>Every JVM instance which uses <u>an agent</u> has this class instantiated 
  * for the whole live time.</b>
  * 
+ * @deprecated
+ * 
  */
 public class JmsBrokerHealthSampler {
 
