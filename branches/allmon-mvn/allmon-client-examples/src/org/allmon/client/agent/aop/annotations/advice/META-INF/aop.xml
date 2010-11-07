@@ -1,12 +1,15 @@
 <!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
 
 <aspectj>
-    <weaver>
+    <weaver options="-verbose -showWeaveInfo">
         <!-- only weave classes in this package -->
-        <include within="org.allmon.client.agent.aop.services.*" />
+        <include within="org.allmon.client.agent.aop..*" />
     </weaver>
     <aspects>
-        <!-- use only this aspect for weaving -->
-        <aspect name="org.allmon.client.agent.aop.advice.AspectJAdvice" />
+        <!-- define a concrete aspect inline -->
+        <concrete-aspect name="org.allmon.client.agent.advices.ConcreteAspectJJavaCallAdvice"
+                         extends="org.allmon.client.agent.advices.AspectJJavaCallAdvice">
+        	<pointcut name="pointcutMethod" expression="execution(* org.allmon.client.agent.aop.*.*(..))"/>
+        </concrete-aspect>
     </aspects>
 </aspectj>
