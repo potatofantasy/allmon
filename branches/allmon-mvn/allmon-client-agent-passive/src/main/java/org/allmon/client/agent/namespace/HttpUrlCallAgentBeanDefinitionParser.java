@@ -1,17 +1,8 @@
 package org.allmon.client.agent.namespace;
 
-import org.allmon.client.agent.ActiveAgentCaller;
 import org.allmon.client.agent.HttpUrlCallAgent;
-import org.springframework.beans.PropertyValue;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.config.RuntimeBeanReference;
-import org.springframework.beans.factory.support.ManagedList;
-import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.beans.factory.xml.ParserContext;
-import org.springframework.scheduling.quartz.CronTriggerBean;
-import org.springframework.scheduling.quartz.JobDetailBean;
-import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
 public class HttpUrlCallAgentBeanDefinitionParser extends AbstractActiveAgentBeanDefinitionParser {

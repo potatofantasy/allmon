@@ -37,6 +37,8 @@ public class RawMetric2 implements Serializable {
 	
 	private String session;
 	
+	private String thread;
+	
 	private Double metric;
 	
 	private java.util.Date timeStamp;
@@ -151,6 +153,15 @@ public class RawMetric2 implements Serializable {
 		this.session = session;
 	}
 	
+	@Column(name="THREADNNAME", nullable=true, length=100)
+    public String getThread() {
+		return thread;
+	}
+
+	public void setThread(String thread) {
+		this.thread = thread;
+	}
+		
 	@Column(name="METRICVALUE", nullable=false, length=16, precision=6)
     public Double getMetric() {
 		return metric;
@@ -206,5 +217,5 @@ public class RawMetric2 implements Serializable {
         }
 	    return null;
 	}
-	
+
 }

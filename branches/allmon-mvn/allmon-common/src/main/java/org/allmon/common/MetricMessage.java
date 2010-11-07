@@ -208,9 +208,9 @@ public class MetricMessage implements Serializable, Cloneable {
         return "";
     }
 
-    public void setParameters(Serializable parameters) {
-        this.parameters = parameters;
-    }
+//    public void setParameters(Serializable parameters) {
+//        this.parameters = parameters;
+//    }
 
     /**
      * Not serializable parameters have to be transformed to json strings 

@@ -46,9 +46,9 @@ public class MetricMessageFactory {
         metricMessage.setSource(user);
         // session - is web session identifier
         metricMessage.setSession(webSessionId); // TODO take websessionid from request
-        // parameters // TODO review 
+        // TODO review parameters 
         if (request != null && request.getParameterMap() != null) {
-            metricMessage.setParameters(request.getParameterMap().toString());
+            metricMessage.setParameters(request.getParameterMap()); // TODO review conversion to Array
         }
         return metricMessage;
     }

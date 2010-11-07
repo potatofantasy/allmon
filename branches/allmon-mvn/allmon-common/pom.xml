@@ -263,6 +263,7 @@
 			<scope>system</scope>
 			<systemPath>${java.home}/../lib/tools.jar</systemPath>
 		</dependency>
+		<!-- 
 		<dependency>
             <groupId>org.springframework.batch</groupId>
             <artifactId>spring-batch-core</artifactId>
@@ -278,5 +279,6 @@
 		    <artifactId>quartz</artifactId>
 		    <version>1.5.2</version>
 	    </dependency>
+	    -->
 	</dependencies>
 </project>
