@@ -3,19 +3,19 @@ We would like to introduce milestones so that we have a clear idea where the pro
 While it is a statement of intent, it does not necessarily tie down the scope or creativity of the solution. This is a very broad idea based on what we plan to do. 
 
 ===0.3.0-PA (around mid Dec 2010)===
-*	restructuring projects - splitting client project to smaller more specifically isolated maven projects
-*	merging trunk code with allmon-mvn branch
-*	solving problem of correlating entry/exit metrics
-*	adding RMI method of sending metrics data from agents to aggregator (optional to jms)
+*	restructuring projects - splitting client project to smaller more specifically isolated maven projects '*'
+*	merging trunk code with allmon-mvn branch '*'
+*	solving problem of correlating entry/exit metrics '*'
+*	adding RMI method of sending metrics data from agents to aggregator (optional to jms)'*'
 
 ===0.4.0-PA (around mid Jan 2011)===
-*	introducing server-side front-end  - a set simple views to collected (raw/stored) metrics
-*	implement first phase of aggregation functions (avg, count etc)
-*	re-think and reserach client -side buffers
+*	introducing server-side front-end  - a set simple views to collected (raw/stored) metrics '*'
+*	implement first phase of aggregation functions (avg, count etc) '*'
+*	re-think and reserach client -side buffers '*'
 
 ===0.5.0-PA (around mid Mar 2011)===
-*	research apache-cassandra as a metrics storage
-*	introducing first analyses views
-*	finalise aggregation functions (avg, count etc) for the metrics
-*	re-designing acquisition strategies and client-side buffers
-*	implementing thread management strategies
+*	research apache-cassandra as a metrics storage '*'
+*	introducing first analyses views '*'
+*	finalise aggregation functions (avg, count etc) for the metrics '*'
+*	re-designing acquisition strategies and client-side buffers '*'
+*	implementing thread management strategies '*'
