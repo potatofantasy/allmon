@@ -164,8 +164,11 @@
 			<groupId>org.allmon</groupId>
 			<artifactId>allmon-client</artifactId>
 			<version>${allmon.version}</version>
-		</dependency>
-		
-		
+		</dependency>		
+		<dependency>
+			<groupId>org.allmon</groupId>
+			<artifactId>allmon-client-ns</artifactId>
+			<version>${allmon.version}</version>
+		</dependency>		
 	</dependencies>
 </project>
