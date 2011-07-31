@@ -10,7 +10,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.allmon</groupId>
-	<artifactId>allmon-client-agent-active-examples</artifactId>
+	<artifactId>allmon-client-agent-passive-examples</artifactId>
 	<packaging>jar</packaging>
 	<version>${allmon.version}</version>
 	<name>allmon-common</name>
@@ -76,7 +76,7 @@
 		-->
 		<dependency>
 			<groupId>org.allmon</groupId>
-			<artifactId>allmon-client-agent-active</artifactId>
+			<artifactId>allmon-client-agent-passive</artifactId>
 			<version>${allmon.version}</version>
 		</dependency>
 	</dependencies>
