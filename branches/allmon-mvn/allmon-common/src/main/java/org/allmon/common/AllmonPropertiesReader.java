@@ -15,9 +15,13 @@ public class AllmonPropertiesReader {
 
     private static AllmonPropertiesReader allmonPropertiesReader;
 
-    private static final Properties properties = new Properties();
+    private static Properties properties = new Properties();
 
     private static boolean log4jConfigured = false;
+    
+    static void setProperties(Properties properties) {
+        AllmonPropertiesReader.properties = properties;
+    }
     
     public static void readLog4jProperties() {
         if (!log4jConfigured) {

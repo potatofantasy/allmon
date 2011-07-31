@@ -37,4 +37,17 @@ public class JmxTestBean {
 		return true;
 	}
 
+	public boolean isSuperman() {
+		return isSuperman;
+	}
+
+	public void setSuperman(boolean isSuperman) {
+		this.isSuperman = isSuperman;
+	}
+	
+    public String toString() {
+    	return "Name:" + getName() + " ,Age:" + getAge() + " ,is superman:" + isSuperman();
+    }
+
+    
 }

@@ -6,10 +6,22 @@
         <include within="org.allmon.client.agent.aop..*" />
     </weaver>
     <aspects>
+        <!-- use only this aspect for weaving 
+        <aspect name="org.allmon.client.agent.aop.annotations.advice.AspectJAdviceConf" />
+        -->
         <!-- define a concrete aspect inline -->
-        <concrete-aspect name="org.allmon.client.agent.advices.ConcreteAspectJJavaCallAdvice"
+        <concrete-aspect name="org.allmon.client.agent.aop.annotations.advice.AspectJAdvice"
+                         extends="org.allmon.client.agent.aop.annotations.advice.AspectJAdviceConf">
+        	<pointcut name="pointcutMethod" expression="execution(public * org.allmon.client.agent.aop..*.*(..))"/>
+        </concrete-aspect>
+	
+	<!-- OLD -->
+        <!-- define a concrete aspect inline -->
+	<!-- 
+	<concrete-aspect name="org.allmon.client.agent.advices.ConcreteAspectJJavaCallAdvice"
                          extends="org.allmon.client.agent.advices.AspectJJavaCallAdvice">
         	<pointcut name="pointcutMethod" expression="execution(* org.allmon.client.agent.aop.*.*(..))"/>
         </concrete-aspect>
+	-->
     </aspects>
 </aspectj>

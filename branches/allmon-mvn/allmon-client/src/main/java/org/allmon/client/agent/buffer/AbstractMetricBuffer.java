@@ -3,7 +3,6 @@ package org.allmon.client.agent.buffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.allmon.common.AllmonCommonConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

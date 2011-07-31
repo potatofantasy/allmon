@@ -32,9 +32,9 @@ public class JdbcCallAgentBeanDefinitionParser extends AbstractPassiveAgentBeanD
 	
 	private static int instanceCounter = 0;
 	
-	public JdbcCallAgentBeanDefinitionParser(PassiveAgentBeanDefinitionParser parser, String tagName) {
-		super(parser, tagName);
-	}
+//	public JdbcCallAgentBeanDefinitionParser(PassiveAgentBeanDefinitionParser parser, String tagName) {
+//		super(parser, tagName);
+//	}
 
 	protected void parseSpecifics(Element agentElement, ParserContext parserContext) {
 		// add agentContext to advice

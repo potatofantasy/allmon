@@ -43,7 +43,7 @@
 					<extraJvmArguments>
 						-Dlog4jallmon.properties.path=../etc/log4jallmon.properties
 						-Dallmon.properties.path=../etc/allmon.properties
-						-Dcom.sun.management.jmxremote.port=9999 
+						-Dcom.sun.management.jmxremote.port=9998 
 						-Dcom.sun.management.jmxremote.authenticate=false 
 						-Dcom.sun.management.jmxremote.ssl=false
 					</extraJvmArguments>
@@ -60,16 +60,6 @@
 					
 					<!-- Generate bin scripts for windows and unix pr default -->
 					<programs>
-						<program>
-							<mainClass>
-								org.allmon.client.scheduler.AllmonActiveAgentClientMain
-							</mainClass>
-							<name>allmon-client-active-agent</name>
-							<platforms>
-								<platform>unix</platform>
-								<platform>windows</platform>
-							</platforms>
-						</program>
 						<program>
 							<mainClass>
 								org.allmon.client.aggregator.AgentAggregatorMain
