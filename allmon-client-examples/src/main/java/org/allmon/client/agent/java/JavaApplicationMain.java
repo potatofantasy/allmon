@@ -17,7 +17,7 @@ public class JavaApplicationMain {
 	            //System.in.read();
 	            
 	            MetricMessage message = MetricMessageFactory.createClassMessage(
-	                    JavaApplicationMain.class.getName(), "main", "ClassB", "methodB", 1);
+	                    JavaApplicationMain.class.getName(), "main", "ClassB", "methodB"); // TODO review durations
 	            
 	            JavaCallAgent agent = new JavaCallAgent(agentContext, message);
 	            agent.entryPoint();

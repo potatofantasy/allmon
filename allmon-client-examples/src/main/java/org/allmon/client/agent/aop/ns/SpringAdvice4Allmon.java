@@ -33,7 +33,7 @@ public class SpringAdvice4Allmon {
     	// catch all potential problems to not interfere in normal work application 
     	try {
     		MetricMessage metricMessage = MetricMessageFactory.createClassMessage(
-	                this.getClass().getName(), "method", "", "", 0); // TODO review duration time param
+	                this.getClass().getName(), "method", "", ""); // TODO review duration time param
 	        
 	        agent = new JavaCallAgent(agentContext, metricMessage);
 	        
@@ -71,7 +71,7 @@ public class SpringAdvice4Allmon {
 			Caller caller = getOriginalCaller(className, methodName);
 			
     		MetricMessage metricMessage = MetricMessageFactory.createClassMessage(
-	                className, methodName, caller.className, caller.methodName, 0); // TODO review duration time param
+	                className, methodName, caller.className, caller.methodName); // TODO review duration time param
     		metricMessage.setParameters(args);
     		agent = new JavaCallAgent(getAgentContext(), metricMessage);
 	        agent.entryPoint();

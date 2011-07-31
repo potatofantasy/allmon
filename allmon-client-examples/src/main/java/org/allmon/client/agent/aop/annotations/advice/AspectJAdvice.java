@@ -25,7 +25,7 @@ public class AspectJAdvice {
 			System.out.println("AspectJAdvice >> " + pjp.getTarget().getClass().getSimpleName() + "."+ pjp.getSignature().getName() + ": " + durationTime);
 			MetricMessageFactory.createClassMessage(
 					pjp.getTarget().getClass().getSimpleName(), 
-					pjp.getSignature().getName(), null, null, durationTime);
+					pjp.getSignature().getName(), null, null); //durationTime); // TODO review durations
 		}
 	}
 

@@ -45,7 +45,7 @@ public class SpringAdvice4Allmon {
     	long duration = System.nanoTime() - startTime;
     	    	   	
     	MetricMessage metricMessage = 
-    		MetricMessageFactory.createClassMessage(this.getClass().getName(), "method", "", "", duration); 
+    		MetricMessageFactory.createClassMessage(this.getClass().getName(), "method", "", ""); // TODO review durations 
     	
 //    	JavaCallAgent agent = new JavaCallAgent(agentContext, metricMessage);
 //        agent.entryPoint();
