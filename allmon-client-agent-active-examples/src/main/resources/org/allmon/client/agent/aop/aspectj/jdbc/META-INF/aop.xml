@@ -1,0 +1,20 @@
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+    <weaver options="-verbose -showWeaveInfo -Xset:weaveJavaPackages=true">
+        <!-- only weave classes in this package -->
+        <include within="java.sql..*" />
+        <include within="org.allmon.client..*" />
+    </weaver>
+    <aspects>
+        <!-- define a concrete aspect inline -->
+        <!-- for jdbc calls -->
+        <concrete-aspect name="org.allmon.client.agent.advices.ConcreteJdbcAspectJJavaCallAdvice4Example"
+                         extends="org.allmon.client.agent.advices.AspectJJavaCallAdvice">
+            <pointcut name="pointcutMethod" expression="execution(* java.sql..*.execute*(..))"/>
+        </concrete-aspect>
+        <concrete-aspect name="org.allmon.client.agent.advices.ConcreteAspectJJavaCallAdvice"
+                         extends="org.allmon.client.agent.advices.AspectJJavaCallAdvice">
+        	<pointcut name="pointcutMethod" expression="execution(* org.allmon.client.agent.aop.*..*(..))"/>
+        </concrete-aspect>
+    </aspects>
+</aspectj>

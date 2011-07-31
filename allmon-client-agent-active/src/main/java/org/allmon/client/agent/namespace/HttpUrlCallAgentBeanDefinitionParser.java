@@ -24,9 +24,9 @@ public class HttpUrlCallAgentBeanDefinitionParser extends AbstractActiveAgentBea
 	
 	private static int instanceCounter = 0;
 	
-	public HttpUrlCallAgentBeanDefinitionParser(ActiveAgentBeanDefinitionParser parser, String tagName) {
-		super(parser, tagName);
-	}
+//	public HttpUrlCallAgentBeanDefinitionParser() {
+//		super(parser, AllmonAgentBeanDefinitionParser.HTTP_URL_CALL_AGENT);
+//	}
 
 	protected void parseSpecifics(Element agentElement, ParserContext parserContext) {
 		RootBeanDefinition agentDef = parseActiveAgentContext(agentElement, parserContext, HttpUrlCallAgent.class);
