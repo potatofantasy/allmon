@@ -17,9 +17,9 @@ public class JmxServerAgentBeanDefinitionParser extends AbstractActiveAgentBeanD
 	private static final String MBEANS_ATTRIBUTE_NAME = "mbeansAttributeName";
 	private static final String MBEANS_ATTRIBUTE_KEY_NAME = "mbeansAttributeKeyName";
 	
-	public JmxServerAgentBeanDefinitionParser(ActiveAgentBeanDefinitionParser parser, String tagName) {
-		super(parser, tagName);
-	}
+//	public JmxServerAgentBeanDefinitionParser(ActiveAgentBeanDefinitionParser parser, String tagName) {
+//		super(parser, tagName);
+//	}
 
 	protected void parseSpecifics(Element agentElement, ParserContext parserContext) {
 		RootBeanDefinition agentDef = parseActiveAgentContext(agentElement, parserContext, JmxServerAgent.class);

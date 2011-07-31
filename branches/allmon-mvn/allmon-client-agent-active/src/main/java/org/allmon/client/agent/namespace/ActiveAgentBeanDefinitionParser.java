@@ -10,6 +10,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * @deprecated
+ */ 
 public class ActiveAgentBeanDefinitionParser extends AllmonAgentBeanDefinitionParser {
 
 	private static final String AGENT_SCHEDULER = "agentScheduler";

@@ -13,19 +13,25 @@ import org.springframework.scheduling.quartz.JobDetailBean;
 import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
-abstract class AbstractActiveAgentBeanDefinitionParser extends AbstractAllmonAgentBeanDefinitionParser {
+abstract class AbstractActiveAgentBeanDefinitionParser extends AbstractAgentBeanDefinitionElementParser {
 
 	private static final String CRON_EXPRESSION = "cronExpression";
-		
-	protected final ActiveAgentBeanDefinitionParser parser;
 	
-	private static int instanceCounter = 0;
-	
-	public AbstractActiveAgentBeanDefinitionParser(ActiveAgentBeanDefinitionParser parser, String tagName) {
-		super(parser, tagName);
-		this.parser = parser;
+	protected ActiveAgentBeanDefinitionParser parser;
+	//protected AllmonAgentBeanDefinitionParser parser;
+
+	@Override
+	public void setParser(AllmonAgentBeanDefinitionParser parser) {
+		this.parser = (ActiveAgentBeanDefinitionParser)parser;
 	}
 	
+	@Override
+	final ActiveAgentBeanDefinitionParser getParser() {
+		return parser;
+	}
+	
+	private static int instanceCounter = 0;
+		
 	protected abstract void parseSpecifics(Element agentElement, ParserContext parserContext);
 	
 	public final void parse(Element agentElement, ParserContext parserContext) {
@@ -136,6 +142,5 @@ abstract class AbstractActiveAgentBeanDefinitionParser extends AbstractAllmonAge
 		parser.getActiveAgentSchedulerDef().getPropertyValues().addPropertyValue(triggersDef);
 
 	}
-
 	
 }

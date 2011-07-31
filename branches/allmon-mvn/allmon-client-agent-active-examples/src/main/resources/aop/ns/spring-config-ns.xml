@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:allmon="http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/resources/org/allmon/client/agent/namespace/allmon"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/resources/org/allmon/client/agent/namespace/allmon http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/resources/org/allmon/client/agent/namespace/allmon/allmon.xsd">
+	
+	<!-- a bean (pojo class) which is going to be monitored -->
+	<bean id="messageBean" class="org.allmon.client.agent.aop.HelloWorldImpl">
+		<property name="message" value="Hello World message ...." />
+	</bean>
+
+	<!-- create an AgentContext at the beginning of monitored app -->
+	<bean id="agentContext" class="org.allmon.client.agent.AgentContext" />
+	<!-- call stop agentContext.stop(); -->
+
+	<!-- TODO
+	<allmon:agentContext id="agentContext2" /> 
+	-->
+
+	<allmon:passive>
+	    <!-- first advice -->
+		<allmon:javaCallAgent id="id1" agentContextRef="agentContext" 
+			pointcutExpression="execution(* org.allmon.client.agent.aop.*.*(..)) and args(..)"/>
+	    <!-- second advice -->
+		<allmon:javaCallAgent id="id2" agentContextRef="agentContext" 
+			pointcutExpression="execution(* org.allmon.client.agent.aop.*.printMessageE(..))"/>
+		<!-- TODO
+		<allmon:actionClassAgent id="id2" classExpression="org.allmon.client.agent.aop.*.*(..))" userIdKey="userId"/>
+		<allmon:servletCallAgent id="id2" classExpression="org.allmon.client.agent.aop.*.*(..))"/>
+		-->
+	</allmon:passive>
+
+</beans>
