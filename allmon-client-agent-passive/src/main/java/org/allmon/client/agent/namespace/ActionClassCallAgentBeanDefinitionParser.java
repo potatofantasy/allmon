@@ -36,9 +36,9 @@ public class ActionClassCallAgentBeanDefinitionParser extends AbstractPassiveAge
 	
 	private static int instanceCounter = 0;
 	
-	public ActionClassCallAgentBeanDefinitionParser(PassiveAgentBeanDefinitionParser parser, String tagName) {
-		super(parser, tagName);
-	}
+//	public ActionClassCallAgentBeanDefinitionParser(PassiveAgentBeanDefinitionParser parser, String tagName) {
+//		super(parser, tagName);
+//	}
 
 	protected void parseSpecifics(Element agentElement, ParserContext parserContext) {
 		// add agentContext to advice

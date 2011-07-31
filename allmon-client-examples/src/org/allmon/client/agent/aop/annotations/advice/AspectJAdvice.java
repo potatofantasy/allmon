@@ -9,6 +9,8 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class AspectJAdvice {
 
+	private final static String pointucExpression = "execution(public * org.allmon.client.agent.aop..*.*(..))";
+	
 	private long timeStarted;
 	
 	@Around("allPublicMethods()")
@@ -20,14 +22,14 @@ public class AspectJAdvice {
 		} finally {
 			long durationTime = System.nanoTime() - timeStarted;
 			
-			//System.out.println(pjp.getTarget().getClass().getSimpleName() + "."+ pjp.getSignature().getName() + ": " + durationTime);
-			MetricMessageFactory.createClassMessage(pjp.getTarget().getClass().getSimpleName(), pjp.getSignature().getName(), null, null, durationTime);
+			System.out.println("AspectJAdvice >> " + pjp.getTarget().getClass().getSimpleName() + "."+ pjp.getSignature().getName() + ": " + durationTime);
+			MetricMessageFactory.createClassMessage(
+					pjp.getTarget().getClass().getSimpleName(), 
+					pjp.getSignature().getName(), null, null, durationTime);
 		}
 	}
 
-	@Pointcut("execution(public * org.allmon.client.agent.aop.services..*.*(..))")
-	public void allPublicMethods() {
-
-	}
+	@Pointcut(pointucExpression)
+	public void allPublicMethods() {}
 
 }

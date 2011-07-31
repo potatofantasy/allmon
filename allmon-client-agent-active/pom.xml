@@ -70,34 +70,25 @@
 								<platform>windows</platform>
 							</platforms>
 						</program>
-						<program>
-							<mainClass>
-								org.allmon.client.aggregator.AgentAggregatorMain
-							</mainClass>
-							<name>allmon-client-aggregator</name>
-							<platforms>
-								<platform>unix</platform>
-								<platform>windows</platform>
-							</platforms>
-						</program>
 					</programs>
 					<repoPath>lib</repoPath>
 					<repositoryName>lib</repositoryName>
 					<repositoryLayout>flat</repositoryLayout>
 				</configuration>
 			</plugin>
+			<!-- 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.2-beta-5</version>
 				<configuration>
-					<!-- 
+					<! - - 
 						<descriptorRefs>
 						<descriptorRef>
 						jar-with-dependencies
 						</descriptorRef>
 						</descriptorRefs>
-					-->
+					- - >
 					<descriptors>
 						<descriptor>
 							src/main/assembly/assembly.xml
@@ -106,14 +97,15 @@
 				</configuration>
 				<executions>
 					<execution>
-						<id>make-assembly</id><!-- this is used for inheritance merges -->
-						<phase>package</phase><!-- append to the packaging phase. -->
+						<id>make-assembly</id><! - - this is used for inheritance merges - - >
+						<phase>package</phase><! - - append to the packaging phase. - - >
 						<goals>
-							<goal>single</goal><!-- goals == mojos -->
+							<goal>single</goal><! - - goals == mojos - - >
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
+			-->
 		</plugins>
 		<resources>
 			<!-- internal application configuration -->
@@ -164,11 +156,23 @@
 			<groupId>org.allmon</groupId>
 			<artifactId>allmon-client</artifactId>
 			<version>${allmon.version}</version>
-		</dependency>		
+		</dependency>
+		
 		<dependency>
-			<groupId>org.allmon</groupId>
-			<artifactId>allmon-client-ns</artifactId>
-			<version>${allmon.version}</version>
-		</dependency>		
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-core</artifactId>
+            <version>2.1.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-infrastructure</artifactId>
+            <version>2.1.1.RELEASE</version>
+        </dependency>
+	    <dependency>
+		    <groupId>quartz</groupId>
+		    <artifactId>quartz</artifactId>
+		    <version>1.5.2</version>
+	    </dependency>
+		
 	</dependencies>
 </project>

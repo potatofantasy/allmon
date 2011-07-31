@@ -15,16 +15,18 @@
 	<bean id="AgentContext" class="org.allmon.client.agent.AgentContext" />
 	<!-- call stop agentContext.stop(); -->
 
-	<allmon:agentContext id="AgentContext" />
+	<allmon:agentContext id="AgentContext2" />
 
 	<allmon:passive>
-		<allmon:javaCallAgent id="id1" pointcutExpression="execution(* org.allmon.client.agent.aop.ns.*.*(..)) and args(..)"/>
+		<allmon:javaCallAgent id="id1" agentContextRef="AgentContext" 
+			pointcutExpression="execution(* org.allmon.client.agent.aop.ns.*.*(..)) and args(..)"/>
 		<!--
 		<allmon:actionClassAgent id="id2" classExpression="org.allmon.client.agent.aop.ns.*.*(..))" userIdKey="userId"/>
 		<allmon:servletCallAgent id="id2" classExpression="org.allmon.client.agent.aop.ns.*.*(..))"/>
 		-->
 	</allmon:passive>
 
+<-- move out of this class
 	<bean id="monitoringAdvice" class="org.allmon.client.agent.aop.ns.SpringAdvice4Allmon" >
 		<property name="agentContext" ref="AgentContext" />
 	</bean>
