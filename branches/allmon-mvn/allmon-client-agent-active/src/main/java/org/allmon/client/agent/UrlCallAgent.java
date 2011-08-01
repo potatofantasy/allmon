@@ -13,6 +13,7 @@ import org.allmon.common.AllmonPropertiesConstants;
 import org.allmon.common.MetricMessage;
 import org.allmon.common.MetricMessageFactory;
 import org.allmon.common.MetricMessageWrapper;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -89,7 +90,7 @@ public class UrlCallAgent extends ActiveAgent {
         // prepare the proxy authorization String  
         String userPassword = AllmonCommonConstants.ALLMON_CLIENT_AGENT_PROXY_USERNAME + ":" + AllmonCommonConstants.ALLMON_CLIENT_AGENT_PROXY_PASSWORD;
         //String encodedUserPassword = new sun.misc.BASE64Encoder().encode(userPassword.getBytes()); // Sun proprietary API
-        String encodedUserPassword = new String(new org.apache.commons.codec.binary.Base64().encode(userPassword.getBytes()));
+        String encodedUserPassword = new String(new Base64().encode(userPassword.getBytes()));
         
         // get authorization from the proxy
         connection.setRequestProperty("Proxy-Authorization", "Basic " + encodedUserPassword);
