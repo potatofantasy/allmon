@@ -1,5 +1,7 @@
 package org.allmon.client.agent.namespace;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.parsing.CompositeComponentDefinition;
 import org.springframework.beans.factory.parsing.ParseState;
@@ -11,9 +13,7 @@ import org.w3c.dom.Element;
 
 public final class ActiveAgentBeanDefinitionParser extends AllmonAgentBeanDefinitionParser {
 
-	private static final ClassPathXmlApplicationContext context = 
-		new ClassPathXmlApplicationContext(
-				new String[] { "classpath:META-INF/allmonAgentAppContext-activeNamespaceHandler.xml" });
+	private static final Log logger = LogFactory.getLog(ActiveAgentBeanDefinitionParser.class);
 	
 	private static final String AGENT_SCHEDULER = "agentScheduler";
 	
@@ -23,9 +23,14 @@ public final class ActiveAgentBeanDefinitionParser extends AllmonAgentBeanDefini
 		CompositeComponentDefinition compositeDef =
 				new CompositeComponentDefinition(element.getTagName(), parserContext.extractSource(element));
 		parserContext.pushContainingComponent(compositeDef);
-
+		
 		activeAgentSchedulerDef = getActiveAgentScheduler(parserContext);
 		
+		logger.debug("Parsing active element definition - using ActiveAgentBeanDefinitionParserFactory instance");
+		// depending on active element declared in xml use ActiveAgentBeanDefinitionParserFactory
+		ClassPathXmlApplicationContext context = 
+			new ClassPathXmlApplicationContext(
+					new String[] { "classpath:META-INF/allmonAgentAppContext-activeNamespaceHandler.xml" });
 		AllmonAgentBeanDefinitionParserFactory factory = 
 			(AllmonAgentBeanDefinitionParserFactory)context.getBean("activeAgentBeanDefinitionParserFactory");
 		

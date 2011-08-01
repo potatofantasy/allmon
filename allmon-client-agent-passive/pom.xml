@@ -45,6 +45,13 @@
 				<targetPath>../${artifactId}-${allmon.version}/etc</targetPath>
 				<filtering>true</filtering>
 			</resource>
+			
+			<!-- for local/eclipse tests -->
+			<resource>
+				<directory>src/test/conf</directory>
+				<targetPath>../etc</targetPath>
+				<filtering>true</filtering>
+			</resource>
 		</resources>
 	</build>
 
