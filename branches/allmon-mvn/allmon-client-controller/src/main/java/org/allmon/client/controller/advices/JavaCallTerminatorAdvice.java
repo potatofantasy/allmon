@@ -27,14 +27,10 @@ public class JavaCallTerminatorAdvice extends AbstractJavaCallControllerAdvice {
 	}
 	
 	public boolean doConcreteEntryControl(Object o) throws JavaCallTerminationException {
-		JavaCallTerminatorController terminatorController =
-			(JavaCallTerminatorController)getController();
+		AbstractJavaCallTerminatorController terminatorController =
+			(AbstractJavaCallTerminatorController)getController();
 		
-//		System.out.println(terminatorController);
-		System.out.println(terminatorController.terminate());
-//		boolean terminate = false;
-		
-		boolean terminate = false; //terminatorController.terminate();
+		boolean terminate = terminatorController.terminate();
 		
 		if (terminate) {
 			throw new JavaCallTerminationException();

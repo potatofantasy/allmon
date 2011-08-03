@@ -48,6 +48,8 @@ abstract class AbstractJavaCallControllerAdvice extends ControllerAdvice { //ext
 			logger.debug("profile >>> " + className + "." + methodName);
 		}
 		
+		getController().setCallData(call);
+		
 		// TODO get data from Aggregator (for controller use queue), raw metrics and SLA calculated values
 		
 		boolean didControll = doConcreteEntryControl(className);
