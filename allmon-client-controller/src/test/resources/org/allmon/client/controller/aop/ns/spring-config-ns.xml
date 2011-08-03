@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:allcon="http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client-controller/src/main/resources/org/allmon/client/controller/namespace/allcon"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client-controller/src/main/resources/org/allmon/client/controller/namespace/allcon http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client-controller/src/main/resources/org/allmon/client/controller/namespace/allcon/allcon.xsd">
+	
+	<!-- a bean (pojo class) which is going to be monitored -->
+	<bean id="messageBean" class="org.allmon.client.controller.aop.ns.HelloWorldImpl">
+		<property name="message" value="Hello World message ...." />
+	</bean>
+
+	<!-- TODO
+	<allcon:controller id="controllerBean1" /> 
+	-->
+	<bean id="controllerBean1" class="org.allmon.client.controller.aop.ns.cntrimpl.MockedJavaCallTerminatorController"/>
+	
+	<allcon:controller>
+		<!-- first advice actuator -->
+		<allcon:javaCallTerminator id="id1" controllerRef="controllerBean1" 
+			pointcutExpression="execution(* org.allmon.client.controller.aop.ns.*.*(..)) and args(..)"/>
+		<!-- second advice actuator -->
+		<allcon:javaCallTerminator id="id2" controllerRef="controllerBean1" 
+			pointcutExpression="execution(* org.allmon.client.controller.aop.ns.*.printMessageE(..))"/>
+	</allcon:controller>
+
+	<!--
+	<allcon:controller>
+		<!- - first advice - - >
+		<allcon:javaCallTerminator id="id1" controllerRef="messageBean" 
+			pointcutExpression="execution(* org.allmon.client.controller.aop.ns.*.*(..)) and args(..)"/>
+		<!- - second advice - - >
+		<allcon:javaCallTerminator id="id2" controllerRef="messageBean" 
+			pointcutExpression="execution(* org.allmon.client.controller.aop.ns.*.printMessageE(..))"/>
+	</allcon:controller>
+	-->
+
+</beans>
