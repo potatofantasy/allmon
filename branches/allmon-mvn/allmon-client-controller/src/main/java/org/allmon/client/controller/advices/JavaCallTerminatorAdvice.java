@@ -1,7 +1,9 @@
 package org.allmon.client.controller.advices;
 
+import org.allmon.client.controller.terminator.AbstractJavaCallTerminatorController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
  * This advice can be use together with Spring AOP.
@@ -26,11 +28,11 @@ public class JavaCallTerminatorAdvice extends AbstractJavaCallControllerAdvice {
 		logger.debug("JavaCallTerminatorAdvice created - name " + getName());
 	}
 	
-	public boolean doConcreteEntryControl(Object o) throws JavaCallTerminationException {
+	public boolean doConcreteEntryControl(ProceedingJoinPoint call) throws JavaCallTerminationException {
 		AbstractJavaCallTerminatorController terminatorController =
 			(AbstractJavaCallTerminatorController)getController();
 		
-		boolean terminate = terminatorController.terminate();
+		boolean terminate = terminatorController.terminate(call);
 		
 		if (terminate) {
 			throw new JavaCallTerminationException();

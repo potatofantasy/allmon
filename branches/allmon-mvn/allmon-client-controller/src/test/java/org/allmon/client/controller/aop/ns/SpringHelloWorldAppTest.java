@@ -43,7 +43,7 @@ public class SpringHelloWorldAppTest extends TestCase {
 		//
 		try {
 			messages += bean.printMessage("param1", "param2");
-			fail("Controll action has not been taken; methos with over one parameter are terminated");
+			fail("Controll action has not been taken; methods with over one parameter shoud be terminated");
 		} catch (Exception t) {
 		}
 		return messages;

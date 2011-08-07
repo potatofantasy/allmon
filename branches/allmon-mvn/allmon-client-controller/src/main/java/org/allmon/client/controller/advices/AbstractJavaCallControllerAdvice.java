@@ -39,7 +39,7 @@ abstract class AbstractJavaCallControllerAdvice extends ControllerAdvice { //ext
 		}
 	}
 
-	abstract boolean doConcreteEntryControl(Object o) throws Throwable;
+	abstract boolean doConcreteEntryControl(ProceedingJoinPoint call) throws Throwable;
 	
 	boolean doEntryControl(ProceedingJoinPoint call) throws Throwable {
 		String className = call.getSignature().getDeclaringTypeName();
@@ -47,12 +47,8 @@ abstract class AbstractJavaCallControllerAdvice extends ControllerAdvice { //ext
 		if (isVerboseMode()) {
 			logger.debug("profile >>> " + className + "." + methodName);
 		}
-		
-		getController().setCallData(call);
-		
-		// TODO get data from Aggregator (for controller use queue), raw metrics and SLA calculated values
-		
-		boolean didControll = doConcreteEntryControl(className);
+				
+		boolean didControll = doConcreteEntryControl(call);
 		
 		return didControll;
 	}
