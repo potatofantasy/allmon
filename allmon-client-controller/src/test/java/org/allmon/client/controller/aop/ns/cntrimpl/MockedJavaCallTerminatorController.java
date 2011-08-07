@@ -1,6 +1,6 @@
 package org.allmon.client.controller.aop.ns.cntrimpl;
 
-import org.allmon.client.controller.advices.AbstractJavaCallTerminatorController;
+import org.allmon.client.controller.terminator.AbstractJavaCallTerminatorController;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
@@ -13,8 +13,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 public class MockedJavaCallTerminatorController extends AbstractJavaCallTerminatorController {
 
 	@Override
-	public boolean terminate() {
-		ProceedingJoinPoint call = getCallData();
+	public boolean terminate(ProceedingJoinPoint call) {
 		String className = call.getSignature().getDeclaringTypeName();
 		String methodName = call.getSignature().getName();
 		
