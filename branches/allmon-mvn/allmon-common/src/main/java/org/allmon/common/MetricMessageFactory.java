@@ -213,7 +213,7 @@ public class MetricMessageFactory {
         return metricMessage;
     }
     
-	public static final MetricMessage createSnmpOSMessage(String metricType, String resource, double metricValue,
+	public static final MetricMessage createSnmpOsMessage(String metricType, String resource, double metricValue,
 			Throwable throwable) {
 		MetricMessage metricMessage = createMessage(
 				AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_OS, 
@@ -224,5 +224,22 @@ public class MetricMessageFactory {
 		metricMessage.setSource(null);
 		return metricMessage;
 	}
-    
+
+	public static final MetricMessage createOsMessage(String metricType, String resource, double metricValue,
+			Throwable throwable) {
+		return createOsMessage(metricType, resource, null, metricValue, throwable);
+	}
+	
+	public static final MetricMessage createOsMessage(String metricType, String resource, String source, double metricValue,
+			Throwable throwable) {
+		MetricMessage metricMessage = createMessage(
+				AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_OS, 
+				metricType);
+		metricMessage.setResource(resource);
+		metricMessage.setMetricValue(metricValue);
+		metricMessage.setThrowable(throwable);
+		metricMessage.setSource(source);
+		return metricMessage;
+	}
+	
 }

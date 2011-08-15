@@ -74,6 +74,7 @@
          <xsd:choice minOccurs="0" maxOccurs="unbounded">
             <xsd:element ref="httpUrlCallAgent"/>
             <xsd:element ref="jmxServerAgent"/>
+            <xsd:element ref="osAgent"/>
          </xsd:choice>
       </xsd:complexType>
    </xsd:element>
@@ -115,6 +116,19 @@
                <xsd:attribute name="mbeansObjectName" type="xsd:string" use="required"/>
                <xsd:attribute name="mbeansAttributeName" type="xsd:string" use="required"/>
                <xsd:attribute name="mbeansAttributeKeyName" type="xsd:string" use="required"/>
+            </xsd:extension>
+         </xsd:complexContent>
+      </xsd:complexType>
+   </xsd:element>
+
+   <xsd:element name="osAgent">
+      <xsd:complexType>
+         <xsd:complexContent>
+            <xsd:extension base="beans:identifiedType">
+               <xsd:attribute name="agentContextRef" type="xsd:string" use="required"/>
+               <xsd:attribute name="cronExpression" type="xsd:string" use="required"/>
+               
+               <xsd:attribute name="metricType" type="xsd:string" use="required"/>
             </xsd:extension>
          </xsd:complexContent>
       </xsd:complexType>

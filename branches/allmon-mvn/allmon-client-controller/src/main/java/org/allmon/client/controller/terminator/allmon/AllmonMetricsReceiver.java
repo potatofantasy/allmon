@@ -1,5 +1,7 @@
 package org.allmon.client.controller.terminator.allmon;
 
+import java.util.HashMap;
+
 import javax.jms.ConnectionFactory;
 
 import org.allmon.common.AllmonActiveMQConnectionFactory;
@@ -14,15 +16,23 @@ public class AllmonMetricsReceiver {
 
 	private static final Log logger = LogFactory.getLog(AllmonMetricsReceiver.class);
 
-	public void receiveData() throws Exception {
+	public static final HashMap<String, String> metricsDataStore = new HashMap<String, String>();
+	
+	public AllmonMetricsReceiver() {
+		logger.debug("Camel context is being initialized");
+		System.out.println("Camel context is being initialized");
 		CamelContext context = new DefaultCamelContext();
 		// Set up the ActiveMQ JMS Components
 		ConnectionFactory connectionFactory = AllmonActiveMQConnectionFactory.server();
 		context.addComponent(AllmonCommonConstants.ALLMON_CAMEL_JMSQUEUE,
 				JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));
-		context.addRoutes(new MetricsReceiverRouteBuilder());
-		context.start();
-		logger.debug("Camel context has been started");
+		try {
+			context.addRoutes(new MetricsReceiverRouteBuilder());
+			context.start();
+			logger.debug("Camel context has been started");
+		} catch (Exception e) {
+			logger.debug(e, e);
+		}
 	}
 
 }

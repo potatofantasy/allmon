@@ -67,7 +67,7 @@ public class SnmpHostAgent extends ActiveAgent {
 						.substring(SnmpHostApi.ERROR_STR.length()));
 			}
 			MetricMessage metricMessage = MetricMessageFactory
-					.createSnmpOSMessage(
+					.createSnmpOsMessage(
 							AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_CPULOAD,
 							"CPU" + cpuNum++, cpuLoadValue, snmpException);
 			metricMessageWrapper.add(metricMessage);
@@ -80,13 +80,13 @@ public class SnmpHostAgent extends ActiveAgent {
 		for (ProcessPerfData p : procTable) {
 			if (processSet.contains(p.getName())) {
 				MetricMessage metricMessage = MetricMessageFactory
-						.createSnmpOSMessage(
+						.createSnmpOsMessage(
 								AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_PROCESS_CPU_TIME,
 								p.getName() + ":" + p.getId(), p.getCpuTime(),
 								null);
 				metricMessageWrapper.add(metricMessage);
 				metricMessage = MetricMessageFactory
-						.createSnmpOSMessage(
+						.createSnmpOsMessage(
 								AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_PROCESS_MEMORY,
 								p.getName() + ":" + p.getId(), p.getMemory(),
 								null);
