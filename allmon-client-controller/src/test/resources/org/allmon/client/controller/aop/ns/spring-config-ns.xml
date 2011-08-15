@@ -14,8 +14,9 @@
 
 	<!-- TODO
 	<allcon:controller id="controllerBean1" /> 
-	-->
 	<bean id="controllerBean1" class="org.allmon.client.controller.aop.ns.cntrimpl.MockedJavaCallTerminatorController"/>
+	-->
+	<bean id="controllerBean1" class="org.allmon.client.controller.aop.ns.cntrimpl.MockedAllmonMetricsJavaCallTerminatorController"/>
 	
 	<allcon:controller>
 		<!-- first advice actuator -->

@@ -82,10 +82,18 @@ public class AllmonCommonConstants {
     
     public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_JVM_JMX = "JVMJMX"; //"java.jmx.?";
     
-    // Snmp host metrics:
+    // Snmp host metrics
     public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_CPULOAD = "CPULOAD";
     public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_PROCESS_CPU_TIME = "PROCESS_CPU_TIME";
     public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_PROCESS_MEMORY = "PROCESS_MEM";
-    
+
+    // OS metrics
+	//ALL("OSALL"), 
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_CPU = "OSCPU";
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_IO = "OSIO";
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_PROC = "OSPROC";
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_MEM = "OSMEM";
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_SWAP = "OSSWAP";
+    public final static String ALLMON_SERVER_RAWMETRIC_METRICTYPE_OS_NET = "OSNET";
     
 }

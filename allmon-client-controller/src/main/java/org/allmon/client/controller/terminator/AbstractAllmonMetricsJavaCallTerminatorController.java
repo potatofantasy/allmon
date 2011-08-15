@@ -8,7 +8,7 @@ public abstract class AbstractAllmonMetricsJavaCallTerminatorController extends 
 	// TODO get data from Aggregator (for controller use queue), raw metrics and SLA calculated values
 	// TODO point to controlled application scope metrics retriever
 	
-	private AllmonMetricsReceiver allmonMetricsReceiver;
+	protected static final AllmonMetricsReceiver allmonMetricsReceiver = new AllmonMetricsReceiver();
 	
 	
 	

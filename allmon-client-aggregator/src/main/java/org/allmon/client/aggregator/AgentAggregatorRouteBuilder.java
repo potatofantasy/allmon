@@ -30,7 +30,10 @@ class AgentAggregatorRouteBuilder extends RouteBuilder {
             aggregate(new AgentAggregationStrategyForMetrics()).body(MetricMessageWrapper.class). //constant(null).
             batchSize(AllmonCommonConstants.ALLMON_CLIENT_AGGREGATOR_BATCHSIZE).
             batchTimeout(AllmonCommonConstants.ALLMON_CLIENT_AGGREGATOR_BATCHTIMEOUT).
-            to(AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGGREGATED);
+            multicast().
+            to(
+            		AllmonCommonConstants.ALLMON_CLIENT_CAMEL_QUEUE_AGGREGATED,
+            		AllmonCommonConstants.ALLMON_CAMEL_JMSQUEUE + ":topic:" + "TOPIC.AGGREGATED.FORCONTROLLER1");
         
 //      // for RMI listener 
 //        RmiEndpoint endpoint = (RmiEndpoint) endpoint("rmi://localhost:1099/bar");

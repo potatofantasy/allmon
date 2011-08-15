@@ -15,6 +15,7 @@ public class SpringHelloWorldAppTest extends TestCase {
 		HelloWorldImpl bean = (HelloWorldImpl) applicationContext.getBean("messageBean");
 
 		SpringHelloWorldAppTest app = new SpringHelloWorldAppTest();
+		Thread.sleep(5000);
 		assertNotNull(app);
 		String messages = app.method(bean);
 		assertNotNull(messages);
