@@ -1,9 +1,8 @@
 package org.allmon.client.controller.terminator.allmon;
 
-import java.util.HashMap;
-
 import javax.jms.ConnectionFactory;
 
+import org.allmon.client.controller.MetricsDataStore;
 import org.allmon.common.AllmonActiveMQConnectionFactory;
 import org.allmon.common.AllmonCommonConstants;
 import org.apache.camel.CamelContext;
@@ -16,7 +15,8 @@ public class AllmonMetricsReceiver {
 
 	private static final Log logger = LogFactory.getLog(AllmonMetricsReceiver.class);
 
-	public static final HashMap<String, String> metricsDataStore = new HashMap<String, String>();
+//	public static final HashMap<String, String> metricsDataStore = new HashMap<String, String>();
+	public static final MetricsDataStore metricsDataStore = new MetricsDataStore();
 	
 	public AllmonMetricsReceiver() {
 		logger.debug("Camel context is being initialized");

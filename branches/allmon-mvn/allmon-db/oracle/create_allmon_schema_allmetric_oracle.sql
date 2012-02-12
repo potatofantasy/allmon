@@ -215,6 +215,7 @@ CREATE INDEX am_rme_am_rsc_idx1 ON am_raw_metric(resourcename);
 CREATE INDEX am_rme_am_src_idx1 ON am_raw_metric(sourcename);
 CREATE INDEX am_rme_am_ses_idx1 ON am_raw_metric(sessionname);
 CREATE INDEX am_rme_am_ts_idx1 ON am_raw_metric(ts);
+CREATE INDEX AM_RME_AM_MVL_IDX1 on AM_RAW_METRIC (metricvalue);
 ALTER TABLE am_raw_metric ADD CONSTRAINT am_rme_pk PRIMARY KEY (AM_RME_ID) USING INDEX;
 
 -- create fact table 

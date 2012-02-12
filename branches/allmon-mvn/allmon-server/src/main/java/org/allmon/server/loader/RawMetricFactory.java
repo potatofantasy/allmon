@@ -12,7 +12,7 @@ public class RawMetricFactory {
     
     public static final RawMetric2 createRawMetric(
             String artifact, String metricType,
-    		String host, String hostIp, String instance, String fullClassName, String source, String session, String thread, long execTimeMS, long eventTime, String point, String parameters, String exception) {
+    		String host, String hostIp, String instance, String fullClassName, String source, String session, String thread, double metricValue, long eventTime, String point, String parameters, String exception) {
     	RawMetric2 rawMetric = createMessage();
     	//rawMetric.setArtifact(AllmonCommonConstants.ALLMON_SERVER_RAWMETRIC_ARTIFACT_APPLICATION);
     	rawMetric.setArtifact(artifact); // TODO move to proper OO structure 
@@ -25,7 +25,7 @@ public class RawMetricFactory {
     	rawMetric.setSource(source);
     	rawMetric.setSession(session);
     	rawMetric.setThread(thread);
-    	rawMetric.setMetric(new Double(execTimeMS));
+    	rawMetric.setMetric(metricValue); //rawMetric.setMetric(new Double(execTimeMS));
     	// XXX time stamp value setting has been not finished yet
     	rawMetric.setTimeStamp(new Date(eventTime)); // TODO solve problem of time differences - on server side all times should be unified to avoid problems during analysis
     	rawMetric.setEntryPoint(point);
