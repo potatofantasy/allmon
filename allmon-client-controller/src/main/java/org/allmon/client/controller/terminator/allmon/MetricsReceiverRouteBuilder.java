@@ -26,11 +26,10 @@ public class MetricsReceiverRouteBuilder extends RouteBuilder {
         		).process(new Processor() {
             public void process(Exchange e) {
             	if (verboseLogging) {
-	                logger.debug(">>>>> Received exchange: " + e.getIn());
+            		//System.out.println(">>>>> Received exchange: " + e.getIn());
+                    logger.debug(">>>>> Received exchange: " + e.getIn());
 	                logger.debug(">>>>> Received exchange body: " + e.getIn().getBody());
             	}
-            	System.out.println(">>>>> Received exchange: " + e.getIn());
-                
             	
                 MetricMessageWrapper metricMessageWrapper = (MetricMessageWrapper)e.getIn().getBody();
                 if (metricMessageWrapper != null) {
@@ -40,9 +39,12 @@ public class MetricsReceiverRouteBuilder extends RouteBuilder {
                     	for (MetricMessage metricMessage : metricMessageWrapper) {
                     		String metricMessageString = metricMessage.toString();
                     		//logger.debug(">>>>> >>>>> metric message: " + metricMessageString);
-                    		System.out.println(">>>>> >>>>> metric message: " + metricMessageString);
-                    		AllmonMetricsReceiver.metricsDataStore.put(metricMessageString, metricMessageString);
-						}
+                    		//System.out.println(">>>>> >>>>> metric message: " + metricMessageString);
+
+//                    		AllmonMetricsReceiver.metricsDataStore.put(metricMessageString, metricMessageString);
+                    		AllmonMetricsReceiver.metricsDataStore.put(metricMessage);
+                    		
+                    	}
                     	// ...
                     } catch (Throwable t) {
                         logger.error(t.getMessage(), t);

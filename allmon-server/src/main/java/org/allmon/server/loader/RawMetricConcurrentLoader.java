@@ -22,6 +22,7 @@ public class RawMetricConcurrentLoader extends AbstractConcurrentLoader<RawMetri
     }
 
     void loadCall(RawMetric2 loadingObject, int thread, int iteration) throws Exception {
+    	logger.debug("Thread " + thread + " in iteration " + iteration + " storing data...");
         rawMetric2DAO.addMetric(loadingObject);
     }
 

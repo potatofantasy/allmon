@@ -10,8 +10,10 @@ public class MockedAllmonMetricsJavaCallTerminatorController extends AbstractAll
 		String className = call.getSignature().getDeclaringTypeName();
 		String methodName = call.getSignature().getName();
 		
-		System.out.println("allmonMetricsReceiver.metricsDataStore.size(): " + 
-				allmonMetricsReceiver.metricsDataStore.size());
+		System.out.println("allmonMetricsReceiver.metricsDataStore.valuesCount(): " + 
+				allmonMetricsReceiver.metricsDataStore.valuesCount());
+		System.out.println("allmonMetricsReceiver.metricsDataStore.keysCount(): " + 
+				allmonMetricsReceiver.metricsDataStore.keysCount());
 //		if (methodName.length() > 6) {
 //			return true;
 //		} 

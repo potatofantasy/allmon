@@ -19,11 +19,12 @@ import org.springframework.jms.core.MessageCreator;
  * to client-side JMS broker.
  * 
  */
-class MessageSender {
+public class MessageSender {
 
     private final static Log logger = LogFactory.getLog(MessageSender.class);
     
     MessageSender() {
+    	System.out.println("Connecting to URL: " + AllmonCommonConstants.CLIENT_BROKER_URL);
     	logger.debug("Connecting to URL: " + AllmonCommonConstants.CLIENT_BROKER_URL);
     }
     

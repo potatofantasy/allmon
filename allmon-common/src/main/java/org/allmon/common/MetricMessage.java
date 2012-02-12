@@ -8,7 +8,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
 
-
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver;
 
@@ -247,29 +246,47 @@ public class MetricMessage implements Serializable, Cloneable {
     }
     
     public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("Host:");
-        buffer.append(getHost());
-        buffer.append("(");
-        buffer.append(getHostIp());
-        buffer.append(")");
-        buffer.append(", Instance:");
-        buffer.append(getInstance());
-        buffer.append(", MetricType:");
-        buffer.append(getMetricType());        
-        buffer.append(", Resource:");
-        buffer.append(getResource());
-        buffer.append(", Source:");
-        buffer.append(getSource());
-        buffer.append(", MetricValue:");
-        buffer.append(metricValue);
-        buffer.append(", Parameters:");
-        buffer.append(getParametersString());
-        buffer.append(", Throwable:");
-        buffer.append(throwable);
-        return buffer.toString();
-    }
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("EventTime:");
+		buffer.append(getEventTime());
+		buffer.append("Host:");
+		buffer.append(getHost());
+		buffer.append("(");
+		buffer.append(getHostIp());
+		buffer.append(")");
+		buffer.append(", Instance:");
+		buffer.append(getInstance());
+		buffer.append(", MetricType:");
+		buffer.append(getMetricType());
+		buffer.append(", Resource:");
+		buffer.append(getResource());
+		buffer.append(", Source:");
+		buffer.append(getSource());
+		buffer.append(", MetricValue:");
+		buffer.append(metricValue);
+		buffer.append(", Parameters:");
+		buffer.append(getParametersString());
+		buffer.append(", Throwable:");
+		buffer.append(throwable);
+		return buffer.toString();
+	}
 
+    public String key() {
+    	StringBuffer buffer = new StringBuffer();
+		buffer.append(getHost());
+		buffer.append(",");
+		buffer.append(getHostIp());
+		buffer.append(",");
+		buffer.append(getInstance());
+		buffer.append(",");
+		buffer.append(getMetricType());
+		buffer.append(",");
+		buffer.append(getResource());
+		buffer.append("/");
+		buffer.append(getSource());
+		return buffer.toString();
+    }
+    
     public String getSession() {
         return session;
     }
