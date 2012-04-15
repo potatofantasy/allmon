@@ -1,13 +1,14 @@
 package org.allmon.client.controller.rules;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 public class RuleSetTest {
 
@@ -39,10 +40,10 @@ public class RuleSetTest {
 		String [] neededResources = ruleSet.getResources();
 		
 		// current state
-		List<State> currentState = new ArrayList<State>();
+		Map<String, State> currentState = new HashMap<String, State>();
 		for (String resource : neededResources) {
 			// this will be done base on metrics collected
-			currentState.add(new State(resource, 0.9));
+			currentState.put("CPU", new State(resource, 0.9));
 		}
 		
 		// compare with rule-set and find a matching rule
@@ -52,10 +53,10 @@ public class RuleSetTest {
 
 	@Test
 	public void test_Exceeds1() {
-		List<State> currentState = new ArrayList<State>();
-		currentState.add(new State("CPU", 0.9));
-		currentState.add(new State("IO", 0.1));
-		currentState.add(new State("MEM", 0.1));
+		Map<String, State> currentState = new HashMap<String, State>();
+		currentState.put("CPU", new State("CPU", 0.9));
+		currentState.put("IO", new State("IO", 0.1));
+		currentState.put("MEM", new State("MEM", 0.1));
 		
 		// compare with rule-set and find a matching rule
 		boolean b = ruleSet.checkExceededRule(currentState);
@@ -64,9 +65,9 @@ public class RuleSetTest {
 	
 	@Test
 	public void test_Exceeds2() {
-		List<State> currentState = new ArrayList<State>();
-		currentState.add(new State("CPU", 0.9));
-		currentState.add(new State("IO", 0.7));
+		Map<String, State> currentState = new HashMap<String, State>();
+		currentState.put("CPU", new State("CPU", 0.9));
+		currentState.put("IO", new State("IO", 0.7));
 		
 		// compare with rule-set and find a matching rule
 		boolean b = ruleSet.checkExceededRule(currentState);
@@ -75,9 +76,9 @@ public class RuleSetTest {
 	
 	@Test
 	public void test_Exceeds3() {
-		List<State> currentState = new ArrayList<State>();
-		currentState.add(new State("CPU", 0.75));
-		currentState.add(new State("IO", 0.6));
+		Map<String, State> currentState = new HashMap<String, State>();
+		currentState.put("CPU", new State("CPU", 0.75));
+		currentState.put("IO", new State("IO", 0.6));
 		
 		// compare with rule-set and find a matching rule
 		boolean b = ruleSet.checkExceededRule(currentState);
@@ -86,8 +87,8 @@ public class RuleSetTest {
 	
 	@Test
 	public void test_Exceeds4() {
-		List<State> currentState = new ArrayList<State>();
-		currentState.add(new State("CPU", 0.9));
+		Map<String, State> currentState = new HashMap<String, State>();
+		currentState.put("CPU", new State("CPU", 0.9));
 		
 		// compare with rule-set and find a matching rule
 		boolean b = ruleSet.checkExceededRule(currentState);
@@ -96,8 +97,8 @@ public class RuleSetTest {
 	
 	@Test
 	public void test_NotExceeds1() {
-		List<State> currentState = new ArrayList<State>();
-		currentState.add(new State("CPU", 0.75));
+		Map<String, State> currentState = new HashMap<String, State>();
+		currentState.put("CPU", new State("CPU", 0.75));
 		
 		// compare with rule-set and find a matching rule
 		boolean b = ruleSet.checkExceededRule(currentState);
@@ -106,9 +107,9 @@ public class RuleSetTest {
 	
 	@Test
 	public void test_NotExceeds2() {
-		List<State> currentState = new ArrayList<State>();
-		currentState.add(new State("CPU", 0.1));
-		currentState.add(new State("IO", 0.1));
+		Map<String, State> currentState = new HashMap<String, State>();
+		currentState.put("CPU", new State("CPU", 0.1));
+		currentState.put("IO", new State("IO", 0.1));
 		
 		// compare with rule-set and find a matching rule
 		boolean b = ruleSet.checkExceededRule(currentState);

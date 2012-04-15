@@ -68,7 +68,7 @@ public class JavaCallTerminatorBeanDefinitionParser extends AbstractControllerBe
 		
 		logger.debug("Parsing config for aspect " + aspectName);
 		
-		// create advice
+		// create controller advice
 		RootBeanDefinition controllerAdviceDef = new RootBeanDefinition(JavaCallTerminatorAdvice.class);
 		controllerAdviceDef.getPropertyValues().addPropertyValue(CONTROLLER, controller);
 		controllerAdviceDef.getPropertyValues().addPropertyValue("name", aspectName);

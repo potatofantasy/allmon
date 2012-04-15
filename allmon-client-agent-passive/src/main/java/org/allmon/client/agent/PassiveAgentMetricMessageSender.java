@@ -15,7 +15,7 @@ class PassiveAgentMetricMessageSender extends AgentMetricMessageSender {
     
     private final static Log logger = LogFactory.getLog(PassiveAgentMetricMessageSender.class);
     
-    private long lastTimeCheck;
+    private long lastTimeCheck = System.currentTimeMillis();
     
     PassiveAgentMetricMessageSender(PassiveAgent passiveAgent) {
         super(passiveAgent);
