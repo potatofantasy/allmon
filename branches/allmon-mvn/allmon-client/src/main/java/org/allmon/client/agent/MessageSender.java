@@ -23,9 +23,17 @@ public class MessageSender {
 
     private final static Log logger = LogFactory.getLog(MessageSender.class);
     
+    private final String destination;
+    
     MessageSender() {
     	System.out.println("Connecting to URL: " + AllmonCommonConstants.CLIENT_BROKER_URL);
     	logger.debug("Connecting to URL: " + AllmonCommonConstants.CLIENT_BROKER_URL);
+    	destination = AllmonCommonConstants.CLIENT_BROKER_QUEUE_SUBJECT_AGENTSDATA;
+    }
+    public MessageSender(String destination) {
+    	System.out.println("Connecting to URL: " + AllmonCommonConstants.CLIENT_BROKER_URL);
+    	logger.debug("Connecting to URL: " + AllmonCommonConstants.CLIENT_BROKER_URL);
+    	this.destination = destination;
     }
     
     private static ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
@@ -42,7 +50,7 @@ public class MessageSender {
     public void sendMessage(Serializable messageObject) {
     	this.messageObject = messageObject;
     	jmsTemplate.send(
-    			AllmonCommonConstants.CLIENT_BROKER_QUEUE_SUBJECT_AGENTSDATA, 
+    			destination, 
     			new MessageCreator() {
 					public Message createMessage(Session session) throws JMSException {
 						return session.createObjectMessage(getMessageObject());

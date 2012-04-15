@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+@Deprecated
 public class RuleSetSpringReader {
 
 	private RuleSet ruleSet = new RuleSet();

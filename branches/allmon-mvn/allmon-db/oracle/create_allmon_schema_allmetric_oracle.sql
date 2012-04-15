@@ -198,6 +198,7 @@ CREATE TABLE am_raw_metric (
   resourcename   VARCHAR2(1000),
   sourcename     VARCHAR2(1000),
   sessionname    VARCHAR2(1000),
+  threadname     VARCHAR2(100),
   ts             DATE NOT NULL,
   entrypoint     VARCHAR2(10) NOT NULL,
   parametersbody VARCHAR2(4000),

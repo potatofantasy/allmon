@@ -28,17 +28,33 @@ public class JavaCallTerminatorAdvice extends AbstractJavaCallControllerAdvice {
 		logger.debug("JavaCallTerminatorAdvice created - name " + getName());
 	}
 	
+	@Override
 	public boolean doConcreteEntryControl(ProceedingJoinPoint call) throws JavaCallTerminationException {
 		AbstractJavaCallTerminatorController terminatorController =
 			(AbstractJavaCallTerminatorController)getController();
 		
 		boolean terminate = terminatorController.terminate(call);
 		
+		// in case of termination decision an exception is thrown which is manifesting the termination event
 		if (terminate) {
-			throw new JavaCallTerminationException();
+			throw new JavaCallTerminationException("The call was terminated due to controller decission");
 		}
 		
+		// note: if could be also possible to not thrown an exception and terminate in silent mode, 
+		//       this approach could be seen as imperceptibly modifying functionality!
+		
 		return terminate;
+	}
+
+	@Override
+	String controllerClassName() {
+		//return getClass().getName(); // advice class name
+		return getController().getClass().getName(); // configured ('controllerRef') controller class in use
+	}
+
+	@Override
+	String controllerMethodName() {
+		return "terminate";
 	}
 	
 }

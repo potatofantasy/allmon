@@ -1,9 +1,6 @@
 package org.allmon.common;
 
-import java.io.PrintWriter;
 import java.io.Serializable;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
@@ -44,7 +41,7 @@ public class MetricMessage implements Serializable, Cloneable {
     private String session;
     private String point = AllmonCommonConstants.METRIC_POINT_ENTRY; // by default all metrics are entry points 
     private Serializable parameters; // TODO check if possible use List or Array!!!
-    private Throwable throwable; //private Exception exception;
+    private Serializable throwable; //private Throwable throwable; //private Exception exception;
 
 //    private String metricId; // TODO add a property to mark each call
     
@@ -207,10 +204,6 @@ public class MetricMessage implements Serializable, Cloneable {
         return "";
     }
 
-//    public void setParameters(Serializable parameters) {
-//        this.parameters = parameters;
-//    }
-
     /**
      * Not serializable parameters have to be transformed to json strings 
      * before can be sent further. Consequence of that fact is that stored reference 
@@ -224,32 +217,26 @@ public class MetricMessage implements Serializable, Cloneable {
         this.parameters = XSTREAM.toXML(parameters);
     }
     
-    public Throwable getThrowable() {
-        return throwable;
-    }
-    
-    public String getThrowableString() {
-        if (throwable == null) {
-            return "";
-        }
-        if (PRINT_EXCEPTIONS_STACKTRACE) {
-            Writer result = new StringWriter();
-            PrintWriter printWriter = new PrintWriter(result);
-            throwable.printStackTrace(printWriter);
-            return result.toString();
-        }
-        return throwable.toString();
-    }
-
+	public String getThrowableString() {
+	    if (throwable != null) {
+			return XSTREAM.toXML(throwable);
+		}
+		return "";
+	}
+	
     public void setThrowable(Throwable throwable) {
-        this.throwable = throwable;
+    	if (throwable != null) {
+    		this.throwable = XSTREAM.toXML(throwable);
+    	} else {
+    		this.throwable = null;
+    	}
     }
     
     public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("EventTime:");
 		buffer.append(getEventTime());
-		buffer.append("Host:");
+		buffer.append(", Host:");
 		buffer.append(getHost());
 		buffer.append("(");
 		buffer.append(getHostIp());
@@ -267,7 +254,7 @@ public class MetricMessage implements Serializable, Cloneable {
 		buffer.append(", Parameters:");
 		buffer.append(getParametersString());
 		buffer.append(", Throwable:");
-		buffer.append(throwable);
+		buffer.append(getThrowableString());
 		return buffer.toString();
 	}
 

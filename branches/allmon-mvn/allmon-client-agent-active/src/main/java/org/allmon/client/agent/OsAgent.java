@@ -30,7 +30,11 @@ public class OsAgent extends ActiveAgent {
 	}
 	
 	@Override
-	MetricMessageWrapper collectMetrics() {
+	public MetricMessageWrapper collectMetrics() {
+		return collectMetrics(metricType);
+	}
+	
+	public static MetricMessageWrapper collectMetrics(String metricType) {
 		MetricMessageWrapper metricMessageWrapper = new MetricMessageWrapper();
 		final SimpleOSMetricsPackageAgent osAgent = new SimpleOSMetricsPackageAgent(metricMessageWrapper);
 
@@ -82,7 +86,7 @@ public class OsAgent extends ActiveAgent {
 		osAgent.getMem();
 		osAgent.getSwap();
 		//System.out.println(osAgent.getWrapper().toString());
-		System.out.println(wrapper);
+//		System.out.println(wrapper);
 	}
     
 }
@@ -116,14 +120,14 @@ class SimpleOSMetricsPackageAgent {
 	private final MetricMessageWrapper wrapper;
 	
 	SimpleOSMetricsPackageAgent(MetricMessageWrapper wrapper) {
-		System.out.println("OSMetricsPackageAgent initialized----------------------------------------");
+//		System.out.println("OSMetricsPackageAgent initialized----------------------------------------");
 		this.wrapper = wrapper;
 	}
 	
 	public void getCpu() throws SigarException {
 		String metricTypeName = OsMetricType.CPU.getTypeName();
-		System.out.println("Metric Type: CPU----------------------------------------");
-		System.out.println(sigar.getCpuPerc());
+//		System.out.println("Metric Type: CPU----------------------------------------");
+//		System.out.println(sigar.getCpuPerc());
         
 		CpuPerc cpu = sigar.getCpuPerc();
 		wrapper.add(MetricMessageFactory.createOsMessage(metricTypeName, "CPU User Time: ", cpu.getUser(), null));
@@ -137,13 +141,13 @@ class SimpleOSMetricsPackageAgent {
 	
 	public void getIo() throws SigarException {
 		String metricTypeName = OsMetricType.IO.getTypeName();
-		System.out.println("Metric Type: IO----------------------------------------");
+//		System.out.println("Metric Type: IO----------------------------------------");
 		
 		FileSystem[] fslist = sigar.getFileSystemList();
         for (int i=0; i<fslist.length; i++) {
             if (fslist[i].getType() == FileSystem.TYPE_LOCAL_DISK) {
 				FileSystemUsage usage = sigar.getFileSystemUsage(fslist[i].getDirName());
-				System.out.println(usage.toString());
+//				System.out.println(usage.toString());
 				
 				// source
 				String devName = fslist[i].getDevName() + "(" + fslist[i].getDirName() + ")";
@@ -160,8 +164,8 @@ class SimpleOSMetricsPackageAgent {
 	
 	public void getProc() throws SigarException {
 		String metricTypeName = OsMetricType.PROC.getTypeName();
-		System.out.println("Metric Type: PROC----------------------------------------");
-		System.out.println(sigar.getProcStat());
+//		System.out.println("Metric Type: PROC----------------------------------------");
+//		System.out.println(sigar.getProcStat());
 		
 		ProcStat procStat = sigar.getProcStat();
 		wrapper.add(MetricMessageFactory.createOsMessage(metricTypeName, "Processes Total: ", procStat.getTotal(), null));
@@ -175,8 +179,8 @@ class SimpleOSMetricsPackageAgent {
 	
 	public void getMem() throws SigarException {
 		String metricTypeName = OsMetricType.MEM.getTypeName();
-		System.out.println("Metric Type: MEM----------------------------------------");
-		System.out.println(sigar.getMem());
+//		System.out.println("Metric Type: MEM----------------------------------------");
+//		System.out.println(sigar.getMem());
 		
 		Mem memStat = sigar.getMem();
 		wrapper.add(MetricMessageFactory.createOsMessage(metricTypeName, "Mem RAM: ", memStat.getRam(), null));
@@ -191,8 +195,8 @@ class SimpleOSMetricsPackageAgent {
 	
 	public void getSwap() throws SigarException {
 		String metricTypeName = OsMetricType.SWAP.getTypeName();
-		System.out.println("Metric Type: SWAP----------------------------------------");
-		System.out.println(sigar.getSwap());
+//		System.out.println("Metric Type: SWAP----------------------------------------");
+//		System.out.println(sigar.getSwap());
 		
 		Swap swapStat = sigar.getSwap();
 		wrapper.add(MetricMessageFactory.createOsMessage(metricTypeName, "Swap Total: ", swapStat.getTotal(), null));
@@ -203,10 +207,10 @@ class SimpleOSMetricsPackageAgent {
 	}
 	
 	public void getIfconfig() throws SigarException {
-		String metricTypeName = OsMetricType.NET.getTypeName();
-		System.out.println("Metric Type: NET----------------------------------------");
-		// TODO see Ifconfig
-		System.out.println(sigar.getNetInterfaceStat(""));
+//		String metricTypeName = OsMetricType.NET.getTypeName();
+//		System.out.println("Metric Type: NET----------------------------------------");
+//		// TODO see Ifconfig
+//		System.out.println(sigar.getNetInterfaceStat(""));
 		
 	}
 	

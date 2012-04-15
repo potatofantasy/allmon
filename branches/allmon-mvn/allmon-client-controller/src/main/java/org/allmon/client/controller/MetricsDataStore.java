@@ -7,37 +7,27 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.allmon.client.controller.terminator.allmon.AllmonMetricsReceiver;
 import org.allmon.common.MetricMessage;
+import org.allmon.common.MetricMessageWrapper;
 
 public class MetricsDataStore {
 
-//	private HashMap<MetricsKey, MetricMessage> metricsMap = new HashMap<MetricsKey, MetricMessage>();
-//	private HashMap<String, MetricMessage> metricsMap = new HashMap<String, MetricMessage>();
-//	private HashMap<String, Double> metricsMap = new HashMap<String, Double>();
 	private HashMap<String, List<MetricMessage>> metricsMap = new HashMap<String, List<MetricMessage>>();
 	private int valuesCount = 0;
 	
-	private int activityTime = 5 * 60000; // metrics are kept only for last 5 minutes
+	private static final int METRICS_ACTIVITY_TIME = 5 * 60000; // metrics are kept only for last 5 minutes
+	private static final int METRICS_SWEEPING_SCHEDULE_PERIOD_TIME = 10000; // metrics are swept every 10 seconds
 	
 	public MetricsDataStore() {
 		Timer timer = new Timer("MetricsDataStore-CleanerThread", true);
 		TimerTask task = new TimerTask() {
 			public void run() {
-				removeOldMetrics(activityTime);
+				removeOldMetrics(METRICS_ACTIVITY_TIME);
 			}
 		};
-		timer.schedule(task, 100, 1000);
+		timer.schedule(task, METRICS_SWEEPING_SCHEDULE_PERIOD_TIME, METRICS_SWEEPING_SCHEDULE_PERIOD_TIME);
 		//timer.cancel();
-		
-//		Runnable r = new Runnable() {
-//			public void run() {
-//				while(true) {
-//					System.out.println("run");
-//				}
-//			}
-//		};
-//		Thread cleaner = new Thread(r, "Cleaner");
-//		cleaner.start();
 	}
 	
 	public List<MetricMessage> get(String key) {
@@ -58,7 +48,8 @@ public class MetricsDataStore {
 	public MetricMessage getLatest(String key) {
 		List<MetricMessage> metricsListAll = metricsMap.get(key);
 		if (metricsListAll != null) {
-			return metricsListAll.get(metricsListAll.size() - 1);
+			//return metricsListAll.get(metricsListAll.size() - 1); // where list in ascending order 
+			return metricsListAll.get(0); // where list in descending order 
 		}
 		return null;
 	}
@@ -75,10 +66,20 @@ public class MetricsDataStore {
 		if (metricsList == null) {
 			metricsList = new ArrayList<MetricMessage>();
 		}
-		// TODO potentially add metrics sorted in time 
-		metricsList.add(metric);
-		valuesCount++;
+		//metricsList.add(metric); // adding at the end assuming all messages are added as they are created
+		// add metrics sorted in time of data acquisition - so the list is always ordered descending in time
+		// search first element which is lesser than current metric, and add the metric just before this element
+		for (int i = 0; i <  metricsList.size(); i++) {
+			if (metricsList.get(i).getEventTime() <= metric.getEventTime()) {
+				metricsList.add(i, metric);
+				valuesCount++;
+				return metricsMap.put(key, metricsList);
+			}
+		}
 		
+		// the oldest element added at the end
+		metricsList.add(metric); 
+		valuesCount++;
 		return metricsMap.put(key, metricsList);
 	}
 	public List<MetricMessage> put(MetricMessage metric) {
@@ -123,6 +124,9 @@ public class MetricsDataStore {
 	public int keysCount() {
 		return metricsMap.size();
 	}
+	public Set<String> keysSet() {
+		return metricsMap.keySet();
+	}
 	
 	public List<String> getMatchingResourceKeys(String resourceRegex) {
 		List<String> matchingKeys = new ArrayList<String>();
@@ -136,17 +140,24 @@ public class MetricsDataStore {
 	}
 	
 	public void removeOldMetrics(int activityTime) {
-		Set<String> keySet = metricsMap.keySet();
+		long t0 = System.currentTimeMillis();
+		String[] keySet = metricsMap.keySet().toArray(new String[0]);
 		for (String key : keySet) {
 			List<MetricMessage> metrics = metricsMap.get(key);
+			// delete all old metrics of the key
 			for (int i = 0; i < metrics.size(); i++) {
-				MetricMessage metricMessage = metrics.get(i);
-				if (metricMessage.getEventTime() < System.currentTimeMillis() - activityTime) {
-					metrics.remove(i);
+				if (metrics.get(i).getEventTime() <= System.currentTimeMillis() - activityTime) {
+					metrics.remove(i--);
 					valuesCount--;
 				}
 			}
+			//clean up the key if no data in under the key
+			if (metrics.size() == 0) {
+				metricsMap.remove(key);
+			}
 		}
+		System.out.println("removeOldMetrics >> " + (System.currentTimeMillis() - t0) + 
+				"ms, keysCount()/valuesCount(): " + keysCount() + "/" + valuesCount());
 	}
 	
 }

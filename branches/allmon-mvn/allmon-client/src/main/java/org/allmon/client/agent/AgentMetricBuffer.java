@@ -94,14 +94,20 @@ class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
     	return cumulatedWrappers;
     }
     
+    org.allmon.client.agent.MessageSender messageSender = null;
+    {
+		System.out.println(">>>>>>>> Creating MessageSender object");
+    	messageSender = new org.allmon.client.agent.MessageSender();
+    }
+    
     private void sendData(List<MetricMessageWrapper> wrappers) {
     	for (MetricMessageWrapper messageWrapper : wrappers) {
     		if (isJmsBrokerUp()) {
     			if (isVerboseLogging()) {
     				logger.debug("Sending " + messageWrapper.size() + " metrics in one wrapper object");
                 }
-    			MessageSender messageSender = new MessageSender();
-                messageSender.sendMessage(messageWrapper);
+    			//System.out.println(">>>>>>>> Calling MessageSender with: " + messageWrapper.toString());
+    			messageSender.sendMessage(messageWrapper);
                 //logger.debug("MessageWrapper body: " + messageWrapper.toString());
             } else {
                 // TODO is it enough?
