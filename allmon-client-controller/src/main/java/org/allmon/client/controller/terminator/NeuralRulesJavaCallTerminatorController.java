@@ -43,7 +43,7 @@ public class NeuralRulesJavaCallTerminatorController extends AbstractAllmonMetri
 				
 		NeuralRulesNeuroph rules = neuralRulesMap.get(action);
 		if (rules == null) {
-			System.out.println("terminateNN - no neural rules in controller process - no control decission can be takes"); 
+			System.out.println("terminateNN - no neural rules in controller process - no control decission can be taken"); 
 			return false;
 		}
 		

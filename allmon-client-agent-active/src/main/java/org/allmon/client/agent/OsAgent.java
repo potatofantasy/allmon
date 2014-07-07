@@ -85,8 +85,11 @@ public class OsAgent extends ActiveAgent {
 		osAgent.getProc();
 		osAgent.getMem();
 		osAgent.getSwap();
-		//System.out.println(osAgent.getWrapper().toString());
+		System.out.println(osAgent.getWrapper().toString());
 //		System.out.println(wrapper);
+		
+		SigarProxy sigar = SigarProxyCache.newInstance(new Sigar(), 1000);
+		System.out.println(sigar.getLoadAverage());
 	}
     
 }
@@ -137,6 +140,9 @@ class SimpleOSMetricsPackageAgent {
 		wrapper.add(MetricMessageFactory.createOsMessage(metricTypeName, "CPU Nice Time: ", cpu.getNice(), null));
 		wrapper.add(MetricMessageFactory.createOsMessage(metricTypeName, "CPU Combined: ", cpu.getCombined(), null));
 		wrapper.add(MetricMessageFactory.createOsMessage(metricTypeName, "CPU Irq Time: ", cpu.getIrq(), null));
+
+		//TODO deleted due to many: org.hyperic.sigar.SigarNotImplementedException: This method has not been implemented on this platform
+		//wrapper.add(MetricMessageFactory.createOsMessage(metricTypeName, "CPU Sys Load Avg: ", sigar.getLoadAverage()..., null));
 	}
 	
 	public void getIo() throws SigarException {

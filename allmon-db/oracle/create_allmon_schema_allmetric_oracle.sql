@@ -282,9 +282,9 @@ WITH ones AS
     UNION SELECT 7 FROM dual
     UNION SELECT 8 FROM dual
     UNION SELECT 9 FROM dual)
-    SELECT 100000*o100000.x + 10000*o10000.x + 1000*o1000.x + 100*o100.x + 10*o10.x + o1.x x
-    FROM ones o1, ones o10, ones o100, ones o1000, ones o10000, ones o100000;
-
+    SELECT 1000000*o1000000.x + 100000*o100000.x + 10000*o10000.x + 1000*o1000.x + 100*o100.x + 10*o10.x + o1.x x
+    FROM ones o1, ones o10, ones o100, ones o1000, ones o10000, ones o100000, ones o1000000;
+--CREAT UNIQUE INDEX am_pivot_idx ON am_pivot(x);
 
 -------------------------------------------------------------------------------------------------------------------------
 -- create views

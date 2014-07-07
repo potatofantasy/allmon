@@ -21,7 +21,8 @@ create or replace package AM_CONTROL_FUZZY is
                              p_i_base_resource_like varchar2,
                              p_i_select_sla_value_phrase varchar2,
                              p_i_where_metric_phrase varchar2,
-                             p_i_having_phrase varchar2);
+                             p_i_having_phrase varchar2, 
+                             p_i_window_length_days number default 1/24);
   procedure populate_temp_tables(p_i_window_start date,
                                  p_i_action_name varchar2, 
                                  p_i_resource_name varchar2,
@@ -74,14 +75,15 @@ create or replace package body AM_CONTROL_FUZZY is
                              p_i_base_resource_like varchar2,
                              p_i_select_sla_value_phrase varchar2,
                              p_i_where_metric_phrase varchar2,
-                             p_i_having_phrase varchar2) is
+                             p_i_having_phrase varchar2,
+                             p_i_window_length_days number default 1/24) is
     insert_sql  varchar2(20000);
   begin
   
     delete from am_raw_metric 
     where resourcename = p_i_sla_resource_name --'SLA3: 10$ for every started second of an image processing longer by average than 20ms';
     and   ts >= p_i_window_start
-    and   ts <  1/24 + p_i_window_start;
+    and   ts <  p_i_window_length_days + p_i_window_start;
     
     insert_sql := 
     'insert into am_raw_metric(am_rme_id, 
