@@ -1,0 +1,27 @@
+Metrics Collection and Persistence 
+
+Allmon-light
+
+JMS was introduced to limit intrusiveness and help in disctributed applications metrics collection. JMS has perfoamnce footprint and extends technology stack.
+
+
+Bridge
+- OsAgent > ActiveAgent.sendMessage
+      AgentMetricBuffer.sendData > [JMS]MessageSender.sendMessage
+
+via MetricMessageWrapper
+
+- LoadRawMetric.storeMetric
+
+
+
+
+-----------------------------
+Aggregator
+
+triggered from app
+
+
+
+
+

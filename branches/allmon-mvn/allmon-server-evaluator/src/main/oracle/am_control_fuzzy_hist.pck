@@ -63,6 +63,7 @@ create or replace package body am_control_fuzzy_hist is
   create unique index am_ald_cal_idxu on am_all_dims_norm_aggs (yyyy, mm, dd, mi, tss); 
   create index am_ald_cal_idx on am_all_dims_norm_aggs (yyyy, mm, dd, mi);
   create index am_ald_tss_idx on am_all_dims_norm_aggs (tss);
+  create unique index AM_ALD_TS_IDX on am_all_dims_norm_aggs (ts);
   --
   drop table am_all_dims_norm_aggs_meta;
   create table am_all_dims_norm_aggs_meta (
@@ -185,6 +186,7 @@ create or replace package body am_control_fuzzy_hist is
       -- inserting data
       -- create rows - base on max/min times of metrics collected (first time can take longer)
       dbms_output.put_line('Extending aggregates table...');
+      /** REMOVED DUE TO PERFORMANCE DEGRADATION - ROWS IN THE TABLE WARE INSERTED BEFORE SIMULATIONS
       insert into am_all_dims_norm_aggs(ts, yyyy, mm, dd, hh, mi, tss)
           select sp.ts, to_char(sp.ts, 'YYYY') as yyyy, to_char(sp.ts, 'MM') as mm, to_char(sp.ts, 'DD') as dd, to_char(sp.ts, 'HH24') as hh, to_char(sp.ts, 'MI') as mi, 
                  trunc(to_char(sp.ts, 'SSSSS') / 15) * 15 as tss 
@@ -203,7 +205,7 @@ create or replace package body am_control_fuzzy_hist is
           where  sp.ts = a.ts(+) and a.ts is null 
           order by 1;
       commit;
-
+      */
       dbms_output.put_line('Calculating aggregates and updating table...');
       for i in 0..(p_i_data_filter_end-p_i_data_filter_start)*24-1 loop
           load_dimension_hh(p_i_dim_columnname, p_i_data_filter_start + i/24);
@@ -220,7 +222,7 @@ create or replace package body am_control_fuzzy_hist is
   begin
       dbms_output.put_line('Calculating aggregates of '||p_i_dim_columnname||' for data collected at '||to_char(p_i_data_filter_start, 'YYYY-MM-DD HH24:MI'));
       if substr(p_i_dim_columnname, 1, 1) in ('r', 's') then  
-          -- resources and slas - update table - adding aggregated data to table
+          -- update table - adding aggregated data to table
           insert into am_temp_resource(yyyy, mm, dd, hh, mi, tss, r_avg)
               select to_char(ts, 'YYYY') as yyyy, to_char(ts, 'MM') as mm, to_char(r.ts, 'DD') as dd, to_char(r.ts, 'HH24') as hh, to_char(r.ts, 'MI') as mi,
                      trunc(to_char(r.ts, 'SSSSS') / 15) * 15 as tss, 
@@ -245,7 +247,7 @@ create or replace package body am_control_fuzzy_hist is
           --dbms_output.put_line('Calculating aggregates SQL: '||update_sql);
           execute immediate update_sql using p_i_data_filter_start, p_i_data_filter_end;
       else 
-          -- actions - update table - adding aggregated data to table
+          -- update table - adding aggregated data to table
           insert into am_temp_resource(yyyy, mm, dd, hh, mi, tss, a_sum, a_cnt)
               select to_char(ts, 'YYYY') as yyyy, to_char(ts, 'MM') as mm, to_char(r.ts, 'DD') as dd, to_char(r.ts, 'HH24') as hh, to_char(r.ts, 'MI') as mi,
                      trunc(to_char(r.ts, 'SSSSS') / 15) * 15 as tss, 

@@ -14,19 +14,27 @@ http://allmon.googlecode.com/svn/branches/allmon-mvn/allmon-client/src/main/reso
 	
 	<allmon:active>
 		<!-- simple example - get all metrics -->
+		<!--
 		<allmon:osAgent id="osCheckALL" 
 			agentContextRef="agentContext"
 			cronExpression="*/10 * * * * ?"
 			metricType="ALL"
 			/>
-		
+		-->
+		<allmon:osAgent id="osCheckALL" 
+			agentContextRef="agentContext"
+			cronExpression="*/2 * * * * ?"
+			metricType="ALL"
+			/>
+				
 		<!-- get CPU utilization -->
+		<!--
 		<allmon:osAgent id="osCheckCPU" 
 			agentContextRef="agentContext"
 			cronExpression="*/2 * * * * ?"
 			metricType="ALL"
 			/>
-		
+		-->		
 	</allmon:active>
 	
 </beans>

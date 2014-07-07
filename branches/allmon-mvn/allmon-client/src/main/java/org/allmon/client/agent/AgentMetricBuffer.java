@@ -94,6 +94,7 @@ class AgentMetricBuffer extends AbstractMetricBuffer<MetricMessage> {
     	return cumulatedWrappers;
     }
     
+    // TODO configure sending method -- not only JMS should be required
     org.allmon.client.agent.MessageSender messageSender = null;
     {
 		System.out.println(">>>>>>>> Creating MessageSender object");

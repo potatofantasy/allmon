@@ -22,6 +22,82 @@
 	</licenses>
 	
 	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<version>1.0-beta-2</version>
+				<configuration>
+					<configurationDirectory>etc</configurationDirectory>
+					<!-- Include etc/ in the beginning of the classpath declaration in the bin scripts -->
+					<includeConfigurationDirectoryInClasspath>
+						true
+					</includeConfigurationDirectoryInClasspath>
+					<!-- set alternative assemble directory -->
+					<assembleDirectory>
+						${project.build.directory}/${artifactId}-${allmon.version}
+					</assembleDirectory>
+					<!-- prefix all bin files with allmon -->
+					<binPrefix>allmon</binPrefix>
+					<!-- Extra JVM arguments that will be included in the bin scripts -->
+					<extraJvmArguments>
+						-Dlog4jallmon.properties.path=../etc/log4jallmon.properties
+						-Dallmon.properties.path=../etc/allmon.properties
+						-Dcom.sun.management.jmxremote.port=9996
+						-Dcom.sun.management.jmxremote.authenticate=false 
+						-Dcom.sun.management.jmxremote.ssl=false
+					</extraJvmArguments>
+					<!-- Generate bin scripts for windows and unix pr default -->
+					<programs>
+						<program>
+							<mainClass>
+								org.allmon.server.evaluator.publisher.NeuralRulesPublisherEvaluatedMain
+							</mainClass>
+							<name>allmon-server-evaluator</name>
+							<platforms>
+								<platform>unix</platform>
+								<platform>windows</platform>
+							</platforms>
+						</program>
+					</programs>
+					<platforms>
+						<platform>all</platform>
+					</platforms>
+					<repoPath>lib</repoPath>
+					<repositoryName>lib</repositoryName>
+					<repositoryLayout>flat</repositoryLayout>
+				</configuration>
+			</plugin>
+			
+			<!-- copy artefacts to disctribution -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>install</phase>
+						<configuration>
+							<target>
+								<property name="allmon-server-evaluator.dir" value="./allmon-server-evaluator-${allmon.version}/" />
+								<echo message="Cleaning distribution directory...${allmon.global.dist.dir}" />
+								<delete dir="../${allmon.global.dist.dir}/${allmon-server-evaluator.dir}/" />
+								<echo message="Copying allmon server artefacts..." />
+								<copy todir="../${allmon.global.dist.dir}/${allmon-server-evaluator.dir}/">
+									<fileset dir="./target/${allmon-server-evaluator.dir}" />
+								</copy>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	
+	
 		<resources>
 			<!-- internal application configuration -->
 			<resource>
@@ -55,26 +131,22 @@
 			<version>${allmon.version}</version>
 		</dependency>
 	
+		<!--
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate</artifactId>
 			<version>3.2.7.ga</version>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-annotations</artifactId>
 			<version>3.4.0.GA</version>
 		</dependency>
-		
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-hibernate</artifactId>
-		    <version>1.2.9</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-aop</artifactId>
-		    <version>1.2.9</version>
+			<groupId>hibernate</groupId>
+			<artifactId>hibernate3</artifactId>
+			<version>3.2.3.GA</version>
 		</dependency>
 
 		<dependency>
